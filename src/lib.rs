@@ -2,6 +2,7 @@ use wasm_bindgen::prelude::*;
 use web_sys::console;
 
 mod state;
+use state::state_container::{new_game, StateContainer};
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -18,6 +19,7 @@ pub fn main_js() -> Result<(), JsValue> {
     // It's disabled in release mode so it doesn't bloat up the file size.
     #[cfg(debug_assertions)]
     console_error_panic_hook::set_once();
+    let mut game: StateContainer = new_game();
 
     // Your code goes here!
     console::log_1(&JsValue::from_str("Hello world!"));
