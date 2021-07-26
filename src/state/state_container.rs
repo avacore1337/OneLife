@@ -1,6 +1,9 @@
 use super::rebirth_stats::RebirthStats;
 use super::stats::BaseStats;
 
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Clone)]
 pub struct StateContainer {
     pub base_stats: BaseStats,
     pub rebirth_stats: RebirthStats,

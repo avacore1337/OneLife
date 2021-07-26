@@ -1,3 +1,6 @@
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Clone)]
 pub struct BaseStats {
     pub str: f64,
     pub int: f64,

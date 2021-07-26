@@ -19,7 +19,7 @@ pub fn main_js() -> Result<(), JsValue> {
     // It's disabled in release mode so it doesn't bloat up the file size.
     #[cfg(debug_assertions)]
     console_error_panic_hook::set_once();
-    let mut game: StateContainer = new_game();
+    let mut _game: StateContainer = new_game();
 
     // Your code goes here!
     console::log_1(&JsValue::from_str("Hello world!"));
