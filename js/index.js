@@ -9,5 +9,15 @@ fields.addEventListener("click", event => {
 	console.log("fields");
 	wasm.work_fields();
 });
+const servant = document.getElementById("Servant");
+servant.addEventListener("click", event => {
+	console.log("servant");
+	wasm.work_servant();
+});
+const tick = document.getElementById("Tick");
+tick.addEventListener("click", event => {
+	console.log("tick");
+	wasm.tick();
+});
 }).catch(console.error);
 

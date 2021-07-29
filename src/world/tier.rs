@@ -1,5 +1,7 @@
 use crate::state::stats::BaseStats;
+use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize)]
 pub struct Tier {
     pub title: String,
     pub desrcription: String,
