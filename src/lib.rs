@@ -41,7 +41,18 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn greet() {
-    alert("Hello, wasm-game-of-life!");
+    alert("Hello, one-life!");
 }
 
+#[wasm_bindgen]
 pub fn tick() {}
+
+#[wasm_bindgen]
+pub fn work_mines() {
+    console::log_1(&JsValue::from_str("Rust mines"));
+}
+
+#[wasm_bindgen]
+pub fn work_fields() {
+    console::log_1(&JsValue::from_str("Rust fields"));
+}
