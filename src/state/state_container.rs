@@ -1,3 +1,4 @@
+use super::items::Items;
 use super::rebirth_stats::RebirthStats;
 use super::stats::BaseStats;
 use crate::world::world::World;
@@ -8,6 +9,7 @@ use serde::{Deserialize, Serialize};
 pub struct StateContainer {
     pub base_stats: BaseStats,
     pub rebirth_stats: RebirthStats,
+    pub items: Items,
 }
 
 pub fn new_game(world: &World) -> StateContainer {
@@ -24,5 +26,6 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
             .starting_stats
             .clone(),
         rebirth_stats,
+        items: Items::new(),
     }
 }

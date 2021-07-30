@@ -1,38 +1,17 @@
 // use serde_json::json;
 use once_cell::sync::Lazy;
-use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 
+mod engine;
+mod game;
 mod input;
 mod state;
 mod world;
 
-use input::work::Work;
-use input::Input;
-use state::state_container::{new_game, StateContainer};
-use world::world::World;
-
-#[derive(Serialize, Deserialize)]
-struct Game {
-    input: Input,
-    world: World,
-    state: StateContainer,
-}
-
-impl Game {
-    pub fn new() -> Game {
-        let world = World::new();
-        let state = new_game(&world);
-        let input = Input::new();
-        Game {
-            world,
-            state,
-            input,
-        }
-    }
-}
+use engine::engine_run;
+use game::Game;
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -70,29 +49,18 @@ pub fn greet() {
 
 #[wasm_bindgen]
 pub fn tick() {
-    let game = GLOBAL_DATA.lock().unwrap();
+    let mut game = GLOBAL_DATA.lock().unwrap();
     console::log_1(&JsValue::from_serde(&game.state).unwrap());
     console::log_1(&JsValue::from_serde(&game.input).unwrap());
     console::log_1(&JsValue::from_serde(&game.world).unwrap());
+    engine_run(&mut game);
 }
 
+// pub fn receive_example_from_js(val: &JsValue) {
+//     let example: Example = val.into_serde().unwrap();
 #[wasm_bindgen]
-pub fn work_mines() {
+pub fn set_work(val: &JsValue) {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    game.input.work = Work::Mines;
-    console::log_1(&JsValue::from_str("Rust mines"));
-}
-
-#[wasm_bindgen]
-pub fn work_fields() {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    game.input.work = Work::Fields;
-    console::log_1(&JsValue::from_str("Rust fields"));
-}
-
-#[wasm_bindgen]
-pub fn work_servant() {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    game.input.work = Work::Servant;
-    console::log_1(&JsValue::from_str("Rust fields"));
+    game.input.work = val.into_serde().unwrap();
+    console::log_1(&JsValue::from_str("Rust generic work"));
 }
