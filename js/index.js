@@ -19,5 +19,10 @@ tick.addEventListener("click", event => {
 	console.log("tick");
 	wasm.tick();
 });
+const hard_reset = document.getElementById("Hard Reset");
+hard_reset.addEventListener("click", event => {
+	console.log("hard reset");
+	wasm.hard_reset();
+});
 }).catch(console.error);
 

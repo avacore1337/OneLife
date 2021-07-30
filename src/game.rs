@@ -21,4 +21,8 @@ impl Game {
             input,
         }
     }
+    pub fn hard_reset(self: &mut Self) {
+        self.state = new_game(&self.world);
+        self.input = Input::new();
+    }
 }

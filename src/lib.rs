@@ -50,17 +50,22 @@ pub fn greet() {
 #[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_serde(&game.state).unwrap());
-    console::log_1(&JsValue::from_serde(&game.input).unwrap());
-    console::log_1(&JsValue::from_serde(&game.world).unwrap());
     engine_run(&mut game);
+    let borrow: &Game = &game;
+    console::log_1(&JsValue::from_serde(borrow).unwrap());
+    console::log_1(&JsValue::from_serde(&game.state.items.coins).unwrap());
 }
 
-// pub fn receive_example_from_js(val: &JsValue) {
-//     let example: Example = val.into_serde().unwrap();
 #[wasm_bindgen]
 pub fn set_work(val: &JsValue) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.input.work = val.into_serde().unwrap();
     console::log_1(&JsValue::from_str("Rust generic work"));
+}
+
+#[wasm_bindgen]
+pub fn hard_reset() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.hard_reset();
+    console::log_1(&JsValue::from_str("Resetting game"));
 }
