@@ -1,5 +1,6 @@
 // use serde_json::json;
 use once_cell::sync::Lazy;
+use serde_json::{from_str, to_string};
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
@@ -12,6 +13,7 @@ mod world;
 
 use engine::engine_run;
 use game::Game;
+use state::state_container::StateContainer;
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -68,4 +70,32 @@ pub fn hard_reset() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.hard_reset();
     console::log_1(&JsValue::from_str("Resetting game"));
+}
+
+#[wasm_bindgen]
+pub fn save() {
+    let game = GLOBAL_DATA.lock().unwrap();
+    let window = web_sys::window().unwrap();
+    if let Ok(Some(local_storage)) = window.local_storage() {
+        local_storage
+            .set_item("gamestate", &to_string(&game.state).unwrap())
+            .unwrap();
+    }
+    console::log_1(&JsValue::from_str("Saving game"));
+}
+
+#[wasm_bindgen]
+pub fn load() {
+    let mut current_game = GLOBAL_DATA.lock().unwrap();
+    let window = web_sys::window().unwrap();
+    if let Ok(Some(local_storage)) = window.local_storage() {
+        match local_storage.get_item("gamestate").unwrap() {
+            Some(json_state) => {
+                let state = from_str::<StateContainer>(&json_state).unwrap();
+                current_game.state = state;
+            }
+            None => console::log_1(&JsValue::from_str("You don't have a game to load")),
+        }
+    }
+    console::log_1(&JsValue::from_str("Loading game"));
 }

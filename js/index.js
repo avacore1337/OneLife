@@ -24,5 +24,15 @@ hard_reset.addEventListener("click", event => {
 	console.log("hard reset");
 	wasm.hard_reset();
 });
+const save = document.getElementById("Save");
+save.addEventListener("click", event => {
+	console.log("save");
+	wasm.save();
+});
+const load = document.getElementById("Load");
+load.addEventListener("click", event => {
+	console.log("load");
+	wasm.load();
+});
 }).catch(console.error);
 
