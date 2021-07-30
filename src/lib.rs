@@ -52,10 +52,12 @@ pub fn greet() {
 #[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    engine_run(&mut game);
+    engine_run(&mut game, 4000.0);
     let borrow: &Game = &game;
     console::log_1(&JsValue::from_serde(borrow).unwrap());
-    console::log_1(&JsValue::from_serde(&game.state.items.coins).unwrap());
+    console::log_1(&JsValue::from_serde(&game.state.items.money).unwrap());
+    console::log_1(&JsValue::from_serde(&game.state.life_stats.age).unwrap());
+    console::log_1(&JsValue::from_serde(&game.state.life_stats.dead).unwrap());
 }
 
 #[wasm_bindgen]

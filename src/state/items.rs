@@ -2,11 +2,11 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Items {
-    pub coins: f64,
+    pub money: f64,
 }
 
 impl Items {
     pub fn new() -> Items {
-        Items { coins: 0.0 }
+        Items { money: 0.0 }
     }
 }

@@ -1,0 +1,20 @@
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct LifeStats {
+    pub age: f64,      // days
+    pub lifespan: f64, // days
+    pub health: f64,   // days
+    pub dead: bool,
+}
+
+impl LifeStats {
+    pub fn new() -> LifeStats {
+        LifeStats {
+            age: 15.0 * 365.0,
+            lifespan: 70.0 * 365.0,
+            health: 0.0,
+            dead: false,
+        }
+    }
+}
