@@ -7,7 +7,8 @@ const dist = path.resolve(__dirname, "dist");
 module.exports = {
   mode: "production",
   entry: {
-    index: "./js/index.js"
+    HackTimer: "./js/HackTimer.js",
+    index: "./js/index.js",
   },
   output: {
     path: dist,
