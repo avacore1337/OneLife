@@ -1,19 +1,4 @@
 import("../pkg/index.js").then(function(wasm) {
-const mines = document.getElementById("Mines");
-mines.addEventListener("click", event => {
-	console.log("mines");
-	wasm.set_work("Mines");
-});
-const fields = document.getElementById("Fields");
-fields.addEventListener("click", event => {
-	console.log("fields");
-	wasm.set_work("Fields");
-});
-const servant = document.getElementById("Servant");
-servant.addEventListener("click", event => {
-	console.log("servant");
-	wasm.set_work("Servant");
-});
 const tick = document.getElementById("Tick");
 tick.addEventListener("click", event => {
 	console.log("tick");
@@ -34,7 +19,34 @@ load.addEventListener("click", event => {
 	console.log("load");
 	wasm.load();
 });
+    var app_state = new Vue({
+      el: '#app_state',
+      data: {
+        state: wasm.get_state(),
+      },
+
+  // methods: {
+  //   set_work: function (work_name) {
+	// wasm.set_work(work_name);
+	// console.log("Vue work: " + work_name);
+  //   }
+  // },
+    })
 const world = wasm.get_world();
 console.log(world);
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!',
+        works: world.works,
+      },
+
+  methods: {
+    set_work: function (work_name) {
+	wasm.set_work(work_name);
+	console.log("Vue work: " + work_name);
+    }
+  },
+    })
 }).catch(console.error);
 

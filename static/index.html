@@ -7,11 +7,33 @@
     <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
-	  <div>
-    <button id="Mines">Mines</button>
-    <button id="Fields">Fields</button>
-    <button id="Servant">Servant</button>
-	  </div>
+      <div id="app_state" style="border:solid;">
+	      <div style="border:solid;margin:2px;">
+	Base Stats
+	<ul>
+      <li v-for="(value, propertyName) in state.base_stats">
+	      {{ propertyName }}: {{ value }}
+      </li>
+	</ul>
+	      </div>
+	      <div style="border:solid;margin:2px;">
+	Items
+	<ul>
+      <li v-for="(value, propertyName) in state.items">
+	      {{ propertyName }}: {{ value }}
+      </li>
+	</ul>
+	      </div>
+      </div>
+      <br>
+      <div id="app" style="border:solid;">
+	      Works
+	<ul>
+      <li v-for="work in works">
+	      <button v-on:click="set_work(work.name)" style="margin:2px;">{{ work.name }}</button>
+      </li>
+	<ul>
+      </div>
 	  <div>
     <button id="Tick">Tick</button>
 	  </div>
@@ -21,17 +43,6 @@
     <button id="Hard Reset">Hard Reset</button>
 	  </div>
     <script src="index.js"></script>
-      <div id="app">
-        {{ message }}
-      </div>
 
-  <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        message: 'Hello Vue!'
-      }
-    })
-  </script>
   </body>
 </html>

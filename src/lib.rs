@@ -56,6 +56,12 @@ pub fn get_world() -> JsValue {
 }
 
 #[wasm_bindgen]
+pub fn get_state() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    JsValue::from_serde(&game.state).unwrap()
+}
+
+#[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     engine_run(&mut game, 4000.0);
