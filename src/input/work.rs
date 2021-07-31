@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use strum::EnumIter;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, EnumIter)]
 pub enum Work {
     Mines,
     Fields,

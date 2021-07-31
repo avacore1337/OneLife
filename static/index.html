@@ -3,15 +3,35 @@
   <head>
     <meta charset="UTF-8">
     <title>My Rust + Webpack project!</title>
+
+    <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
+	  <div>
     <button id="Mines">Mines</button>
     <button id="Fields">Fields</button>
     <button id="Servant">Servant</button>
+	  </div>
+	  <div>
     <button id="Tick">Tick</button>
+	  </div>
     <button id="Save">Save</button>
     <button id="Load">Load</button>
+	  <div>
     <button id="Hard Reset">Hard Reset</button>
+	  </div>
     <script src="index.js"></script>
+      <div id="app">
+        {{ message }}
+      </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
+  </script>
   </body>
 </html>

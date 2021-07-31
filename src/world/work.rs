@@ -1,5 +1,6 @@
 use crate::input::work::Work as InputWork;
 use serde::{Deserialize, Serialize};
+use strum::IntoEnumIterator;
 
 #[derive(Serialize, Deserialize)]
 pub struct Work {
@@ -32,37 +33,11 @@ pub fn translate_work(work: &InputWork) -> Work {
         },
     }
 }
-// pub fn init_tiers() -> Vec<Tier> {
-//     return vec![
-//         Tier {
-//             title: "Orphant slave".to_string(),
-//             desrcription: "The unluckies souls in this harsh world.".to_string(),
-//             unlocks: vec!["Only the basics of life itself is available.".to_string()],
-//             starting_stats: BaseStats {
-//                 str: 5.0,
-//                 int: 5.0,
-//                 cha: 5.0,
-//                 con: 5.0,
-//                 dex: 5.0,
-//                 faith: 5.0,
-//             }
-//         },
-//         Tier {
-//             title: "Slave".to_string(),
-//             desrcription: "That there are those who have it worse, but it is of little comfort in your current life."
-//                 .to_string(),
-//             unlocks: vec![
-//                 "You can rise higher, but you are still very limited."
-//                     .to_string(),
-//             ],
-//             starting_stats: BaseStats {
-//                 str: 6.0,
-//                 int: 6.0,
-//                 cha: 6.0,
-//                 con: 6.0,
-//                 dex: 6.0,
-//                 faith: 6.0,
-//             }
-//         },
-//     ];
-// }
+
+pub fn get_works() -> Vec<Work> {
+    let mut works = Vec::<Work>::new();
+    for input_work in InputWork::iter() {
+        works.push(translate_work(&input_work));
+    }
+    works
+}

@@ -34,5 +34,7 @@ load.addEventListener("click", event => {
 	console.log("load");
 	wasm.load();
 });
+const world = wasm.get_world();
+console.log(world);
 }).catch(console.error);
 
