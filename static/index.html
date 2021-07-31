@@ -7,7 +7,13 @@
     <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
-      <div id="app_state" style="border:solid;">
+	  <div>
+    <button id="Save">Save</button>
+    <button id="Load">Load</button>
+    <button id="Hard Reset">Hard Reset</button>
+	  </div>
+      <div id="app_state" style="border:solid;width: 400px; float: left;">
+    <button v-on:click="tick">Tick</button>
 	      <div style="border:solid;margin:2px;">
 	Base Stats
 	<ul>
@@ -26,7 +32,7 @@
 	      </div>
       </div>
       <br>
-      <div id="app" style="border:solid;">
+      <div id="app" style="border:solid;margin-left: 420px;">
 	      Works
 	<ul>
       <li v-for="work in works">
@@ -34,14 +40,6 @@
       </li>
 	<ul>
       </div>
-	  <div>
-    <button id="Tick">Tick</button>
-	  </div>
-    <button id="Save">Save</button>
-    <button id="Load">Load</button>
-	  <div>
-    <button id="Hard Reset">Hard Reset</button>
-	  </div>
     <script src="index.js"></script>
 
   </body>

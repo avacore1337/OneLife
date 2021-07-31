@@ -1,9 +1,4 @@
 import("../pkg/index.js").then(function(wasm) {
-const tick = document.getElementById("Tick");
-tick.addEventListener("click", event => {
-	console.log("tick");
-	wasm.tick();
-});
 const hard_reset = document.getElementById("Hard Reset");
 hard_reset.addEventListener("click", event => {
 	console.log("hard reset");
@@ -19,18 +14,20 @@ load.addEventListener("click", event => {
 	console.log("load");
 	wasm.load();
 });
+var state =  wasm.get_state();
     var app_state = new Vue({
       el: '#app_state',
       data: {
-        state: wasm.get_state(),
+        state: state,
       },
 
-  // methods: {
-  //   set_work: function (work_name) {
-	// wasm.set_work(work_name);
-	// console.log("Vue work: " + work_name);
-  //   }
-  // },
+  methods: {
+    tick: function (work_name) {
+	console.log("tick");
+	wasm.tick();
+	this.state = wasm.get_state();
+    }
+  },
     })
 const world = wasm.get_world();
 console.log(world);

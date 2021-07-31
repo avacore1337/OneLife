@@ -64,7 +64,7 @@ pub fn get_state() -> JsValue {
 #[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    engine_run(&mut game, 4000.0);
+    engine_run(&mut game, 1000.0);
     let borrow: &Game = &game;
     console::log_1(&JsValue::from_serde(borrow).unwrap());
     console::log_1(&JsValue::from_serde(&game.state.items.money).unwrap());
