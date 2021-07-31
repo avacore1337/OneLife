@@ -4,6 +4,7 @@ use strum::IntoEnumIterator;
 
 #[derive(Serialize, Deserialize)]
 pub struct Work {
+    pub name: InputWork,
     pub money: f64,
     pub description: String,
     // pub stat_gains: BaseStats,
@@ -12,22 +13,27 @@ pub struct Work {
 pub fn translate_work(work: &InputWork) -> Work {
     match work {
         InputWork::Mines => Work {
+            name: InputWork::Mines,
             money: 0.1,
             description: "Hard labor that kills you".to_string(),
         },
         InputWork::Fields => Work {
+            name: InputWork::Fields,
             money: 0.3,
             description: "Hard labor that kills you".to_string(),
         },
         InputWork::Servant => Work {
+            name: InputWork::Servant,
             money: 1.0,
             description: "Hard labor that kills you".to_string(),
         },
         InputWork::Teacher => Work {
+            name: InputWork::Teacher,
             money: 1.5,
             description: "Hard labor that kills you".to_string(),
         },
         InputWork::Farm => Work {
+            name: InputWork::Farm,
             money: 2.0,
             description: "Hard labor that kills you".to_string(),
         },
