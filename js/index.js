@@ -14,11 +14,14 @@ load.addEventListener("click", event => {
 	console.log("load");
 	wasm.load();
 });
-var state =  wasm.get_state();
+const world = wasm.get_world();
+console.log(world);
+let state =  wasm.get_state();
     var app_state = new Vue({
-      el: '#app_state',
+      el: '#app',
       data: {
         state: state,
+        works: world.works,
       },
 
   methods: {
@@ -26,24 +29,19 @@ var state =  wasm.get_state();
 	console.log("tick");
 	wasm.tick();
 	this.state = wasm.get_state();
-    }
-  },
-    })
-const world = wasm.get_world();
-console.log(world);
-    var app = new Vue({
-      el: '#app',
-      data: {
-        message: 'Hello Vue!',
-        works: world.works,
-      },
-
-  methods: {
+    },
     set_work: function (work_name) {
 	wasm.set_work(work_name);
 	console.log("Vue work: " + work_name);
-    }
+    },
+    rebirth: function () {
+	wasm.do_rebirth();
+	console.log("rebirth");
+	this.state = wasm.get_state();
+    },
   },
     })
+
+
 }).catch(console.error);
 

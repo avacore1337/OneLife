@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>My Rust + Webpack project!</title>
-
-    <script src="https://unpkg.com/vue"></script>
-  </head>
-  <body>
-	  <div>
-    <button id="Save">Save</button>
-    <button id="Load">Load</button>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta charset="UTF-8">
+  <title>My Rust + Webpack project!</title>
+  <script src="https://unpkg.com/vue">
+  </script>
+</head>
+<body>
+  <div>
+    <button id="Save">Save</button> <button id="Load">Load</button>
     <button id="Hard Reset">Hard Reset</button>
-	  </div>
-      <div id="app_state" style="border:solid;width: 400px; float: left;">
-    <button v-on:click="tick">Tick</button>
-	      <div style="border:solid;margin:2px;">
-	Base Stats
-	<ul>
-      <li v-for="(value, propertyName) in state.base_stats">
-	      {{ propertyName }}: {{ value }}
-      </li>
-	</ul>
-	      </div>
-	      <div style="border:solid;margin:2px;">
-	Items
-	<ul>
-      <li v-for="(value, propertyName) in state.items">
-	      {{ propertyName }}: {{ value }}
-      </li>
-	</ul>
-	      </div>
+  </div>
+  <div id="app">
+    <div style="border:solid;width: 400px; float: left;">
+      <button v-on:click="tick">Tick</button>
+      <div style="border:solid;margin:2px;">
+        Base Stats
+        <ul>
+          <li v-for="(value, propertyName) in state.base_stats">
+		  {{ propertyName }}: {{ value }}
+	  </li>
+        </ul>
       </div>
-      <br>
-      <div id="app" style="border:solid;margin-left: 420px;">
-	      Works
-	<ul>
-      <li v-for="work in works">
-	      <button v-on:click="set_work(work.name)" style="margin:2px;">{{ work.name }}</button>
-      </li>
-	<ul>
+      <div style="border:solid;margin:2px;">
+        Items
+        <ul>
+          <li v-for="(value, propertyName) in state.items">
+		  {{ propertyName }}: {{ value }}
+	  </li>
+        </ul>
       </div>
-    <script src="HackTimer.js"></script>
-    <script src="index.js"></script>
-  </body>
+    <div style="border:solid;margin:2px;" v-if="state.rebirth_stats.rebirth_count > 0 || state.life_stats.dead">
+      Rebirth Stats
+      <ul>
+        <li v-for="(value, propertyName) in state.rebirth_stats">
+          {{ propertyName }}: {{ value }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div style="border:solid;margin-left: 420px; width: 400px;">
+    Works
+    <ul>
+      <li v-for="work in works" v-if="work.required_tier <= state.rebirth_stats.class_tier">
+        <button v-on:click="set_work(work.name)" style="margin:2px;">{{ work.name }}</button>
+      </li>
+    </ul>
+  </div>
+  <div style="border:solid;margin-left: 840px; width: 400px;" v-if="state.life_stats.dead">
+    Death Section <button v-on:click="rebirth" style="margin:2px;">Rebirth</button>
+  </div>
+  <script src="HackTimer.js">
+  </script> 
+  <script src="index.js">
+  </script>
+</body>
 </html>

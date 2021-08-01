@@ -13,7 +13,7 @@ mod world;
 
 use engine::engine_run;
 use game::Game;
-use state::state_container::StateContainer;
+use state::state_container::{rebirth, StateContainer};
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -59,6 +59,13 @@ pub fn get_world() -> JsValue {
 pub fn get_state() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
     JsValue::from_serde(&game.state).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn do_rebirth() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.state.rebirth_stats.rebirth_count += 1;
+    game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
 }
 
 #[wasm_bindgen]
