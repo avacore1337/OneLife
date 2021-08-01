@@ -1,22 +1,5 @@
 import Vue from 'vue/dist/vue.js';
 import("../pkg/index.js").then(function(wasm) {
-const hard_reset = document.getElementById("Hard Reset");
-hard_reset.addEventListener("click", event => {
-	console.log("hard reset");
-	wasm.hard_reset();
-	this.state = wasm.get_state();
-});
-const save = document.getElementById("Save");
-save.addEventListener("click", event => {
-	console.log("save");
-	wasm.save();
-});
-const load = document.getElementById("Load");
-load.addEventListener("click", event => {
-	console.log("load");
-	wasm.load();
-	this.state = wasm.get_state();
-});
 const world = wasm.get_world();
 console.log(world);
 let state =  wasm.get_state();
@@ -24,10 +7,22 @@ let state =  wasm.get_state();
       el: '#app',
       data: {
         state: state,
-        works: world.works,
+        world: world,
       },
 
   methods: {
+    save: function () {
+	console.log("save");
+	wasm.save();
+    },
+    hard_reset: function () {
+	wasm.hard_reset();
+	this.state = wasm.get_state();
+    },
+    load: function () {
+	wasm.load();
+	this.state = wasm.get_state();
+    },
     tick: function (work_name) {
 	console.log("tick");
 	wasm.tick();
@@ -36,6 +31,10 @@ let state =  wasm.get_state();
     set_work: function (work_name) {
 	wasm.set_work(work_name);
 	console.log("Vue work: " + work_name);
+    },
+    buy_tier: function (index) {
+	wasm.buy_tier(index);
+	this.state = wasm.get_state();
     },
     rebirth: function () {
 	wasm.do_rebirth();

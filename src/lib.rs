@@ -14,6 +14,7 @@ mod world;
 use engine::engine_run;
 use game::Game;
 use state::state_container::{rebirth, StateContainer};
+use world::tier::Tier;
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -89,7 +90,16 @@ pub fn set_work(val: &JsValue) {
 #[wasm_bindgen]
 pub fn buy_tier(val: u32) {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    // game.state
+    let tier: &Tier = &game.world.tiers[val as usize];
+    let next_tier: bool = game.state.rebirth_stats.class_tier + 1 == val;
+    let can_afford: bool = game.state.rebirth_stats.coins >= tier.purchasing_cost;
+    console::log_1(&JsValue::from_str("Buy tier"));
+    console::log_1(&JsValue::from_serde(&next_tier).unwrap());
+    console::log_1(&JsValue::from_serde(&can_afford).unwrap());
+    if can_afford && next_tier {
+        game.state.rebirth_stats.coins -= tier.purchasing_cost;
+        game.state.rebirth_stats.class_tier = val;
+    }
 }
 
 #[wasm_bindgen]
