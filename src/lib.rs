@@ -87,6 +87,12 @@ pub fn set_work(val: &JsValue) {
 }
 
 #[wasm_bindgen]
+pub fn buy_tier(val: u32) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    // game.state
+}
+
+#[wasm_bindgen]
 pub fn hard_reset() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.hard_reset();

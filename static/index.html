@@ -41,7 +41,8 @@
       </ul>
     </div>
   </div>
-  <div style="border:solid;margin-left: 420px; width: 400px;">
+  <div style="margin-left: 420px;">
+  <div style="border:solid;width: 400px; float: left;">
     Works
     <ul>
       <li v-for="work in works" v-if="work.required_tier <= state.rebirth_stats.class_tier">
@@ -49,11 +50,13 @@
       </li>
     </ul>
   </div>
-  <div style="border:solid;margin-left: 840px; width: 400px;" v-if="state.life_stats.dead">
+  <div style="border:solid;margin-left: 420px; width: 400px;" v-if="state.life_stats.dead">
     Death Section <button v-on:click="rebirth" style="margin:2px;">Rebirth</button>
   </div>
-  <script src="HackTimer.js">
-  </script> 
+  </div>
+  </div>
+  <!-- <script src="HackTimer.js"> -->
+  <!-- </script> --> 
   <script src="index.js">
   </script>
 </body>
