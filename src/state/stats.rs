@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
+use wasm_bindgen::prelude::*;
 
-#[derive(Serialize, Deserialize, Clone)]
+#[wasm_bindgen]
+#[derive(Serialize, Deserialize, Clone, Copy)]
 pub struct BaseStats {
     pub str: f64,
     pub int: f64,

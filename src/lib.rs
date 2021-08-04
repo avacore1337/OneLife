@@ -88,15 +88,22 @@ pub fn set_work(val: &JsValue) {
 }
 
 #[wasm_bindgen]
-pub fn buy_tier(val: u32) {
-    let mut game = GLOBAL_DATA.lock().unwrap();
+pub fn can_buy_tier(val: u32) -> bool {
+    let game = GLOBAL_DATA.lock().unwrap();
     let tier: &Tier = &game.world.tiers[val as usize];
     let next_tier: bool = game.state.rebirth_stats.class_tier + 1 == val;
     let can_afford: bool = game.state.rebirth_stats.coins >= tier.purchasing_cost;
     console::log_1(&JsValue::from_str("Buy tier"));
     console::log_1(&JsValue::from_serde(&next_tier).unwrap());
     console::log_1(&JsValue::from_serde(&can_afford).unwrap());
-    if can_afford && next_tier {
+    can_afford && next_tier
+}
+
+#[wasm_bindgen]
+pub fn buy_tier(val: u32) {
+    if can_buy_tier(val) {
+        let mut game = GLOBAL_DATA.lock().unwrap();
+        let tier: &Tier = &game.world.tiers[val as usize];
         game.state.rebirth_stats.coins -= tier.purchasing_cost;
         game.state.rebirth_stats.class_tier = val;
     }

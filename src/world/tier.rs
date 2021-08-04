@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Tier {
+    pub level: u32,
     pub title: String,
     pub description: String,
     pub unlocks: Vec<String>,
@@ -28,6 +29,7 @@ pub struct Tier {
 pub fn init_tiers() -> Vec<Tier> {
     return vec![
         Tier {
+            level: 0,
             title: "Orphant slave".to_string(),
             description: "The unluckies souls in this harsh world.".to_string(),
             unlocks: vec!["Only the basics of life itself is available.".to_string()],
@@ -42,6 +44,7 @@ pub fn init_tiers() -> Vec<Tier> {
             purchasing_cost: 0.0,
         },
         Tier {
+            level: 1,
             title: "Slave".to_string(),
             description: "That there are those who have it worse, but it is of little comfort in your current life."
                 .to_string(),
@@ -60,6 +63,7 @@ pub fn init_tiers() -> Vec<Tier> {
             purchasing_cost: 2.0,
         },
         Tier {
+            level: 2,
             title: "Farmless Peasant".to_string(),
             description: "You own your own life, but nothing else."
                 .to_string(),
@@ -80,6 +84,7 @@ pub fn init_tiers() -> Vec<Tier> {
             purchasing_cost: 4.0,
         },
         Tier {
+            level: 3,
             title: "Estate Peasant".to_string(),
             description: "You own your own piece of heaven"
                 .to_string(),

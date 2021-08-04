@@ -1,6 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Clone)]
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+#[derive(Serialize, Deserialize, Clone, Copy)]
 pub struct LifeStats {
     pub age: f64,      // days
     pub lifespan: f64, // days

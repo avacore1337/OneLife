@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
+use wasm_bindgen::prelude::*;
 
-#[derive(Serialize, Deserialize, Clone)]
+#[wasm_bindgen]
+#[derive(Serialize, Deserialize, Clone, Copy)]
 pub struct RebirthStats {
     pub rebirth_count: u32,
     pub class_tier: u32,
