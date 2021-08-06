@@ -72,12 +72,12 @@ pub fn do_rebirth() {
 #[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    engine_run(&mut game, 1000.0);
-    let borrow: &Game = &game;
-    console::log_1(&JsValue::from_serde(borrow).unwrap());
-    console::log_1(&JsValue::from_serde(&game.state.items.money).unwrap());
-    console::log_1(&JsValue::from_serde(&game.state.life_stats.age).unwrap());
-    console::log_1(&JsValue::from_serde(&game.state.life_stats.dead).unwrap());
+    engine_run(&mut game, 100.0);
+    // let borrow: &Game = &game;
+    // console::log_1(&JsValue::from_serde(borrow).unwrap());
+    // console::log_1(&JsValue::from_serde(&game.state.items.money).unwrap());
+    // console::log_1(&JsValue::from_serde(&game.state.life_stats.age).unwrap());
+    // console::log_1(&JsValue::from_serde(&game.state.life_stats.dead).unwrap());
 }
 
 #[wasm_bindgen]
@@ -93,15 +93,14 @@ pub fn can_buy_tier(val: u32) -> bool {
     let tier: &Tier = &game.world.tiers[val as usize];
     let next_tier: bool = game.state.rebirth_stats.class_tier + 1 == val;
     let can_afford: bool = game.state.rebirth_stats.coins >= tier.purchasing_cost;
-    console::log_1(&JsValue::from_str("Buy tier"));
-    console::log_1(&JsValue::from_serde(&next_tier).unwrap());
-    console::log_1(&JsValue::from_serde(&can_afford).unwrap());
     can_afford && next_tier
 }
 
 #[wasm_bindgen]
 pub fn buy_tier(val: u32) {
+    console::log_1(&JsValue::from_str("Buy tier"));
     if can_buy_tier(val) {
+        console::log_1(&JsValue::from_str("Can buy tier"));
         let mut game = GLOBAL_DATA.lock().unwrap();
         let tier: &Tier = &game.world.tiers[val as usize];
         game.state.rebirth_stats.coins -= tier.purchasing_cost;
@@ -142,4 +141,10 @@ pub fn load() {
         }
     }
     console::log_1(&JsValue::from_str("Loading game"));
+}
+
+#[wasm_bindgen]
+pub fn is_game_paused() -> bool {
+    let game = GLOBAL_DATA.lock().unwrap();
+    game.state.life_stats.dead
 }
