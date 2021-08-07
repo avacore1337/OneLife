@@ -4,9 +4,9 @@ use serde::Serialize;
 #[derive(Serialize)]
 pub struct Tier {
     pub level: u32,
-    pub title: String,
-    pub description: String,
-    pub unlocks: Vec<String>,
+    pub title: &'static str,
+    pub description: &'static str,
+    pub unlocks: Vec<&'static str>,
     pub starting_stats: BaseStats,
     pub purchasing_cost: f64,
 }
@@ -30,9 +30,9 @@ pub fn init_tiers() -> Vec<Tier> {
     return vec![
         Tier {
             level: 0,
-            title: "Orphant slave".to_string(),
-            description: "The unluckies souls in this harsh world.".to_string(),
-            unlocks: vec!["Only the basics of life itself is available.".to_string()],
+            title: "Orphant slave",
+            description: "The unluckies souls in this harsh world.",
+            unlocks: vec!["Only the basics of life itself is available."],
             starting_stats: BaseStats {
                 str: 5.0,
                 int: 5.0,
@@ -45,12 +45,12 @@ pub fn init_tiers() -> Vec<Tier> {
         },
         Tier {
             level: 1,
-            title: "Slave".to_string(),
+            title: "Slave",
             description: "That there are those who have it worse, but it is of little comfort in your current life."
-                .to_string(),
+                ,
             unlocks: vec![
                 "You can rise higher, but you are still very limited."
-                    .to_string(),
+                    ,
             ],
             starting_stats: BaseStats {
                 str: 6.0,
@@ -64,14 +64,14 @@ pub fn init_tiers() -> Vec<Tier> {
         },
         Tier {
             level: 2,
-            title: "Farmless Peasant".to_string(),
+            title: "Farmless Peasant",
             description: "You own your own life, but nothing else."
-                .to_string(),
+                ,
             unlocks: vec![
                 "The farming job."
-                    .to_string(),
+                    ,
                 "Military Service"
-                    .to_string(),
+                    ,
             ],
             starting_stats: BaseStats {
                 str: 7.0,
@@ -85,14 +85,14 @@ pub fn init_tiers() -> Vec<Tier> {
         },
         Tier {
             level: 3,
-            title: "Estate Peasant".to_string(),
+            title: "Estate Peasant",
             description: "You own your own piece of heaven"
-                .to_string(),
+                ,
             unlocks: vec![
                 "Crafting of higher tier goods"
-                    .to_string(),
+                    ,
                 "Honorable military service is no longer out of your reach"
-                    .to_string(),
+                    ,
             ],
             starting_stats: BaseStats {
                 str: 8.0,

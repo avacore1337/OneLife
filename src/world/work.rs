@@ -6,7 +6,7 @@ use strum::IntoEnumIterator;
 pub struct Work {
     pub name: InputWork,
     pub money: f64,
-    pub description: String,
+    pub description: &'static str,
     pub required_tier: u32,
     // pub stat_gains: BaseStats,
 }
@@ -16,31 +16,31 @@ pub fn translate_work(work: &InputWork) -> Work {
         InputWork::Mines => Work {
             name: InputWork::Mines,
             money: 0.1,
-            description: "Hard labor that kills you".to_string(),
+            description: "Hard labor that kills you",
             required_tier: 0,
         },
         InputWork::Fields => Work {
             name: InputWork::Fields,
             money: 0.3,
-            description: "Hard labor that kills you slowly".to_string(),
+            description: "Hard labor that kills you slowly",
             required_tier: 0,
         },
         InputWork::Servant => Work {
             name: InputWork::Servant,
             money: 1.0,
-            description: "Hard labor".to_string(),
+            description: "Hard labor",
             required_tier: 0,
         },
         InputWork::Teacher => Work {
             name: InputWork::Teacher,
             money: 1.5,
-            description: "Good labor ".to_string(),
+            description: "Good labor ",
             required_tier: 1,
         },
         InputWork::Farm => Work {
             name: InputWork::Farm,
             money: 2.0,
-            description: "Hard labor for a free man".to_string(),
+            description: "Hard labor for a free man",
             required_tier: 2,
         },
     }
