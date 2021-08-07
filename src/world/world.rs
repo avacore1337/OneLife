@@ -1,9 +1,9 @@
 use super::housing::{get_housing, Housing};
 use super::tier::{init_tiers, Tier};
 use super::work::{get_works, Work};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize)]
 pub struct World {
     pub tiers: Vec<Tier>,
     pub works: Vec<Work>,

@@ -1,8 +1,8 @@
 use crate::input::work::Work as InputWork;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use strum::IntoEnumIterator;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize)]
 pub struct Work {
     pub name: InputWork,
     pub money: f64,

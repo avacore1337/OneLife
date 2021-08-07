@@ -1,8 +1,8 @@
 use crate::input::housing::Housing as InputHousing;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use strum::IntoEnumIterator;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize)]
 pub struct Housing {
     pub name: InputHousing,
     pub upkeep: f64,
