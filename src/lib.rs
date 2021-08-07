@@ -57,6 +57,12 @@ pub fn get_world() -> JsValue {
 }
 
 #[wasm_bindgen]
+pub fn get_input() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    JsValue::from_serde(&game.input).unwrap()
+}
+
+#[wasm_bindgen]
 pub fn get_state() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
     JsValue::from_serde(&game.state).unwrap()
@@ -84,6 +90,13 @@ pub fn tick() {
 pub fn set_work(val: &JsValue) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.input.work = val.into_serde().unwrap();
+    console::log_1(&JsValue::from_str("Rust generic work"));
+}
+
+#[wasm_bindgen]
+pub fn set_housing(val: &JsValue) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.input.housing = val.into_serde().unwrap();
     console::log_1(&JsValue::from_str("Rust generic work"));
 }
 

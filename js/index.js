@@ -3,12 +3,15 @@ import("../pkg/index.js")
   .then(function (wasm) {
     const world = wasm.get_world();
     console.log(world);
+    wasm.load();
     let state = wasm.get_state();
+    let input = wasm.get_state();
     console.log(state);
     var app_state = new Vue({
       el: "#app",
       data: {
         state: state,
+        input: input,
         world: world,
       },
 
@@ -17,7 +20,8 @@ import("../pkg/index.js")
         setInterval(function () {
           wasm.tick();
           self.state = wasm.get_state();
-	  // console.log(self);
+          self.input = wasm.get_input();
+          // console.log(self);
           // console.log("app");
           // self.$forceUpdate();
           // this code runs every second
@@ -41,6 +45,10 @@ import("../pkg/index.js")
         set_work: function (work_name) {
           wasm.set_work(work_name);
           console.log("Vue work: " + work_name);
+        },
+        set_housing: function (housing_name) {
+          wasm.set_housing(housing_name);
+          console.log("Vue work: " + housing_name);
         },
         buy_tier: function (index) {
           wasm.buy_tier(index);

@@ -41,12 +41,28 @@
       </div>
       <div style="margin-left: 420px">
         <div style="border: solid; width: 400px; float: left">
-          Works
-          <ul>
-            <li v-for="work in world.works" v-if="work.required_tier <= state.rebirth_stats.class_tier">
-              <button v-on:click="set_work(work.name)" style="margin: 2px">{{ work.name }}</button>
-            </li>
-          </ul>
+          <div style="border: solid; margin: 2px">
+            Works
+            <ul>
+              <li v-for="work in world.works" v-if="work.required_tier <= state.rebirth_stats.class_tier">
+                <button v-on:click="set_work(work.name)" style="margin: 2px">
+                  <span v-if="work.name == input.work">{{ work.name }} &lt-- </span>
+                  <span v-if="work.name != input.work">{{ work.name }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div style="border: solid; margin: 2px">
+            Housing
+            <ul>
+              <li v-for="housing in world.housing">
+                <button v-on:click="set_housing(housing.name)" style="margin: 2px">
+                  <span v-if="housing.name == input.housing">{{ housing.name }} &lt-- </span>
+                  <span v-if="housing.name != input.housing">{{ housing.name }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
         <!-- <div style="border:solid;margin-left: 420px; width: 400px;" v-if="state.life_stats.dead"> -->
         <div style="border: solid; margin-left: 420px; width: 400px">

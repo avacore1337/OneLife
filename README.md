@@ -31,10 +31,64 @@ To start a webserver that auto-reloads on changes.
 - Coins = coins you get when passing into the underworld.
 - Karma = tips and boosts
 
-Big list of features:
+# Features
 
-# Implement save game upgrades.
+- C - Core, needed for even testing begins.
+- R - Release, needed before the game is released.
+- E - Expansion, Thing to look at after the base game is finished
+- N - Nice to have, thing/ideas that we can implement if we think they are fun or a good learning experience
+
+## Both
+
+### R - Base64 import/export
+
+Players need to be able to import/export the game. Single text box with an import/export button. It should override the save.
+
+### R - Auto-save
+
+Game should auto-save every 60 seconds, but it should be a checkbox to turn it off.
+
+## Rust/Engine
+
+### E - Implement protection against save game manipulation
+
+It should be hard to cheat.
+
+### R - Implement save game export bonuses
+
+Players should get a bonus when they export the game. 30m time, once every 6h?
+
+### Implement save game upgrades.
 
 When game is expanded/changed migrations will need to happen.
 Most things can probably be handled by checking version number of save and then migrating values over to new clean save but with previous values migrated:
 https://stackoverflow.com/questions/47070876/how-can-i-merge-two-json-objects-with-rust
+
+## Vue/Frontend
+
+### E - Save game to file
+
+Players should easily be able to export to a file they can save/download.
+
+### R/E - Progress bars.
+
+Things that has progress towards a descrete level should have a progress bar and a percentage.
+It would also be nice if the progress bar feels smooth.
+
+### C - Numbers rendering for "whole" numbers
+
+- 400
+- 3000
+- 10.0K
+- 800.5K
+- 8030.5K
+- 10.8M
+- 10.8B
+
+### C - Numbers rendering for years/days
+
+Showing number of days is hard for people to grasp, show year + days instead.
+
+### E - Option for scientific notation
+
+eg. 100, 1234, 2.3e^4
