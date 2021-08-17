@@ -13,6 +13,7 @@ mod world;
 
 use engine::engine_run;
 use game::Game;
+use input::Input;
 use state::state_container::{rebirth, StateContainer};
 use world::tier::Tier;
 
@@ -136,6 +137,9 @@ pub fn save() {
         local_storage
             .set_item("gamestate", &to_string(&game.state).unwrap())
             .unwrap();
+        local_storage
+            .set_item("input", &to_string(&game.input).unwrap())
+            .unwrap();
     }
     console::log_1(&JsValue::from_str("Saving game"));
 }
@@ -149,6 +153,13 @@ pub fn load() {
             Some(json_state) => {
                 let state = from_str::<StateContainer>(&json_state).unwrap();
                 current_game.state = state;
+            }
+            None => console::log_1(&JsValue::from_str("You don't have a game to load")),
+        }
+        match local_storage.get_item("input").unwrap() {
+            Some(json_input) => {
+                let input = from_str::<Input>(&json_input).unwrap();
+                current_game.input = input;
             }
             None => console::log_1(&JsValue::from_str("You don't have a game to load")),
         }
