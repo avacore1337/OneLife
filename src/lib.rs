@@ -151,15 +151,17 @@ pub fn load() {
     if let Ok(Some(local_storage)) = window.local_storage() {
         match local_storage.get_item("gamestate").unwrap() {
             Some(json_state) => {
-                let state = from_str::<StateContainer>(&json_state).unwrap();
-                current_game.state = state;
+                if let Ok(state) = from_str::<StateContainer>(&json_state) {
+                    current_game.state = state;
+                }
             }
             None => console::log_1(&JsValue::from_str("You don't have a game to load")),
         }
         match local_storage.get_item("input").unwrap() {
             Some(json_input) => {
-                let input = from_str::<Input>(&json_input).unwrap();
-                current_game.input = input;
+                if let Ok(input) = from_str::<Input>(&json_input) {
+                    current_game.input = input;
+                }
             }
             None => console::log_1(&JsValue::from_str("You don't have a game to load")),
         }

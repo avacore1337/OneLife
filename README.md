@@ -56,6 +56,12 @@ Players need to be able to import/export the game. Single text box with an impor
 
 Game should auto-save every 60 seconds, but it should be a checkbox to turn it off.
 
+### C - implement save-game presets
+
+Rust based game state presets that should be there for testing different things like rebirths, purchasing stuff etc.
+When save game upgrades are implemented this can possibly replaced by a repository of saved games.
+Loading such presets should be part of test/validation.
+
 ## Rust/Engine
 
 ### E - Implement protection against save game manipulation
