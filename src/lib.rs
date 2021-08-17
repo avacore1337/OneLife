@@ -8,12 +8,14 @@ use web_sys::console;
 mod engine;
 mod game;
 mod input;
+mod presets;
 mod state;
 mod world;
 
 use engine::engine_run;
 use game::Game;
 use input::Input;
+use presets::get_presets;
 use state::state_container::{rebirth, StateContainer};
 use world::tier::Tier;
 
@@ -67,6 +69,12 @@ pub fn get_input() -> JsValue {
 pub fn get_state() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
     JsValue::from_serde(&game.state).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn get_preset_saves() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    JsValue::from_serde(&get_presets(&game.world)).unwrap()
 }
 
 #[wasm_bindgen]
