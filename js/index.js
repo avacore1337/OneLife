@@ -2,7 +2,6 @@ import Vue from "vue/dist/vue.js";
 import("../pkg/index.js")
   .then(function (wasm) {
     const world = wasm.get_world();
-    console.log(world);
     wasm.load();
     let state = wasm.get_state();
     let input = wasm.get_input();
@@ -31,7 +30,6 @@ import("../pkg/index.js")
       },
       methods: {
         save: function () {
-          console.log("save");
           wasm.save();
         },
         hard_reset: function () {
@@ -41,16 +39,13 @@ import("../pkg/index.js")
           wasm.load();
         },
         tick: function (work_name) {
-          console.log("tick");
           wasm.tick();
         },
         set_work: function (work_name) {
           wasm.set_work(work_name);
-          console.log("Vue work: " + work_name);
         },
         set_housing: function (housing_name) {
           wasm.set_housing(housing_name);
-          console.log("Vue work: " + housing_name);
         },
         buy_tier: function (index) {
           wasm.buy_tier(index);
@@ -60,7 +55,6 @@ import("../pkg/index.js")
         },
         rebirth: function () {
           wasm.do_rebirth();
-          console.log("rebirth");
         },
         toggle_pause: function () {
           this.paused = !this.paused;
@@ -69,7 +63,6 @@ import("../pkg/index.js")
           return wasm.can_buy_tier(tier.level);
         },
         getAge: function (total_days) {
-          console.log(total_days);
           const years = Math.floor(total_days / 365);
           const days = total_days % 365;
 
@@ -81,7 +74,6 @@ import("../pkg/index.js")
           return `${years} years and ${days} days`;
         },
         getLifespan: function (total_days) {
-          console.log(total_days);
           const years = Math.floor(total_days / 365);
           const days = total_days % 365;
 
