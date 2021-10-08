@@ -32,26 +32,33 @@ import("../pkg/index.js")
       },
       methods: {
         printableNumbers: function (num) {
-          console.log(num);
-          if (value < 1000) {
-            return Number.parseFloat(value.toFixed(1)).toString();
+          if (num < 100) {
+            return num.toFixed(1);
+          }
+          if (num < 10000) {
+            return Math.floor(num).toString();
           }
 
-          if (this.numberFormat === "DEFAULT") {
-            const ending = ["K", "M", "B", "T", "Qa", "Qi", "He", "Se", "Oc", "No", "De"];
-            let index = -1;
-            while (value >= 1000 && index < ending.length - 1) {
-              value /= 1000;
-              index++;
+          if (this.numberFormat === "SCIENTIFIC") {
+            let exponent = 1;
+            while (num >= 10) {
+              num /= 10;
+              exponent++;
             }
 
-            return Number.parseFloat(value.toFixed(1)).toString() + ending[index];
+            return `${num.toFixed(1)}e${exponent}`;
           }
 
-          return -1;
+          const ending = ["K", "M", "B", "T", "Qa", "Qi", "He", "Se", "Oc", "No", "De"];
+          let index = -1;
+          while (num >= 10000 && index < ending.length - 1) {
+            num /= 1000;
+            index++;
+          }
+
+          return `${num.toFixed(1)}${ending[index]}`;
         },
         nextNumberFormat: function (numberFormat) {
-          console.log(numberFormat);
           return {
             DEFAULT: "Scientific notation",
             SCIENTIFIC: "Natural numbers",

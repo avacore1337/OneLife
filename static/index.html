@@ -29,7 +29,7 @@
         <br />
         Items
         <div style="border: solid; margin: 2px; padding: 10px">
-          <p>Money: {{state.items.money}}</p>
+          <p>Money: {{printableNumbers(state.items.money)}}</p>
         </div>
 
         <br />
@@ -53,48 +53,46 @@
       </div>
 
       <div style="margin-left: 420px">
-        <div style="float: left">
-          <div style="border: solid; width: 400px; float: left">
-            <div style="border: solid; margin: 2px">
-              Works
-              <ul>
-                <li v-for="work in world.works" v-if="work.required_tier <= state.rebirth_stats.class_tier">
-                  <button v-on:click="set_work(work.name)" style="margin: 2px">
-                    <span v-if="work.name == input.work">{{ work.name }} &lt-- </span>
-                    <span v-if="work.name != input.work">{{ work.name }}</span>
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div style="border: solid; margin: 2px">
-              Housing
-              <ul>
-                <li v-for="housing in world.housing">
-                  <button v-on:click="set_housing(housing.name)" style="margin: 2px">
-                    <span v-if="housing.name == input.housing">{{ housing.name }} &lt-- </span>
-                    <span v-if="housing.name != input.housing">{{ housing.name }}</span>
-                  </button>
-                </li>
-              </ul>
-            </div>
+        <div style="border: solid; width: 400px; float: left">
+          <div style="border: solid; margin: 2px">
+            Works
+            <ul>
+              <li v-for="work in world.works" v-if="work.required_tier <= state.rebirth_stats.class_tier">
+                <button v-on:click="set_work(work.name)" style="margin: 2px">
+                  <span v-if="work.name == input.work">{{ work.name }} &lt-- </span>
+                  <span v-if="work.name != input.work">{{ work.name }}</span>
+                </button>
+              </li>
+            </ul>
           </div>
-          <!-- <div style="border:solid;margin-left: 420px; width: 400px;" v-if="state.life_stats.dead"> -->
-          <div style="border: solid; margin-left: 420px; width: 400px">
-            Death Section
-            <button v-on:click="rebirth" style="margin: 2px">Rebirth</button>
-            <div style="border: solid; margin: 2px">
-              <ul>
-                <li v-for="tier in world.tiers" v-if="tier.level > state.rebirth_stats.class_tier">
-                  <button v-on:click="buy_tier(tier.level)" style="margin: 2px" :disabled="!can_buy_tier(tier)">
-                    T{{tier.level }} {{ tier.title }}: Cost {{tier.purchasing_cost}}
-                  </button>
-                </li>
-              </ul>
-            </div>
+          <div style="border: solid; margin: 2px">
+            Housing
+            <ul>
+              <li v-for="housing in world.housing">
+                <button v-on:click="set_housing(housing.name)" style="margin: 2px">
+                  <span v-if="housing.name == input.housing">{{ housing.name }} &lt-- </span>
+                  <span v-if="housing.name != input.housing">{{ housing.name }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- <div style="border:solid;margin-left: 420px; width: 400px;" v-if="state.life_stats.dead"> -->
+        <div style="border: solid; margin-left: 420px; width: 400px">
+          Death Section
+          <button v-on:click="rebirth" style="margin: 2px">Rebirth</button>
+          <div style="border: solid; margin: 2px">
+            <ul>
+              <li v-for="tier in world.tiers" v-if="tier.level > state.rebirth_stats.class_tier">
+                <button v-on:click="buy_tier(tier.level)" style="margin: 2px" :disabled="!can_buy_tier(tier)">
+                  T{{tier.level }} {{ tier.title }}: Cost {{tier.purchasing_cost}}
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div style="border: solid; margin-left: 840px; width: 400px; padding: 10px">
+        <div style="border: solid; margin-left: 420px; width: 400px; padding: 10px">
           Debug
 
           <br /><br />
