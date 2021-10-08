@@ -87,17 +87,3 @@ Players should easily be able to export to a file they can save/download.
 
 Things that has progress towards a descrete level should have a progress bar and a percentage.
 It would also be nice if the progress bar feels smooth.
-
-### C - Numbers rendering for "whole" numbers
-
-- 400
-- 3000
-- 10.0K
-- 800.5K
-- 8030.5K
-- 10.8M
-- 10.8B
-
-### E - Option for scientific notation
-
-eg. 100, 1234, 2.3e^4
