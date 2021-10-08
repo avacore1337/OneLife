@@ -1,5 +1,6 @@
 # OneLife
 
+
 ## Setup
 
 The setup is based on [this tutorial](https://rustwasm.github.io/docs/wasm-pack/prerequisites/index.html), but an excerp follows below.
