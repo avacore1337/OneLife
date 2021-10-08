@@ -90,17 +90,26 @@
             </ul>
           </div>
         </div>
-        <div style="border: solid; margin-left: 420px; width: 400px">
-          Debug
-          <button v-on:click="toggle_pause()" style="margin: 2px">{{paused ? 'Resume' : 'Pause'}}</button>
 
-          <div style="border: solid">
-            Presets
-            <ul>
-              <li v-for="(value, name) in presets">
-                <button v-on:click="load_preset(name)" style="margin: 2px">{{name}}</button>
-              </li>
-            </ul>
+        <div style="border: solid; margin-left: 420px; width: 400px; padding: 10px">
+          Debug
+
+          <br /><br />
+          <button v-on:click="toggle_pause" style="margin: 2px">{{paused ? 'Resume the game' : 'Pause the game'}}</button>
+
+          <br /><br />
+          <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>
+
+          <br />
+          Import gamesave
+          <form enctype="multipart/form-data">
+            <input id="import_save_button" type=file accept="text/html" name="files[]" size=30>
+          </form>
+
+          <br /><br />
+          Presets
+          <div v-for="(value, name) in presets">
+            <button v-on:click="load_preset(name)" style="margin: 2px">{{name}}</button>
           </div>
         </div>
       </div>

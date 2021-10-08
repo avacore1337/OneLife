@@ -1,4 +1,5 @@
 import Vue from "vue/dist/vue.js";
+import { downloadFile } from "./utility.js";
 import("../pkg/index.js")
   .then(function (wasm) {
     const world = wasm.get_world();
@@ -17,6 +18,7 @@ import("../pkg/index.js")
       },
 
       mounted: function () {
+        document.getElementById('import_save_button').addEventListener('change', this.import_save, false);
         let self = this;
         setInterval(function () {
           if (self.paused) {
@@ -61,6 +63,33 @@ import("../pkg/index.js")
         },
         can_buy_tier: function (tier) {
           return wasm.can_buy_tier(tier.level);
+        },
+        export_save: function () {
+          // TODO: This should be exported by the backend
+          downloadFile(`gamesave_${Date.now()}.json`, JSON.stringify({
+            state: this.state,
+            input: this.input,
+            world: this.world,
+            presets: this.presets
+          }));
+        },
+        import_save: function (event) {
+          // TODO: This is only on the frontend atm, it doesn't actually save the changes
+          var files = event.target.files;
+          var f = files[0];
+          var reader = new FileReader();
+          var self = this;
+
+          reader.onload = (function(theFile) {
+              return function(e) {
+                var data = JSON.parse(e.target.result);
+                self.state = data.state;
+                self.input = data.input;
+                self.world = data.world;
+                self.presets = data.presets;
+              };
+            })(f);
+          reader.readAsText(f);
         },
         prettyPrintDays: function (total_days) {
           const years = Math.floor(total_days / 365);
