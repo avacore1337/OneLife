@@ -15,6 +15,7 @@ import("../pkg/index.js")
         world: world,
         presets: presets,
         paused: false,
+        numberFormat: "DEFAULT",
       },
 
       mounted: function () {
@@ -31,6 +32,24 @@ import("../pkg/index.js")
         }, 100);
       },
       methods: {
+        printableNumbers: function (num) {
+          if (value < 1000) {
+            return Number.parseFloat(value.toFixed(1)).toString();
+          }
+
+          if (this.numberFormat === "DEFAULT") {
+            const ending = ["K", "M", "B", "T", "Qa", "Qi", "He", "Se", "Oc", "No", "De"];
+            let index = -1;
+            while (value >= 1000 && index < ending.length - 1) {
+              value /= 1000;
+              index++;
+            }
+
+            return Number.parseFloat(value.toFixed(1)).toString() + ending[index];
+          }
+
+          return -1;
+        },
         save: function () {
           wasm.save();
         },
@@ -110,18 +129,7 @@ import("../pkg/index.js")
             return value;
           }
 
-          if (value < 1000) {
-            return Number.parseFloat(value.toFixed(1)).toString();
-          }
-
-          const ending = ["K", "M", "B", "T", "Qa", "Qi", "He", "Se", "Oc", "No", "De"];
-          let index = -1;
-          while (value >= 1000 && index < ending.length - 1) {
-            value /= 1000;
-            index++;
-          }
-
-          return Number.parseFloat(value.toFixed(1)).toString() + ending[index];
+          return this.printableNumbers(value);
         },
       },
     });
