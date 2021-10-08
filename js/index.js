@@ -26,7 +26,7 @@ import("../pkg/index.js")
           if (self.paused) {
             return;
           }
-          
+
           wasm.tick();
           self.state = wasm.get_state();
           self.input = wasm.get_input();
