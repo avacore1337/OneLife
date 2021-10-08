@@ -90,8 +90,6 @@ pub fn set_preset_saves(preset_name: &str) {
         game.state = state;
         game.input = input;
     }
-    // game.input.housing = val.into_serde().unwrap();
-    // console::log_1(&JsValue::from_str("Rust generic work"));
 }
 
 #[wasm_bindgen]
@@ -111,11 +109,6 @@ pub fn set_gamespeed(speed: f64) {
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     engine_run(&mut game, 1.0);
-    // let borrow: &Game = &game;
-    // console::log_1(&JsValue::from_serde(borrow).unwrap());
-    // console::log_1(&JsValue::from_serde(&game.state.items.money).unwrap());
-    // console::log_1(&JsValue::from_serde(&game.state.life_stats.age).unwrap());
-    // console::log_1(&JsValue::from_serde(&game.state.life_stats.dead).unwrap());
 }
 
 #[wasm_bindgen]
@@ -191,16 +184,20 @@ pub fn export_save() -> String {
 
 #[wasm_bindgen]
 pub fn import_save(save: String) {
+    let mut current_game = GLOBAL_DATA.lock().unwrap();
     let data = base64::decode(save).unwrap();
     let mut decoder = Decoder::new(&data[..]).unwrap();
     let mut decoded_data = Vec::new();
     decoder.read_to_end(&mut decoded_data).unwrap();
-    let s = match str::from_utf8(decoded_data.as_slice()) {
+    let json_state = match str::from_utf8(decoded_data.as_slice()) {
         Ok(v) => v,
         Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
     };
 
-    console::log_1(&JsValue::from_str(&s));
+    console::log_1(&JsValue::from_str(&json_state));
+    if let Ok(state) = from_str::<StateContainer>(&json_state) {
+        current_game.state = state;
+    }
 }
 
 #[wasm_bindgen]
