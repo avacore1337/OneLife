@@ -95,7 +95,9 @@
           Debug
 
           <br /><br />
-          <button v-on:click="toggle_pause" style="margin: 2px">{{paused ? 'Resume the game' : 'Pause the game'}}</button>
+          <button v-on:click="toggle_pause" style="margin: 2px">
+            {{paused ? 'Resume the game' : 'Pause the game'}}
+          </button>
 
           <br /><br />
           <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>
@@ -103,7 +105,7 @@
           <br />
           Import gamesave
           <form enctype="multipart/form-data">
-            <input id="import_save_button" type=file accept="text/html" name="files[]" size=30>
+            <input id="import_save_button" type="file" accept="text/html" name="files[]" size="30" />
           </form>
 
           <br /><br />

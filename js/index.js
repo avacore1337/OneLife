@@ -18,7 +18,7 @@ import("../pkg/index.js")
       },
 
       mounted: function () {
-        document.getElementById('import_save_button').addEventListener('change', this.import_save, false);
+        document.getElementById("import_save_button").addEventListener("change", this.import_save, false);
         let self = this;
         setInterval(function () {
           if (self.paused) {
@@ -66,12 +66,15 @@ import("../pkg/index.js")
         },
         export_save: function () {
           // TODO: This should be exported by the backend
-          downloadFile(`gamesave_${Date.now()}.json`, JSON.stringify({
-            state: this.state,
-            input: this.input,
-            world: this.world,
-            presets: this.presets
-          }));
+          downloadFile(
+            `gamesave_${Date.now()}.json`,
+            JSON.stringify({
+              state: this.state,
+              input: this.input,
+              world: this.world,
+              presets: this.presets,
+            })
+          );
         },
         import_save: function (event) {
           // TODO: This is only on the frontend atm, it doesn't actually save the changes
@@ -80,15 +83,15 @@ import("../pkg/index.js")
           var reader = new FileReader();
           var self = this;
 
-          reader.onload = (function(theFile) {
-              return function(e) {
-                var data = JSON.parse(e.target.result);
-                self.state = data.state;
-                self.input = data.input;
-                self.world = data.world;
-                self.presets = data.presets;
-              };
-            })(f);
+          reader.onload = (function (theFile) {
+            return function (e) {
+              var data = JSON.parse(e.target.result);
+              self.state = data.state;
+              self.input = data.input;
+              self.world = data.world;
+              self.presets = data.presets;
+            };
+          })(f);
           reader.readAsText(f);
         },
         prettyPrintDays: function (total_days) {
