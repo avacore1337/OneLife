@@ -7,9 +7,6 @@ import("../pkg/index.js")
     let state = wasm.get_state();
     let input = wasm.get_input();
     let presets = wasm.get_preset_saves();
-    console.log(JSON.stringify(input, undefined, 2));
-    console.log(JSON.stringify(state, undefined, 2));
-    // console.log(JSON.stringify(presets, undefined, 2));
     var app_state = new Vue({
       el: "#app",
       data: {
@@ -59,8 +56,7 @@ import("../pkg/index.js")
           wasm.buy_tier(index);
         },
         load_preset: function (preset) {
-          this.state = preset[0];
-          this.input = preset[1];
+          wasm.set_preset_saves(preset);
         },
         rebirth: function () {
           wasm.do_rebirth();
