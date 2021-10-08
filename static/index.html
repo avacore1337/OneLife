@@ -77,6 +77,19 @@
             </ul>
           </div>
         </div>
+        <div style="border: solid; margin-left: 420px; width: 400px">
+          Debug
+          <button v-on:click="toggle_pause()" style="margin: 2px">{{paused ? 'Resume' : 'Pause'}}</button>
+
+          <div style="border: solid">
+            Presets
+            <ul>
+              <li v-for="(value, name) in presets">
+                <button v-on:click="load_preset(value)" style="margin: 2px">{{name}}</button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <script src="index.js"></script>

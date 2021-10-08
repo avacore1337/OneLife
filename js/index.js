@@ -5,26 +5,31 @@ import("../pkg/index.js")
     console.log(world);
     wasm.load();
     let state = wasm.get_state();
-    let input = wasm.get_state();
-    console.log(state);
+    let input = wasm.get_input();
+    let presets = wasm.get_preset_saves();
+    console.log(JSON.stringify(input, undefined, 2));
+    console.log(JSON.stringify(state, undefined, 2));
+    // console.log(JSON.stringify(presets, undefined, 2));
     var app_state = new Vue({
       el: "#app",
       data: {
         state: state,
         input: input,
         world: world,
+        presets: presets,
+        paused: false,
       },
 
       mounted: function () {
         let self = this;
         setInterval(function () {
+          if (self.paused) {
+            return;
+          }
+          
           wasm.tick();
           self.state = wasm.get_state();
           self.input = wasm.get_input();
-          // console.log(self);
-          // console.log("app");
-          // self.$forceUpdate();
-          // this code runs every second
         }, 100);
       },
       methods: {
@@ -53,9 +58,16 @@ import("../pkg/index.js")
         buy_tier: function (index) {
           wasm.buy_tier(index);
         },
+        load_preset: function (preset) {
+          this.state = preset[0];
+          this.input = preset[1];
+        },
         rebirth: function () {
           wasm.do_rebirth();
           console.log("rebirth");
+        },
+        toggle_pause: function () {
+          this.paused = !this.paused;
         },
         can_buy_tier: function (tier) {
           return wasm.can_buy_tier(tier.level);
