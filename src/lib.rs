@@ -1,6 +1,10 @@
 // use serde_json::json;
+use base64;
+use libflate::gzip::{Decoder, Encoder};
 use once_cell::sync::Lazy;
 use serde_json::{from_str, to_string};
+use std::io::{Read, Write};
+use std::str;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
@@ -169,6 +173,34 @@ pub fn save() {
             .unwrap();
     }
     console::log_1(&JsValue::from_str("Saving game"));
+}
+
+#[wasm_bindgen]
+pub fn export_save() -> String {
+    let game = GLOBAL_DATA.lock().unwrap();
+    console::log_1(&JsValue::from_str("exporting game"));
+    let json_data = to_string(&game.state).unwrap();
+
+    let mut encoder = Encoder::new(Vec::new()).unwrap();
+    encoder.write_all(json_data.as_bytes()).unwrap();
+    let res = encoder.finish().into_result().unwrap();
+    let b64 = base64::encode(res);
+    console::log_1(&JsValue::from_str(&b64));
+    b64
+}
+
+#[wasm_bindgen]
+pub fn import_save(save: String) {
+    let data = base64::decode(save).unwrap();
+    let mut decoder = Decoder::new(&data[..]).unwrap();
+    let mut decoded_data = Vec::new();
+    decoder.read_to_end(&mut decoded_data).unwrap();
+    let s = match str::from_utf8(decoded_data.as_slice()) {
+        Ok(v) => v,
+        Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
+    };
+
+    console::log_1(&JsValue::from_str(&s));
 }
 
 #[wasm_bindgen]
