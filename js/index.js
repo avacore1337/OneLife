@@ -61,7 +61,7 @@ import("../pkg/index.js")
           return wasm.can_buy_tier(tier.level);
         },
         prettyPrint: function (value) {
-          if (typeof value !== 'number') {
+          if (typeof value !== "number") {
             return value;
           }
 
@@ -69,7 +69,7 @@ import("../pkg/index.js")
             return Number.parseFloat(value.toFixed(1)).toString();
           }
 
-          const ending = ['K', 'M', 'B', 'T', 'Qa', 'Qi', 'He', 'Se', 'Oc', 'No', 'De'];
+          const ending = ["K", "M", "B", "T", "Qa", "Qi", "He", "Se", "Oc", "No", "De"];
           let index = -1;
           while (value >= 1000 && index < ending.length - 1) {
             value /= 1000;
@@ -77,7 +77,7 @@ import("../pkg/index.js")
           }
 
           return Number.parseFloat(value.toFixed(1)).toString() + ending[index];
-        }
+        },
       },
     });
   })

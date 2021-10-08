@@ -1,10 +1,8 @@
 # OneLife
 
-
 ## Setup
 
 The setup is based on [this tutorial](https://rustwasm.github.io/docs/wasm-pack/prerequisites/index.html), but an excerp follows below.
-
 
 Install rust and then wasm-pack:
 
@@ -26,10 +24,10 @@ npm start
 
 To start a webserver that auto-reloads on changes.
 
-
 ## Code Standards
 
 We use [prettier](https://prettier.io/) for formating, please run the following before commiting.
+
 ```
 npx prettier --write .
 ```
