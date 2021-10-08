@@ -17,7 +17,6 @@ import("../pkg/index.js")
         paused: false,
         numberFormat: "DEFAULT",
       },
-
       mounted: function () {
         document.getElementById("import_save_button").addEventListener("change", this.import_save, false);
         let self = this;
@@ -33,6 +32,7 @@ import("../pkg/index.js")
       },
       methods: {
         printableNumbers: function (num) {
+          console.log(num);
           if (value < 1000) {
             return Number.parseFloat(value.toFixed(1)).toString();
           }
@@ -49,6 +49,19 @@ import("../pkg/index.js")
           }
 
           return -1;
+        },
+        nextNumberFormat: function (numberFormat) {
+          console.log(numberFormat);
+          return {
+            DEFAULT: "Scientific notation",
+            SCIENTIFIC: "Natural numbers",
+          }[numberFormat];
+        },
+        setNumberFormat: function () {
+          this.numberFormat = {
+            DEFAULT: "SCIENTIFIC",
+            SCIENTIFIC: "DEFAULT",
+          }[this.numberFormat];
         },
         save: function () {
           wasm.save();
