@@ -98,10 +98,6 @@ It would also be nice if the progress bar feels smooth.
 - 10.8M
 - 10.8B
 
-### C - Numbers rendering for years/days
-
-Showing number of days is hard for people to grasp, show year + days instead.
-
 ### E - Option for scientific notation
 
 eg. 100, 1234, 2.3e^4
