@@ -7,13 +7,21 @@ use crate::world::work::translate_work;
 use intermediate_state::IntermediateState;
 
 pub fn engine_run(game: &mut Game, time_delta: f64) {
+    let modified_time_delta = time_delta * game.meta_data.game_speed;
     if game.state.life_stats.dead {
         return;
     }
     game.intermediate_state = calculate_intermediate_state(game);
     let mut new_state = game.state.clone();
     do_work(&game.input.work, &mut new_state);
-    new_state.life_stats.age += time_delta * new_state.rebirth_stats.time_factor;
+    new_state.life_stats.age += modified_time_delta * new_state.rebirth_stats.time_factor;
+
+    game.state.life_stats.happiness = game
+        .intermediate_state
+        .value_gains
+        .get("happiness")
+        .map(|value_gains| value_gains.calculate_value())
+        .unwrap_or(1.0);
 
     game.state = new_state;
     if character_should_die(game) {

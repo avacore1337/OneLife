@@ -8,6 +8,7 @@ use web_sys::console;
 mod engine;
 mod game;
 mod input;
+mod meta;
 mod presets;
 mod state;
 mod world;
@@ -97,9 +98,15 @@ pub fn do_rebirth() {
 }
 
 #[wasm_bindgen]
+pub fn set_gamespeed(speed: f64) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.game_speed = speed;
+}
+
+#[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    engine_run(&mut game, 100.0);
+    engine_run(&mut game, 1.0);
     // let borrow: &Game = &game;
     // console::log_1(&JsValue::from_serde(borrow).unwrap());
     // console::log_1(&JsValue::from_serde(&game.state.items.money).unwrap());

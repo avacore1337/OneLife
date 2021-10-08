@@ -8,6 +8,7 @@ pub struct LifeStats {
     pub age: f64,      // days
     pub lifespan: f64, // days
     pub health: f64,   // days
+    pub happiness: f64,
     pub dead: bool,
 }
 
@@ -17,6 +18,7 @@ impl LifeStats {
             age: 15.0 * 365.0,
             lifespan: 70.0 * 365.0,
             health: 0.0,
+            happiness: 1.0,
             dead: false,
         }
     }

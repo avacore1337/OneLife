@@ -3,9 +3,19 @@ use std::collections::HashMap;
 
 #[derive(Serialize)]
 pub struct ValueGains {
-    name: &'static str,
-    base_gain: f64,
-    multipliers: Vec<Multiplier>,
+    pub name: &'static str,
+    pub base_gain: f64,
+    pub multipliers: Vec<Multiplier>,
+}
+
+impl ValueGains {
+    pub fn calculate_value(self: &Self) -> f64 {
+        let sum = self
+            .multipliers
+            .iter()
+            .fold(1.0, |acc: f64, elem: &Multiplier| acc * elem.factor);
+        self.base_gain * sum
+    }
 }
 
 #[derive(Serialize)]
