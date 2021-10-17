@@ -18,10 +18,9 @@ mod state;
 mod world;
 
 use engine::engine_run;
-use game::Game;
-use input::Input;
+use game::{Game, GameSave};
 use presets::get_presets;
-use state::state_container::{rebirth, StateContainer};
+use state::state_container::rebirth;
 use world::tier::Tier;
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
@@ -159,20 +158,34 @@ pub fn save() {
     let window = web_sys::window().unwrap();
     if let Ok(Some(local_storage)) = window.local_storage() {
         local_storage
-            .set_item("gamestate", &to_string(&game.state).unwrap())
-            .unwrap();
-        local_storage
-            .set_item("input", &to_string(&game.input).unwrap())
+            .set_item("save", &to_string(&GameSave::from(game)).unwrap())
             .unwrap();
     }
     console::log_1(&JsValue::from_str("Saving game"));
 }
 
 #[wasm_bindgen]
+pub fn load() {
+    let mut current_game = GLOBAL_DATA.lock().unwrap();
+    let window = web_sys::window().unwrap();
+    if let Ok(Some(local_storage)) = window.local_storage() {
+        match local_storage.get_item("save").unwrap() {
+            Some(json_save) => {
+                if let Ok(save) = from_str::<GameSave>(&json_save) {
+                    current_game.load_game(save);
+                }
+            }
+            None => console::log_1(&JsValue::from_str("You don't have a game to load")),
+        }
+    }
+    console::log_1(&JsValue::from_str("Loading game"));
+}
+
+#[wasm_bindgen]
 pub fn export_save() -> String {
     let game = GLOBAL_DATA.lock().unwrap();
     console::log_1(&JsValue::from_str("exporting game"));
-    let json_data = to_string(&game.state).unwrap();
+    let json_data = to_string(&GameSave::from(game)).unwrap();
 
     let mut encoder = Encoder::new(Vec::new()).unwrap();
     encoder.write_all(json_data.as_bytes()).unwrap();
@@ -189,40 +202,15 @@ pub fn import_save(save: String) {
     let mut decoder = Decoder::new(&data[..]).unwrap();
     let mut decoded_data = Vec::new();
     decoder.read_to_end(&mut decoded_data).unwrap();
-    let json_state = match str::from_utf8(decoded_data.as_slice()) {
+    let save_state = match str::from_utf8(decoded_data.as_slice()) {
         Ok(v) => v,
         Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
     };
 
-    console::log_1(&JsValue::from_str(&json_state));
-    if let Ok(state) = from_str::<StateContainer>(&json_state) {
-        current_game.state = state;
+    console::log_1(&JsValue::from_str(&save_state));
+    if let Ok(save) = from_str::<GameSave>(&save_state) {
+        current_game.load_game(save);
     }
-}
-
-#[wasm_bindgen]
-pub fn load() {
-    let mut current_game = GLOBAL_DATA.lock().unwrap();
-    let window = web_sys::window().unwrap();
-    if let Ok(Some(local_storage)) = window.local_storage() {
-        match local_storage.get_item("gamestate").unwrap() {
-            Some(json_state) => {
-                if let Ok(state) = from_str::<StateContainer>(&json_state) {
-                    current_game.state = state;
-                }
-            }
-            None => console::log_1(&JsValue::from_str("You don't have a game to load")),
-        }
-        match local_storage.get_item("input").unwrap() {
-            Some(json_input) => {
-                if let Ok(input) = from_str::<Input>(&json_input) {
-                    current_game.input = input;
-                }
-            }
-            None => console::log_1(&JsValue::from_str("You don't have a game to load")),
-        }
-    }
-    console::log_1(&JsValue::from_str("Loading game"));
 }
 
 #[wasm_bindgen]

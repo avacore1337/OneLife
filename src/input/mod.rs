@@ -6,7 +6,7 @@ use work::Work;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone, Copy)]
 pub struct Input {
     pub work: Work,
     pub housing: Housing,

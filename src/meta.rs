@@ -1,3 +1,6 @@
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Clone, Copy)]
 pub struct MetaData {
     pub game_speed: f64,
 }
