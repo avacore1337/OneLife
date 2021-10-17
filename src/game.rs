@@ -4,7 +4,6 @@ use crate::meta::MetaData;
 use crate::state::state_container::{new_game, StateContainer};
 use crate::world::world::World;
 use serde::{Deserialize, Serialize};
-use std::sync::MutexGuard;
 
 pub struct Game {
     pub input: Input,
@@ -21,18 +20,8 @@ pub struct GameSave {
     pub meta_data: MetaData,
 }
 
-impl From<MutexGuard<'_, Game>> for GameSave {
-    fn from(game: MutexGuard<'_, Game>) -> Self {
-        GameSave {
-            input: game.input,
-            state: game.state,
-            meta_data: game.meta_data,
-        }
-    }
-}
-
-impl From<Game> for GameSave {
-    fn from(game: Game) -> Self {
+impl From<&Game> for GameSave {
+    fn from(game: &Game) -> Self {
         GameSave {
             input: game.input,
             state: game.state,

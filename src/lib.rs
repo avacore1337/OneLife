@@ -154,7 +154,8 @@ pub fn hard_reset() {
 
 #[wasm_bindgen]
 pub fn save() {
-    let game = GLOBAL_DATA.lock().unwrap();
+    let game: &Game = &*GLOBAL_DATA.lock().unwrap();
+    // let game = GLOBAL_DATA.lock().unwrap();
     let window = web_sys::window().unwrap();
     if let Ok(Some(local_storage)) = window.local_storage() {
         local_storage
@@ -183,7 +184,8 @@ pub fn load() {
 
 #[wasm_bindgen]
 pub fn export_save() -> String {
-    let game = GLOBAL_DATA.lock().unwrap();
+    let game: &Game = &*GLOBAL_DATA.lock().unwrap();
+    // let game = GLOBAL_DATA.lock().unwrap();
     console::log_1(&JsValue::from_str("exporting game"));
     let json_data = to_string(&GameSave::from(game)).unwrap();
 
