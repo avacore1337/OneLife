@@ -7,16 +7,13 @@ use crate::world::world::World;
 
 use serde::{Deserialize, Serialize};
 
-use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen]
-#[derive(Serialize, Deserialize, Clone, Copy)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct StateContainer {
     pub base_stats: BaseStats,
     pub rebirth_stats: RebirthStats,
     pub life_stats: LifeStats,
     pub items: Items,
-    pub work: Work,
+    pub work: Vec<Work>,
 }
 
 pub fn new_game(world: &World) -> StateContainer {
@@ -35,6 +32,6 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
         rebirth_stats,
         life_stats: LifeStats::new(),
         items: Items::new(),
-        work: Work::new(),
+        work: Vec::<Work>::new(),
     }
 }

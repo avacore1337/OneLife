@@ -23,9 +23,9 @@ pub struct GameSave {
 impl From<&Game> for GameSave {
     fn from(game: &Game) -> Self {
         GameSave {
-            input: game.input,
-            state: game.state,
-            meta_data: game.meta_data,
+            input: game.input.clone(),
+            state: game.state.clone(),
+            meta_data: game.meta_data.clone(),
         }
     }
 }
