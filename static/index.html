@@ -58,11 +58,12 @@
             <div style="border: solid; margin: 2px">
               Works
               <ul>
-                <li v-for="work in world.works" v-if="work.required_tier <= state.rebirth_stats.class_tier">
+                <li v-for="(work, index) in world.works" v-if="work.required_tier <= state.rebirth_stats.class_tier">
                   <button v-on:click="set_work(work.name)" style="margin: 2px">
                     <span v-if="work.name == input.work">{{ work.name }} &lt-- </span>
                     <span v-if="work.name != input.work">{{ work.name }}</span>
                   </button>
+                  <p>{{state.works[index].next_level_percentage}}%</p>
                 </li>
               </ul>
             </div>

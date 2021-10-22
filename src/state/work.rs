@@ -4,10 +4,11 @@ use strum::IntoEnumIterator;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-#[derive(Serialize, Deserialize, Clone, Copy)]
+#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Work {
     pub current_level: u32,
     pub next_level_progress: f64,
+    pub next_level_percentage: f64,
     pub max_level: u32,
 }
 
@@ -16,6 +17,7 @@ impl Work {
         Work {
             current_level: 0,
             next_level_progress: 0.0,
+            next_level_percentage: 0.0,
             max_level: 0,
         }
     }

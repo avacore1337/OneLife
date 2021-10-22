@@ -54,6 +54,7 @@ fn gain_work_xp(input_work: InputWork, state: &mut StateContainer) {
         work.next_level_progress -= next_level_xp_needed;
         next_level_xp_needed = calculate_next_level_xp_neeeded(work);
     }
+    work.next_level_percentage = (work.next_level_progress * 100.0) / next_level_xp_needed;
 }
 
 fn calculate_next_level_xp_neeeded(work: &mut StateWork) -> f64 {

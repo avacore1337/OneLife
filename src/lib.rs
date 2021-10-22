@@ -98,7 +98,10 @@ pub fn set_gamespeed(speed: f64) {
 #[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    // console::log_1(&JsValue::from_str(game.state.works));
+    // console::log_1(&JsValue::from_str(&format!(
+    //     "works state: {:?}",
+    //     game.state.works
+    // )));
     engine_run(&mut game, 1.0);
 }
 
