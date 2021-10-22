@@ -6,7 +6,7 @@ version = "0.1.0"
 authors = ["You <you@example.com>"]
 categories = ["wasm"]
 readme = "README.md"
-edition = "2018"
+edition = "2021"
 
 [lib]
 crate-type = ["cdylib"]
@@ -15,10 +15,6 @@ crate-type = ["cdylib"]
 # This makes the compiled code faster and smaller, but it makes compiling slower,
 # so it's only enabled in release mode.
 lto = true
-
-[features]
-# If you uncomment this line, it will enable `wee_alloc`:
-#default = ["wee_alloc"]
 
 [dependencies]
 # The `wasm-bindgen` crate provides the bare minimum functionality needed
@@ -51,7 +47,7 @@ console_error_panic_hook = "0.1.5"
 
 # These crates are used for running unit tests.
 [dev-dependencies]
-wasm-bindgen-test = "0.2.45"
+wasm-bindgen-test = "0.2.48"
 futures = "0.1.27"
 js-sys = "0.3.22"
 wasm-bindgen-futures = "0.3.22"

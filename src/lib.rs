@@ -1,5 +1,4 @@
 // use serde_json::json;
-use base64;
 use libflate::gzip::{Decoder, Encoder};
 use once_cell::sync::Lazy;
 use serde_json::{from_str, to_string};
@@ -22,14 +21,6 @@ use game::{Game, GameSave};
 use presets::get_presets;
 use state::state_container::rebirth;
 use world::tier::Tier;
-
-// When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
-// allocator.
-//
-// If you don't want to use `wee_alloc`, you can safely delete this.
-#[cfg(feature = "wee_alloc")]
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| Mutex::new(Game::new()));
 
@@ -209,8 +200,8 @@ pub fn import_save(save: String) {
         Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
     };
 
-    console::log_1(&JsValue::from_str(&save_state));
-    if let Ok(save) = from_str::<GameSave>(&save_state) {
+    console::log_1(&JsValue::from_str(save_state));
+    if let Ok(save) = from_str::<GameSave>(save_state) {
         current_game.load_game(save);
     }
 }

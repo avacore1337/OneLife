@@ -46,12 +46,12 @@ impl Game {
         }
     }
 
-    pub fn hard_reset(self: &mut Self) {
+    pub fn hard_reset(&mut self) {
         self.state = new_game(&self.world);
         self.input = Input::new();
     }
 
-    pub fn load_game(self: &mut Self, save: GameSave) {
+    pub fn load_game(&mut self, save: GameSave) {
         self.input = save.input;
         self.state = save.state;
         self.meta_data = save.meta_data;

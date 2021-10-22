@@ -9,7 +9,7 @@ pub struct ValueGains {
 }
 
 impl ValueGains {
-    pub fn calculate_value(self: &Self) -> f64 {
+    pub fn calculate_value(&self) -> f64 {
         let sum = self
             .multipliers
             .iter()
