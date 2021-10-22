@@ -1,8 +1,9 @@
 pub mod intermediate_state;
 
 use crate::game::Game;
-use crate::input::work::Work;
+use crate::input::work::Work as InputWork;
 use crate::state::state_container::StateContainer;
+use crate::state::work::Work as StateWork;
 use crate::world_content::work::translate_work;
 use intermediate_state::IntermediateState;
 
@@ -13,7 +14,8 @@ pub fn engine_run(game: &mut Game, time_delta: f64) {
     }
     game.intermediate_state = calculate_intermediate_state(game);
     let mut new_state = game.state.clone();
-    do_work(&game.input.work, &mut new_state);
+    do_work(game.input.work, &mut new_state);
+    gain_work_xp(game.input.work, &mut new_state);
     new_state.life_stats.age += modified_time_delta * new_state.rebirth_stats.time_factor;
 
     game.state.life_stats.happiness = game
@@ -43,7 +45,24 @@ fn character_death_update(game: &mut Game) {
     game.state.rebirth_stats.coins += 2.0;
 }
 
-fn do_work(input_work: &Work, state: &mut StateContainer) {
+fn gain_work_xp(input_work: InputWork, state: &mut StateContainer) {
+    let work: &mut StateWork = &mut state.works[input_work as usize];
+    work.next_level_progress += 10.0 * state.life_stats.happiness;
+    let mut next_level_xp_needed = calculate_next_level_xp_neeeded(work);
+    while work.next_level_progress > next_level_xp_needed {
+        work.current_level += 1;
+        work.next_level_progress -= next_level_xp_needed;
+        next_level_xp_needed = calculate_next_level_xp_neeeded(work);
+    }
+}
+
+fn calculate_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
+    (100 * work.current_level) as f64
+}
+
+fn do_work(input_work: InputWork, state: &mut StateContainer) {
     let work = translate_work(input_work);
-    state.items.money += work.money;
+    let work_state = state.works[input_work as usize];
+    let multiplier: f64 = 1.0 + (work_state.current_level as f64 / 10.0);
+    state.items.money += work.money * multiplier;
 }

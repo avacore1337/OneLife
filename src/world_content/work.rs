@@ -11,7 +11,7 @@ pub struct Work {
     // pub stat_gains: BaseStats,
 }
 
-pub fn translate_work(work: &InputWork) -> Work {
+pub fn translate_work(work: InputWork) -> Work {
     match work {
         InputWork::Mines => Work {
             name: InputWork::Mines,
@@ -49,7 +49,7 @@ pub fn translate_work(work: &InputWork) -> Work {
 pub fn get_works() -> Vec<Work> {
     let mut works = Vec::<Work>::new();
     for input_work in InputWork::iter() {
-        works.push(translate_work(&input_work));
+        works.push(translate_work(input_work));
     }
     works
 }

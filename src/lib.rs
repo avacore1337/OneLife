@@ -98,6 +98,7 @@ pub fn set_gamespeed(speed: f64) {
 #[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
+    // console::log_1(&JsValue::from_str(game.state.works));
     engine_run(&mut game, 1.0);
 }
 
@@ -105,14 +106,14 @@ pub fn tick() {
 pub fn set_work(val: &JsValue) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.input.work = val.into_serde().unwrap();
-    console::log_1(&JsValue::from_str("Rust generic work"));
+    console::log_1(&JsValue::from_str("Rust set work"));
 }
 
 #[wasm_bindgen]
 pub fn set_housing(val: &JsValue) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.input.housing = val.into_serde().unwrap();
-    console::log_1(&JsValue::from_str("Rust generic work"));
+    console::log_1(&JsValue::from_str("Rust set housing"));
 }
 
 #[wasm_bindgen]
@@ -126,7 +127,7 @@ pub fn can_buy_tier(val: u32) -> bool {
 
 #[wasm_bindgen]
 pub fn buy_tier(val: u32) {
-    console::log_1(&JsValue::from_str("Buy tier"));
+    console::log_1(&JsValue::from_str("Rust buy tier"));
     if can_buy_tier(val) {
         console::log_1(&JsValue::from_str("Can buy tier"));
         let mut game = GLOBAL_DATA.lock().unwrap();
