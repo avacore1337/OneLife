@@ -18,3 +18,9 @@ impl Work {
         }
     }
 }
+
+impl Default for Work {
+    fn default() -> Self {
+        Self::new()
+    }
+}

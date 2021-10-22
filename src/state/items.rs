@@ -13,3 +13,9 @@ impl Items {
         Items { money: 0.0 }
     }
 }
+
+impl Default for Items {
+    fn default() -> Self {
+        Self::new()
+    }
+}

@@ -27,8 +27,7 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
             .tiers
             .get(rebirth_stats.class_tier as usize)
             .expect("tier not implemented")
-            .starting_stats
-            .clone(),
+            .starting_stats,
         rebirth_stats,
         life_stats: LifeStats::new(),
         items: Items::new(),

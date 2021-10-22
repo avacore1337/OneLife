@@ -23,3 +23,9 @@ impl LifeStats {
         }
     }
 }
+
+impl Default for LifeStats {
+    fn default() -> Self {
+        Self::new()
+    }
+}
