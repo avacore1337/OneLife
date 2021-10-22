@@ -14,13 +14,13 @@ mod input;
 mod meta;
 mod presets;
 mod state;
-mod world;
+mod world_content;
 
 use engine::engine_run;
 use game::{Game, GameSave};
 use presets::get_presets;
 use state::state_container::rebirth;
-use world::tier::Tier;
+use world_content::tier::Tier;
 
 static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| Mutex::new(Game::new()));
 

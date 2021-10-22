@@ -3,7 +3,7 @@ use super::life_stats::LifeStats;
 use super::rebirth_stats::RebirthStats;
 use super::stats::BaseStats;
 use super::work::Work;
-use crate::world::world::World;
+use crate::world_content::world::World;
 
 use serde::{Deserialize, Serialize};
 

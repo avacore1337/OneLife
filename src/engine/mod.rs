@@ -3,7 +3,7 @@ pub mod intermediate_state;
 use crate::game::Game;
 use crate::input::work::Work;
 use crate::state::state_container::StateContainer;
-use crate::world::work::translate_work;
+use crate::world_content::work::translate_work;
 use intermediate_state::IntermediateState;
 
 pub fn engine_run(game: &mut Game, time_delta: f64) {

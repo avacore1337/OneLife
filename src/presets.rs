@@ -1,6 +1,6 @@
 use crate::input::Input;
 use crate::state::state_container::{new_game, StateContainer};
-use crate::world::world::World;
+use crate::world_content::world::World;
 use std::collections::HashMap;
 
 pub fn get_presets(world: &World) -> HashMap<&'static str, (StateContainer, Input)> {

@@ -2,7 +2,7 @@ use crate::engine::intermediate_state::IntermediateState;
 use crate::input::Input;
 use crate::meta::MetaData;
 use crate::state::state_container::{new_game, StateContainer};
-use crate::world::world::World;
+use crate::world_content::world::World;
 use serde::{Deserialize, Serialize};
 
 pub struct Game {
