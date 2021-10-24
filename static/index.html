@@ -9,7 +9,6 @@
   <body>
     <div id="app">
       <div style="width: 300px; float: left">
-        <button v-on:click="tick">Tick</button>
         <button v-on:click="save">Save</button>
         <button v-on:click="load">Load</button>
         <button v-on:click="hard_reset">Hard Reset</button>
@@ -38,6 +37,7 @@
           <p>Age: {{prettyPrintDays(state.life_stats.age)}}</p>
           <p>Lifespan: {{prettyPrintDays(state.life_stats.lifespan)}}</p>
           <p>Health: {{state.life_stats.health}}</p>
+          <p>Happiness: {{state.life_stats.happiness}}</p>
           <p>Alive: {{state.life_stats.dead ? 'No ;(' : 'Yes :)'}}</p>
         </div>
 
@@ -63,7 +63,9 @@
                     <span v-if="work.name == input.work">{{ work.name }} &lt-- </span>
                     <span v-if="work.name != input.work">{{ work.name }}</span>
                   </button>
-                  <p>{{state.works[index].next_level_percentage}}%</p>
+                  <p>
+                    Level: {{state.works[index].current_level}} progress:{{state.works[index].next_level_percentage}}%
+                  </p>
                 </li>
               </ul>
             </div>
@@ -102,6 +104,10 @@
           <button v-on:click="toggle_pause" style="margin: 2px">
             {{paused ? 'Resume the game' : 'Pause the game'}}
           </button>
+          <br />
+          <button v-on:click="tick">Tick</button>
+          <br />
+          <button v-on:click="print_debug">Print Debug</button>
 
           <br /><br />
           <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>

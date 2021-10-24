@@ -15,31 +15,31 @@ pub fn translate_work(work: InputWork) -> Work {
     match work {
         InputWork::Mines => Work {
             name: InputWork::Mines,
-            money: 0.1,
+            money: 0.5,
             description: "Hard labor that kills you",
             required_tier: 0,
         },
         InputWork::Fields => Work {
             name: InputWork::Fields,
-            money: 0.3,
+            money: 1.0,
             description: "Hard labor that kills you slowly",
             required_tier: 0,
         },
         InputWork::Servant => Work {
             name: InputWork::Servant,
-            money: 1.0,
+            money: 2.0,
             description: "Hard labor",
             required_tier: 0,
         },
         InputWork::Teacher => Work {
             name: InputWork::Teacher,
-            money: 1.5,
+            money: 3.0,
             description: "Good labor ",
             required_tier: 1,
         },
         InputWork::Farm => Work {
             name: InputWork::Farm,
-            money: 2.0,
+            money: 5.0,
             description: "Hard labor for a free man",
             required_tier: 2,
         },

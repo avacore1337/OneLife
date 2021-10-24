@@ -1,9 +1,11 @@
 pub mod intermediate_state;
 
 use crate::game::Game;
+use crate::input::housing::Housing as InputHousing;
 use crate::input::work::Work as InputWork;
 use crate::state::state_container::StateContainer;
 use crate::state::work::Work as StateWork;
+use crate::world_content::housing::translate_housing;
 use crate::world_content::work::translate_work;
 use intermediate_state::IntermediateState;
 
@@ -13,19 +15,13 @@ pub fn engine_run(game: &mut Game, time_delta: f64) {
         return;
     }
     game.intermediate_state = calculate_intermediate_state(game);
-    let mut new_state = game.state.clone();
-    do_work(game.input.work, &mut new_state);
-    gain_work_xp(game.input.work, &mut new_state);
-    new_state.life_stats.age += modified_time_delta * new_state.rebirth_stats.time_factor;
+    let _old_state = game.state.clone(); //TODO use?
+    apply_housing(game);
+    do_work(game.input.work, &mut game.state);
+    gain_work_xp(game.input.work, &mut game.state);
+    game.state.life_stats.age += modified_time_delta * game.state.rebirth_stats.time_factor;
 
-    game.state.life_stats.happiness = game
-        .intermediate_state
-        .value_gains
-        .get("happiness")
-        .map(|value_gains| value_gains.calculate_value())
-        .unwrap_or(1.0);
-
-    game.state = new_state;
+    game.state.life_stats.happiness = game.intermediate_state.get_muliplier("happiness");
     if character_should_die(game) {
         game.state.life_stats.dead = true;
         character_death_update(game);
@@ -33,6 +29,7 @@ pub fn engine_run(game: &mut Game, time_delta: f64) {
 }
 
 fn calculate_intermediate_state(_game: &Game) -> IntermediateState {
+    
     IntermediateState::new()
 }
 
@@ -43,6 +40,16 @@ fn character_should_die(game: &Game) -> bool {
 
 fn character_death_update(game: &mut Game) {
     game.state.rebirth_stats.coins += 2.0;
+}
+
+fn apply_housing(game: &mut Game) {
+    let mut housing = translate_housing(game.input.housing);
+    if housing.upkeep > game.state.items.money {
+        housing = translate_housing(InputHousing::StoneFloor);
+        // TODO signal to frontend that you are out of cash?
+    }
+    game.state.items.money -= housing.upkeep;
+    game.intermediate_state.get_gains(&housing);
 }
 
 fn gain_work_xp(input_work: InputWork, state: &mut StateContainer) {

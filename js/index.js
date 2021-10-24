@@ -73,6 +73,9 @@ import("../pkg/index.js")
         save: function () {
           wasm.save();
         },
+        print_debug: function () {
+          wasm.print_debug();
+        },
         hard_reset: function () {
           wasm.hard_reset();
         },
@@ -81,6 +84,8 @@ import("../pkg/index.js")
         },
         tick: function (work_name) {
           wasm.tick();
+          this.state = wasm.get_state();
+          this.input = wasm.get_input();
         },
         set_work: function (work_name) {
           wasm.set_work(work_name);

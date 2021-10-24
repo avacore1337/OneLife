@@ -2,7 +2,7 @@ use crate::input::work::Work as InputWork;
 use serde::{Deserialize, Serialize};
 use strum::IntoEnumIterator;
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct RebirthStats {
     pub rebirth_count: u32,
     pub class_tier: u32,

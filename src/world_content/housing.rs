@@ -1,3 +1,4 @@
+use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::input::housing::Housing as InputHousing;
 use serde::Serialize;
 use strum::IntoEnumIterator;
@@ -12,7 +13,13 @@ pub struct Housing {
     pub health_effect: f64,
 }
 
-pub fn translate_housing(housing: &InputHousing) -> Housing {
+impl Gain for Housing {
+    fn gain(&self, intermediate: &mut IntermediateState) {
+        intermediate.add_multiplier("happiness", self.happiness_factor, "housing");
+    }
+}
+
+pub fn translate_housing(housing: InputHousing) -> Housing {
     match housing {
         InputHousing::StoneFloor => Housing {
             name: InputHousing::StoneFloor,
@@ -52,7 +59,7 @@ pub fn translate_housing(housing: &InputHousing) -> Housing {
 pub fn get_housing() -> Vec<Housing> {
     let mut housing = Vec::<Housing>::new();
     for input_housing in InputHousing::iter() {
-        housing.push(translate_housing(&input_housing));
+        housing.push(translate_housing(input_housing));
     }
     housing
 }

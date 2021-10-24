@@ -7,7 +7,7 @@ use crate::world_content::world::World;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct StateContainer {
     pub base_stats: BaseStats,
     pub rebirth_stats: RebirthStats,
