@@ -28,7 +28,7 @@ import("../pkg/index.js")
           wasm.tick();
           self.state = wasm.get_state();
           self.input = wasm.get_input();
-        }, 100);
+        }, 1000 / 30);
       },
       methods: {
         printableNumbers: function (num) {
@@ -82,8 +82,11 @@ import("../pkg/index.js")
         load: function () {
           wasm.load();
         },
+        set_gamespeed: function (game_speed) {
+          wasm.set_gamespeed(game_speed);
+        },
         tick: function (work_name) {
-          wasm.tick();
+          wasm.single_tick();
           this.state = wasm.get_state();
           this.input = wasm.get_input();
         },
@@ -137,7 +140,7 @@ import("../pkg/index.js")
           } else if (days === 0) {
             return `${years} years`;
           }
-          return `${years} years and ${days} days`;
+          return `${years} years and ${days.toFixed(0)} days`;
         },
         prettyPrint: function (value) {
           if (typeof value !== "number") {

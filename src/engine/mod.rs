@@ -9,8 +9,7 @@ use crate::world_content::housing::translate_housing;
 use crate::world_content::work::translate_work;
 use intermediate_state::IntermediateState;
 
-pub fn engine_run(game: &mut Game, time_delta: f64) {
-    let modified_time_delta = time_delta * game.meta_data.game_speed;
+pub fn engine_run(game: &mut Game) {
     if game.state.life_stats.dead {
         return;
     }
@@ -19,7 +18,10 @@ pub fn engine_run(game: &mut Game, time_delta: f64) {
     apply_housing(game);
     do_work(game.input.work, &mut game.state);
     gain_work_xp(game.input.work, &mut game.state);
-    game.state.life_stats.age += modified_time_delta * game.state.rebirth_stats.time_factor;
+    // Base gamespeed is that one life should take 30min, the game runs in 30 ticks/second
+    // Days/tick = total_days / (ticks in 30 min)
+    // 52*365/(30*60*30) = 0.351
+    game.state.life_stats.age += 0.35 * game.state.rebirth_stats.time_factor;
 
     game.state.life_stats.happiness = game.intermediate_state.get_muliplier("happiness");
     if character_should_die(game) {
@@ -29,7 +31,6 @@ pub fn engine_run(game: &mut Game, time_delta: f64) {
 }
 
 fn calculate_intermediate_state(_game: &Game) -> IntermediateState {
-    
     IntermediateState::new()
 }
 
@@ -54,7 +55,7 @@ fn apply_housing(game: &mut Game) {
 
 fn gain_work_xp(input_work: InputWork, state: &mut StateContainer) {
     let work: &mut StateWork = &mut state.works[input_work as usize];
-    work.next_level_progress += 10.0 * state.life_stats.happiness;
+    work.next_level_progress += 0.3 * state.life_stats.happiness;
     let mut next_level_xp_needed = calculate_next_level_xp_neeeded(work);
     while work.next_level_progress > next_level_xp_needed {
         work.current_level += 1;
@@ -65,7 +66,7 @@ fn gain_work_xp(input_work: InputWork, state: &mut StateContainer) {
 }
 
 fn calculate_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
-    (100 * work.current_level) as f64
+    (100 + (4 * work.current_level * work.current_level)) as f64
 }
 
 fn do_work(input_work: InputWork, state: &mut StateContainer) {

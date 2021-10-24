@@ -47,10 +47,6 @@ npx prettier --write .
 
 ## Both
 
-### R - Base64 import/export
-
-Players need to be able to import/export the game. Single text box with an import/export button. It should override the save.
-
 ### R - Auto-save
 
 Game should auto-save every 60 seconds, but it should be a checkbox to turn it off.
@@ -62,10 +58,6 @@ When save game upgrades are implemented this can possibly replaced by a reposito
 Loading such presets should be part of test/validation.
 
 ## Rust/Engine
-
-### E - Implement protection against save game manipulation
-
-It should be hard to cheat.
 
 ### R - Implement save game export bonuses
 
@@ -79,9 +71,9 @@ https://stackoverflow.com/questions/47070876/how-can-i-merge-two-json-objects-wi
 
 ## Vue/Frontend
 
-### E - Save game to file
+### E - Import save file through text pasting
 
-Players should easily be able to export to a file they can save/download.
+Players should easily be able to import a save either through a text file upload or by pasting in text.
 
 ### R/E - Progress bars.
 

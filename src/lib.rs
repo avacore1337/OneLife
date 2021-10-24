@@ -90,7 +90,7 @@ pub fn do_rebirth() {
 }
 
 #[wasm_bindgen]
-pub fn set_gamespeed(speed: f64) {
+pub fn set_gamespeed(speed: u32) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.game_speed = speed;
 }
@@ -108,7 +108,15 @@ pub fn print_debug() {
 #[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    engine_run(&mut game, 1.0);
+    for _ in 0..game.meta_data.game_speed {
+        engine_run(&mut game);
+    }
+}
+
+#[wasm_bindgen]
+pub fn single_tick() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    engine_run(&mut game);
 }
 
 #[wasm_bindgen]

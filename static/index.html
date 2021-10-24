@@ -64,7 +64,8 @@
                     <span v-if="work.name != input.work">{{ work.name }}</span>
                   </button>
                   <p>
-                    Level: {{state.works[index].current_level}} progress:{{state.works[index].next_level_percentage}}%
+                    Level: {{state.works[index].current_level}}
+                    progress:{{state.works[index].next_level_percentage.toFixed(2)}}%
                   </p>
                 </li>
               </ul>
@@ -101,6 +102,10 @@
           Debug
 
           <br /><br />
+          <button v-on:click="set_gamespeed(1)">Set GameSpeed 1</button>
+          <br />
+          <button v-on:click="set_gamespeed(100)">Set GameSpeed 100</button>
+          <br />
           <button v-on:click="toggle_pause" style="margin: 2px">
             {{paused ? 'Resume the game' : 'Pause the game'}}
           </button>
