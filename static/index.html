@@ -65,7 +65,11 @@
                   </button>
                   <p>
                     Level: {{state.works[index].current_level}}
-                    progress:{{state.works[index].next_level_percentage.toFixed(2)}}%
+                    <b-progress
+                      class="notransition w-75"
+                      :value="state.works[index].next_level_percentage.toFixed(2)"
+                      animated
+                    ></b-progress>
                   </p>
                 </li>
               </ul>

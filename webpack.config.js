@@ -6,6 +6,19 @@ const dist = path.resolve(__dirname, "dist");
 
 module.exports = {
   mode: "production",
+  resolve: {
+    alias: {
+      vue$: "vue/dist/vue.runtime.esm.js",
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
   entry: {
     HackTimer: "./js/HackTimer.js",
     index: "./js/index.js",

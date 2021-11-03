@@ -1,5 +1,13 @@
 import Vue from "vue/dist/vue.js";
+import { BootstrapVue } from "bootstrap-vue";
 import { downloadFile } from "./utility.js";
+
+import "../css/styles.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+
+Vue.use(BootstrapVue);
+
 import("../pkg/index.js")
   .then(function (wasm) {
     const world = wasm.get_world();
@@ -87,6 +95,7 @@ import("../pkg/index.js")
         },
         tick: function (work_name) {
           wasm.single_tick();
+
           this.state = wasm.get_state();
           this.input = wasm.get_input();
         },
