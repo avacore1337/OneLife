@@ -6,8 +6,9 @@ use crate::input::work::Work as InputWork;
 use crate::state::state_container::StateContainer;
 use crate::state::work::Work as StateWork;
 use crate::world_content::housing::translate_housing;
-use crate::world_content::work::translate_work;
+use crate::world_content::work::{should_be_visable_work, should_unlock_work, translate_work};
 use intermediate_state::IntermediateState;
+use strum::IntoEnumIterator;
 
 pub fn engine_run(game: &mut Game) {
     if game.state.life_stats.dead {
@@ -18,6 +19,7 @@ pub fn engine_run(game: &mut Game) {
     apply_housing(game);
     do_work(game.input.work, &mut game.state);
     gain_work_xp(game.input.work as usize, &mut game.state);
+    update_unlocks(game);
     // Base gamespeed is that one life should take 30min, the game runs in 30 ticks/second
     // Days/tick = total_days / (ticks in 30 min)
     // 52*365/(30*60*30) = 0.351
@@ -27,6 +29,15 @@ pub fn engine_run(game: &mut Game) {
     if character_should_die(game) {
         game.state.life_stats.dead = true;
         character_death_update(game);
+    }
+}
+
+fn update_unlocks(game: &mut Game) {
+    for input_work in InputWork::iter() {
+        game.state.works[input_work as usize].is_unlocked = should_unlock_work(input_work, game);
+    }
+    for input_work in InputWork::iter() {
+        game.state.works[input_work as usize].is_visable = should_be_visable_work(input_work, game);
     }
 }
 

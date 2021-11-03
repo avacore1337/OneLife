@@ -9,7 +9,8 @@ pub struct Work {
     pub current_level: u32,
     pub next_level_progress: f64,
     pub next_level_percentage: f64,
-    //pub max_level: u32,
+    pub is_unlocked: bool,
+    pub is_visable: bool,
 }
 
 impl Work {
@@ -19,7 +20,8 @@ impl Work {
             current_level: 0,
             next_level_progress: 0.0,
             next_level_percentage: 0.0,
-            //max_level: 0,
+            is_unlocked: false,
+            is_visable: true,
         }
     }
 }

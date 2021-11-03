@@ -1,3 +1,4 @@
+use crate::game::Game;
 use crate::input::work::Work as InputWork;
 use serde::Serialize;
 use strum::IntoEnumIterator;
@@ -44,6 +45,25 @@ pub fn translate_work(work: InputWork) -> Work {
             required_tier: 2,
         },
     }
+}
+
+pub fn should_unlock_work(input_work: InputWork, game: &Game) -> bool {
+    let work = &game.world.works[input_work as usize];
+    if work.required_tier > game.state.rebirth_stats.class_tier {
+        return false;
+    }
+    match input_work {
+        InputWork::Mines => true,
+        InputWork::Fields => game.state.works[InputWork::Mines as usize].current_level > 10,
+        InputWork::Servant => game.state.works[InputWork::Fields as usize].current_level > 10,
+        InputWork::Teacher => game.state.works[InputWork::Servant as usize].current_level > 10,
+        InputWork::Farm => game.state.works[InputWork::Teacher as usize].current_level > 10,
+    }
+}
+
+pub fn should_be_visable_work(input_work: InputWork, game: &Game) -> bool {
+    let work = &game.world.works[input_work as usize];
+    work.required_tier <= game.state.rebirth_stats.class_tier + 1
 }
 
 pub fn get_works() -> Vec<Work> {
