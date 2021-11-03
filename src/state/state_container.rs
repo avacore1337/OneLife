@@ -3,7 +3,9 @@ use super::life_stats::LifeStats;
 use super::rebirth_stats::RebirthStats;
 use super::stats::BaseStats;
 use super::work::{get_works, Work};
+use crate::input::work::Work as InputWork;
 use crate::world_content::world::World;
+use std::mem::size_of;
 
 use serde::{Deserialize, Serialize};
 
@@ -13,7 +15,7 @@ pub struct StateContainer {
     pub rebirth_stats: RebirthStats,
     pub life_stats: LifeStats,
     pub items: Items,
-    pub works: Vec<Work>,
+    pub works: [Work; size_of::<InputWork>()],
 }
 
 pub fn new_game(world: &World) -> StateContainer {

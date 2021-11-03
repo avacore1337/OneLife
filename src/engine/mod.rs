@@ -40,10 +40,10 @@ fn character_should_die(game: &Game) -> bool {
 }
 
 fn character_death_update(game: &mut Game) {
-    for work in game.state.works.iter() {
+    // for work in game.state.works.iter() {
 
-        // if work.current_level
-    }
+    //     // if work.current_level
+    // }
     game.state.rebirth_stats.coins += 2.0;
 }
 

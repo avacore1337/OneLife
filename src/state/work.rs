@@ -1,5 +1,7 @@
 use crate::input::work::Work as InputWork;
 use serde::{Deserialize, Serialize};
+use std::mem::size_of;
+use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 use wasm_bindgen::prelude::*;
 
@@ -25,10 +27,11 @@ impl Work {
     }
 }
 
-pub fn get_works() -> Vec<Work> {
-    let mut works = Vec::<Work>::new();
+pub fn get_works() -> [Work; size_of::<InputWork>()] {
+    let mut works: [MaybeUninit<Work>; size_of::<InputWork>()] =
+        unsafe { MaybeUninit::uninit().assume_init() };
     for name in InputWork::iter() {
-        works.push(Work::new(name));
+        works[name as usize].write(Work::new(name));
     }
-    works
+    unsafe { mem::transmute(works) }
 }
