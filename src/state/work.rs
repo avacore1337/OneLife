@@ -1,11 +1,8 @@
-use crate::input::work::Work as InputWork;
+use crate::input::work::{Work as InputWork, WORK_SIZE};
 use serde::{Deserialize, Serialize};
-use std::mem::size_of;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
-use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
 #[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Work {
     pub name: InputWork,
@@ -27,9 +24,8 @@ impl Work {
     }
 }
 
-pub fn get_works() -> [Work; size_of::<InputWork>()] {
-    let mut works: [MaybeUninit<Work>; size_of::<InputWork>()] =
-        unsafe { MaybeUninit::uninit().assume_init() };
+pub fn get_works() -> [Work; WORK_SIZE] {
+    let mut works: [MaybeUninit<Work>; WORK_SIZE] = unsafe { MaybeUninit::uninit().assume_init() };
     for name in InputWork::iter() {
         works[name as usize].write(Work::new(name));
     }

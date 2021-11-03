@@ -1,3 +1,4 @@
+#![feature(variant_count)]
 // use serde_json::json;
 use libflate::gzip::{Decoder, Encoder};
 use once_cell::sync::Lazy;

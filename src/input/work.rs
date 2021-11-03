@@ -1,8 +1,7 @@
 use serde::{Deserialize, Serialize};
+use std::mem::variant_count;
 use strum::EnumIter;
-use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug)]
 pub enum Work {
     Mines,
@@ -11,3 +10,5 @@ pub enum Work {
     Teacher,
     Farm,
 }
+
+pub const WORK_SIZE: usize = variant_count::<Work>();
