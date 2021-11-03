@@ -1,6 +1,5 @@
-use crate::input::work::Work as InputWork;
+use crate::input::work::WORK_SIZE;
 use serde::{Deserialize, Serialize};
-use strum::IntoEnumIterator;
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct RebirthStats {
@@ -9,7 +8,7 @@ pub struct RebirthStats {
     pub coins: f64,
     pub karma: f64,
     pub time_factor: f64,
-    pub max_job_levels: Vec<u32>,
+    pub max_job_levels: [u32; WORK_SIZE],
 }
 
 impl RebirthStats {
@@ -20,15 +19,7 @@ impl RebirthStats {
             coins: 0.0,
             karma: 0.0,
             time_factor: 1.0,
-            max_job_levels: new_works(),
+            max_job_levels: [0; WORK_SIZE],
         }
     }
-}
-
-pub fn new_works() -> Vec<u32> {
-    let mut works = Vec::<u32>::new();
-    for _input_work in InputWork::iter() {
-        works.push(0);
-    }
-    works
 }

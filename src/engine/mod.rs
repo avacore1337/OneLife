@@ -17,7 +17,7 @@ pub fn engine_run(game: &mut Game) {
     let _old_state = game.state.clone(); //TODO use?
     apply_housing(game);
     do_work(game.input.work, &mut game.state);
-    gain_work_xp(game.input.work, &mut game.state);
+    gain_work_xp(game.input.work as usize, &mut game.state);
     // Base gamespeed is that one life should take 30min, the game runs in 30 ticks/second
     // Days/tick = total_days / (ticks in 30 min)
     // 52*365/(30*60*30) = 0.351
@@ -40,10 +40,12 @@ fn character_should_die(game: &Game) -> bool {
 }
 
 fn character_death_update(game: &mut Game) {
-    // for work in game.state.works.iter() {
-
-    //     // if work.current_level
-    // }
+    for (index, work) in game.state.works.iter().enumerate() {
+        game.state.rebirth_stats.max_job_levels[index] = std::cmp::max(
+            game.state.rebirth_stats.max_job_levels[index],
+            work.current_level,
+        );
+    }
     game.state.rebirth_stats.coins += 2.0;
 }
 
@@ -57,9 +59,11 @@ fn apply_housing(game: &mut Game) {
     game.intermediate_state.get_gains(&housing);
 }
 
-fn gain_work_xp(input_work: InputWork, state: &mut StateContainer) {
-    let work: &mut StateWork = &mut state.works[input_work as usize];
-    work.next_level_progress += 0.3 * state.life_stats.happiness;
+fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
+    let work: &mut StateWork = &mut state.works[input_work];
+    work.next_level_progress += 0.3
+        * state.life_stats.happiness
+        * (1.0 + f64::sqrt(state.rebirth_stats.max_job_levels[input_work] as f64));
     let mut next_level_xp_needed = calculate_next_level_xp_neeeded(work);
     while work.next_level_progress > next_level_xp_needed {
         work.current_level += 1;

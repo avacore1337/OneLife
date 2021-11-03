@@ -86,11 +86,12 @@ pub fn set_preset_saves(preset_name: &str) {
 #[wasm_bindgen]
 pub fn do_rebirth() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    if game.state.life_stats.dead {
+    if !game.state.life_stats.dead {
         return;
     }
     game.state.rebirth_stats.rebirth_count += 1;
     game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
+    console::log_1(&JsValue::from_str("Rust did rebirth"));
 }
 
 #[wasm_bindgen]
