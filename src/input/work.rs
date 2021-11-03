@@ -1,7 +1,9 @@
 use serde::{Deserialize, Serialize};
 use strum::EnumIter;
+use wasm_bindgen::prelude::*;
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy)]
+#[wasm_bindgen]
+#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug)]
 pub enum Work {
     Mines,
     Fields,

@@ -23,7 +23,7 @@ pub fn engine_run(game: &mut Game) {
     // 52*365/(30*60*30) = 0.351
     game.state.life_stats.age += 0.35 * game.state.rebirth_stats.time_factor;
 
-    game.state.life_stats.happiness = game.intermediate_state.get_muliplier("happiness");
+    game.state.life_stats.happiness = game.intermediate_state.get_value("happiness");
     if character_should_die(game) {
         game.state.life_stats.dead = true;
         character_death_update(game);
@@ -40,6 +40,10 @@ fn character_should_die(game: &Game) -> bool {
 }
 
 fn character_death_update(game: &mut Game) {
+    for work in game.state.works.iter() {
+
+        // if work.current_level
+    }
     game.state.rebirth_stats.coins += 2.0;
 }
 

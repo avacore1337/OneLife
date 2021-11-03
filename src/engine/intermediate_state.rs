@@ -12,23 +12,17 @@ impl ValueGains {
     pub fn new(name: &'static str) -> ValueGains {
         ValueGains {
             name,
-            base_gain: 0.0,
+            base_gain: 1.0,
             multipliers: Vec::new(),
         }
     }
 
-    // pub fn calculate_value(&self) -> f64 {
-    //     let sum = self
-    //         .multipliers
-    //         .iter()
-    //         .fold(1.0, |acc: f64, elem: &Multiplier| acc * elem.factor);
-    //     self.base_gain * sum
-    // }
-
-    pub fn calculate_multiplier(&self) -> f64 {
-        self.multipliers
+    pub fn calculate_value(&self) -> f64 {
+        let sum = self
+            .multipliers
             .iter()
-            .fold(1.0, |acc: f64, elem: &Multiplier| acc * elem.factor)
+            .fold(1.0, |acc: f64, elem: &Multiplier| acc * elem.factor);
+        self.base_gain * sum
     }
 }
 
@@ -50,18 +44,11 @@ impl IntermediateState {
         }
     }
 
-    // pub fn get_value(&mut self, key: &'static str) -> f64 {
-    //     self.value_gains
-    //         .get(key)
-    //         .map(|value_gains| value_gains.calculate_value())
-    //         .unwrap_or(0.0)
-    // }
-
-    pub fn get_muliplier(&mut self, key: &'static str) -> f64 {
+    pub fn get_value(&mut self, key: &'static str) -> f64 {
         self.value_gains
             .get(key)
-            .map(|value_gains| value_gains.calculate_multiplier())
-            .unwrap_or(1.0)
+            .map(|value_gains| value_gains.calculate_value())
+            .unwrap_or(0.0)
     }
 
     pub fn get_gains<T: Gain>(&mut self, source: &T) {
