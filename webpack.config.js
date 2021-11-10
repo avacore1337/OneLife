@@ -8,7 +8,7 @@ module.exports = {
   mode: "production",
   resolve: {
     alias: {
-      vue$: "vue/dist/vue.runtime.esm.js",
+      vue$: "vue/dist/vue.js",
     },
   },
   module: {
