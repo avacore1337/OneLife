@@ -158,8 +158,16 @@ export default {
   components: { Placeholder },
   data() {
     return {
-      world: {},
-      state: {},
+      world: {
+        works: [],
+        tiers: [],
+      },
+      state: {
+        base_stats: {},
+        items: {},
+        life_stats: {},
+        rebirth_stats: {},
+      },
       input: {},
       presets: {},
       paused: false,
@@ -185,6 +193,10 @@ export default {
   },
   methods: {
     printableNumbers: function (num) {
+      if (num === undefined) {
+        return null;
+      }
+
       if (num < 100) {
         return num.toFixed(1);
       }
