@@ -6,6 +6,6 @@ pub struct MetaData {
 }
 impl MetaData {
     pub fn new() -> MetaData {
-        MetaData { game_speed: 100 }
+        MetaData { game_speed: 10 }
     }
 }
