@@ -1,27 +1,23 @@
+use js_sys::Date;
 use serde::{Deserialize, Serialize};
-// use std::time::{Duration, SystemTime};
 
 #[derive(Serialize, Deserialize, Clone, Copy)]
 pub struct MetaData {
     pub game_speed: u32,
     pub autosave: bool,
-    // last_save_time: Duration,
+    pub last_save_time: f64,
 }
 impl MetaData {
     pub fn new() -> MetaData {
         MetaData {
             game_speed: 100,
             autosave: false,
-            // last_save_time: time,
+            last_save_time: Date::new_0().get_time(),
         }
     }
 
     pub fn should_autosave(self) -> bool {
-        false
-        // let time = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
-        //     Ok(n) => n,
-        //     Err(_) => panic!("SystemTime before UNIX EPOCH!"),
-        // };
-        // self.autosave && time >= self.last_save_time + Duration::from_secs(60)
+        let now = Date::new_0().get_time();
+        self.autosave && now >= self.last_save_time + (60.0 * 1000.0)
     }
 }
