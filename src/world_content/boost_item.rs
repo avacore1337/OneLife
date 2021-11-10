@@ -14,8 +14,15 @@ pub struct BoostItem {
 }
 
 impl Gain for BoostItem {
-    fn gain(&self, _intermediate: &mut IntermediateState) {
-        // intermediate.add_multiplier("happiness", self.happiness_factor, "housing");
+    fn gain(&self, intermediate: &mut IntermediateState) {
+        match self.name {
+            BoostItemTypes::Book => {
+                intermediate.add_multiplier("int", 2.0, "book");
+            }
+            BoostItemTypes::Dumbell => {
+                intermediate.add_multiplier("str", 2.0, "book");
+            }
+        }
     }
 }
 

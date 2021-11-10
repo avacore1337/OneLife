@@ -65,6 +65,14 @@ impl IntermediateState {
             source_descriptor: source,
         });
     }
+
+    pub fn set_base(&mut self, key: &'static str, value: f64) {
+        let values = self
+            .value_gains
+            .entry(key)
+            .or_insert_with(|| ValueGains::new(key));
+        values.base_gain = value;
+    }
 }
 
 pub trait Gain {

@@ -1,3 +1,4 @@
+use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::game::Game;
 use crate::input::work::Work as InputWork;
 use serde::Serialize;
@@ -10,6 +11,17 @@ pub struct Work {
     pub description: &'static str,
     pub required_tier: u32,
     // pub stat_gains: BaseStats,
+}
+
+impl Gain for Work {
+    fn gain(&self, intermediate: &mut IntermediateState) {
+        match self.name {
+            InputWork::Farm => {
+                intermediate.set_base("str", 1.0);
+            }
+            _ => (),
+        }
+    }
 }
 
 pub fn translate_work(work: InputWork) -> Work {
