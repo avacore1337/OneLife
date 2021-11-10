@@ -1,6 +1,7 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 const dist = path.resolve(__dirname, "dist");
 
@@ -13,10 +14,9 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
+      { test: /\.js$/, use: "babel-loader" },
+      { test: /\.vue$/, use: "vue-loader" },
+      { test: /\.css$/, use: ["vue-style-loader", "css-loader"] },
     ],
   },
   entry: {
@@ -36,5 +36,7 @@ module.exports = {
     new WasmPackPlugin({
       crateDirectory: __dirname,
     }),
+
+    new VueLoaderPlugin(),
   ],
 };
