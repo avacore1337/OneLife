@@ -37,7 +37,7 @@ fn update_unlocks(game: &mut Game) {
         game.state.works[input_work as usize].is_unlocked = should_unlock_work(input_work, game);
     }
     for input_work in InputWork::iter() {
-        game.state.works[input_work as usize].is_visable = should_be_visable_work(input_work, game);
+        game.state.works[input_work as usize].is_visible = should_be_visable_work(input_work, game);
     }
 }
 

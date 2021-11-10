@@ -10,7 +10,7 @@ pub struct Work {
     pub next_level_progress: f64,
     pub next_level_percentage: f64,
     pub is_unlocked: bool,
-    pub is_visable: bool,
+    pub is_visible: bool,
 }
 
 impl Work {
@@ -21,7 +21,7 @@ impl Work {
             next_level_progress: 0.0,
             next_level_percentage: 0.0,
             is_unlocked: false,
-            is_visable: true,
+            is_visible: true,
         }
     }
 }
