@@ -5,6 +5,7 @@ use crate::input::housing::Housing as InputHousing;
 use crate::input::work::Work as InputWork;
 use crate::state::state_container::StateContainer;
 use crate::state::work::Work as StateWork;
+use crate::world_content::boost_item::translate_boost_item;
 use crate::world_content::housing::translate_housing;
 use crate::world_content::work::{should_be_visable_work, should_unlock_work, translate_work};
 use intermediate_state::IntermediateState;
@@ -17,6 +18,7 @@ pub fn engine_run(game: &mut Game) {
     game.intermediate_state = calculate_intermediate_state(game);
     let _old_state = game.state.clone(); //TODO use?
     apply_housing(game);
+    apply_items(game);
     do_work(game.input.work, &mut game.state);
     gain_work_xp(game.input.work as usize, &mut game.state);
     update_unlocks(game);
@@ -68,6 +70,16 @@ fn apply_housing(game: &mut Game) {
     }
     game.state.items.money -= housing.upkeep;
     game.intermediate_state.get_gains(&housing);
+}
+
+fn apply_items(game: &mut Game) {
+    for item in game.state.items.boost_items {
+        if item.is_unlocked {
+            let boost_item = translate_boost_item(item.name);
+            game.intermediate_state.get_gains(&boost_item);
+            //
+        }
+    }
 }
 
 fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
