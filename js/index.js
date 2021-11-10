@@ -117,6 +117,9 @@ import("../pkg/index.js")
         toggle_pause: function () {
           this.paused = !this.paused;
         },
+        set_autosave: function (autosave) {
+          wasm.set_autosave(autosave);
+        },
         can_buy_tier: function (tier) {
           return wasm.can_buy_tier(tier.level);
         },

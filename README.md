@@ -47,16 +47,6 @@ npx prettier --write .
 
 ## Both
 
-### R - Auto-save
-
-Game should auto-save every 60 seconds, but it should be a checkbox to turn it off.
-
-### C - implement save-game presets
-
-Rust based game state presets that should be there for testing different things like rebirths, purchasing stuff etc.
-When save game upgrades are implemented this can possibly replaced by a repository of saved games.
-Loading such presets should be part of test/validation.
-
 ## Rust/Engine
 
 ### R - Implement save game export bonuses
@@ -71,11 +61,10 @@ https://stackoverflow.com/questions/47070876/how-can-i-merge-two-json-objects-wi
 
 ## Vue/Frontend
 
+### R - Auto-save
+
+add a checkbox to turn it on/off, set_autosave is index.js
+
 ### E - Import save file through text pasting
 
 Players should easily be able to import a save either through a text file upload or by pasting in text.
-
-### R/E - Progress bars.
-
-Things that has progress towards a descrete level should have a progress bar and a percentage.
-It would also be nice if the progress bar feels smooth.
