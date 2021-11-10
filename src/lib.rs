@@ -101,6 +101,12 @@ pub fn set_gamespeed(speed: u32) {
 }
 
 #[wasm_bindgen]
+pub fn set_autosave(autosave: bool) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.autosave = autosave;
+}
+
+#[wasm_bindgen]
 pub fn print_debug() {
     let game = GLOBAL_DATA.lock().unwrap();
     console::log_1(&JsValue::from_str(&format!(
@@ -113,6 +119,9 @@ pub fn print_debug() {
 #[wasm_bindgen]
 pub fn tick() {
     let mut game = GLOBAL_DATA.lock().unwrap();
+    if game.meta_data.should_autosave() {
+        save();
+    }
     for _ in 0..game.meta_data.game_speed {
         engine_run(&mut game);
     }
