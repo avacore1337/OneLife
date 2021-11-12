@@ -47,7 +47,7 @@
     <div style="margin-left: 420px">
       <div style="float: left">
         <div style="border: solid; width: 400px; float: left">
-          <Works v-bind:state="state" v-bind:wasm="wasm" />
+          <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
 
           <div style="border: solid; margin: 2px">
             Housing

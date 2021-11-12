@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  props: ["state", "wasm"],
+  props: ["state", "world", "input", "wasm"],
   methods: {
     set_work: function (work_name) {
       this.wasm.set_work(work_name);
