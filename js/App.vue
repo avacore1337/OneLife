@@ -47,34 +47,8 @@
     <div style="margin-left: 420px">
       <div style="float: left">
         <div style="border: solid; width: 400px; float: left">
-          <div style="border: solid; margin: 2px">
-            Works
-            <ul>
-              <li
-                v-for="(work, index) in world.works.filter(
-                  (work, index) => work.required_tier <= state.rebirth_stats.class_tier && state.works[index].is_visible
-                )"
-                :key="work.name"
-              >
-                <button
-                  v-on:click="!work.is_unlocked && set_work(work.name)"
-                  style="margin: 2px"
-                  :disabled="work.is_unlocked"
-                >
-                  <span v-if="work.name == input.work">{{ work.name }} &lt;-- </span>
-                  <span v-if="work.name != input.work">{{ work.name }}</span>
-                </button>
-                <p>
-                  Level: {{ state.works[index].current_level }}
-                  <b-progress
-                    class="notransition w-75"
-                    :value="state.works[index].next_level_percentage.toFixed(2)"
-                    animated
-                  ></b-progress>
-                </p>
-              </li>
-            </ul>
-          </div>
+          <Works v-bind:state="state" v-bind:wasm="wasm" />
+
           <div style="border: solid; margin: 2px">
             Housing
             <ul>
@@ -136,13 +110,11 @@
         </div>
       </div>
     </div>
-
-    <Placeholder message="Hello down there" />
   </div>
 </template>
 
 <script>
-import Placeholder from "./components/Placeholder.vue";
+import Works from "./components/Works.vue";
 
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
@@ -155,7 +127,7 @@ Vue.use(BootstrapVue);
 
 export default {
   props: ["wasm"],
-  components: { Placeholder },
+  components: { Works },
   data() {
     return {
       world: {
@@ -255,9 +227,6 @@ export default {
 
       this.state = this.wasm.get_state();
       this.input = this.wasm.get_input();
-    },
-    set_work: function (work_name) {
-      this.wasm.set_work(work_name);
     },
     set_housing: function (housing_name) {
       this.wasm.set_housing(housing_name);
