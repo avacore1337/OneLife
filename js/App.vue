@@ -7,15 +7,7 @@
       <button v-on:click="setNumberFormat">{{ nextNumberFormat(numberFormat) }}</button>
 
       <br />
-      Base stats
-      <div style="border: solid; margin: 2px; padding: 10px">
-        <p>Strength: {{ state.base_stats.str }}</p>
-        <p>Intelligence: {{ state.base_stats.int }}</p>
-        <p>Charisma: {{ state.base_stats.cha }}</p>
-        <p>Constitution: {{ state.base_stats.con }}</p>
-        <p>Dexterity: {{ state.base_stats.dex }}</p>
-        <p>Faith: {{ state.base_stats.faith }}</p>
-      </div>
+      <BaseStats v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
 
       <br />
       Items
@@ -48,18 +40,7 @@
       <div style="float: left">
         <div style="border: solid; width: 400px; float: left">
           <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-
-          <div style="border: solid; margin: 2px">
-            Housing
-            <ul>
-              <li v-for="housing in world.housing" :key="housing.name">
-                <button v-on:click="set_housing(housing.name)" style="margin: 2px">
-                  <span v-if="housing.name == input.housing">{{ housing.name }} &lt;-- </span>
-                  <span v-if="housing.name != input.housing">{{ housing.name }}</span>
-                </button>
-              </li>
-            </ul>
-          </div>
+          <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         </div>
         <!-- <div style="border:solid;margin-left: 420px; width: 400px;" v-if="state.life_stats.dead"> -->
         <div style="border: solid; margin-left: 420px; width: 400px">
@@ -115,6 +96,8 @@
 
 <script>
 import Works from "./components/Works.vue";
+import Housing from "./components/Housing.vue";
+import BaseStats from "./components/BaseStats.vue";
 
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
@@ -127,7 +110,7 @@ Vue.use(BootstrapVue);
 
 export default {
   props: ["wasm"],
-  components: { Works },
+  components: { Works, Housing, BaseStats },
   data() {
     return {
       world: {
@@ -227,9 +210,6 @@ export default {
 
       this.state = this.wasm.get_state();
       this.input = this.wasm.get_input();
-    },
-    set_housing: function (housing_name) {
-      this.wasm.set_housing(housing_name);
     },
     buy_tier: function (index) {
       this.wasm.buy_tier(index);
