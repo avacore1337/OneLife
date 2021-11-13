@@ -1,39 +1,7 @@
 <template>
   <div>
     <div style="width: 300px; float: left">
-      <button v-on:click="save">Save</button>
-      <button v-on:click="load">Load</button>
-      <button v-on:click="hard_reset">Hard Reset</button>
-      <button v-on:click="setNumberFormat">{{ nextNumberFormat(numberFormat) }}</button>
-
-      <br />
-      <BaseStats v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-
-      <br />
-      Items
-      <div style="border: solid; margin: 2px; padding: 10px">
-        <p>Money: {{ printableNumbers(state.items.money) }}</p>
-      </div>
-
-      <br />
-      Life Stats
-      <div style="border: solid; margin: 2px; padding: 10px">
-        <p>Age: {{ prettyPrintDays(state.life_stats.age) }}</p>
-        <p>Lifespan: {{ prettyPrintDays(state.life_stats.lifespan) }}</p>
-        <p>Health: {{ state.life_stats.health }}</p>
-        <p>Happiness: {{ state.life_stats.happiness }}</p>
-        <p>Alive: {{ state.life_stats.dead ? "No ;(" : "Yes :)" }}</p>
-      </div>
-
-      <br />
-      Rebirth Stats
-      <div style="border: solid; margin: 2px; padding: 10px">
-        <p>Life number {{ state.rebirth_stats.rebirth_count + 1 }}</p>
-        <p>Class: {{ state.rebirth_stats.class_tier }}</p>
-        <p>Coins: {{ state.rebirth_stats.coins }}</p>
-        <p>Karma: {{ state.rebirth_stats.karma }}</p>
-        <p>Time multiplier: {{ state.rebirth_stats.time_factor }}</p>
-      </div>
+      <Sidebar v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
     </div>
 
     <div style="margin-left: 420px">
@@ -97,7 +65,7 @@
 <script>
 import Works from "./components/Works.vue";
 import Housing from "./components/Housing.vue";
-import BaseStats from "./components/BaseStats.vue";
+import Sidebar from "./components/Sidebar.vue";
 
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
@@ -110,7 +78,7 @@ Vue.use(BootstrapVue);
 
 export default {
   props: ["wasm"],
-  components: { Works, Housing, BaseStats },
+  components: { Works, Housing, Sidebar },
   data() {
     return {
       world: {
@@ -126,7 +94,6 @@ export default {
       input: {},
       presets: {},
       paused: false,
-      numberFormat: "DEFAULT",
     };
   },
   mounted: function () {
@@ -147,60 +114,8 @@ export default {
     }, 1000 / 30);
   },
   methods: {
-    printableNumbers: function (num) {
-      if (num === undefined) {
-        return null;
-      }
-
-      if (num < 100) {
-        return num.toFixed(1);
-      }
-      if (num < 10000) {
-        return Math.floor(num).toString();
-      }
-
-      if (this.numberFormat === "SCIENTIFIC") {
-        let exponent = 1;
-        while (num >= 10) {
-          num /= 10;
-          exponent++;
-        }
-
-        return `${num.toFixed(1)}e${exponent}`;
-      }
-
-      const ending = ["K", "M", "B", "T", "Qa", "Qi", "He", "Se", "Oc", "No", "De"];
-      let index = -1;
-      while (num >= 10000 && index < ending.length - 1) {
-        num /= 1000;
-        index++;
-      }
-
-      return `${num.toFixed(1)}${ending[index]}`;
-    },
-    nextNumberFormat: function (numberFormat) {
-      return {
-        DEFAULT: "Scientific notation",
-        SCIENTIFIC: "Natural numbers",
-      }[numberFormat];
-    },
-    setNumberFormat: function () {
-      this.numberFormat = {
-        DEFAULT: "SCIENTIFIC",
-        SCIENTIFIC: "DEFAULT",
-      }[this.numberFormat];
-    },
-    save: function () {
-      this.wasm.save();
-    },
     print_debug: function () {
       this.wasm.print_debug();
-    },
-    hard_reset: function () {
-      this.wasm.hard_reset();
-    },
-    load: function () {
-      this.wasm.load();
     },
     set_gamespeed: function (game_speed) {
       this.wasm.set_gamespeed(game_speed);
@@ -251,24 +166,6 @@ export default {
         };
       })(f);
       reader.readAsText(f);
-    },
-    prettyPrintDays: function (total_days) {
-      const years = Math.floor(total_days / 365);
-      const days = total_days % 365;
-
-      if (years === 0) {
-        return `${days} days`;
-      } else if (days === 0) {
-        return `${years} years`;
-      }
-      return `${years} years and ${days.toFixed(0)} days`;
-    },
-    prettyPrint: function (value) {
-      if (typeof value !== "number") {
-        return value;
-      }
-
-      return this.printableNumbers(value);
     },
   },
 };
