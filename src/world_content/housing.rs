@@ -1,6 +1,7 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
-use crate::input::housing::Housing as InputHousing;
+use crate::input::housing::{Housing as InputHousing, HOUSING_SIZE};
 use serde::Serialize;
+use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
 #[derive(Serialize)]
@@ -56,10 +57,11 @@ pub fn translate_housing(housing: InputHousing) -> Housing {
     }
 }
 
-pub fn get_housing() -> Vec<Housing> {
-    let mut housing = Vec::<Housing>::new();
-    for input_housing in InputHousing::iter() {
-        housing.push(translate_housing(input_housing));
+pub fn get_housing() -> [Housing; HOUSING_SIZE] {
+    let mut housing: [MaybeUninit<Housing>; HOUSING_SIZE] =
+        unsafe { MaybeUninit::uninit().assume_init() };
+    for name in InputHousing::iter() {
+        housing[name as usize].write(translate_housing(name));
     }
-    housing
+    unsafe { mem::transmute(housing) }
 }

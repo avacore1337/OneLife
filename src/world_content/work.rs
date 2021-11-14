@@ -1,7 +1,8 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::game::Game;
-use crate::input::work::Work as InputWork;
+use crate::input::work::{Work as InputWork, WORK_SIZE};
 use serde::Serialize;
+use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
 #[derive(Serialize)]
@@ -78,10 +79,10 @@ pub fn should_be_visable_work(input_work: InputWork, game: &Game) -> bool {
     work.required_tier <= game.state.rebirth_stats.class_tier + 1
 }
 
-pub fn get_works() -> Vec<Work> {
-    let mut works = Vec::<Work>::new();
-    for input_work in InputWork::iter() {
-        works.push(translate_work(input_work));
+pub fn get_works() -> [Work; WORK_SIZE] {
+    let mut works: [MaybeUninit<Work>; WORK_SIZE] = unsafe { MaybeUninit::uninit().assume_init() };
+    for name in InputWork::iter() {
+        works[name as usize].write(translate_work(name));
     }
-    works
+    unsafe { mem::transmute(works) }
 }
