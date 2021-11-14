@@ -7,14 +7,14 @@ use strum::IntoEnumIterator;
 #[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct BoostItem {
     pub name: BoostItemTypes,
-    pub is_unlocked: bool,
+    pub is_purchased: bool,
 }
 
 impl BoostItem {
     pub fn new(item_type: BoostItemTypes) -> BoostItem {
         BoostItem {
             name: item_type,
-            is_unlocked: false,
+            is_purchased: false,
         }
     }
 }

@@ -49,6 +49,7 @@ export default {
       world: {
         works: [],
         tiers: [],
+        boost_items: [],
       },
       state: {
         base_stats: {},

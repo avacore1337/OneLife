@@ -1,8 +1,9 @@
 // use crate::game::Game;
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
-use crate::input::boost_item::BoostItemTypes;
+use crate::input::boost_item::{BoostItemTypes, BOOST_ITEM_SIZE};
 use serde::Serialize;
+use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
 #[derive(Serialize)]
@@ -63,10 +64,11 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
 //     work.required_tier <= game.state.rebirth_stats.class_tier + 1
 // }
 
-pub fn get_boost_items() -> Vec<BoostItem> {
-    let mut boost_items = Vec::<BoostItem>::new();
-    for boost_item_type in BoostItemTypes::iter() {
-        boost_items.push(translate_boost_item(boost_item_type));
+pub fn get_boost_items() -> [BoostItem; BOOST_ITEM_SIZE] {
+    let mut boost_items: [MaybeUninit<BoostItem>; BOOST_ITEM_SIZE] =
+        unsafe { MaybeUninit::uninit().assume_init() };
+    for name in BoostItemTypes::iter() {
+        boost_items[name as usize].write(translate_boost_item(name));
     }
-    boost_items
+    unsafe { mem::transmute(boost_items) }
 }

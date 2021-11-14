@@ -189,7 +189,7 @@ pub fn buy_item(val: &JsValue) {
         let mut game = GLOBAL_DATA.lock().unwrap();
         let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
         game.state.items.money -= item.purchasing_cost;
-        game.state.items.boost_items[boost_item_type as usize].is_unlocked = true;
+        game.state.items.boost_items[boost_item_type as usize].is_purchased = true;
     }
 }
 
