@@ -13,7 +13,7 @@ impl ValueGains {
     pub fn new(name: KeyValues) -> ValueGains {
         ValueGains {
             key: name,
-            base_gain: 1.0,
+            base_gain: 0.0,
             multipliers: Vec::new(),
         }
     }
@@ -24,6 +24,12 @@ impl ValueGains {
             .iter()
             .fold(1.0, |acc: f64, elem: &Multiplier| acc * elem.factor);
         self.base_gain * sum
+    }
+
+    pub fn calculate_muliplier(&self) -> f64 {
+        self.multipliers
+            .iter()
+            .fold(1.0, |acc: f64, elem: &Multiplier| acc * elem.factor)
     }
 }
 
@@ -50,6 +56,13 @@ impl IntermediateState {
             .get(&key)
             .map(|value_gains| value_gains.calculate_value())
             .unwrap_or(0.0)
+    }
+
+    pub fn get_multiplier(&mut self, key: KeyValues) -> f64 {
+        self.value_gains
+            .get(&key)
+            .map(|value_gains| value_gains.calculate_muliplier())
+            .unwrap_or(1.0)
     }
 
     pub fn get_gains<T: Gain>(&mut self, source: &T) {

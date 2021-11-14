@@ -18,10 +18,21 @@ pub struct Work {
 impl Gain for Work {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
-            InputWork::Farm => {
+            InputWork::Mines => {
                 intermediate.set_base(KeyValues::Str, 1.0);
             }
-            _ => (),
+            InputWork::Fields => {
+                intermediate.set_base(KeyValues::Str, 2.0);
+            }
+            InputWork::Servant => {
+                intermediate.set_base(KeyValues::Cha, 1.0);
+            }
+            InputWork::Teacher => {
+                intermediate.set_base(KeyValues::Int, 1.0);
+            }
+            InputWork::Farm => {
+                intermediate.set_base(KeyValues::Str, 3.0);
+            }
         }
     }
 }

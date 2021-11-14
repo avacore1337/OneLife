@@ -4,8 +4,10 @@ pub mod value_keys;
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::housing::Housing as InputHousing;
+use crate::input::stat::Stat as InputStat;
 use crate::input::work::Work as InputWork;
 use crate::state::state_container::StateContainer;
+use crate::state::stats::Stat;
 use crate::state::work::Work as StateWork;
 use crate::world_content::boost_item::translate_boost_item;
 use crate::world_content::housing::translate_housing;
@@ -21,15 +23,17 @@ pub fn engine_run(game: &mut Game) {
     let _old_state = game.state.clone(); //TODO use?
     apply_housing(game);
     apply_items(game);
+    apply_work(game);
     do_work(game.input.work, &mut game.state);
     gain_work_xp(game.input.work as usize, &mut game.state);
+    gain_stat_xp(game);
     update_unlocks(game);
     // Base gamespeed is that one life should take 30min, the game runs in 30 ticks/second
     // Days/tick = total_days / (ticks in 30 min)
     // 52*365/(30*60*30) = 0.351
     game.state.life_stats.age += 0.35 * game.state.rebirth_stats.time_factor;
 
-    game.state.life_stats.happiness = game.intermediate_state.get_value(KeyValues::Happiness);
+    game.state.life_stats.happiness = game.intermediate_state.get_multiplier(KeyValues::Happiness);
     if character_should_die(game) {
         game.state.life_stats.dead = true;
         character_death_update(game);
@@ -84,21 +88,45 @@ fn apply_items(game: &mut Game) {
     }
 }
 
+fn apply_work(game: &mut Game) {
+    let work = translate_work(game.input.work);
+    game.intermediate_state.get_gains(&work);
+}
+
 fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
     let work: &mut StateWork = &mut state.works[input_work];
     work.next_level_progress += 0.3
         * state.life_stats.happiness
         * (1.0 + f64::sqrt(state.rebirth_stats.max_job_levels[input_work] as f64));
-    let mut next_level_xp_needed = calculate_next_level_xp_neeeded(work);
+    let mut next_level_xp_needed = calculate_work_next_level_xp_neeeded(work);
     while work.next_level_progress > next_level_xp_needed {
         work.current_level += 1;
         work.next_level_progress -= next_level_xp_needed;
-        next_level_xp_needed = calculate_next_level_xp_neeeded(work);
+        next_level_xp_needed = calculate_work_next_level_xp_neeeded(work);
     }
     work.next_level_percentage = (work.next_level_progress * 100.0) / next_level_xp_needed;
 }
 
-fn calculate_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
+fn gain_stat_xp(game: &mut Game) {
+    for stat_type in InputStat::iter() {
+        let stat_xp = game.intermediate_state.get_value(stat_type.into());
+        let stat: &mut Stat = &mut game.state.base_stats[stat_type as usize];
+        stat.next_level_progress += stat_xp;
+        let mut next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
+        while stat.next_level_progress > next_level_xp_needed {
+            stat.value += 1.0;
+            stat.next_level_progress -= next_level_xp_needed;
+            next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
+        }
+        stat.next_level_percentage = (stat.next_level_progress * 100.0) / next_level_xp_needed;
+    }
+}
+
+fn calculate_stat_next_level_xp_neeeded(stat: &mut Stat) -> f64 {
+    (100.0 + (4.0 * stat.value * stat.value)) as f64
+}
+
+fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
     (100 + (4 * work.current_level * work.current_level)) as f64
 }
 
