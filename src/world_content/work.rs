@@ -1,4 +1,5 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
+use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::work::{Work as InputWork, WORK_SIZE};
 use serde::Serialize;
@@ -18,7 +19,7 @@ impl Gain for Work {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             InputWork::Farm => {
-                intermediate.set_base("str", 1.0);
+                intermediate.set_base(KeyValues::Str, 1.0);
             }
             _ => (),
         }

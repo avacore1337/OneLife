@@ -1,4 +1,5 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
+use crate::engine::value_keys::KeyValues;
 use crate::input::housing::{Housing as InputHousing, HOUSING_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
@@ -16,7 +17,7 @@ pub struct Housing {
 
 impl Gain for Housing {
     fn gain(&self, intermediate: &mut IntermediateState) {
-        intermediate.add_multiplier("happiness", self.happiness_factor, "housing");
+        intermediate.add_multiplier(KeyValues::Happiness, self.happiness_factor, "housing");
     }
 }
 

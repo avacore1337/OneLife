@@ -1,5 +1,7 @@
 pub mod intermediate_state;
+pub mod value_keys;
 
+use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::housing::Housing as InputHousing;
 use crate::input::work::Work as InputWork;
@@ -27,7 +29,7 @@ pub fn engine_run(game: &mut Game) {
     // 52*365/(30*60*30) = 0.351
     game.state.life_stats.age += 0.35 * game.state.rebirth_stats.time_factor;
 
-    game.state.life_stats.happiness = game.intermediate_state.get_value("happiness");
+    game.state.life_stats.happiness = game.intermediate_state.get_value(KeyValues::Happiness);
     if character_should_die(game) {
         game.state.life_stats.dead = true;
         character_death_update(game);

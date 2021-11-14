@@ -1,5 +1,6 @@
 // use crate::game::Game;
 use crate::engine::intermediate_state::{Gain, IntermediateState};
+use crate::engine::value_keys::KeyValues;
 use crate::input::boost_item::BoostItemTypes;
 use serde::Serialize;
 use strum::IntoEnumIterator;
@@ -17,10 +18,10 @@ impl Gain for BoostItem {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             BoostItemTypes::Book => {
-                intermediate.add_multiplier("int", 2.0, "book");
+                intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
             }
             BoostItemTypes::Dumbell => {
-                intermediate.add_multiplier("str", 2.0, "book");
+                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
             }
         }
     }
