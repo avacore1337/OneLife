@@ -2,12 +2,12 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::input::boost_item::BoostItemTypes;
 use serde::Serialize;
-// use strum::IntoEnumIterator;
+use strum::IntoEnumIterator;
 
 #[derive(Serialize)]
 pub struct BoostItem {
     pub name: BoostItemTypes,
-    pub cost: f64,
+    pub purchasing_cost: f64,
     pub description: &'static str,
     pub required_tier: u32,
     // pub item_effect:
@@ -30,13 +30,13 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
     match item_type {
         BoostItemTypes::Book => BoostItem {
             name: BoostItemTypes::Book,
-            cost: 0.5,
+            purchasing_cost: 0.5,
             description: "Educationer",
             required_tier: 0,
         },
         BoostItemTypes::Dumbell => BoostItem {
             name: BoostItemTypes::Dumbell,
-            cost: 1.5,
+            purchasing_cost: 1_000_000.5,
             description: "Heavy thing",
             required_tier: 1,
         },
@@ -62,10 +62,10 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
 //     work.required_tier <= game.state.rebirth_stats.class_tier + 1
 // }
 
-// pub fn get_works() -> Vec<Work> {
-//     let mut works = Vec::<Work>::new();
-//     for input_work in InputWork::iter() {
-//         works.push(translate_work(input_work));
-//     }
-//     works
-// }
+pub fn get_boost_items() -> Vec<BoostItem> {
+    let mut boost_items = Vec::<BoostItem>::new();
+    for boost_item_type in BoostItemTypes::iter() {
+        boost_items.push(translate_boost_item(boost_item_type));
+    }
+    boost_items
+}

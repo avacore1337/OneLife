@@ -19,8 +19,10 @@ mod world_content;
 
 use engine::engine_run;
 use game::{Game, GameSave};
+use input::boost_item::BoostItemTypes;
 use presets::get_presets;
 use state::state_container::rebirth;
+use world_content::boost_item::BoostItem;
 use world_content::tier::Tier;
 
 static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| Mutex::new(Game::new()));
@@ -165,6 +167,29 @@ pub fn buy_tier(val: u32) {
         let tier: &Tier = &game.world.tiers[val as usize];
         game.state.rebirth_stats.coins -= tier.purchasing_cost;
         game.state.rebirth_stats.class_tier = val;
+    }
+}
+
+#[wasm_bindgen]
+pub fn can_buy_item(val: &JsValue) -> bool {
+    let game = GLOBAL_DATA.lock().unwrap();
+    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
+    let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
+    // let next_tier: bool = game.state.rebirth_stats.class_tier + 1 == val;
+    let can_afford: bool = game.state.items.money >= item.purchasing_cost;
+    can_afford
+}
+
+#[wasm_bindgen]
+pub fn buy_item(val: &JsValue) {
+    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
+    console::log_1(&JsValue::from_str("Rust buy item"));
+    if can_buy_item(val) {
+        console::log_1(&JsValue::from_str("Can buy item"));
+        let mut game = GLOBAL_DATA.lock().unwrap();
+        let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
+        game.state.items.money -= item.purchasing_cost;
+        game.state.items.boost_items[boost_item_type as usize].is_unlocked = true;
     }
 }
 
