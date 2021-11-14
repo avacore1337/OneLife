@@ -2,12 +2,9 @@
   <div>
     Base stats
     <div style="border: solid; margin: 2px; padding: 10px">
-      <p>Strength: {{ state.base_stats.str }}</p>
-      <p>Intelligence: {{ state.base_stats.int }}</p>
-      <p>Charisma: {{ state.base_stats.cha }}</p>
-      <p>Constitution: {{ state.base_stats.con }}</p>
-      <p>Dexterity: {{ state.base_stats.dex }}</p>
-      <p>Faith: {{ state.base_stats.faith }}</p>
+      <div v-for="stat in state.base_stats" :key="stat.name">
+        <p>{{ stat.name }}: {{ stat.value }} Next Level: {{ stat.next_level_percentage }}%</p>
+      </div>
     </div>
   </div>
 </template>

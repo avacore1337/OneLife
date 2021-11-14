@@ -13,7 +13,7 @@
           <span v-if="work.name != input.work">{{ work.name }}</span>
         </button>
         <p>
-          Level: {{ state.works[index].current_level }}
+          Level: {{ state.works[index].current_level }} Max Level {{ state.rebirth_stats.max_job_levels[index] }}
           <b-progress
             class="notransition w-75"
             :value="state.works[index].next_level_percentage.toFixed(2)"

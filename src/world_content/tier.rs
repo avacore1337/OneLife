@@ -1,4 +1,5 @@
-use crate::state::stats::BaseStats;
+use crate::input::stat::STAT_SIZE;
+use crate::state::stats::{get_stats_base, BaseStats, Stat};
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -7,7 +8,7 @@ pub struct Tier {
     pub title: &'static str,
     pub description: &'static str,
     pub unlocks: Vec<&'static str>,
-    pub starting_stats: BaseStats,
+    pub starting_stats: [Stat; STAT_SIZE],
     pub purchasing_cost: f64,
 }
 
@@ -33,14 +34,14 @@ pub fn init_tiers() -> Vec<Tier> {
             title: "Orphant slave",
             description: "The unluckies souls in this harsh world.",
             unlocks: vec!["Only the basics of life itself is available."],
-            starting_stats: BaseStats {
+            starting_stats: get_stats_base(BaseStats {
                 str: 5.0,
                 int: 5.0,
                 cha: 5.0,
                 con: 5.0,
                 dex: 5.0,
                 faith: 5.0,
-            },
+            }),
             purchasing_cost: 0.0,
         },
         Tier {
@@ -52,14 +53,14 @@ pub fn init_tiers() -> Vec<Tier> {
                 "You can rise higher, but you are still very limited."
                     ,
             ],
-            starting_stats: BaseStats {
+            starting_stats: get_stats_base(BaseStats {
                 str: 6.0,
                 int: 6.0,
                 cha: 6.0,
                 con: 6.0,
                 dex: 6.0,
                 faith: 6.0,
-            },
+            }),
             purchasing_cost: 2.0,
         },
         Tier {
@@ -73,14 +74,14 @@ pub fn init_tiers() -> Vec<Tier> {
                 "Military Service"
                     ,
             ],
-            starting_stats: BaseStats {
+            starting_stats: get_stats_base(BaseStats {
                 str: 7.0,
                 int: 7.0,
                 cha: 7.0,
                 con: 7.0,
                 dex: 7.0,
                 faith: 7.0,
-            },
+            }),
             purchasing_cost: 4.0,
         },
         Tier {
@@ -94,14 +95,14 @@ pub fn init_tiers() -> Vec<Tier> {
                 "Honorable military service is no longer out of your reach"
                     ,
             ],
-            starting_stats: BaseStats {
+            starting_stats: get_stats_base(BaseStats {
                 str: 8.0,
                 int: 8.0,
                 cha: 8.0,
                 con: 8.0,
                 dex: 8.0,
                 faith: 8.0,
-            },
+            }),
             purchasing_cost: 8.0,
         },
     ];

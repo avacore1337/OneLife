@@ -1,5 +1,6 @@
 pub mod boost_item;
 pub mod housing;
+pub mod stat;
 pub mod work;
 
 use housing::Housing;
