@@ -1,7 +1,7 @@
 use js_sys::Date;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Clone, Copy)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct MetaData {
     pub game_speed: u32,
     pub autosave: bool,
@@ -16,7 +16,7 @@ impl MetaData {
         }
     }
 
-    pub fn should_autosave(self) -> bool {
+    pub fn should_autosave(&self) -> bool {
         let now = Date::new_0().get_time();
         self.autosave && now >= self.last_save_time + (60.0 * 1000.0)
     }

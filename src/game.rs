@@ -25,7 +25,7 @@ impl From<&Game> for GameSave {
         GameSave {
             input: game.input,
             state: game.state.clone(),
-            meta_data: game.meta_data,
+            meta_data: game.meta_data.clone(),
         }
     }
 }
