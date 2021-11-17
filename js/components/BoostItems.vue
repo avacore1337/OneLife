@@ -1,19 +1,19 @@
 <template>
   <div style="border: solid; margin: 2px">
     Bought Items
-    <li v-for="item in bought_items" :key="item.name">
-      <button v-on:click="buy_item(item.name)" style="margin: 2px" :disabled="!can_buy_item(item.name)">
-        <span v-if="item.name == input.item">{{ item.name }} &lt;-- </span>
-        <span v-if="item.name != input.item">{{ item.name }}</span>
+    <li v-for="item in ownedItems" :key="item.name">
+      <button v-on:click="buyItem(item.name)" style="margin: 2px" :disabled="!canBuyItem(item.name)">
+        <span v-if="item.name === input.item">{{ item.name }} &lt;-- </span>
+        <span v-if="item.name !== input.item">{{ item.name }}</span>
       </button>
     </li>
     <ul></ul>
     Items
     <ul>
-      <li v-for="item in unbought_items" :key="item.name">
-        <button v-on:click="buy_item(item.name)" style="margin: 2px" :disabled="!can_buy_item(item.name)">
-          <span v-if="item.name == input.item">{{ item.name }} &lt;-- </span>
-          <span v-if="item.name != input.item">{{ item.name }}</span>
+      <li v-for="item in notOwnedItems" :key="item.name">
+        <button v-on:click="buyItem(item.name)" style="margin: 2px" :disabled="!canBuyItem(item.name)">
+          <span v-if="item.name === input.item">{{ item.name }} &lt;-- </span>
+          <span v-if="item.name !== input.item">{{ item.name }}</span>
         </button>
       </li>
     </ul>
@@ -24,18 +24,18 @@
 export default {
   props: ["state", "world", "input", "wasm"],
   computed: {
-    bought_items: function () {
-      return this.world.boost_items.filter((item) => item.is_purchased);
+    ownedItems: function () {
+      return this.state.items.boost_items.filter((item) => item.is_purchased);
     },
-    unbought_items: function () {
-      return this.world.boost_items.filter((item) => !item.is_purchased);
+    notOwnedItems: function () {
+      return this.state.items.boost_items.filter((item) => !item.is_purchased);
     },
   },
   methods: {
-    buy_item: function (item_name) {
+    buyItem: function (item_name) {
       this.wasm.buy_item(item_name);
     },
-    can_buy_item: function (item) {
+    canBuyItem: function (item) {
       return this.wasm.can_buy_item(item);
     },
   },
