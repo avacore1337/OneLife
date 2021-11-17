@@ -53,7 +53,9 @@ export default {
       },
       state: {
         base_stats: {},
-        items: {},
+        items: {
+          boost_items: [],
+        },
         life_stats: {},
         rebirth_stats: {},
       },
