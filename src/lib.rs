@@ -126,12 +126,12 @@ pub fn print_debug() {
 
 #[wasm_bindgen]
 pub fn tick() {
-    let mut game = GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     if game.meta_data.should_autosave() {
-        save();
+        do_save(game);
     }
     for _ in 0..game.meta_data.game_speed {
-        engine_run(&mut game);
+        engine_run(game);
     }
 }
 
@@ -209,7 +209,10 @@ pub fn hard_reset() {
 #[wasm_bindgen]
 pub fn save() {
     let game: &Game = &*GLOBAL_DATA.lock().unwrap();
-    // let game = GLOBAL_DATA.lock().unwrap();
+    do_save(game);
+}
+
+pub fn do_save(game: &Game) {
     let window = web_sys::window().unwrap();
     if let Ok(Some(local_storage)) = window.local_storage() {
         local_storage
