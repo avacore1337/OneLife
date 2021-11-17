@@ -47,6 +47,14 @@ npx prettier --write .
 
 ## Both
 
+### C - Tombs
+
+Implement "tombs" (the thing that makes you get more coins when rebirthing)
+
+### C - Activities
+
+Things you do to boosts stats etc
+
 ## Rust/Engine
 
 ### R - Implement save game export bonuses
@@ -60,6 +68,10 @@ Most things can probably be handled by checking version number of save and then 
 https://stackoverflow.com/questions/47070876/how-can-i-merge-two-json-objects-with-rust
 
 ## Vue/Frontend
+
+### icon library
+
+find/implement a good source of icons for stuff like str, int, cha, etc
 
 ### R - Auto-save
 
