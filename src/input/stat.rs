@@ -3,7 +3,7 @@ use std::mem::variant_count;
 use strum::EnumIter;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug)]
-pub enum Stat {
+pub enum StatTypes {
     Str,
     Int,
     Cha,
@@ -12,4 +12,4 @@ pub enum Stat {
     Faith,
 }
 
-pub const STAT_SIZE: usize = variant_count::<Stat>();
+pub const STAT_SIZE: usize = variant_count::<StatTypes>();

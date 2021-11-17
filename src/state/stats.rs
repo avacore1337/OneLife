@@ -1,4 +1,4 @@
-use crate::input::stat::{Stat as InputStat, STAT_SIZE};
+use crate::input::stat::{StatTypes, STAT_SIZE};
 use serde::{Deserialize, Serialize};
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
@@ -14,14 +14,14 @@ pub struct BaseStats {
 
 #[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Stat {
-    pub name: InputStat,
+    pub name: StatTypes,
     pub value: f64,
     pub next_level_progress: f64,
     pub next_level_percentage: f64,
 }
 
 impl Stat {
-    pub fn new(stat: InputStat, init_value: f64) -> Stat {
+    pub fn new(stat: StatTypes, init_value: f64) -> Stat {
         Stat {
             name: stat,
             value: init_value,
@@ -33,7 +33,7 @@ impl Stat {
 
 pub fn get_stats(initial_values: [f64; STAT_SIZE]) -> [Stat; STAT_SIZE] {
     let mut stats: [MaybeUninit<Stat>; STAT_SIZE] = unsafe { MaybeUninit::uninit().assume_init() };
-    for name in InputStat::iter() {
+    for name in StatTypes::iter() {
         stats[name as usize].write(Stat::new(name, initial_values[name as usize]));
     }
     unsafe { mem::transmute(stats) }

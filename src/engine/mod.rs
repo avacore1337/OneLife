@@ -3,9 +3,9 @@ pub mod value_keys;
 
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
-use crate::input::housing::Housing as InputHousing;
-use crate::input::stat::Stat as InputStat;
-use crate::input::work::Work as InputWork;
+use crate::input::housing::HousingTypes;
+use crate::input::stat::StatTypes;
+use crate::input::work::WorkTypes;
 use crate::state::state_container::StateContainer;
 use crate::state::stats::Stat;
 use crate::state::work::Work as StateWork;
@@ -41,10 +41,10 @@ pub fn engine_run(game: &mut Game) {
 }
 
 fn update_unlocks(game: &mut Game) {
-    for input_work in InputWork::iter() {
+    for input_work in WorkTypes::iter() {
         game.state.works[input_work as usize].is_unlocked = should_unlock_work(input_work, game);
     }
-    for input_work in InputWork::iter() {
+    for input_work in WorkTypes::iter() {
         game.state.works[input_work as usize].is_visible = should_be_visable_work(input_work, game);
     }
 }
@@ -71,7 +71,7 @@ fn character_death_update(game: &mut Game) {
 fn apply_housing(game: &mut Game) {
     let mut housing = translate_housing(game.input.housing);
     if housing.upkeep > game.state.items.money {
-        housing = translate_housing(InputHousing::StoneFloor);
+        housing = translate_housing(HousingTypes::StoneFloor);
         // TODO signal to frontend that you are out of cash?
     }
     game.state.items.money -= housing.upkeep;
@@ -108,7 +108,7 @@ fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
 }
 
 fn gain_stat_xp(game: &mut Game) {
-    for stat_type in InputStat::iter() {
+    for stat_type in StatTypes::iter() {
         let stat_xp = game.intermediate_state.get_value(stat_type.into());
         let stat: &mut Stat = &mut game.state.base_stats[stat_type as usize];
         stat.next_level_progress += stat_xp;
@@ -130,7 +130,7 @@ fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
     (100 + (4 * work.current_level * work.current_level)) as f64
 }
 
-fn do_work(input_work: InputWork, state: &mut StateContainer) {
+fn do_work(input_work: WorkTypes, state: &mut StateContainer) {
     let work = translate_work(input_work);
     let work_state = state.works[input_work as usize];
     let multiplier: f64 = 1.0 + (work_state.current_level as f64 / 10.0);

@@ -45,21 +45,21 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
     }
 }
 
-// pub fn should_unlock_work(input_work: InputWork, game: &Game) -> bool {
+// pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
 //     let work = &game.world.works[input_work as usize];
 //     if work.required_tier > game.state.rebirth_stats.class_tier {
 //         return false;
 //     }
 //     match input_work {
-//         InputWork::Mines => true,
-//         InputWork::Fields => game.state.works[InputWork::Mines as usize].current_level > 10,
-//         InputWork::Servant => game.state.works[InputWork::Fields as usize].current_level > 10,
-//         InputWork::Teacher => game.state.works[InputWork::Servant as usize].current_level > 10,
-//         InputWork::Farm => game.state.works[InputWork::Teacher as usize].current_level > 10,
+//         WorkTypes::Mines => true,
+//         WorkTypes::Fields => game.state.works[WorkTypes::Mines as usize].current_level > 10,
+//         WorkTypes::Servant => game.state.works[WorkTypes::Fields as usize].current_level > 10,
+//         WorkTypes::Teacher => game.state.works[WorkTypes::Servant as usize].current_level > 10,
+//         WorkTypes::Farm => game.state.works[WorkTypes::Teacher as usize].current_level > 10,
 //     }
 // }
 
-// pub fn should_be_visable_work(input_work: InputWork, game: &Game) -> bool {
+// pub fn should_be_visable_work(input_work: WorkTypes, game: &Game) -> bool {
 //     let work = &game.world.works[input_work as usize];
 //     work.required_tier <= game.state.rebirth_stats.class_tier + 1
 // }

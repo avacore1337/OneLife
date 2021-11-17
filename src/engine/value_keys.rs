@@ -1,4 +1,4 @@
-use crate::input::stat::Stat;
+use crate::input::stat::StatTypes;
 use serde::{Deserialize, Serialize};
 use strum::EnumIter;
 // use std::mem::variant_count;
@@ -16,15 +16,15 @@ pub enum KeyValues {
     Faith,
 }
 
-impl From<Stat> for KeyValues {
-    fn from(stat: Stat) -> Self {
+impl From<StatTypes> for KeyValues {
+    fn from(stat: StatTypes) -> Self {
         match stat {
-            Stat::Str => KeyValues::Str,
-            Stat::Cha => KeyValues::Cha,
-            Stat::Con => KeyValues::Con,
-            Stat::Int => KeyValues::Int,
-            Stat::Dex => KeyValues::Dex,
-            Stat::Faith => KeyValues::Faith,
+            StatTypes::Str => KeyValues::Str,
+            StatTypes::Cha => KeyValues::Cha,
+            StatTypes::Con => KeyValues::Con,
+            StatTypes::Int => KeyValues::Int,
+            StatTypes::Dex => KeyValues::Dex,
+            StatTypes::Faith => KeyValues::Faith,
         }
     }
 }

@@ -3,7 +3,7 @@ use std::mem::variant_count;
 use strum::EnumIter;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug)]
-pub enum Work {
+pub enum WorkTypes {
     Mines,
     Fields,
     Servant,
@@ -11,4 +11,4 @@ pub enum Work {
     Farm,
 }
 
-pub const WORK_SIZE: usize = variant_count::<Work>();
+pub const WORK_SIZE: usize = variant_count::<WorkTypes>();

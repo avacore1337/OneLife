@@ -1,13 +1,13 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
-use crate::input::housing::{Housing as InputHousing, HOUSING_SIZE};
+use crate::input::housing::{HousingTypes, HOUSING_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
 #[derive(Serialize)]
 pub struct Housing {
-    pub name: InputHousing,
+    pub name: HousingTypes,
     pub upkeep: f64,
     pub description: String,
     pub required_money: f64,
@@ -21,34 +21,34 @@ impl Gain for Housing {
     }
 }
 
-pub fn translate_housing(housing: InputHousing) -> Housing {
+pub fn translate_housing(housing: HousingTypes) -> Housing {
     match housing {
-        InputHousing::StoneFloor => Housing {
-            name: InputHousing::StoneFloor,
+        HousingTypes::StoneFloor => Housing {
+            name: HousingTypes::StoneFloor,
             upkeep: 0.0,
             description: "You sleep where you can.".to_string(),
             required_money: 0.0,
             happiness_factor: 1.0,
             health_effect: -10.0,
         },
-        InputHousing::ComfortableSpot => Housing {
-            name: InputHousing::ComfortableSpot,
+        HousingTypes::ComfortableSpot => Housing {
+            name: HousingTypes::ComfortableSpot,
             upkeep: 1.0,
             description: "You pay some thugs to get to sleep in the \"nice\" corner.".to_string(),
             required_money: 0.0,
             happiness_factor: 1.5,
             health_effect: -3.0,
         },
-        InputHousing::FilthyBarracks => Housing {
-            name: InputHousing::FilthyBarracks,
+        HousingTypes::FilthyBarracks => Housing {
+            name: HousingTypes::FilthyBarracks,
             upkeep: 5.0,
             description: "Inside is better than outside. Probably.".to_string(),
             required_money: 100.0,
             happiness_factor: 2.0,
             health_effect: -1.0,
         },
-        InputHousing::CrampedBarracks => Housing {
-            name: InputHousing::CrampedBarracks,
+        HousingTypes::CrampedBarracks => Housing {
+            name: HousingTypes::CrampedBarracks,
             upkeep: 15.0,
             description: "Your room mates now outnumber the rats".to_string(),
             required_money: 1000.0,
@@ -61,7 +61,7 @@ pub fn translate_housing(housing: InputHousing) -> Housing {
 pub fn get_housing() -> [Housing; HOUSING_SIZE] {
     let mut housing: [MaybeUninit<Housing>; HOUSING_SIZE] =
         unsafe { MaybeUninit::uninit().assume_init() };
-    for name in InputHousing::iter() {
+    for name in HousingTypes::iter() {
         housing[name as usize].write(translate_housing(name));
     }
     unsafe { mem::transmute(housing) }

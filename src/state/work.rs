@@ -1,11 +1,11 @@
-use crate::input::work::{Work as InputWork, WORK_SIZE};
+use crate::input::work::{WorkTypes, WORK_SIZE};
 use serde::{Deserialize, Serialize};
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
 #[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Work {
-    pub name: InputWork,
+    pub name: WorkTypes,
     pub current_level: u32,
     pub next_level_progress: f64,
     pub next_level_percentage: f64,
@@ -14,7 +14,7 @@ pub struct Work {
 }
 
 impl Work {
-    pub fn new(work: InputWork) -> Work {
+    pub fn new(work: WorkTypes) -> Work {
         Work {
             name: work,
             current_level: 0,
@@ -28,7 +28,7 @@ impl Work {
 
 pub fn get_works() -> [Work; WORK_SIZE] {
     let mut works: [MaybeUninit<Work>; WORK_SIZE] = unsafe { MaybeUninit::uninit().assume_init() };
-    for name in InputWork::iter() {
+    for name in WorkTypes::iter() {
         works[name as usize].write(Work::new(name));
     }
     unsafe { mem::transmute(works) }
