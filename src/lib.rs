@@ -208,18 +208,19 @@ pub fn hard_reset() {
 
 #[wasm_bindgen]
 pub fn save() {
-    let game: &Game = &*GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     do_save(game);
 }
 
-pub fn do_save(game: &Game) {
+pub fn do_save(game: &mut Game) {
     let window = web_sys::window().unwrap();
+    console::log_1(&JsValue::from_str("Saving game"));
     if let Ok(Some(local_storage)) = window.local_storage() {
         local_storage
-            .set_item("save", &to_string(&GameSave::from(game)).unwrap())
+            .set_item("save", &to_string(&GameSave::from(&*game)).unwrap())
             .unwrap();
+        game.meta_data.set_savetime();
     }
-    console::log_1(&JsValue::from_str("Saving game"));
 }
 
 #[wasm_bindgen]

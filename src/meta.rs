@@ -20,4 +20,8 @@ impl MetaData {
         let now = Date::new_0().get_time();
         self.autosave && now >= self.last_save_time + (60.0 * 1000.0)
     }
+
+    pub fn set_savetime(&mut self) {
+        self.last_save_time = Date::new_0().get_time();
+    }
 }
