@@ -70,6 +70,12 @@ pub fn get_state() -> JsValue {
 }
 
 #[wasm_bindgen]
+pub fn get_meta_data() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    JsValue::from_serde(&game.meta_data).unwrap()
+}
+
+#[wasm_bindgen]
 pub fn get_preset_saves() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
     JsValue::from_serde(&get_presets(&game.world)).unwrap()

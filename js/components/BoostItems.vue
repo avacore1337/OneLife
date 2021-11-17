@@ -3,18 +3,14 @@
     Bought Items
     <ul>
       <li v-for="item in ownedItems" :key="item.name">
-        <button v-on:click="buyItem(item.name)" style="margin: 2px" :disabled="!canBuyItem(item.name)">
-          <span v-if="item.name === input.item">{{ item.name }} &lt;-- </span>
-          <span v-if="item.name !== input.item">{{ item.name }}</span>
-        </button>
+        <p>{{ item.name }}</p>
       </li>
     </ul>
     Items
     <ul>
       <li v-for="item in notOwnedItems" :key="item.name">
         <button v-on:click="buyItem(item.name)" style="margin: 2px" :disabled="!canBuyItem(item.name)">
-          <span v-if="item.name === input.item">{{ item.name }} &lt;-- </span>
-          <span v-if="item.name !== input.item">{{ item.name }}</span>
+          {{ item.name }}
         </button>
       </li>
     </ul>

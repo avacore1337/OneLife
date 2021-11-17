@@ -1,7 +1,13 @@
 <template>
   <div>
     <div style="width: 300px; float: left">
-      <Sidebar v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+      <Sidebar
+        v-bind:state="state"
+        v-bind:input="input"
+        v-bind:world="world"
+        v-bind:wasm="wasm"
+        v-bind:metaData="metaData"
+      />
     </div>
 
     <div style="margin-left: 420px">
@@ -60,6 +66,7 @@ export default {
         rebirth_stats: {},
       },
       input: {},
+      metaData: {},
       presets: {},
       paused: false,
     };
@@ -68,6 +75,7 @@ export default {
     this.world = this.wasm.get_world();
     this.state = this.wasm.get_state();
     this.input = this.wasm.get_input();
+    this.metaData = this.wasm.get_meta_data();
     this.presets = this.wasm.get_preset_saves();
 
     let self = this;
@@ -79,6 +87,7 @@ export default {
       self.wasm.tick();
       self.state = self.wasm.get_state();
       self.input = self.wasm.get_input();
+      self.metaData = self.wasm.get_meta_data();
     }, 1000 / 30);
   },
   methods: {},

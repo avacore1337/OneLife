@@ -52,12 +52,6 @@ export default {
     toggle_pause: function () {
       this.$parent.paused = !this.$parent.paused;
     },
-    set_autosave: function (autosave) {
-      this.wasm.set_autosave(autosave);
-    },
-    set_autosave: function (autosave) {
-      this.wasm.set_autosave(autosave);
-    },
     export_save: function () {
       // TODO: This should be exported by the backend
       downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save());

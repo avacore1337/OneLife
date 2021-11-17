@@ -4,6 +4,8 @@
     <button v-on:click="load">Load</button>
     <button v-on:click="hard_reset">Hard Reset</button>
     <button v-on:click="setNumberFormat">{{ nextNumberFormat(numberFormat) }}</button>
+    <input type="checkbox" id="autosave" v-on:click="toggleAutoSave" :checked="metaData.autosave" />
+    <label for="autosave">Autosave</label>
 
     <br />
     <BaseStats v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
@@ -39,7 +41,7 @@
 <script>
 import BaseStats from "./BaseStats.vue";
 export default {
-  props: ["state", "world", "input", "wasm"],
+  props: ["state", "world", "input", "wasm", "metaData"],
   components: { BaseStats },
   data() {
     return {
@@ -47,6 +49,9 @@ export default {
     };
   },
   methods: {
+    toggleAutoSave: function () {
+      this.wasm.set_autosave(!this.metaData.autosave);
+    },
     printableNumbers: function (num) {
       if (num === undefined) {
         return null;
