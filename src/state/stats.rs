@@ -15,8 +15,9 @@ pub struct BaseStats {
 #[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Stat {
     pub name: StatTypes,
-    pub value: f64,
+    pub level: f64,
     pub next_level_progress: f64,
+    pub next_level_required: f64,
     pub next_level_percentage: f64,
 }
 
@@ -24,8 +25,9 @@ impl Stat {
     pub fn new(stat: StatTypes, init_value: f64) -> Stat {
         Stat {
             name: stat,
-            value: init_value,
+            level: init_value,
             next_level_progress: 0.0,
+            next_level_required: 100.0,
             next_level_percentage: 0.0,
         }
     }

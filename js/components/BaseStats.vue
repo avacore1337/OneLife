@@ -3,7 +3,7 @@
     Base stats
     <div style="border: solid; margin: 2px; padding: 10px">
       <div v-for="stat in state.base_stats" :key="stat.name">
-        <p>{{ stat.name }}: {{ stat.value }}</p>
+        <p>{{ stat.name }}: {{ stat.level }}</p>
         <b-progress class="notransition w-75" :value="stat.next_level_percentage.toFixed(2)" animated></b-progress>
         <br />
       </div>

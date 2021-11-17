@@ -52,10 +52,10 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
 //     }
 //     match input_work {
 //         WorkTypes::Mines => true,
-//         WorkTypes::Fields => game.state.works[WorkTypes::Mines as usize].current_level > 10,
-//         WorkTypes::Servant => game.state.works[WorkTypes::Fields as usize].current_level > 10,
-//         WorkTypes::Teacher => game.state.works[WorkTypes::Servant as usize].current_level > 10,
-//         WorkTypes::Farm => game.state.works[WorkTypes::Teacher as usize].current_level > 10,
+//         WorkTypes::Fields => game.state.works[WorkTypes::Mines as usize].level > 10,
+//         WorkTypes::Servant => game.state.works[WorkTypes::Fields as usize].level > 10,
+//         WorkTypes::Teacher => game.state.works[WorkTypes::Servant as usize].level > 10,
+//         WorkTypes::Farm => game.state.works[WorkTypes::Teacher as usize].level > 10,
 //     }
 // }
 

@@ -60,10 +60,8 @@ fn character_should_die(game: &Game) -> bool {
 
 fn character_death_update(game: &mut Game) {
     for (index, work) in game.state.works.iter().enumerate() {
-        game.state.rebirth_stats.max_job_levels[index] = std::cmp::max(
-            game.state.rebirth_stats.max_job_levels[index],
-            work.current_level,
-        );
+        game.state.rebirth_stats.max_job_levels[index] =
+            std::cmp::max(game.state.rebirth_stats.max_job_levels[index], work.level);
     }
     game.state.rebirth_stats.coins += 2.0;
 }
@@ -100,10 +98,11 @@ fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
         * (1.0 + f64::sqrt(state.rebirth_stats.max_job_levels[input_work] as f64));
     let mut next_level_xp_needed = calculate_work_next_level_xp_neeeded(work);
     while work.next_level_progress > next_level_xp_needed {
-        work.current_level += 1;
+        work.level += 1;
         work.next_level_progress -= next_level_xp_needed;
         next_level_xp_needed = calculate_work_next_level_xp_neeeded(work);
     }
+    work.next_level_required = next_level_xp_needed;
     work.next_level_percentage = (work.next_level_progress * 100.0) / next_level_xp_needed;
 }
 
@@ -114,25 +113,26 @@ fn gain_stat_xp(game: &mut Game) {
         stat.next_level_progress += stat_xp;
         let mut next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
         while stat.next_level_progress > next_level_xp_needed {
-            stat.value += 1.0;
+            stat.level += 1.0;
             stat.next_level_progress -= next_level_xp_needed;
             next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
         }
+        stat.next_level_required = next_level_xp_needed;
         stat.next_level_percentage = (stat.next_level_progress * 100.0) / next_level_xp_needed;
     }
 }
 
 fn calculate_stat_next_level_xp_neeeded(stat: &mut Stat) -> f64 {
-    (100.0 + (4.0 * stat.value * stat.value)) as f64
+    (100.0 + (4.0 * stat.level * stat.level)) as f64
 }
 
 fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
-    (100 + (4 * work.current_level * work.current_level)) as f64
+    (100 + (4 * work.level * work.level)) as f64
 }
 
 fn do_work(input_work: WorkTypes, state: &mut StateContainer) {
     let work = translate_work(input_work);
     let work_state = state.works[input_work as usize];
-    let multiplier: f64 = 1.0 + (work_state.current_level as f64 / 10.0);
+    let multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
     state.items.money += work.money * multiplier;
 }

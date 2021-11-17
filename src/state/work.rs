@@ -6,8 +6,9 @@ use strum::IntoEnumIterator;
 #[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Work {
     pub name: WorkTypes,
-    pub current_level: u32,
+    pub level: u32,
     pub next_level_progress: f64,
+    pub next_level_required: f64,
     pub next_level_percentage: f64,
     pub is_unlocked: bool,
     pub is_visible: bool,
@@ -17,8 +18,9 @@ impl Work {
     pub fn new(work: WorkTypes) -> Work {
         Work {
             name: work,
-            current_level: 0,
+            level: 0,
             next_level_progress: 0.0,
+            next_level_required: 100.0,
             next_level_percentage: 0.0,
             is_unlocked: false,
             is_visible: true,
