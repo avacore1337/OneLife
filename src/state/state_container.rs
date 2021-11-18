@@ -1,8 +1,10 @@
+use super::activity::{get_activities, Activity};
 use super::items::Items;
 use super::life_stats::LifeStats;
 use super::rebirth_stats::RebirthStats;
 use super::stats::Stat;
 use super::work::{get_works, Work};
+use crate::input::activity::ACTIVITY_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::work::WORK_SIZE;
 use crate::world_content::world::World;
@@ -16,6 +18,7 @@ pub struct StateContainer {
     pub life_stats: LifeStats,
     pub items: Items,
     pub works: [Work; WORK_SIZE],
+    pub activity: [Activity; ACTIVITY_SIZE],
 }
 
 pub fn new_game(world: &World) -> StateContainer {
@@ -34,5 +37,6 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
         life_stats: LifeStats::new(),
         items: Items::new(),
         works: get_works(),
+        activity: get_activities(),
     }
 }

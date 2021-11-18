@@ -1,3 +1,4 @@
+pub mod activity;
 pub mod boost_item;
 pub mod housing;
 pub mod tier;
