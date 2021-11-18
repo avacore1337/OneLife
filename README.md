@@ -73,10 +73,6 @@ https://stackoverflow.com/questions/47070876/how-can-i-merge-two-json-objects-wi
 
 find/implement a good source of icons for stuff like str, int, cha, etc
 
-### R - Auto-save
-
-add a checkbox to turn it on/off, set_autosave is index.js
-
 ### E - Import save file through text pasting
 
 Players should easily be able to import a save either through a text file upload or by pasting in text.
