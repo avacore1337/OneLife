@@ -15,6 +15,7 @@
         <div style="border: solid; width: 400px; float: left">
           <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
           <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+          <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
           <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         </div>
         <!-- <div style="border:solid;margin-left: 420px; width: 400px;" v-if="state.life_stats.dead"> -->
@@ -33,6 +34,7 @@
 <script>
 import Works from "./components/Works.vue";
 import Housing from "./components/Housing.vue";
+import Activities from "./components/Activities.vue";
 import Death from "./components/Death.vue";
 import Debug from "./components/Debug.vue";
 import Sidebar from "./components/Sidebar.vue";
@@ -49,7 +51,7 @@ Vue.use(BootstrapVue);
 
 export default {
   props: ["wasm"],
-  components: { Works, Housing, Debug, BoostItems, Death, Sidebar },
+  components: { Works, Housing, Activities, Debug, BoostItems, Death, Sidebar },
   data() {
     return {
       world: {

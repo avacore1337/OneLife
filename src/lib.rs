@@ -156,6 +156,13 @@ pub fn set_housing(val: &JsValue) {
 }
 
 #[wasm_bindgen]
+pub fn set_activity(val: &JsValue) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.input.activity = val.into_serde().unwrap();
+    console::log_1(&JsValue::from_str("Rust set activity"));
+}
+
+#[wasm_bindgen]
 pub fn can_buy_tier(val: u32) -> bool {
     let game = GLOBAL_DATA.lock().unwrap();
     let tier: &Tier = &game.world.tiers[val as usize];
