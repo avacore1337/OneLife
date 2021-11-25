@@ -6,6 +6,11 @@ use strum::EnumIter;
 pub enum BoostItemTypes {
     Book,
     Dumbell,
+    Book2,
+    Dumbell2,
+    Book3,
+    Dumbell3,
+    // HealthKit,
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();

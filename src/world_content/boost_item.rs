@@ -19,9 +19,21 @@ impl Gain for BoostItem {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             BoostItemTypes::Book => {
-                intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
+                intermediate.add_multiplier(KeyValues::Int, 1.5, "Book");
             }
             BoostItemTypes::Dumbell => {
+                intermediate.add_multiplier(KeyValues::Str, 1.5, "Dumbell");
+            }
+            BoostItemTypes::Book2 => {
+                intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
+            }
+            BoostItemTypes::Dumbell2 => {
+                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
+            }
+            BoostItemTypes::Book3 => {
+                intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
+            }
+            BoostItemTypes::Dumbell3 => {
                 intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
             }
         }
@@ -31,14 +43,38 @@ impl Gain for BoostItem {
 pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
     match item_type {
         BoostItemTypes::Book => BoostItem {
-            name: BoostItemTypes::Book,
-            purchasing_cost: 0.5,
+            name: item_type,
+            purchasing_cost: 10.0,
             description: "Educationer",
             required_tier: 0,
         },
         BoostItemTypes::Dumbell => BoostItem {
-            name: BoostItemTypes::Dumbell,
-            purchasing_cost: 1_000_000.5,
+            name: item_type,
+            purchasing_cost: 1_000.0,
+            description: "Heavy thing",
+            required_tier: 0,
+        },
+        BoostItemTypes::Book2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 4_000.0,
+            description: "Educationer",
+            required_tier: 0,
+        },
+        BoostItemTypes::Dumbell2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 6_000.0,
+            description: "Heavy thing",
+            required_tier: 0,
+        },
+        BoostItemTypes::Book3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 16_000.0,
+            description: "Educationer",
+            required_tier: 1,
+        },
+        BoostItemTypes::Dumbell3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 16_000.0,
             description: "Heavy thing",
             required_tier: 1,
         },

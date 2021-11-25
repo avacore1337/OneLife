@@ -37,7 +37,7 @@ impl Gain for Work {
     }
 }
 
-pub fn translate_work(work: WorkTypes) -> Work {
+pub const fn translate_work(work: WorkTypes) -> Work {
     match work {
         WorkTypes::Mines => Work {
             name: WorkTypes::Mines,
