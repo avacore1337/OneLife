@@ -20,13 +20,19 @@ pub fn engine_run(game: &mut Game) {
         return;
     }
     game.intermediate_state = calculate_intermediate_state(game);
-    let _old_state = game.state.clone(); //TODO use?
+    let _old_state = game.state.clone(); //TODO use for delta?
+
+    // Apply all modifiers to intermediate
     apply_housing(game);
     apply_items(game);
     apply_work(game);
+
+    // Get the gains
     do_work(game.input.work, &mut game.state);
     gain_work_xp(game.input.work as usize, &mut game.state);
     gain_stat_xp(game);
+
+    // update frontend read values
     update_unlocks(game);
     // Base gamespeed is that one life should take 30min, the game runs in 30 ticks/second
     // Days/tick = total_days / (ticks in 30 min)

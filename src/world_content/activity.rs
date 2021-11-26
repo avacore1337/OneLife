@@ -1,5 +1,5 @@
-// use crate::engine::intermediate_state::{Gain, IntermediateState};
-// use crate::engine::value_keys::KeyValues;
+use crate::engine::intermediate_state::{Gain, IntermediateState};
+use crate::engine::value_keys::KeyValues;
 // use crate::game::Game;
 use crate::input::activity::{ActivityTypes, ACTIVITY_SIZE};
 use serde::Serialize;
@@ -13,27 +13,21 @@ pub struct Activity {
     pub required_tier: u32,
 }
 
-// impl Gain for Activity {
-//     fn gain(&self, intermediate: &mut IntermediateState) {
-//         match self.name {
-//             ActivityTypes::Mines => {
-//                 intermediate.set_base(KeyValues::Str, 1.0);
-//             }
-//             ActivityTypes::Fields => {
-//                 intermediate.set_base(KeyValues::Str, 2.0);
-//             }
-//             ActivityTypes::Servant => {
-//                 intermediate.set_base(KeyValues::Cha, 1.0);
-//             }
-//             ActivityTypes::Teacher => {
-//                 intermediate.set_base(KeyValues::Int, 1.0);
-//             }
-//             ActivityTypes::Farm => {
-//                 intermediate.set_base(KeyValues::Str, 3.0);
-//             }
-//         }
-//     }
-// }
+impl Gain for Activity {
+    fn gain(&self, intermediate: &mut IntermediateState) {
+        match self.name {
+            ActivityTypes::Training => {
+                intermediate.set_base(KeyValues::Str, 1.0);
+            }
+            ActivityTypes::Studying => {
+                intermediate.set_base(KeyValues::Int, 1.0);
+            }
+            ActivityTypes::Praying => {
+                intermediate.set_base(KeyValues::Faith, 1.0);
+            }
+        }
+    }
+}
 
 pub fn translate_activity(activity: ActivityTypes) -> Activity {
     match activity {

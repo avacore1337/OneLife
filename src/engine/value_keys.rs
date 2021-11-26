@@ -14,6 +14,7 @@ pub enum KeyValues {
     Con,
     Dex,
     Faith,
+    Health,
 }
 
 impl From<StatTypes> for KeyValues {

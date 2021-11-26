@@ -19,56 +19,86 @@ impl Gain for Work {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             WorkTypes::Mines => {
-                intermediate.set_base(KeyValues::Str, 1.0);
+                intermediate.set_base(KeyValues::Health, -5.0);
+            }
+            WorkTypes::Latrine => {
+                intermediate.set_base(KeyValues::Health, -4.0);
+            }
+            WorkTypes::GalleyRower => {
+                intermediate.set_base(KeyValues::Health, -3.0);
             }
             WorkTypes::Fields => {
-                intermediate.set_base(KeyValues::Str, 2.0);
+                intermediate.set_base(KeyValues::Health, -2.0);
             }
-            WorkTypes::Servant => {
-                intermediate.set_base(KeyValues::Cha, 1.0);
+            WorkTypes::Mill => {
+                intermediate.set_base(KeyValues::Health, -1.0);
             }
-            WorkTypes::Teacher => {
-                intermediate.set_base(KeyValues::Int, 1.0);
-            }
-            WorkTypes::Farm => {
-                intermediate.set_base(KeyValues::Str, 3.0);
-            }
+            _ => (),
         }
     }
 }
-
 pub const fn translate_work(work: WorkTypes) -> Work {
     match work {
         WorkTypes::Mines => Work {
-            name: WorkTypes::Mines,
+            name: work,
             money: 0.5,
             description: "Hard labor that kills you",
             required_tier: 0,
         },
-        WorkTypes::Fields => Work {
-            name: WorkTypes::Fields,
+        WorkTypes::Latrine => Work {
+            name: work,
             money: 1.0,
-            description: "Hard labor that kills you slowly",
+            description: "A shitty job",
             required_tier: 0,
         },
-        WorkTypes::Servant => Work {
-            name: WorkTypes::Servant,
-            money: 2.0,
+        WorkTypes::GalleyRower => Work {
+            name: work,
+            money: 2.5,
+            description: "Row row row your boat",
+            required_tier: 0,
+        },
+        WorkTypes::Fields => Work {
+            name: work,
+            money: 5.0,
+            description: "You ain't picking flowers",
+            required_tier: 0,
+        },
+        WorkTypes::Mill => Work {
+            name: work,
+            money: 9.0,
             description: "Hard labor",
             required_tier: 0,
         },
-        WorkTypes::Teacher => Work {
-            name: WorkTypes::Teacher,
-            money: 3.0,
-            description: "Good labor ",
+        WorkTypes::Weaver => Work {
+            name: work,
+            money: 14.0,
+            description: "Real work",
             required_tier: 1,
         },
-        WorkTypes::Farm => Work {
-            name: WorkTypes::Farm,
-            money: 5.0,
+        WorkTypes::Fisherman => Work {
+            name: work,
+            money: 20.0,
+            description: "A man of the sea",
+            required_tier: 1,
+        },
+        WorkTypes::Farmer => Work {
+            name: work,
+            money: 40.0,
             description: "Hard labor for a free man",
             required_tier: 2,
         },
+        // WorkTypes::Servant => Work {
+        //     name: work,
+        //     money: 2.0,
+        //     description: "Hard labor",
+        //     required_tier: 0,
+        // },
+        // WorkTypes::Teacher => Work {
+        //     name: work,
+        //     money: 3.0,
+        //     description: "Good labor ",
+        //     required_tier: 1,
+        // },
     }
 }
 
@@ -79,10 +109,13 @@ pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
     }
     match input_work {
         WorkTypes::Mines => true,
-        WorkTypes::Fields => game.state.works[WorkTypes::Mines as usize].level > 10,
-        WorkTypes::Servant => game.state.works[WorkTypes::Fields as usize].level > 10,
-        WorkTypes::Teacher => game.state.works[WorkTypes::Servant as usize].level > 10,
-        WorkTypes::Farm => game.state.works[WorkTypes::Teacher as usize].level > 10,
+        WorkTypes::Latrine => game.state.works[WorkTypes::Mines as usize].level > 10,
+        WorkTypes::GalleyRower => game.state.works[WorkTypes::Latrine as usize].level > 10,
+        WorkTypes::Fields => game.state.works[WorkTypes::GalleyRower as usize].level > 10,
+        WorkTypes::Mill => game.state.works[WorkTypes::Fields as usize].level > 10,
+        WorkTypes::Weaver => game.state.works[WorkTypes::Mill as usize].level > 10,
+        WorkTypes::Fisherman => game.state.works[WorkTypes::Weaver as usize].level > 10,
+        WorkTypes::Farmer => game.state.works[WorkTypes::Fisherman as usize].level > 10,
     }
 }
 

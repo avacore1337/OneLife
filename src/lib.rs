@@ -121,7 +121,7 @@ pub fn print_debug() {
         "intermediate: {:?}",
         game.intermediate_state
     )));
-    console::log_1(&JsValue::from_str(&format!("state: {:?}", game.state)));
+    console::log_1(&JsValue::from_str(&format!("state: {:#?}", game.state)));
 }
 
 #[wasm_bindgen]

@@ -5,10 +5,15 @@ use strum::EnumIter;
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug)]
 pub enum WorkTypes {
     Mines,
+    Latrine,
+    GalleyRower,
     Fields,
-    Servant,
-    Teacher,
-    Farm,
+    Mill,
+    Weaver,
+    Fisherman,
+    Farmer,
+    // Servant,
+    // Teacher,
 }
 
 pub const WORK_SIZE: usize = variant_count::<WorkTypes>();
