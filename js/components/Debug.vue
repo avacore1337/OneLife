@@ -5,6 +5,8 @@
     <br /><br />
     <button v-on:click="set_gamespeed(1)">Set GameSpeed 1</button>
     <br />
+    <button v-on:click="set_gamespeed(10)">Set GameSpeed 10</button>
+    <br />
     <button v-on:click="set_gamespeed(100)">Set GameSpeed 100</button>
     <br />
     <button v-on:click="toggle_pause" style="margin: 2px">

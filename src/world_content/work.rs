@@ -1,6 +1,7 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
+use crate::input::stat::StatTypes;
 use crate::input::work::{WorkTypes, WORK_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
@@ -12,7 +13,7 @@ pub struct Work {
     pub money: f64,
     pub description: &'static str,
     pub required_tier: u32,
-    // pub stat_gains: BaseStats,
+    pub main_stat: StatTypes,
 }
 
 impl Gain for Work {
@@ -44,48 +45,56 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             money: 0.5,
             description: "Hard labor that kills you",
             required_tier: 0,
+            main_stat: StatTypes::Str,
         },
         WorkTypes::Latrine => Work {
             name: work,
             money: 1.0,
             description: "A shitty job",
             required_tier: 0,
+            main_stat: StatTypes::Str,
         },
         WorkTypes::GalleyRower => Work {
             name: work,
             money: 2.5,
             description: "Row row row your boat",
             required_tier: 0,
+            main_stat: StatTypes::Str,
         },
         WorkTypes::Fields => Work {
             name: work,
             money: 5.0,
             description: "You ain't picking flowers",
             required_tier: 0,
+            main_stat: StatTypes::Str,
         },
         WorkTypes::Mill => Work {
             name: work,
             money: 9.0,
             description: "Hard labor",
             required_tier: 0,
+            main_stat: StatTypes::Str,
         },
         WorkTypes::Weaver => Work {
             name: work,
             money: 14.0,
             description: "Real work",
             required_tier: 1,
+            main_stat: StatTypes::Str,
         },
         WorkTypes::Fisherman => Work {
             name: work,
             money: 20.0,
             description: "A man of the sea",
             required_tier: 1,
+            main_stat: StatTypes::Str,
         },
         WorkTypes::Farmer => Work {
             name: work,
             money: 40.0,
             description: "Hard labor for a free man",
             required_tier: 2,
+            main_stat: StatTypes::Str,
         },
         // WorkTypes::Servant => Work {
         //     name: work,
@@ -109,13 +118,13 @@ pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
     }
     match input_work {
         WorkTypes::Mines => true,
-        WorkTypes::Latrine => game.state.works[WorkTypes::Mines as usize].level > 10,
-        WorkTypes::GalleyRower => game.state.works[WorkTypes::Latrine as usize].level > 10,
-        WorkTypes::Fields => game.state.works[WorkTypes::GalleyRower as usize].level > 10,
-        WorkTypes::Mill => game.state.works[WorkTypes::Fields as usize].level > 10,
-        WorkTypes::Weaver => game.state.works[WorkTypes::Mill as usize].level > 10,
-        WorkTypes::Fisherman => game.state.works[WorkTypes::Weaver as usize].level > 10,
-        WorkTypes::Farmer => game.state.works[WorkTypes::Fisherman as usize].level > 10,
+        WorkTypes::Latrine => game.state.works[WorkTypes::Mines as usize].level >= 10,
+        WorkTypes::GalleyRower => game.state.works[WorkTypes::Latrine as usize].level >= 10,
+        WorkTypes::Fields => game.state.works[WorkTypes::GalleyRower as usize].level >= 10,
+        WorkTypes::Mill => game.state.works[WorkTypes::Fields as usize].level >= 10,
+        WorkTypes::Weaver => game.state.works[WorkTypes::Mill as usize].level >= 10,
+        WorkTypes::Fisherman => game.state.works[WorkTypes::Weaver as usize].level >= 10,
+        WorkTypes::Farmer => game.state.works[WorkTypes::Fisherman as usize].level >= 10,
     }
 }
 

@@ -11,6 +11,7 @@ pub struct BoostItem {
     pub name: BoostItemTypes,
     pub purchasing_cost: f64,
     pub description: &'static str,
+    pub display_name: &'static str,
     pub required_tier: u32,
     // pub item_effect:
 }
@@ -45,37 +46,43 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         BoostItemTypes::Book => BoostItem {
             name: item_type,
             purchasing_cost: 10.0,
-            description: "Educationer",
+            description: "Me dumb? That's unpossible",
+            display_name: "Learning to read",
             required_tier: 0,
         },
         BoostItemTypes::Dumbell => BoostItem {
             name: item_type,
             purchasing_cost: 1_000.0,
-            description: "Heavy thing",
+            description: "It's just a stick",
+            display_name: "Wooden Dumbell",
             required_tier: 0,
         },
         BoostItemTypes::Book2 => BoostItem {
             name: item_type,
             purchasing_cost: 4_000.0,
-            description: "Educationer",
+            description: "Very expensive for a childrens book",
+            display_name: "Reading for children",
             required_tier: 0,
         },
         BoostItemTypes::Dumbell2 => BoostItem {
             name: item_type,
             purchasing_cost: 6_000.0,
-            description: "Heavy thing",
+            description: "Couldn't I just use a normal stone?",
+            display_name: "Stone dumbell",
             required_tier: 0,
         },
         BoostItemTypes::Book3 => BoostItem {
             name: item_type,
             purchasing_cost: 16_000.0,
-            description: "Educationer",
+            description: "The book makes you feel really really smart",
+            display_name: "Dunner Kruger's peak",
             required_tier: 1,
         },
         BoostItemTypes::Dumbell3 => BoostItem {
             name: item_type,
             purchasing_cost: 16_000.0,
-            description: "Heavy thing",
+            description: "Cowbell, Kettlebell, what's the difference anyway",
+            display_name: "Kettlebell",
             required_tier: 1,
         },
     }

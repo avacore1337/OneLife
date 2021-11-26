@@ -9,6 +9,7 @@ use crate::input::work::WorkTypes;
 use crate::state::state_container::StateContainer;
 use crate::state::stats::Stat;
 use crate::state::work::Work as StateWork;
+use crate::world_content::activity::translate_activity;
 use crate::world_content::boost_item::translate_boost_item;
 use crate::world_content::housing::translate_housing;
 use crate::world_content::work::{should_be_visable_work, should_unlock_work, translate_work};
@@ -26,6 +27,7 @@ pub fn engine_run(game: &mut Game) {
     apply_housing(game);
     apply_items(game);
     apply_work(game);
+    apply_activities(game);
 
     // Get the gains
     do_work(game.input.work, &mut game.state);
@@ -101,6 +103,11 @@ fn apply_work(game: &mut Game) {
     game.intermediate_state.get_gains(&work);
 }
 
+fn apply_activities(game: &mut Game) {
+    let activity = translate_activity(game.input.activity);
+    game.intermediate_state.get_gains(&activity);
+}
+
 fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
     let work: &mut StateWork = &mut state.works[input_work];
     work.next_level_progress += 0.3
@@ -117,10 +124,12 @@ fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
 }
 
 fn gain_stat_xp(game: &mut Game) {
+    let int_level = game.state.base_stats[StatTypes::Int as usize].level;
+    let stat_xp_multiplier = 1.0 + (int_level as f64 / 10.0);
     for stat_type in StatTypes::iter() {
         let stat_xp = game.intermediate_state.get_value(stat_type.into());
         let stat: &mut Stat = &mut game.state.base_stats[stat_type as usize];
-        stat.next_level_progress += stat_xp;
+        stat.next_level_progress += stat_xp * stat_xp_multiplier;
         let mut next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
         while stat.next_level_progress > next_level_xp_needed {
             stat.level += 1.0;
@@ -142,7 +151,9 @@ fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
 
 fn do_work(input_work: WorkTypes, state: &mut StateContainer) {
     let work = translate_work(input_work);
+    let main_stat_level = state.base_stats[work.main_stat as usize].level;
     let work_state = state.works[input_work as usize];
-    let multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
-    state.items.money += work.money * multiplier;
+    let level_multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
+    let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
+    state.items.money += work.money * level_multiplier * stat_multiplier / 30.0;
 }
