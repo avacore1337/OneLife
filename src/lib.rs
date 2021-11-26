@@ -86,8 +86,8 @@ pub fn get_info_step(step: u32) -> JsValue {
 }
 
 #[wasm_bindgen]
-pub fn next_info_step() -> JsValue {
-    let game = GLOBAL_DATA.lock().unwrap();
+pub fn next_info_step() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.info.tutorial_step += 1;
     game.meta_data.info.show_tutorial = false;
 }
