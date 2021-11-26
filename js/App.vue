@@ -97,6 +97,11 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #232c3a;
+  color: white;
+}
+
 .notransition > div.progress-bar {
   -webkit-transition: none !important;
   -moz-transition: none !important;

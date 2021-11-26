@@ -1,27 +1,30 @@
 <template>
-  <div style="border: solid; margin: 2px">
-    Works
-    <ul>
-      <li
+  <div class="works">
+    <h3>Works</h3>
+    <table>
+      <tr
         v-for="(work, index) in world.works.filter(
           (work, index) => work.required_tier <= state.rebirth_stats.class_tier && state.works[index].is_visible
         )"
+        v-on:click="state.works[index].is_unlocked && set_work(work.name)"
+        v-bind:class="{ disabled: !state.works[index].is_unlocked }"
         :key="work.name"
       >
-        <button v-on:click="!work.is_unlocked && set_work(work.name)" style="margin: 2px" :disabled="work.is_unlocked">
-          <span v-if="work.name == input.work">{{ work.name }} &lt;-- </span>
-          <span v-if="work.name != input.work">{{ work.name }}</span>
-        </button>
-        <p>
-          Level: {{ state.works[index].level }} Max Level {{ state.rebirth_stats.max_job_levels[index] }}
-          <b-progress
-            class="notransition w-75"
-            :value="state.works[index].next_level_percentage.toFixed(2)"
-            animated
-          ></b-progress>
-        </p>
-      </li>
-    </ul>
+        <td>
+          <p v-bind:class="{ selected: input.work === work.name }">{{ work.name }}</p>
+        </td>
+        <td>
+          <p>
+            Level: {{ state.works[index].level }} Max Level {{ state.rebirth_stats.max_job_levels[index] }}
+            <b-progress
+              class="notransition w-75"
+              :value="state.works[index].next_level_percentage.toFixed(2)"
+              animated
+            ></b-progress>
+          </p>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -36,4 +39,51 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.works {
+  margin-bottom: 1rem;
+  padding: 2rem 1rem 1rem 2rem;
+  background-color: #333c4a;
+  border-radius: 3rem 3rem 0 0;
+  border-top: 0.4rem solid #1a202b;
+  border-left: 0.4rem solid #1a202b;
+  border-right: 0.4rem solid #1a202b;
+}
+
+table {
+  width: 100%;
+  height: 100%;
+}
+
+tr {
+  height: 4rem;
+}
+
+tr:not(:last-child) {
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+tr:hover {
+  cursor: pointer;
+}
+
+tr > td:first-child {
+  width: 30%;
+}
+
+tr > td:not(:first-child) {
+  width: 70%;
+}
+
+tr.disabled {
+  cursor: inherit;
+  background-color: #84878a;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+p.selected {
+  text-decoration: underline;
+  font-weight: bold;
+}
+</style>
