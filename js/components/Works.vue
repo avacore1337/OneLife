@@ -15,7 +15,7 @@
         </td>
         <td>
           <p>
-            Level: {{ state.works[index].level }} Max Level {{ state.rebirth_stats.max_job_levels[index] }}
+            Level: {{ state.works[index].level }} Reached level: {{ state.rebirth_stats.max_job_levels[index] }}
             <b-progress
               class="notransition w-75"
               :value="state.works[index].next_level_percentage.toFixed(2)"
@@ -41,6 +41,7 @@ export default {
 
 <style scoped>
 .works {
+  width: 100%;
   margin-bottom: 1rem;
   padding: 2rem 1rem 1rem 2rem;
   background-color: #333c4a;

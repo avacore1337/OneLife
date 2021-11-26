@@ -1,6 +1,15 @@
 <template>
-  <div>
-    <div style="width: 300px; float: left">
+  <div class="app">
+    <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
+      <span class="the-modal">
+        <div class="d-block text-center">
+          <h3>The Modal ...</h3>
+        </div>
+        <b-button class="float-end" variant="danger" block @click="hideModal">Close</b-button>
+      </span>
+    </b-modal>
+
+    <div style="width: 15%; float: left">
       <Sidebar
         v-bind:state="state"
         v-bind:input="input"
@@ -10,21 +19,23 @@
       />
     </div>
 
-    <div style="margin-left: 420px">
-      <div style="float: left">
-        <div style="border: solid; width: 400px; float: left">
-          <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-          <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-          <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-          <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-        </div>
-        <!-- <div style="border:solid;margin-left: 420px; width: 400px;" v-if="state.life_stats.dead"> -->
-        <div style="border: solid; margin-left: 420px; width: 400px">
-          <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-        </div>
+    <div style="margin-left: 2%; float: left; width: 40%">
+      <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+      <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+      <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+      <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+    </div>
+
+    <div style="margin-left: 20px; float: left">
+      <div
+        style="margin-left: 20px; border: 5px solid white; width: 300px; display: inline; float: left; padding: 10px"
+      >
+        <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
       </div>
 
-      <div style="border: solid; margin-left: 840px; width: 400px; padding: 10px">
+      <div
+        style="margin-left: 20px; border: 5px solid white; width: 200px; display: inline; float: left; padding: 10px"
+      >
         <Debug v-bind:state="state" v-bind:input="input" v-bind:presets="presets" v-bind:wasm="wasm" />
       </div>
     </div>
@@ -90,9 +101,19 @@ export default {
       self.state = self.wasm.get_state();
       self.input = self.wasm.get_input();
       self.metaData = self.wasm.get_meta_data();
+
+      // self.showModal();
     }, 1000 / 30);
   },
-  methods: {},
+  methods: {
+    showModal() {
+      this.$refs["the-modal"].show();
+    },
+    hideModal() {
+      this.$refs["the-modal"].hide();
+    },
+    toggleModal() {},
+  },
 };
 </script>
 
@@ -108,5 +129,14 @@ body {
   -o-transition: none !important;
   -ms-transition: none !important;
   transition: none !important;
+}
+
+span.the-modal {
+  color: black;
+}
+
+div.app {
+  width: 100vw;
+  height: 100vh;
 }
 </style>

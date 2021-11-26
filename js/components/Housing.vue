@@ -24,6 +24,7 @@ export default {
 
 <style scoped>
 .housing {
+  width: 100%;
   margin-bottom: 1rem;
   padding: 2rem 1rem 1rem 2rem;
   background-color: #333c4a;
