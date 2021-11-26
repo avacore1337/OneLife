@@ -1,6 +1,6 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
-// use crate::game::Game;
+use crate::game::Game;
 use crate::input::activity::{ActivityTypes, ACTIVITY_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
@@ -48,7 +48,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
         ActivityTypes::Studying => Activity {
             name: activity,
             description: "Getting smarter",
-            required_tier: 1,
+            required_tier: 0,
         },
         ActivityTypes::Flirt => Activity {
             name: activity,
@@ -73,19 +73,18 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
     }
 }
 
-// pub fn should_unlock_activity(input_activity: ActivityTypes, game: &Game) -> bool {
-//     let activity = &game.world.activitys[input_activity as usize];
-//     if activity.required_tier > game.state.rebirth_stats.class_tier {
-//         return false;
-//     }
-//     match input_activity {
-//         ActivityTypes::Mines => true,
-//         ActivityTypes::Fields => game.state.activitys[ActivityTypes::Mines as usize].level > 10,
-//         ActivityTypes::Servant => game.state.activitys[ActivityTypes::Fields as usize].level > 10,
-//         ActivityTypes::Teacher => game.state.activitys[ActivityTypes::Servant as usize].level > 10,
-//         ActivityTypes::Farm => game.state.activitys[ActivityTypes::Teacher as usize].level > 10,
-//     }
-// }
+pub fn should_unlock_activity(input_activity: ActivityTypes, game: &Game) -> bool {
+    let activity = &game.world.activities[input_activity as usize];
+    if activity.required_tier > game.state.rebirth_stats.class_tier {
+        return false;
+    }
+    true
+    // match input_activity {
+    //     ActivityTypes::Training => true,
+    //     ActivityTypes::Studying => true,
+    //     ActivityTypes::Fields => game.state.activitys[ActivityTypes::Mines as usize].level > 10,
+    // }
+}
 
 // pub fn should_be_visable_activity(input_activity: ActivityTypes, game: &Game) -> bool {
 //     let activity = &game.world.activitys[input_activity as usize];

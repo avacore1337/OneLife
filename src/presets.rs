@@ -1,13 +1,13 @@
 use crate::input::Input;
 use crate::state::state_container::{new_game, rebirth, StateContainer};
 use crate::world_content::world::World;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
-pub fn get_presets(world: &World) -> HashMap<&'static str, (StateContainer, Input)> {
-    let mut presets = HashMap::new();
-    presets.insert("poor death", make_poor_death(world));
-    presets.insert("rich death", make_rich_death(world));
-    presets.insert("full unlock", make_full_unlock(world));
+pub fn get_presets(world: &World) -> BTreeMap<&'static str, (StateContainer, Input)> {
+    let mut presets = BTreeMap::new();
+    presets.insert("1: poor death", make_poor_death(world));
+    presets.insert("2: rich death", make_rich_death(world));
+    presets.insert("3: full unlock", make_full_unlock(world));
 
     presets
 }
