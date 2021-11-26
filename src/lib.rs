@@ -9,6 +9,8 @@ use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 
+const BASE_LIFESPAN: f64 = 70.0 * 365.0;
+
 mod engine;
 mod game;
 mod input;
@@ -20,6 +22,7 @@ mod world_content;
 use engine::engine_run;
 use game::{Game, GameSave};
 use input::boost_item::BoostItemTypes;
+use input::Input;
 use presets::get_presets;
 use state::state_container::rebirth;
 use world_content::boost_item::BoostItem;
@@ -99,6 +102,7 @@ pub fn do_rebirth() {
     }
     game.state.rebirth_stats.rebirth_count += 1;
     game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
+    game.input = Input::new();
     console::log_1(&JsValue::from_str("Rust did rebirth"));
 }
 

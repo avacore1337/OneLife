@@ -27,6 +27,7 @@ pub fn new_game(world: &World) -> StateContainer {
 }
 
 pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
+    let life_stats = LifeStats::new(world, &rebirth_stats);
     StateContainer {
         base_stats: world
             .tiers
@@ -34,7 +35,7 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
             .expect("tier not implemented")
             .starting_stats,
         rebirth_stats,
-        life_stats: LifeStats::new(),
+        life_stats,
         items: Items::new(),
         works: get_works(),
         activity: get_activities(),

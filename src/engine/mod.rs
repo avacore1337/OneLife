@@ -34,14 +34,23 @@ pub fn engine_run(game: &mut Game) {
 
     // update frontend read values
     update_unlocks(game);
-    // Base gamespeed is that one life should take 30min, the game runs in 30 ticks/second
+    update_life_stats(game);
+}
+
+fn update_life_stats(game: &mut Game) {
+    let life_stats = &mut game.state.life_stats;
+    life_stats.happiness = game.intermediate_state.get_multiplier(KeyValues::Happiness);
+    life_stats.health += 0.000_002 * game.intermediate_state.get_value(KeyValues::Health);
+
+    // Base gamespeed is that one life should take 30min for 0.0 health, the game runs in 30 ticks/second
     // Days/tick = total_days / (ticks in 30 min)
     // 52*365/(30*60*30) = 0.351
-    game.state.life_stats.age += 0.35 * game.state.rebirth_stats.time_factor;
+    life_stats.age += 0.35 * game.state.rebirth_stats.time_factor;
+    life_stats.lifespan = crate::BASE_LIFESPAN * (1.0 + life_stats.health);
 
-    game.state.life_stats.happiness = game.intermediate_state.get_multiplier(KeyValues::Happiness);
-    if character_should_die(game) {
-        game.state.life_stats.dead = true;
+    let should_die = life_stats.age + life_stats.health >= life_stats.lifespan;
+    if should_die {
+        life_stats.dead = true;
         character_death_update(game);
     }
 }
@@ -57,11 +66,6 @@ fn update_unlocks(game: &mut Game) {
 
 fn calculate_intermediate_state(_game: &Game) -> IntermediateState {
     IntermediateState::new()
-}
-
-fn character_should_die(game: &Game) -> bool {
-    let life_stats = &game.state.life_stats;
-    life_stats.age + life_stats.health >= life_stats.lifespan
 }
 
 fn character_death_update(game: &mut Game) {
