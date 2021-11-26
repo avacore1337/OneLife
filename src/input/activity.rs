@@ -6,6 +6,9 @@ use strum::EnumIter;
 pub enum ActivityTypes {
     Training,
     Studying,
+    Flirt,
+    Run,
+    Acrobatics,
     Praying,
 }
 

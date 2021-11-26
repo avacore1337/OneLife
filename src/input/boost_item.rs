@@ -11,6 +11,7 @@ pub enum BoostItemTypes {
     Book3,
     Dumbell3,
     // HealthKit,
+    // Leach,
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();

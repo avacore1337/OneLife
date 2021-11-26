@@ -22,6 +22,15 @@ impl Gain for Activity {
             ActivityTypes::Studying => {
                 intermediate.set_base(KeyValues::Int, 1.0);
             }
+            ActivityTypes::Flirt => {
+                intermediate.set_base(KeyValues::Cha, 1.0);
+            }
+            ActivityTypes::Run => {
+                intermediate.set_base(KeyValues::Con, 1.0);
+            }
+            ActivityTypes::Acrobatics => {
+                intermediate.set_base(KeyValues::Dex, 1.0);
+            }
             ActivityTypes::Praying => {
                 intermediate.set_base(KeyValues::Faith, 1.0);
             }
@@ -32,17 +41,32 @@ impl Gain for Activity {
 pub fn translate_activity(activity: ActivityTypes) -> Activity {
     match activity {
         ActivityTypes::Training => Activity {
-            name: ActivityTypes::Training,
+            name: activity,
             description: "Getting stronger, faster",
             required_tier: 0,
         },
         ActivityTypes::Studying => Activity {
-            name: ActivityTypes::Studying,
+            name: activity,
             description: "Getting smarter",
             required_tier: 1,
         },
+        ActivityTypes::Flirt => Activity {
+            name: activity,
+            description: "Getting what you want",
+            required_tier: 1,
+        },
+        ActivityTypes::Run => Activity {
+            name: activity,
+            description: "Going further",
+            required_tier: 1,
+        },
+        ActivityTypes::Acrobatics => Activity {
+            name: activity,
+            description: "Getting bendier",
+            required_tier: 1,
+        },
         ActivityTypes::Praying => Activity {
-            name: ActivityTypes::Praying,
+            name: activity,
             description: "Getting more pieus",
             required_tier: 3,
         },
