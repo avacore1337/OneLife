@@ -1,3 +1,4 @@
+use crate::info::Info;
 use js_sys::Date;
 use serde::{Deserialize, Serialize};
 
@@ -6,6 +7,7 @@ pub struct MetaData {
     pub game_speed: u32,
     pub autosave: bool,
     pub last_save_time: f64,
+    pub info: Info,
 }
 impl MetaData {
     pub fn new() -> MetaData {
@@ -13,6 +15,7 @@ impl MetaData {
             game_speed: 100,
             autosave: false,
             last_save_time: Date::new_0().get_time(),
+            info: Info::new(),
         }
     }
 

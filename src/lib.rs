@@ -13,6 +13,7 @@ const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 
 mod engine;
 mod game;
+mod info;
 mod input;
 mod meta;
 mod presets;
@@ -21,6 +22,7 @@ mod world_content;
 
 use engine::engine_run;
 use game::{Game, GameSave};
+use info::get_info;
 use input::boost_item::BoostItemTypes;
 use input::Input;
 use presets::get_presets;
@@ -76,6 +78,18 @@ pub fn get_state() -> JsValue {
 pub fn get_meta_data() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
     JsValue::from_serde(&game.meta_data).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn get_info_step(step: u32) -> JsValue {
+    JsValue::from_str(get_info(step))
+}
+
+#[wasm_bindgen]
+pub fn next_info_step() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.info.tutorial_step += 1;
+    game.meta_data.info.show_tutorial = false;
 }
 
 #[wasm_bindgen]
