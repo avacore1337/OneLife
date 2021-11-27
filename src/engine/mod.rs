@@ -3,6 +3,7 @@ pub mod value_keys;
 
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
+use crate::info::check_for_tutorial_step;
 use crate::input::activity::ActivityTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::stat::StatTypes;
@@ -38,6 +39,7 @@ pub fn engine_run(game: &mut Game) {
     // update frontend read values
     update_unlocks(game);
     update_life_stats(game);
+    check_for_tutorial_step(game);
 }
 
 fn update_life_stats(game: &mut Game) {

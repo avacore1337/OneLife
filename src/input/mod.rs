@@ -2,6 +2,7 @@ pub mod activity;
 pub mod boost_item;
 pub mod housing;
 pub mod stat;
+pub mod tomb;
 pub mod work;
 
 use activity::ActivityTypes;
