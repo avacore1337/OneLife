@@ -24,6 +24,7 @@ use engine::engine_run;
 use game::{Game, GameSave};
 use info::get_info;
 use input::boost_item::BoostItemTypes;
+use input::tomb::TombTypes;
 use input::Input;
 use presets::get_presets;
 use state::state_container::rebirth;
@@ -209,6 +210,19 @@ pub fn can_buy_item(val: &JsValue) -> bool {
     // let next_tier: bool = game.state.rebirth_stats.class_tier + 1 == val;
     let can_afford: bool = game.state.items.money >= item.purchasing_cost;
     can_afford
+}
+
+#[wasm_bindgen]
+pub fn buy_tomb(val: &JsValue) {
+    let _tomb_type: TombTypes = val.into_serde().unwrap();
+    console::log_1(&JsValue::from_str("Rust buy tomb"));
+    // if can_buy_item(val) {
+    //     console::log_1(&JsValue::from_str("Can buy item"));
+    //     let mut game = GLOBAL_DATA.lock().unwrap();
+    //     let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
+    //     game.state.items.money -= item.purchasing_cost;
+    //     game.state.items.boost_items[boost_item_type as usize].is_purchased = true;
+    // }
 }
 
 #[wasm_bindgen]

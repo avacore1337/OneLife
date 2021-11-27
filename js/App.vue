@@ -24,6 +24,7 @@
       <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
       <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
       <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+      <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
     </div>
 
     <div style="margin-left: 20px; float: left">
@@ -44,6 +45,7 @@
 
 <script>
 import Works from "./components/Works.vue";
+import Tombs from "./components/Tombs.vue";
 import Housing from "./components/Housing.vue";
 import Activities from "./components/Activities.vue";
 import Death from "./components/Death.vue";
@@ -62,7 +64,7 @@ Vue.use(BootstrapVue);
 
 export default {
   props: ["wasm"],
-  components: { Works, Housing, Activities, Debug, BoostItems, Death, Sidebar },
+  components: { Works, Housing, Activities, Debug, BoostItems, Death, Sidebar, Tombs },
   data() {
     return {
       world: {
