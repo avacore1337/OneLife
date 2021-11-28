@@ -1,13 +1,12 @@
-// use crate::engine::intermediate_state::{Gain, IntermediateState};
-// use crate::engine::value_keys::KeyValues;
+use crate::engine::intermediate_state::{Gain, IntermediateState};
+use crate::engine::value_keys::KeyValues;
 // use crate::game::Game;
-// use crate::input::stat::StatTypes;
 use crate::input::tomb::{TombTypes, TOMB_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
-#[derive(Serialize)]
+#[derive(Serialize, Clone)]
 pub struct Tomb {
     pub name: TombTypes,
     pub purchasing_cost: f64,
@@ -16,28 +15,25 @@ pub struct Tomb {
     pub required_tier: u32,
 }
 
-// impl Gain for Tomb {
-//     fn gain(&self, intermediate: &mut IntermediateState) {
-//         match self.name {
-//             TombTypes::Mines => {
-//                 intermediate.set_base(KeyValues::Health, -5.0);
-//             }
-//             TombTypes::Latrine => {
-//                 intermediate.set_base(KeyValues::Health, -4.0);
-//             }
-//             TombTypes::GalleyRower => {
-//                 intermediate.set_base(KeyValues::Health, -3.0);
-//             }
-//             TombTypes::Fields => {
-//                 intermediate.set_base(KeyValues::Health, -2.0);
-//             }
-//             TombTypes::Mill => {
-//                 intermediate.set_base(KeyValues::Health, -1.0);
-//             }
-//             _ => (),
-//         }
-//     }
-// }
+impl Gain for Tomb {
+    fn gain(&self, intermediate: &mut IntermediateState) {
+        match self.name {
+            TombTypes::Nothing => {
+                intermediate.set_base(KeyValues::Coins, 0.0);
+            }
+            TombTypes::ShallowGrave => {
+                intermediate.set_base(KeyValues::Coins, 2.0);
+            }
+            TombTypes::Tomb => {
+                intermediate.set_base(KeyValues::Coins, 16.0);
+            }
+            TombTypes::Mausuleum => {
+                intermediate.set_base(KeyValues::Coins, 320.0);
+            }
+        }
+    }
+}
+
 pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
     match tomb {
         TombTypes::Nothing => Tomb {

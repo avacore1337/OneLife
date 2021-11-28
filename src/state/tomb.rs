@@ -3,10 +3,10 @@ use serde::{Deserialize, Serialize};
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
-#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Tomb {
     pub name: TombTypes,
-    pub is_owned: bool,
+    pub is_purchased: bool,
     pub is_unlocked: bool,
     pub is_visible: bool,
 }
@@ -15,7 +15,7 @@ impl Tomb {
     pub fn new(tomb: TombTypes) -> Tomb {
         Tomb {
             name: tomb,
-            is_owned: false,
+            is_purchased: false,
             is_unlocked: false,
             is_visible: true,
         }

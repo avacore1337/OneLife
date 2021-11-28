@@ -30,6 +30,7 @@ pub fn engine_run(game: &mut Game) {
     apply_items(game);
     apply_work(game);
     apply_activities(game);
+    apply_tombs(game);
 
     // Get the gains
     do_work(game.input.work, &mut game.state);
@@ -81,7 +82,7 @@ fn character_death_update(game: &mut Game) {
         game.state.rebirth_stats.max_job_levels[index] =
             std::cmp::max(game.state.rebirth_stats.max_job_levels[index], work.level);
     }
-    game.state.rebirth_stats.coins += 2.0;
+    game.state.rebirth_stats.coins += game.intermediate_state.get_value(KeyValues::Coins);
 }
 
 fn apply_housing(game: &mut Game) {
@@ -99,7 +100,6 @@ fn apply_items(game: &mut Game) {
         if item.is_purchased {
             let boost_item = translate_boost_item(item.name);
             game.intermediate_state.get_gains(&boost_item);
-            //
         }
     }
 }
@@ -112,6 +112,15 @@ fn apply_work(game: &mut Game) {
 fn apply_activities(game: &mut Game) {
     let activity = translate_activity(game.input.activity);
     game.intermediate_state.get_gains(&activity);
+}
+
+fn apply_tombs(game: &mut Game) {
+    for tomb in &game.state.tombs {
+        if tomb.is_purchased {
+            let world_tomb = game.world.tombs[tomb.name as usize].clone();
+            game.intermediate_state.get_gains(&world_tomb);
+        }
+    }
 }
 
 fn gain_work_xp(input_work: usize, state: &mut StateContainer) {

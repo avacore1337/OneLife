@@ -21,7 +21,7 @@ pub struct StateContainer {
     pub items: Items,
     pub works: [Work; WORK_SIZE],
     pub activity: [Activity; ACTIVITY_SIZE],
-    pub tomb: [Tomb; TOMB_SIZE],
+    pub tombs: [Tomb; TOMB_SIZE],
 }
 
 pub fn new_game(world: &World) -> StateContainer {
@@ -42,6 +42,6 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
         items: Items::new(),
         works: get_works(),
         activity: get_activities(),
-        tomb: get_tombs(),
+        tombs: get_tombs(),
     }
 }
