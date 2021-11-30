@@ -1,7 +1,7 @@
 use crate::game::Game;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Info {
     pub tutorial_step: u32,
     pub show_tutorial: bool,

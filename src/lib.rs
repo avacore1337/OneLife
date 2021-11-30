@@ -10,6 +10,7 @@ use wasm_bindgen::prelude::*;
 use web_sys::console;
 
 const BASE_LIFESPAN: f64 = 70.0 * 365.0;
+const TICK_RATE: f64 = 30.0;
 
 mod engine;
 mod game;
@@ -137,13 +138,25 @@ pub fn set_autosave(autosave: bool) {
 }
 
 #[wasm_bindgen]
-pub fn print_debug() {
+pub fn print_debug_state() {
     let game = GLOBAL_DATA.lock().unwrap();
     console::log_1(&JsValue::from_str(&format!(
-        "intermediate: {:?}",
+        "intermediate: {:#?}",
         game.intermediate_state
     )));
     console::log_1(&JsValue::from_str(&format!("state: {:#?}", game.state)));
+}
+
+#[wasm_bindgen]
+pub fn print_debug_meta() {
+    let game = GLOBAL_DATA.lock().unwrap();
+    console::log_1(&JsValue::from_str(&format!("meta: {:#?}", game.meta_data)));
+}
+
+#[wasm_bindgen]
+pub fn paused() {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.meta_data.paused_tick_time();
 }
 
 #[wasm_bindgen]
@@ -152,6 +165,7 @@ pub fn tick() {
     if game.meta_data.should_autosave() {
         do_save(game);
     }
+    game.meta_data.update_tick_time();
     for _ in 0..game.meta_data.game_speed {
         engine_run(game);
     }
@@ -284,7 +298,7 @@ pub fn do_save(game: &mut Game) {
         local_storage
             .set_item("save", &to_string(&GameSave::from(&*game)).unwrap())
             .unwrap();
-        game.meta_data.set_savetime();
+        game.meta_data.set_save_time();
     }
 }
 

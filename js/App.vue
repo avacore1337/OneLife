@@ -38,7 +38,13 @@
       <div
         style="margin-left: 20px; border: 5px solid white; width: 200px; display: inline; float: left; padding: 10px"
       >
-        <Debug v-bind:state="state" v-bind:input="input" v-bind:presets="presets" v-bind:wasm="wasm" />
+        <Debug
+          v-bind:metaData="metaData"
+          v-bind:state="state"
+          v-bind:input="input"
+          v-bind:presets="presets"
+          v-bind:wasm="wasm"
+        />
       </div>
     </div>
   </div>
@@ -86,7 +92,7 @@ export default {
         },
       },
       input: {},
-      metaData: {},
+      metaData: { info: {}, saved_ticks: 0.0 },
       presets: {},
       paused: false,
     };
@@ -101,6 +107,7 @@ export default {
     let self = this;
     setInterval(function () {
       if (self.paused) {
+        self.wasm.paused();
         return;
       }
 

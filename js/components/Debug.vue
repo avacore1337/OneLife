@@ -1,6 +1,8 @@
 <template>
   <div>
     Debug
+    <br />
+    <p>Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}</p>
 
     <br /><br />
     <button v-on:click="set_gamespeed(1)">Set GameSpeed 1</button>
@@ -15,7 +17,9 @@
     <br />
     <button v-on:click="tick">Tick</button>
     <br />
-    <button v-on:click="print_debug">Print Debug</button>
+    <button v-on:click="print_debug_state">Print Debug State</button>
+    <br />
+    <button v-on:click="print_debug_meta">Print Debug Meta</button>
 
     <br /><br />
     <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>
@@ -34,10 +38,13 @@
 
 <script>
 export default {
-  props: ["state", "presets", "input", "wasm"],
+  props: ["metaData", "state", "presets", "input", "wasm"],
   methods: {
-    print_debug: function () {
-      this.wasm.print_debug();
+    print_debug_state: function () {
+      this.wasm.print_debug_state();
+    },
+    print_debug_meta: function () {
+      this.wasm.print_debug_meta();
     },
     set_gamespeed: function (game_speed) {
       this.wasm.set_gamespeed(game_speed);
