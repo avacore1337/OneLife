@@ -24,11 +24,13 @@ use engine::engine_run;
 use game::{Game, GameSave};
 use info::get_info;
 use input::boost_item::BoostItemTypes;
+use input::rebirth_upgrade::RebirthUpgradeTypes;
 use input::tomb::TombTypes;
 use input::Input;
 use presets::get_presets;
 use state::state_container::rebirth;
 use world_content::boost_item::BoostItem;
+use world_content::rebirth_upgrade::RebirthUpgrade;
 use world_content::tier::Tier;
 use world_content::tomb::Tomb;
 
@@ -244,6 +246,21 @@ pub fn buy_item(val: &JsValue) {
         let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
         game.state.items.money -= item.purchasing_cost;
         game.state.items.boost_items[boost_item_type as usize].is_purchased = true;
+    }
+}
+
+#[wasm_bindgen]
+pub fn buy_rebirth_upgrade(val: &JsValue) {
+    let rebirth_upgrade_type: RebirthUpgradeTypes = val.into_serde().unwrap();
+    console::log_1(&JsValue::from_str("Rust buy rebirth upgrade"));
+    if true {
+        console::log_1(&JsValue::from_str("Can buy rebirth upgrade"));
+        let mut game = GLOBAL_DATA.lock().unwrap();
+        let rebirth_upgrade: &RebirthUpgrade =
+            &game.world.rebirth_upgrades[rebirth_upgrade_type as usize];
+        game.state.rebirth_stats.coins -= rebirth_upgrade.purchasing_cost;
+        game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade_type as usize].is_purchased =
+            true;
     }
 }
 

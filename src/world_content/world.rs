@@ -1,12 +1,14 @@
 use super::activity::{get_activities, Activity};
 use super::boost_item::{get_boost_items, BoostItem};
 use super::housing::{get_housing, Housing};
+use super::rebirth_upgrade::{get_rebirth_upgrades, RebirthUpgrade};
 use super::tier::{init_tiers, Tier};
 use super::tomb::{get_tombs, Tomb};
 use super::work::{get_works, Work};
 use crate::input::activity::ACTIVITY_SIZE;
 use crate::input::boost_item::BOOST_ITEM_SIZE;
 use crate::input::housing::HOUSING_SIZE;
+use crate::input::rebirth_upgrade::REBIRTH_UPGRADE_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::WORK_SIZE;
 use serde::Serialize;
@@ -19,6 +21,7 @@ pub struct World {
     pub housing: [Housing; HOUSING_SIZE],
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
     pub tombs: [Tomb; TOMB_SIZE],
+    pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],
 }
 
 impl World {
@@ -30,6 +33,7 @@ impl World {
             boost_items: get_boost_items(),
             activities: get_activities(),
             tombs: get_tombs(),
+            rebirth_upgrades: get_rebirth_upgrades(),
         }
     }
 }

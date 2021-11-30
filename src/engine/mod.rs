@@ -6,6 +6,7 @@ use crate::game::Game;
 use crate::info::check_for_tutorial_step;
 use crate::input::activity::ActivityTypes;
 use crate::input::housing::HousingTypes;
+use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::stat::StatTypes;
 use crate::input::work::WorkTypes;
 use crate::state::state_container::StateContainer;
@@ -14,6 +15,9 @@ use crate::state::work::Work as StateWork;
 use crate::world_content::activity::{should_unlock_activity, translate_activity};
 use crate::world_content::boost_item::translate_boost_item;
 use crate::world_content::housing::translate_housing;
+use crate::world_content::rebirth_upgrade::{
+    should_be_visable_rebirth_upgrade, should_unlock_rebirth_upgrade,
+};
 use crate::world_content::work::{should_be_visable_work, should_unlock_work, translate_work};
 use intermediate_state::IntermediateState;
 use strum::IntoEnumIterator;
@@ -64,12 +68,16 @@ fn update_life_stats(game: &mut Game) {
 fn update_unlocks(game: &mut Game) {
     for work in WorkTypes::iter() {
         game.state.works[work as usize].is_unlocked = should_unlock_work(work, game);
-    }
-    for work in WorkTypes::iter() {
         game.state.works[work as usize].is_visible = should_be_visable_work(work, game);
     }
     for activity in ActivityTypes::iter() {
         game.state.activity[activity as usize].is_unlocked = should_unlock_activity(activity, game);
+    }
+    for rebirth_upgrade in RebirthUpgradeTypes::iter() {
+        game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade as usize].is_unlocked =
+            should_unlock_rebirth_upgrade(rebirth_upgrade, game);
+        game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade as usize].is_visible =
+            should_be_visable_rebirth_upgrade(rebirth_upgrade, game);
     }
 }
 

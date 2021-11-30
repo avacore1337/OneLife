@@ -1,3 +1,5 @@
+use super::rebirth_upgrade::{get_rebirth_upgrades, RebirthUpgrade};
+use crate::input::rebirth_upgrade::REBIRTH_UPGRADE_SIZE;
 use crate::input::work::WORK_SIZE;
 use serde::{Deserialize, Serialize};
 
@@ -9,6 +11,7 @@ pub struct RebirthStats {
     pub karma: f64,
     pub time_factor: f64,
     pub max_job_levels: [u32; WORK_SIZE],
+    pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],
 }
 
 impl RebirthStats {
@@ -20,6 +23,7 @@ impl RebirthStats {
             karma: 0.0,
             time_factor: 1.0,
             max_job_levels: [0; WORK_SIZE],
+            rebirth_upgrades: get_rebirth_upgrades(),
         }
     }
 }

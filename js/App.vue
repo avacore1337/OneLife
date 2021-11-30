@@ -32,6 +32,7 @@
         style="margin-left: 20px; border: 5px solid white; width: 300px; display: inline; float: left; padding: 10px"
       >
         <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <RebirthUpgrades v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
       </div>
 
       <div
@@ -52,6 +53,7 @@ import Death from "./components/Death.vue";
 import Debug from "./components/Debug.vue";
 import Sidebar from "./components/Sidebar.vue";
 import BoostItems from "./components/BoostItems.vue";
+import RebirthUpgrades from "./components/RebirthUpgrades.vue";
 
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
@@ -64,13 +66,14 @@ Vue.use(BootstrapVue);
 
 export default {
   props: ["wasm"],
-  components: { Works, Housing, Activities, Debug, BoostItems, Death, Sidebar, Tombs },
+  components: { Works, Housing, Activities, Debug, BoostItems, Death, Sidebar, Tombs, RebirthUpgrades },
   data() {
     return {
       world: {
         works: [],
         tiers: [],
         boost_items: [],
+        rebirth_upgrades: [],
       },
       state: {
         base_stats: {},
@@ -78,7 +81,9 @@ export default {
           boost_items: [],
         },
         life_stats: {},
-        rebirth_stats: {},
+        rebirth_stats: {
+          rebirth_upgrades: [],
+        },
       },
       input: {},
       metaData: {},
