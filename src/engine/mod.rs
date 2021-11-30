@@ -3,7 +3,6 @@ pub mod value_keys;
 
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
-use crate::info::check_for_tutorial_step;
 use crate::input::activity::ActivityTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
@@ -18,11 +17,13 @@ use crate::world_content::housing::translate_housing;
 use crate::world_content::rebirth_upgrade::{
     should_be_visable_rebirth_upgrade, should_unlock_rebirth_upgrade,
 };
+use crate::world_content::tutorial::check_for_tutorial_step;
 use crate::world_content::work::{should_be_visable_work, should_unlock_work, translate_work};
 use intermediate_state::IntermediateState;
 use strum::IntoEnumIterator;
 
 pub fn engine_run(game: &mut Game) {
+    check_for_tutorial_step(game);
     if game.state.life_stats.dead {
         return;
     }
@@ -54,7 +55,6 @@ pub fn run(game: &mut Game) {
     // update frontend read values
     update_unlocks(game);
     update_life_stats(game);
-    check_for_tutorial_step(game);
 }
 
 fn update_life_stats(game: &mut Game) {

@@ -3,8 +3,9 @@
     <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
       <span class="the-modal">
         <div class="d-block text-center">
-          <h3>The Modal ...</h3>
+          <h3>{{ this.world.tutorial_texts[this.metaData.info.tutorial_step] }}</h3>
         </div>
+        <b-button class="float-end" block @click="hideModal">Next</b-button>
         <b-button class="float-end" variant="danger" block @click="hideModal">Close</b-button>
       </span>
     </b-modal>
@@ -80,6 +81,7 @@ export default {
         tiers: [],
         boost_items: [],
         rebirth_upgrades: [],
+        tutorial_texts: [],
       },
       state: {
         base_stats: {},
@@ -116,15 +118,24 @@ export default {
       self.input = self.wasm.get_input();
       self.metaData = self.wasm.get_meta_data();
 
-      // self.showModal();
+      self.updateModal();
     }, 1000 / 30);
   },
   methods: {
+    updateModal() {
+      let modal = this.$refs["the-modal"];
+      if (this.metaData.info.show_tutorial && modal.isHidden) {
+        console.log(this.$refs["the-modal"]);
+        /* console.log(this.metaData); */
+        modal.show();
+      }
+    },
     showModal() {
       this.$refs["the-modal"].show();
     },
     hideModal() {
       this.$refs["the-modal"].hide();
+      this.wasm.next_info_step();
     },
     toggleModal() {},
   },

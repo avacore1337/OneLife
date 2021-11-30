@@ -23,7 +23,6 @@ mod world_content;
 
 use engine::engine_run;
 use game::{Game, GameSave};
-use info::get_info;
 use input::boost_item::BoostItemTypes;
 use input::rebirth_upgrade::RebirthUpgradeTypes;
 use input::tomb::TombTypes;
@@ -86,11 +85,6 @@ pub fn get_meta_data() -> JsValue {
 }
 
 #[wasm_bindgen]
-pub fn get_info_step(step: u32) -> JsValue {
-    JsValue::from_str(get_info(step))
-}
-
-#[wasm_bindgen]
 pub fn next_info_step() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.info.tutorial_step += 1;
@@ -124,6 +118,12 @@ pub fn do_rebirth() {
     game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
     game.input = Input::new();
     console::log_1(&JsValue::from_str("Rust did rebirth"));
+}
+
+#[wasm_bindgen]
+pub fn set_disable_tutorial(val: bool) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.info.disable_tutorial = val;
 }
 
 #[wasm_bindgen]

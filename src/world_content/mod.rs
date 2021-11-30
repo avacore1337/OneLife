@@ -4,5 +4,6 @@ pub mod housing;
 pub mod rebirth_upgrade;
 pub mod tier;
 pub mod tomb;
+pub mod tutorial;
 pub mod work;
 pub mod world;

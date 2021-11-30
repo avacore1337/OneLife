@@ -4,6 +4,7 @@ use super::housing::{get_housing, Housing};
 use super::rebirth_upgrade::{get_rebirth_upgrades, RebirthUpgrade};
 use super::tier::{init_tiers, Tier};
 use super::tomb::{get_tombs, Tomb};
+use super::tutorial::get_tutorial_texts;
 use super::work::{get_works, Work};
 use crate::input::activity::ACTIVITY_SIZE;
 use crate::input::boost_item::BOOST_ITEM_SIZE;
@@ -22,6 +23,7 @@ pub struct World {
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
     pub tombs: [Tomb; TOMB_SIZE],
     pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],
+    pub tutorial_texts: Vec<&'static str>,
 }
 
 impl World {
@@ -34,6 +36,7 @@ impl World {
             activities: get_activities(),
             tombs: get_tombs(),
             rebirth_upgrades: get_rebirth_upgrades(),
+            tutorial_texts: get_tutorial_texts(),
         }
     }
 }
