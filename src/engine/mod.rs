@@ -26,6 +26,16 @@ pub fn engine_run(game: &mut Game) {
     if game.state.life_stats.dead {
         return;
     }
+    let run_count = game.meta_data.handle_run_count();
+    for _ in 0..run_count {
+        run(game);
+    }
+}
+
+pub fn run(game: &mut Game) {
+    if game.state.life_stats.dead {
+        return;
+    }
     game.intermediate_state = calculate_intermediate_state(game);
     let _old_state = game.state.clone(); //TODO use for delta?
 

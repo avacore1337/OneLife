@@ -107,9 +107,10 @@ pub fn get_preset_saves() -> JsValue {
 pub fn set_preset_saves(preset_name: &str) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     let mut presets = get_presets(&game.world);
-    if let Some((state, input)) = presets.remove(preset_name) {
+    if let Some((state, input, meta_data)) = presets.remove(preset_name) {
         game.state = state;
         game.input = input;
+        game.meta_data = meta_data
     }
 }
 
@@ -157,6 +158,12 @@ pub fn print_debug_meta() {
 pub fn paused() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     game.meta_data.paused_tick_time();
+}
+
+#[wasm_bindgen]
+pub fn use_saved_ticks(val: bool) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.meta_data.use_saved_ticks = val;
 }
 
 #[wasm_bindgen]

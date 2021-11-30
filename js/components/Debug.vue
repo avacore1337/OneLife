@@ -17,6 +17,8 @@
     <br />
     <button v-on:click="tick">Tick</button>
     <br />
+    <button v-on:click="use_saved_ticks">Use Saved Ticks</button>
+    <br />
     <button v-on:click="print_debug_state">Print Debug State</button>
     <br />
     <button v-on:click="print_debug_meta">Print Debug Meta</button>
@@ -40,6 +42,9 @@
 export default {
   props: ["metaData", "state", "presets", "input", "wasm"],
   methods: {
+    use_saved_ticks: function () {
+      this.wasm.use_saved_ticks(true);
+    },
     print_debug_state: function () {
       this.wasm.print_debug_state();
     },
