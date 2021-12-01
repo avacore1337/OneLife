@@ -226,7 +226,6 @@ pub fn buy_tier(val: u32) {
     }
 }
 
-#[wasm_bindgen]
 pub fn can_buy_item(val: &JsValue) -> bool {
     let game = GLOBAL_DATA.lock().unwrap();
     let boost_item_type: BoostItemTypes = val.into_serde().unwrap();

@@ -44,7 +44,7 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
         },
         HousingTypes::FilthyBarracks => Housing {
             name: HousingTypes::FilthyBarracks,
-            upkeep: 5.0,
+            upkeep: 3.0,
             description: "Inside is better than outside. Probably.".to_string(),
             display_name: "Filthy Barracks",
             required_money: 100.0,
@@ -53,7 +53,7 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
         },
         HousingTypes::CrampedBarracks => Housing {
             name: HousingTypes::CrampedBarracks,
-            upkeep: 15.0,
+            upkeep: 8.0,
             description: "Your room mates now outnumber the rats".to_string(),
             display_name: "Cramped Barracks",
             required_money: 1000.0,

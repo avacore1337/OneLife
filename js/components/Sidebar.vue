@@ -21,7 +21,7 @@
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>Age: {{ prettyPrintDays(state.life_stats.age) }}</p>
       <p>Lifespan: {{ prettyPrintDays(state.life_stats.lifespan) }}</p>
-      <p>Health: {{ state.life_stats.health }}</p>
+      <p>Health: {{ state.life_stats.health.toFixed(2) }}</p>
       <p>Happiness: {{ state.life_stats.happiness }}</p>
       <p>Alive: {{ state.life_stats.dead ? "No ;(" : "Yes :)" }}</p>
     </div>

@@ -17,7 +17,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct StateContainer {
-    pub base_stats: [Stat; STAT_SIZE],
+    pub stats: [Stat; STAT_SIZE],
     pub rebirth_stats: RebirthStats,
     pub life_stats: LifeStats,
     pub items: Items,
@@ -35,7 +35,7 @@ pub fn new_game(world: &World) -> StateContainer {
 pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
     let life_stats = LifeStats::new(world, &rebirth_stats);
     StateContainer {
-        base_stats: world
+        stats: world
             .tiers
             .get(rebirth_stats.class_tier as usize)
             .expect("tier not implemented")

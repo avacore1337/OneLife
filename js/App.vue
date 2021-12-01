@@ -10,7 +10,7 @@
       </span>
     </b-modal>
 
-    <div style="width: 15%; float: left">
+    <div style="width: 20%; float: left">
       <Sidebar
         v-bind:state="state"
         v-bind:input="input"
@@ -20,7 +20,7 @@
       />
     </div>
 
-    <div style="margin-left: 2%; float: left; width: 40%">
+    <div style="margin-left: 2%; float: left; width: 35%">
       <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
       <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
       <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
@@ -80,17 +80,18 @@ export default {
         works: [],
         housing: [],
         tiers: [],
+        stats: [],
         boost_items: [],
         rebirth_upgrades: [],
         tutorial_texts: [],
       },
       state: {
-        base_stats: {},
+        stats: {},
         housing: [],
         items: {
           boost_items: [],
         },
-        life_stats: {},
+        life_stats: { health: 0.0 },
         rebirth_stats: {
           rebirth_upgrades: [],
         },

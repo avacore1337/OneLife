@@ -2,7 +2,12 @@
   <div class="housing">
     <h3>Housing</h3>
     <table>
-      <tr v-for="housing in world.housing" v-on:click="set_housing(housing.name)" :key="housing.name">
+      <tr
+        v-for="(housing, index) in world.housing"
+        v-if="state.housing[index].is_visible"
+        v-on:click="set_housing(housing.name)"
+        :key="housing.name"
+      >
         <td>
           <p v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }}</p>
         </td>

@@ -87,7 +87,7 @@ fn update_unlocks(game: &mut Game) {
         game.state.activity[activity as usize].is_unlocked = should_unlock_activity(activity, game);
     }
     for stat in StatTypes::iter() {
-        game.state.base_stats[stat as usize].is_visible = should_be_visible_stat(stat, game);
+        game.state.stats[stat as usize].is_visible = should_be_visible_stat(stat, game);
     }
     for rebirth_upgrade in RebirthUpgradeTypes::iter() {
         game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade as usize].is_unlocked =
@@ -167,11 +167,11 @@ fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
 }
 
 fn gain_stat_xp(game: &mut Game) {
-    let int_level = game.state.base_stats[StatTypes::Int as usize].level;
+    let int_level = game.state.stats[StatTypes::Int as usize].level;
     let stat_xp_multiplier = 1.0 + (int_level as f64 / 10.0);
     for stat_type in StatTypes::iter() {
         let stat_xp = game.intermediate_state.get_value(stat_type.into());
-        let stat: &mut Stat = &mut game.state.base_stats[stat_type as usize];
+        let stat: &mut Stat = &mut game.state.stats[stat_type as usize];
         stat.next_level_progress += stat_xp * stat_xp_multiplier;
         let mut next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
         while stat.next_level_progress > next_level_xp_needed {
@@ -194,7 +194,7 @@ fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
 
 fn do_work(input_work: WorkTypes, state: &mut StateContainer) {
     let work = translate_work(input_work);
-    let main_stat_level = state.base_stats[work.main_stat as usize].level;
+    let main_stat_level = state.stats[work.main_stat as usize].level;
     let work_state = state.works[input_work as usize];
     let level_multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
     let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);

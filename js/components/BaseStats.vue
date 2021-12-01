@@ -1,10 +1,14 @@
 <template>
   <div>
-    Base stats
+    Base Stats
     <div style="border: solid; margin: 2px; padding: 10px">
-      <div v-for="stat in state.base_stats" v-if="stat.is_visible" :key="stat.name">
-        <p>{{ stat.name }}: {{ stat.level }}</p>
-        <b-progress class="notransition w-75" :value="stat.next_level_percentage.toFixed(2)" animated></b-progress>
+      <div v-for="(stat, index) in world.stats" v-if="state.stats[index].is_visible" :key="stat.name">
+        <p>{{ stat.display_name }}: {{ state.stats[index].level }}</p>
+        <b-progress
+          class="notransition w-75"
+          :value="state.stats[index].next_level_percentage.toFixed(2)"
+          animated
+        ></b-progress>
         <br />
       </div>
     </div>

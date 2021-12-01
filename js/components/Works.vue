@@ -3,9 +3,8 @@
     <h3>Works</h3>
     <table>
       <tr
-        v-for="(work, index) in world.works.filter(
-          (work, index) => work.required_tier <= state.rebirth_stats.class_tier && state.works[index].is_visible
-        )"
+        v-for="(work, index) in world.works"
+        v-if="state.works[index].is_visible"
         v-on:click="state.works[index].is_unlocked && set_work(work.name)"
         v-bind:class="{ disabled: !state.works[index].is_unlocked }"
         :key="work.name"
