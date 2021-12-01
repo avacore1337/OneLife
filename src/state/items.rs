@@ -8,6 +8,8 @@ use strum::IntoEnumIterator;
 pub struct BoostItem {
     pub name: BoostItemTypes,
     pub is_purchased: bool,
+    pub is_unlocked: bool,
+    pub is_visible: bool,
 }
 
 impl BoostItem {
@@ -15,6 +17,8 @@ impl BoostItem {
         BoostItem {
             name: item_type,
             is_purchased: false,
+            is_unlocked: false,
+            is_visible: false,
         }
     }
 }

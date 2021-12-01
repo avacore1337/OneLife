@@ -78,6 +78,7 @@ export default {
     return {
       world: {
         works: [],
+        housing: [],
         tiers: [],
         boost_items: [],
         rebirth_upgrades: [],
@@ -85,6 +86,7 @@ export default {
       },
       state: {
         base_stats: {},
+        housing: [],
         items: {
           boost_items: [],
         },

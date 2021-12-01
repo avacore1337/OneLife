@@ -1,4 +1,5 @@
 use super::activity::{get_activities, Activity};
+use super::housing::{get_housings, Housing};
 use super::items::Items;
 use super::life_stats::LifeStats;
 use super::rebirth_stats::RebirthStats;
@@ -6,6 +7,7 @@ use super::stats::Stat;
 use super::tomb::{get_tombs, Tomb};
 use super::work::{get_works, Work};
 use crate::input::activity::ACTIVITY_SIZE;
+use crate::input::housing::HOUSING_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::WORK_SIZE;
@@ -21,6 +23,7 @@ pub struct StateContainer {
     pub items: Items,
     pub works: [Work; WORK_SIZE],
     pub activity: [Activity; ACTIVITY_SIZE],
+    pub housing: [Housing; HOUSING_SIZE],
     pub tombs: [Tomb; TOMB_SIZE],
 }
 
@@ -42,6 +45,7 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
         items: Items::new(),
         works: get_works(),
         activity: get_activities(),
+        housing: get_housings(),
         tombs: get_tombs(),
     }
 }

@@ -7,6 +7,7 @@ use crate::input::activity::ActivityTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::stat::StatTypes;
+use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
 use crate::state::state_container::StateContainer;
 use crate::state::stats::Stat;
@@ -17,6 +18,7 @@ use crate::world_content::housing::translate_housing;
 use crate::world_content::rebirth_upgrade::{
     should_be_visable_rebirth_upgrade, should_unlock_rebirth_upgrade,
 };
+use crate::world_content::tomb::{should_be_visable_tomb, should_unlock_tomb};
 use crate::world_content::tutorial::check_for_tutorial_step;
 use crate::world_content::work::{should_be_visable_work, should_unlock_work, translate_work};
 use intermediate_state::IntermediateState;
@@ -88,6 +90,10 @@ fn update_unlocks(game: &mut Game) {
             should_unlock_rebirth_upgrade(rebirth_upgrade, game);
         game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade as usize].is_visible =
             should_be_visable_rebirth_upgrade(rebirth_upgrade, game);
+    }
+    for tomb in TombTypes::iter() {
+        game.state.tombs[tomb as usize].is_unlocked = should_unlock_tomb(tomb, game);
+        game.state.tombs[tomb as usize].is_visible = should_be_visable_tomb(tomb, game);
     }
 }
 

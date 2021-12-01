@@ -1,6 +1,6 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
-// use crate::game::Game;
+use crate::game::Game;
 use crate::input::tomb::{TombTypes, TOMB_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
@@ -45,7 +45,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
         },
         TombTypes::ShallowGrave => Tomb {
             name: tomb,
-            purchasing_cost: 100_000.0,
+            purchasing_cost: 10_000.0,
             description: "It's not honorable, but it means something",
             display_name: "Shallow Grave",
             required_tier: 0,
@@ -67,27 +67,25 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
     }
 }
 
-// pub fn should_unlock_tomb(input_tomb: TombTypes, game: &Game) -> bool {
-//     let tomb = &game.world.tombs[input_tomb as usize];
-//     if tomb.required_tier > game.state.rebirth_stats.class_tier {
-//         return false;
-//     }
-//     match input_tomb {
-//         TombTypes::Mines => true,
-//         TombTypes::Latrine => game.state.tombs[TombTypes::Mines as usize].level >= 10,
-//         TombTypes::GalleyRower => game.state.tombs[TombTypes::Latrine as usize].level >= 10,
-//         TombTypes::Fields => game.state.tombs[TombTypes::GalleyRower as usize].level >= 10,
-//         TombTypes::Mill => game.state.tombs[TombTypes::Fields as usize].level >= 10,
-//         TombTypes::Weaver => game.state.tombs[TombTypes::Mill as usize].level >= 10,
-//         TombTypes::Fisherman => game.state.tombs[TombTypes::Weaver as usize].level >= 10,
-//         TombTypes::Farmer => game.state.tombs[TombTypes::Fisherman as usize].level >= 10,
-//     }
-// }
+pub fn should_unlock_tomb(input_tomb: TombTypes, game: &Game) -> bool {
+    let tomb = &game.world.tombs[input_tomb as usize];
+    if tomb.required_tier > game.state.rebirth_stats.class_tier {
+        return false;
+    }
+    if tomb.purchasing_cost > game.state.rebirth_stats.coins {
+        return false;
+    }
+    true
+    // match input_tomb {
+    //     TombTypes::Mines => true,
+    //     TombTypes::Latrine => game.state.tombs[TombTypes::Mines as usize].level >= 10,
+    // }
+}
 
-// pub fn should_be_visable_tomb(input_tomb: TombTypes, game: &Game) -> bool {
-//     let tomb = &game.world.tombs[input_tomb as usize];
-//     tomb.required_tier <= game.state.rebirth_stats.class_tier + 1
-// }
+pub fn should_be_visable_tomb(input_tomb: TombTypes, game: &Game) -> bool {
+    let tomb = &game.world.tombs[input_tomb as usize];
+    tomb.required_tier <= game.state.rebirth_stats.class_tier + 1
+}
 
 pub fn get_tombs() -> [Tomb; TOMB_SIZE] {
     let mut tombs: [MaybeUninit<Tomb>; TOMB_SIZE] = unsafe { MaybeUninit::uninit().assume_init() };

@@ -58,7 +58,7 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
     }
 }
 
-pub fn get_housing() -> [Housing; HOUSING_SIZE] {
+pub fn get_housings() -> [Housing; HOUSING_SIZE] {
     let mut housing: [MaybeUninit<Housing>; HOUSING_SIZE] =
         unsafe { MaybeUninit::uninit().assume_init() };
     for name in HousingTypes::iter() {

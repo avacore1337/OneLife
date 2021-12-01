@@ -1,4 +1,5 @@
 pub mod activity;
+pub mod housing;
 pub mod items;
 pub mod life_stats;
 pub mod rebirth_stats;

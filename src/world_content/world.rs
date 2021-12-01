@@ -1,6 +1,6 @@
 use super::activity::{get_activities, Activity};
 use super::boost_item::{get_boost_items, BoostItem};
-use super::housing::{get_housing, Housing};
+use super::housing::{get_housings, Housing};
 use super::rebirth_upgrade::{get_rebirth_upgrades, RebirthUpgrade};
 use super::tier::{init_tiers, Tier};
 use super::tomb::{get_tombs, Tomb};
@@ -31,7 +31,7 @@ impl World {
         World {
             tiers: init_tiers(),
             works: get_works(),
-            housing: get_housing(),
+            housing: get_housings(),
             boost_items: get_boost_items(),
             activities: get_activities(),
             tombs: get_tombs(),

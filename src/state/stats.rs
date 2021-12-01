@@ -19,6 +19,7 @@ pub struct Stat {
     pub next_level_progress: f64,
     pub next_level_required: f64,
     pub next_level_percentage: f64,
+    pub is_visible: bool,
 }
 
 impl Stat {
@@ -29,6 +30,7 @@ impl Stat {
             next_level_progress: 0.0,
             next_level_required: 100.0,
             next_level_percentage: 0.0,
+            is_visible: false,
         }
     }
 }
