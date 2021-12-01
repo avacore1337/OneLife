@@ -3,10 +3,10 @@
     <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
       <span class="the-modal">
         <div class="d-block text-center">
-          <h3>{{ this.world.tutorial_texts[this.metaData.info.tutorial_step] }}</h3>
+          <h3>{{ this.modalText }}</h3>
         </div>
         <b-button class="float-end" block @click="hideModal">Next</b-button>
-        <b-button class="float-end" variant="danger" block @click="hideModal">Close</b-button>
+        <b-button class="float-end" variant="danger" block @click="disable_tutorial">Disable Tutorial</b-button>
       </span>
     </b-modal>
 
@@ -99,6 +99,7 @@ export default {
       metaData: { info: {}, saved_ticks: 0.0 },
       presets: {},
       paused: false,
+      modalText: "",
     };
   },
   mounted: function () {
@@ -127,8 +128,7 @@ export default {
     updateModal() {
       let modal = this.$refs["the-modal"];
       if (this.metaData.info.show_tutorial && modal.isHidden) {
-        console.log(this.$refs["the-modal"]);
-        /* console.log(this.metaData); */
+        this.modalText = this.world.tutorial_texts[this.metaData.info.tutorial_step];
         modal.show();
       }
     },
@@ -136,10 +136,15 @@ export default {
       this.$refs["the-modal"].show();
     },
     hideModal() {
-      this.$refs["the-modal"].hide();
       this.wasm.next_info_step();
+      this.$refs["the-modal"].hide();
     },
     toggleModal() {},
+    disable_tutorial: function () {
+      this.wasm.set_disable_tutorial(true);
+      this.wasm.next_info_step();
+      this.$refs["the-modal"].hide();
+    },
   },
 };
 </script>
