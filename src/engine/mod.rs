@@ -198,5 +198,5 @@ fn do_work(input_work: WorkTypes, state: &mut StateContainer) {
     let work_state = state.works[input_work as usize];
     let level_multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
     let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
-    state.items.money += work.money * level_multiplier * stat_multiplier / 30.0;
+    state.items.money += work.money * level_multiplier * stat_multiplier;
 }
