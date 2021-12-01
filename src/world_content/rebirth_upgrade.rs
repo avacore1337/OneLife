@@ -57,7 +57,7 @@ pub fn should_unlock_rebirth_upgrade(
     }
 }
 
-pub fn should_be_visable_rebirth_upgrade(
+pub fn should_be_visible_rebirth_upgrade(
     input_rebirth_upgrade: RebirthUpgradeTypes,
     game: &Game,
 ) -> bool {

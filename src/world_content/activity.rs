@@ -86,7 +86,7 @@ pub fn should_unlock_activity(input_activity: ActivityTypes, game: &Game) -> boo
     // }
 }
 
-// pub fn should_be_visable_activity(input_activity: ActivityTypes, game: &Game) -> bool {
+// pub fn should_be_visible_activity(input_activity: ActivityTypes, game: &Game) -> bool {
 //     let activity = &game.world.activitys[input_activity as usize];
 //     activity.required_tier <= game.state.rebirth_stats.class_tier + 1
 // }

@@ -128,7 +128,7 @@ pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
     }
 }
 
-pub fn should_be_visable_work(input_work: WorkTypes, game: &Game) -> bool {
+pub fn should_be_visible_work(input_work: WorkTypes, game: &Game) -> bool {
     let work = &game.world.works[input_work as usize];
     work.required_tier <= game.state.rebirth_stats.class_tier + 1
 }
