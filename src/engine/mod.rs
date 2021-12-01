@@ -18,6 +18,7 @@ use crate::world_content::housing::translate_housing;
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade,
 };
+use crate::world_content::stat::should_be_visible_stat;
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
 use crate::world_content::tutorial::check_for_tutorial_step;
 use crate::world_content::work::{should_be_visible_work, should_unlock_work, translate_work};
@@ -84,6 +85,9 @@ fn update_unlocks(game: &mut Game) {
     }
     for activity in ActivityTypes::iter() {
         game.state.activity[activity as usize].is_unlocked = should_unlock_activity(activity, game);
+    }
+    for stat in StatTypes::iter() {
+        game.state.base_stats[stat as usize].is_visible = should_be_visible_stat(stat, game);
     }
     for rebirth_upgrade in RebirthUpgradeTypes::iter() {
         game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade as usize].is_unlocked =
