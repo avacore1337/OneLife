@@ -4,7 +4,7 @@ use strum::EnumIter;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug)]
 pub enum TombTypes {
-    Nothing,
+    // Nothing,
     ShallowGrave,
     Tomb,
     Mausuleum,

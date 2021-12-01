@@ -11,6 +11,7 @@ pub struct RebirthUpgrade {
     pub name: RebirthUpgradeTypes,
     pub purchasing_cost: f64,
     pub description: &'static str,
+    pub display_name: &'static str,
     pub required_tier: u32,
 }
 
@@ -30,12 +31,14 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             name: rebirth_upgrade,
             purchasing_cost: 4.0,
             description: "You feel happier now that you know that death isn't the end",
+            display_name: "Accepting Death",
             required_tier: 1,
         },
         RebirthUpgradeTypes::StatMemory1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 60.0,
             description: "Somehow your body remembers",
+            display_name: "A feeling of the past",
             required_tier: 2,
         },
     }

@@ -3,7 +3,7 @@
     Bought Items
     <ul>
       <li v-for="item in ownedItems" :key="item.name">
-        <p>{{ item.name }}</p>
+        <p>{{ item.display_name }}</p>
       </li>
     </ul>
     Items

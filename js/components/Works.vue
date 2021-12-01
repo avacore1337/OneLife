@@ -11,7 +11,7 @@
         :key="work.name"
       >
         <td>
-          <p v-bind:class="{ selected: input.work === work.name }">{{ work.name }}</p>
+          <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
         </td>
         <td>
           <p>

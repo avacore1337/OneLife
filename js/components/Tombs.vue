@@ -4,7 +4,7 @@
     <ul>
       <li v-for="tomb in world.tombs" :key="tomb.name">
         <button v-on:click="buyTomb(tomb.name)" style="margin: 2px">
-          {{ tomb.name }}
+          {{ tomb.display_name }}
         </button>
       </li>
     </ul>

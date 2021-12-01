@@ -4,7 +4,7 @@
     <table>
       <tr v-for="housing in world.housing" v-on:click="set_housing(housing.name)" :key="housing.name">
         <td>
-          <p v-bind:class="{ selected: input.housing === housing.name }">{{ housing.name }}</p>
+          <p v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }}</p>
         </td>
       </tr>
     </table>
