@@ -5,7 +5,7 @@ use serde::Serialize;
 #[derive(Serialize)]
 pub struct Tier {
     pub level: u32,
-    pub title: &'static str,
+    pub display_name: &'static str,
     pub description: &'static str,
     pub unlocks: Vec<&'static str>,
     pub starting_stats: [Stat; STAT_SIZE],
@@ -32,7 +32,7 @@ pub fn init_tiers() -> Vec<Tier> {
     return vec![
         Tier {
             level: 0,
-            title: "Orphant slave",
+            display_name: "Orphant slave",
             description: "The unluckies souls in this harsh world.",
             unlocks: vec!["Only the basics of life itself is available."],
             starting_stats: get_stats_base(BaseStats {
@@ -48,7 +48,7 @@ pub fn init_tiers() -> Vec<Tier> {
         },
         Tier {
             level: 1,
-            title: "Slave",
+            display_name: "Slave",
             description: "That there are those who have it worse, but it is of little comfort in your current life."
                 ,
             unlocks: vec![
@@ -68,7 +68,7 @@ pub fn init_tiers() -> Vec<Tier> {
         },
         Tier {
             level: 2,
-            title: "Farmless Peasant",
+            display_name: "Farmless Peasant",
             description: "You own your own life, but nothing else."
                 ,
             unlocks: vec![
@@ -90,7 +90,7 @@ pub fn init_tiers() -> Vec<Tier> {
         },
         Tier {
             level: 3,
-            title: "Estate Peasant",
+            display_name: "Estate Peasant",
             description: "You own your own piece of heaven"
                 ,
             unlocks: vec![

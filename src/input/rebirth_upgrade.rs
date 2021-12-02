@@ -6,6 +6,7 @@ use strum::EnumIter;
 pub enum RebirthUpgradeTypes {
     AcceptingDeath,
     StatMemory1,
+    // EndItEarly,
 }
 
 pub const REBIRTH_UPGRADE_SIZE: usize = variant_count::<RebirthUpgradeTypes>();

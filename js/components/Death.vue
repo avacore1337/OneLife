@@ -6,7 +6,7 @@
       <ul>
         <li v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.class_tier)" :key="tier.name">
           <button v-on:click="buy_tier(tier.level)" style="margin: 2px" :disabled="!can_buy_tier(tier)">
-            T{{ tier.level }} {{ tier.title }}: Cost {{ tier.purchasing_cost }}
+            T{{ tier.level }} {{ tier.display_name }}: Cost {{ tier.purchasing_cost }}
           </button>
         </li>
       </ul>

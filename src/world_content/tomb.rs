@@ -18,9 +18,6 @@ pub struct Tomb {
 impl Gain for Tomb {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
-            // TombTypes::Nothing => {
-            //     intermediate.set_base(KeyValues::Coins, 0.0);
-            // }
             TombTypes::ShallowGrave => {
                 intermediate.set_base(KeyValues::Coins, 2.0);
             }
@@ -36,13 +33,6 @@ impl Gain for Tomb {
 
 pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
     match tomb {
-        // TombTypes::Nothing => Tomb {
-        //     name: tomb,
-        //     purchasing_cost: 0.0,
-        //     description: "You won't like what happens when you die...",
-        //     display_name: "None",
-        //     required_tier: 0,
-        // },
         TombTypes::ShallowGrave => Tomb {
             name: tomb,
             purchasing_cost: 10_000.0,

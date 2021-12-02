@@ -109,7 +109,7 @@ pub fn should_unlock_boost_item(input_boost_item: BoostItemTypes, game: &Game) -
 
 pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Game) -> bool {
     let boost_item = &game.world.boost_items[input_boost_item as usize];
-    boost_item.required_tier <= game.state.rebirth_stats.class_tier + 1
+    boost_item.required_tier <= game.state.rebirth_stats.class_tier
 }
 
 pub fn get_boost_items() -> [BoostItem; BOOST_ITEM_SIZE] {

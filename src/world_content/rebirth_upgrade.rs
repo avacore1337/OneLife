@@ -65,7 +65,7 @@ pub fn should_be_visible_rebirth_upgrade(
     game: &Game,
 ) -> bool {
     let rebirth_upgrade = &game.world.rebirth_upgrades[input_rebirth_upgrade as usize];
-    rebirth_upgrade.required_tier <= game.state.rebirth_stats.class_tier + 1
+    rebirth_upgrade.required_tier <= game.state.rebirth_stats.class_tier
 }
 
 pub fn get_rebirth_upgrades() -> [RebirthUpgrade; REBIRTH_UPGRADE_SIZE] {

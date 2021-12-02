@@ -17,22 +17,22 @@ impl Gain for Activity {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             ActivityTypes::Training => {
-                intermediate.set_base(KeyValues::Str, 1.0);
+                intermediate.set_base(KeyValues::Str, 10.0);
             }
             ActivityTypes::Studying => {
-                intermediate.set_base(KeyValues::Int, 1.0);
+                intermediate.set_base(KeyValues::Int, 10.0);
             }
             ActivityTypes::Flirt => {
-                intermediate.set_base(KeyValues::Cha, 1.0);
+                intermediate.set_base(KeyValues::Cha, 10.0);
             }
             ActivityTypes::Run => {
-                intermediate.set_base(KeyValues::Con, 1.0);
+                intermediate.set_base(KeyValues::Con, 10.0);
             }
             ActivityTypes::Acrobatics => {
-                intermediate.set_base(KeyValues::Dex, 1.0);
+                intermediate.set_base(KeyValues::Dex, 10.0);
             }
             ActivityTypes::Praying => {
-                intermediate.set_base(KeyValues::Faith, 1.0);
+                intermediate.set_base(KeyValues::Faith, 10.0);
             }
         }
     }
@@ -88,7 +88,7 @@ pub fn should_unlock_activity(input_activity: ActivityTypes, game: &Game) -> boo
 
 pub fn should_be_visible_activity(input_activity: ActivityTypes, game: &Game) -> bool {
     let activity = &game.world.activities[input_activity as usize];
-    activity.required_tier <= game.state.rebirth_stats.class_tier + 1
+    activity.required_tier <= game.state.rebirth_stats.class_tier
 }
 
 pub fn get_activities() -> [Activity; ACTIVITY_SIZE] {

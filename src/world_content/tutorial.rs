@@ -4,7 +4,7 @@ pub fn get_tutorial_texts() -> Vec<&'static str> {
     vec![
         "Welcome to the tutorial",
         "So, you died",
-        "So, you died, but this time you brought money!",
+        "So, you died, but this time you brought coins!",
         "how did you get here?",
     ]
 }

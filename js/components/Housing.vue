@@ -9,7 +9,11 @@
         :key="housing.name"
       >
         <td>
-          <p v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }}</p>
+          <p>
+            <span v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }} </span>
+            <br />
+            Cost: {{ housing.upkeep }}/s
+          </p>
         </td>
       </tr>
     </table>
@@ -71,7 +75,7 @@ tr.disabled {
   color: rgba(255, 255, 255, 0.5);
 }
 
-p.selected {
+span.selected {
   text-decoration: underline;
   font-weight: bold;
 }

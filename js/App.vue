@@ -130,14 +130,17 @@ export default {
       }
 
       self.wasm.tick();
-      self.state = self.wasm.get_state();
-      self.input = self.wasm.get_input();
-      self.metaData = self.wasm.get_meta_data();
+      self.update_dynamic_data();
 
       self.updateModal();
     }, 1000 / 30);
   },
   methods: {
+    update_dynamic_data() {
+      this.state = this.wasm.get_state();
+      this.input = this.wasm.get_input();
+      this.metaData = this.wasm.get_meta_data();
+    },
     updateModal() {
       let modal = this.$refs["the-modal"];
       if (this.metaData.info.show_tutorial && modal.isHidden) {

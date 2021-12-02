@@ -39,6 +39,7 @@ fn make_full_unlock(world: &World) -> (StateContainer, Input, MetaData) {
     let mut state = new_game(world);
     let meta_data = MetaData::new();
     state.rebirth_stats.class_tier = 3;
+    state.rebirth_stats.coins = 8.0;
     state = rebirth(world, state.rebirth_stats.clone());
     state.items.money = 10000000.0;
 

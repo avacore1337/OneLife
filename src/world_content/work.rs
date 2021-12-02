@@ -39,6 +39,7 @@ impl Gain for Work {
         }
     }
 }
+
 pub const fn translate_work(work: WorkTypes) -> Work {
     match work {
         WorkTypes::Mines => Work {
@@ -141,7 +142,7 @@ pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
 
 pub fn should_be_visible_work(input_work: WorkTypes, game: &Game) -> bool {
     let work = &game.world.works[input_work as usize];
-    work.required_tier <= game.state.rebirth_stats.class_tier + 1
+    work.required_tier <= game.state.rebirth_stats.class_tier
 }
 
 pub fn get_works() -> [Work; WORK_SIZE] {
