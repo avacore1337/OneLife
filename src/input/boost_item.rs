@@ -6,10 +6,14 @@ use strum::EnumIter;
 pub enum BoostItemTypes {
     Book,
     Dumbell,
+    RaggedClothes,
+    IronPickAxe,
     Book2,
     Dumbell2,
+    FarmersClothes,
     Book3,
     Dumbell3,
+    CityClothes,
     // HealthKit,
     // Leach,
 }

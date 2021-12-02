@@ -7,6 +7,7 @@ pub enum RebirthUpgradeTypes {
     AcceptingDeath,
     StatMemory1,
     // EndItEarly,
+    // GemSense // gives you a huge multiplier to mining
 }
 
 pub const REBIRTH_UPGRADE_SIZE: usize = variant_count::<RebirthUpgradeTypes>();

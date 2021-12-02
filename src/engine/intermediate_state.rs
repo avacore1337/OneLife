@@ -66,7 +66,7 @@ impl IntermediateState {
             / crate::TICK_RATE
     }
 
-    pub fn get_multiplier(&mut self, key: KeyValues) -> f64 {
+    pub fn get_multiplier(&self, key: KeyValues) -> f64 {
         self.value_gains
             .get(&key)
             .map(|value_gains| value_gains.calculate_muliplier())

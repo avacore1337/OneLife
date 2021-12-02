@@ -54,7 +54,7 @@ fn internal_run(game: &mut Game) {
     apply_tombs(game);
 
     // Get the gains
-    do_work(game.input.work, &mut game.state);
+    do_work(game.input.work, game);
     gain_work_xp(game.input.work as usize, &mut game.state);
     gain_stat_xp(game);
 
@@ -211,11 +211,13 @@ fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
     (100 + (4 * work.level * work.level)) as f64
 }
 
-fn do_work(input_work: WorkTypes, state: &mut StateContainer) {
+fn do_work(input_work: WorkTypes, game: &mut Game) {
     let work = translate_work(input_work);
-    let main_stat_level = state.stats[work.main_stat as usize].level;
-    let work_state = state.works[input_work as usize];
+    let main_stat_level = game.state.stats[work.main_stat as usize].level;
+    let work_state = game.state.works[input_work as usize];
     let level_multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
     let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
-    state.items.money += work.money * level_multiplier * stat_multiplier / TICK_RATE;
+    let generic_multiplier: f64 = game.intermediate_state.get_multiplier(input_work.into());
+    game.state.items.money +=
+        work.money * level_multiplier * stat_multiplier * generic_multiplier / TICK_RATE;
 }

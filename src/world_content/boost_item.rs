@@ -2,6 +2,7 @@ use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::boost_item::{BoostItemTypes, BOOST_ITEM_SIZE};
+use crate::input::work::WorkTypes;
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
@@ -25,17 +26,29 @@ impl Gain for BoostItem {
             BoostItemTypes::Dumbell => {
                 intermediate.add_multiplier(KeyValues::Str, 1.5, "Dumbell");
             }
+            BoostItemTypes::RaggedClothes => {
+                intermediate.add_multiplier(KeyValues::Happiness, 1.5, "Ragged Clothes");
+            }
+            BoostItemTypes::IronPickAxe => {
+                intermediate.add_multiplier(KeyValues::Mines, 2.0, "Mines");
+            }
             BoostItemTypes::Book2 => {
                 intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
             }
             BoostItemTypes::Dumbell2 => {
                 intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
             }
+            BoostItemTypes::FarmersClothes => {
+                intermediate.add_multiplier(KeyValues::Happiness, 1.5, "Farmers Clothes");
+            }
             BoostItemTypes::Book3 => {
                 intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
             }
             BoostItemTypes::Dumbell3 => {
                 intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
+            }
+            BoostItemTypes::CityClothes => {
+                intermediate.add_multiplier(KeyValues::Happiness, 1.5, "City Clothes");
             }
         }
     }
@@ -45,7 +58,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
     match item_type {
         BoostItemTypes::Book => BoostItem {
             name: item_type,
-            purchasing_cost: 10.0,
+            purchasing_cost: 100.0,
             description: "Me dumb? That's unpossible",
             display_name: "Learning to read",
             required_tier: 0,
@@ -55,6 +68,20 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             purchasing_cost: 1_000.0,
             description: "It's just a stick",
             display_name: "Wooden Dumbell",
+            required_tier: 0,
+        },
+        BoostItemTypes::RaggedClothes => BoostItem {
+            name: item_type,
+            purchasing_cost: 1_000.0,
+            description: "You now actually have something to wear",
+            display_name: "Ragged Clothes",
+            required_tier: 0,
+        },
+        BoostItemTypes::IronPickAxe => BoostItem {
+            name: item_type,
+            purchasing_cost: 1_000.0,
+            description: "Mining now goes faster",
+            display_name: "Iron Pickaxe",
             required_tier: 0,
         },
         BoostItemTypes::Book2 => BoostItem {
@@ -71,6 +98,13 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Stone dumbell",
             required_tier: 0,
         },
+        BoostItemTypes::FarmersClothes => BoostItem {
+            name: item_type,
+            purchasing_cost: 15_000.0,
+            description: "Ragged but sturdy",
+            display_name: "Farmers Clothes",
+            required_tier: 0,
+        },
         BoostItemTypes::Book3 => BoostItem {
             name: item_type,
             purchasing_cost: 16_000.0,
@@ -85,6 +119,13 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Kettlebell",
             required_tier: 1,
         },
+        BoostItemTypes::CityClothes => BoostItem {
+            name: item_type,
+            purchasing_cost: 40_000.0,
+            description: "You fit into the cityk the less nice parts that is",
+            display_name: "City Clothes",
+            required_tier: 1,
+        },
     }
 }
 
@@ -94,22 +135,23 @@ pub fn should_unlock_boost_item(input_boost_item: BoostItemTypes, game: &Game) -
         return false;
     }
     true
-    // match input_boost_item {
-    //     BoostItemTypes::Mines => true,
-    //     BoostItemTypes::Fields => game.state.boost_items[BoostItemTypes::Mines as usize].level > 10,
-    //     BoostItemTypes::Servant => {
-    //         game.state.boost_items[BoostItemTypes::Fields as usize].level > 10
-    //     }
-    //     BoostItemTypes::Teacher => {
-    //         game.state.boost_items[BoostItemTypes::Servant as usize].level > 10
-    //     }
-    //     BoostItemTypes::Farm => game.state.boost_items[BoostItemTypes::Teacher as usize].level > 10,
-    // }
 }
 
 pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Game) -> bool {
     let boost_item = &game.world.boost_items[input_boost_item as usize];
-    boost_item.required_tier <= game.state.rebirth_stats.class_tier
+    if boost_item.required_tier > game.state.rebirth_stats.class_tier {
+        return false;
+    }
+    match input_boost_item {
+        BoostItemTypes::IronPickAxe => game.state.works[WorkTypes::Mines as usize].level > 25,
+        BoostItemTypes::FarmersClothes => {
+            game.state.items.boost_items[BoostItemTypes::RaggedClothes as usize].is_purchased
+        }
+        BoostItemTypes::CityClothes => {
+            game.state.items.boost_items[BoostItemTypes::FarmersClothes as usize].is_purchased
+        }
+        _ => true,
+    }
 }
 
 pub fn get_boost_items() -> [BoostItem; BOOST_ITEM_SIZE] {
