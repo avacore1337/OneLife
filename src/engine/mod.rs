@@ -21,7 +21,7 @@ use crate::world_content::boost_item::{
 };
 use crate::world_content::housing::translate_housing;
 use crate::world_content::rebirth_upgrade::{
-    should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade,
+    should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade, unlock,
 };
 use crate::world_content::stat::should_be_visible_stat;
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
@@ -62,6 +62,7 @@ fn internal_run(game: &mut Game) {
     gain_stat_xp(game);
 
     // update frontend read values
+    update_rebirth_unlocks(game);
     update_unlocks(game);
     update_life_stats(game);
 }
@@ -84,6 +85,14 @@ fn update_life_stats(game: &mut Game) {
     let should_die = life_stats.age + life_stats.health >= life_stats.lifespan;
     if should_die {
         life_stats.is_dying = true;
+    }
+}
+
+fn update_rebirth_unlocks(game: &mut Game) {
+    for rebirth_upgrade in RebirthUpgradeTypes::iter() {
+        if game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade as usize].is_purchased {
+            unlock(rebirth_upgrade, &mut game.state.rebirth_stats.unlocks);
+        }
     }
 }
 

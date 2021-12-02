@@ -2,6 +2,7 @@ use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::rebirth_upgrade::{RebirthUpgradeTypes, REBIRTH_UPGRADE_SIZE};
+use crate::state::rebirth_stats::Unlocks;
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
@@ -15,11 +16,25 @@ pub struct RebirthUpgrade {
     pub required_tier: u32,
 }
 
+pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
+    match rebirth_upgrade {
+        RebirthUpgradeTypes::EndItEarly => {
+            unlocks.can_end_early = true;
+
+            //
+        }
+        _ => (),
+    }
+}
+
 impl Gain for RebirthUpgrade {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             RebirthUpgradeTypes::AcceptingDeath => {
                 intermediate.add_multiplier(KeyValues::Happiness, 2.0, "AcceptingDeath");
+            }
+            RebirthUpgradeTypes::EndItEarly => {
+                //
             }
             _ => (),
         }
@@ -40,6 +55,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description: "Somehow your body remembers",
             display_name: "A feeling of the past",
             required_tier: 2,
+        },
+        RebirthUpgradeTypes::EndItEarly => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 600.0,
+            description: "You can now commit a grave sin",
+            display_name: "Ending It Early",
+            required_tier: 3,
         },
     }
 }

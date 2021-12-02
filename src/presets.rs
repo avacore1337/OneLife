@@ -65,6 +65,7 @@ fn make_full_unlock(world: &World) -> (StateContainer, Input, MetaData) {
     state.rebirth_stats.rebirth_count = 16;
     state = rebirth(world, state.rebirth_stats.clone());
     state.items.money = 10000000.0;
+    state.rebirth_stats.coins = 10000000.0;
 
     let input = Input::new(&state, &world);
     (state, input, meta_data)

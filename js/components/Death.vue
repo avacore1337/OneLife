@@ -2,6 +2,13 @@
   <div>
     Death Section
     <br />
+    <button
+      v-on:click="die"
+      v-if="state.rebirth_stats.unlocks.can_end_early && !state.life_stats.is_dying && !state.life_stats.dead"
+      style="margin: 2px"
+    >
+      End It Early
+    </button>
     <button v-on:click="die" v-if="state.life_stats.is_dying && !state.life_stats.dead" style="margin: 2px">
       Go To The Other Side
     </button>

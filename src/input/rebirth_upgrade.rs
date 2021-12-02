@@ -6,8 +6,10 @@ use strum::EnumIter;
 pub enum RebirthUpgradeTypes {
     AcceptingDeath,
     StatMemory1,
-    // EndItEarly,
+    EndItEarly,
     // GemSense // gives you a huge multiplier to mining
+    // AutoWork // automatically progresses current job
+    // AutoLive // automatically bumps place to live if income > cost * 1.5
 }
 
 pub const REBIRTH_UPGRADE_SIZE: usize = variant_count::<RebirthUpgradeTypes>();
