@@ -13,8 +13,8 @@
         :key="rebirth_upgrade.name"
       >
         <button v-on:click="buy_rebirth_upgrade(rebirth_upgrade.name)" style="margin: 2px">
-          <span v-if="rebirth_upgrade.name == input.rebirth_upgrade">{{ rebirth_upgrade.display_name }} &lt;-- </span>
           <span v-if="rebirth_upgrade.name != input.rebirth_upgrade">{{ rebirth_upgrade.display_name }}</span>
+          {{ rebirth_upgrade.purchasing_cost }}
         </button>
       </li>
     </ul>

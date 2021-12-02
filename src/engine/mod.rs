@@ -4,6 +4,7 @@ pub mod value_keys;
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::activity::ActivityTypes;
+use crate::input::boost_item::BoostItemTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::stat::StatTypes;
@@ -12,8 +13,12 @@ use crate::input::work::WorkTypes;
 use crate::state::state_container::StateContainer;
 use crate::state::stats::Stat;
 use crate::state::work::Work as StateWork;
-use crate::world_content::activity::{should_unlock_activity, translate_activity};
-use crate::world_content::boost_item::translate_boost_item;
+use crate::world_content::activity::{
+    should_be_visible_activity, should_unlock_activity, translate_activity,
+};
+use crate::world_content::boost_item::{
+    should_be_visible_boost_item, should_unlock_boost_item, translate_boost_item,
+};
 use crate::world_content::housing::translate_housing;
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade,
@@ -84,7 +89,10 @@ fn update_unlocks(game: &mut Game) {
         game.state.works[work as usize].is_visible = should_be_visible_work(work, game);
     }
     for activity in ActivityTypes::iter() {
-        game.state.activity[activity as usize].is_unlocked = should_unlock_activity(activity, game);
+        game.state.activities[activity as usize].is_unlocked =
+            should_unlock_activity(activity, game);
+        game.state.activities[activity as usize].is_visible =
+            should_be_visible_activity(activity, game);
     }
     for stat in StatTypes::iter() {
         game.state.stats[stat as usize].is_visible = should_be_visible_stat(stat, game);
@@ -98,6 +106,12 @@ fn update_unlocks(game: &mut Game) {
     for tomb in TombTypes::iter() {
         game.state.tombs[tomb as usize].is_unlocked = should_unlock_tomb(tomb, game);
         game.state.tombs[tomb as usize].is_visible = should_be_visible_tomb(tomb, game);
+    }
+    for boost_item in BoostItemTypes::iter() {
+        game.state.items.boost_items[boost_item as usize].is_unlocked =
+            should_unlock_boost_item(boost_item, game);
+        game.state.items.boost_items[boost_item as usize].is_visible =
+            should_be_visible_boost_item(boost_item, game);
     }
 }
 

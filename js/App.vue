@@ -9,9 +9,8 @@
         <b-button class="float-end" variant="danger" block @click="disable_tutorial">Disable Tutorial</b-button>
       </span>
     </b-modal>
-
-    <div style="width: 20%; float: left">
-      <Sidebar
+    <div>
+      <Topbar
         v-bind:state="state"
         v-bind:input="input"
         v-bind:world="world"
@@ -19,33 +18,44 @@
         v-bind:metaData="metaData"
       />
     </div>
-
-    <div style="margin-left: 2%; float: left; width: 35%">
-      <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-      <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-      <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-      <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-      <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-    </div>
-
-    <div style="margin-left: 20px; float: left">
-      <div
-        style="margin-left: 20px; border: 5px solid white; width: 300px; display: inline; float: left; padding: 10px"
-      >
-        <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-        <RebirthUpgrades v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-      </div>
-
-      <div
-        style="margin-left: 20px; border: 5px solid white; width: 200px; display: inline; float: left; padding: 10px"
-      >
-        <Debug
-          v-bind:metaData="metaData"
+    <div>
+      <div style="width: 20%; float: left">
+        <Sidebar
           v-bind:state="state"
           v-bind:input="input"
-          v-bind:presets="presets"
+          v-bind:world="world"
           v-bind:wasm="wasm"
+          v-bind:metaData="metaData"
         />
+      </div>
+
+      <div style="margin-left: 2%; float: left; width: 35%">
+        <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+      </div>
+
+      <div style="margin-left: 20px; float: left">
+        <div
+          style="margin-left: 20px; border: 5px solid white; width: 300px; display: inline; float: left; padding: 10px"
+        >
+          <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+          <RebirthUpgrades v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        </div>
+
+        <div
+          style="margin-left: 20px; border: 5px solid white; width: 200px; display: inline; float: left; padding: 10px"
+        >
+          <Debug
+            v-bind:metaData="metaData"
+            v-bind:state="state"
+            v-bind:input="input"
+            v-bind:presets="presets"
+            v-bind:wasm="wasm"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -59,6 +69,7 @@ import Activities from "./components/Activities.vue";
 import Death from "./components/Death.vue";
 import Debug from "./components/Debug.vue";
 import Sidebar from "./components/Sidebar.vue";
+import Topbar from "./components/Topbar.vue";
 import BoostItems from "./components/BoostItems.vue";
 import RebirthUpgrades from "./components/RebirthUpgrades.vue";
 
@@ -73,7 +84,7 @@ Vue.use(BootstrapVue);
 
 export default {
   props: ["wasm"],
-  components: { Works, Housing, Activities, Debug, BoostItems, Death, Sidebar, Tombs, RebirthUpgrades },
+  components: { Works, Housing, Activities, Debug, BoostItems, Death, Sidebar, Topbar, Tombs, RebirthUpgrades },
   data() {
     return {
       world: {
@@ -100,6 +111,7 @@ export default {
       metaData: { info: {}, saved_ticks: 0.0 },
       presets: {},
       paused: false,
+      numberFormat: "DEFAULT",
       modalText: "",
     };
   },

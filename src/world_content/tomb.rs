@@ -72,7 +72,7 @@ pub fn should_unlock_tomb(input_tomb: TombTypes, game: &Game) -> bool {
     if tomb.required_tier > game.state.rebirth_stats.class_tier {
         return false;
     }
-    if tomb.purchasing_cost > game.state.rebirth_stats.coins {
+    if tomb.purchasing_cost > game.state.items.money {
         return false;
     }
     true

@@ -1,6 +1,6 @@
-// use crate::game::Game;
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
+use crate::game::Game;
 use crate::input::boost_item::{BoostItemTypes, BOOST_ITEM_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
@@ -88,24 +88,29 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
     }
 }
 
-// pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
-//     let work = &game.world.works[input_work as usize];
-//     if work.required_tier > game.state.rebirth_stats.class_tier {
-//         return false;
-//     }
-//     match input_work {
-//         WorkTypes::Mines => true,
-//         WorkTypes::Fields => game.state.works[WorkTypes::Mines as usize].level > 10,
-//         WorkTypes::Servant => game.state.works[WorkTypes::Fields as usize].level > 10,
-//         WorkTypes::Teacher => game.state.works[WorkTypes::Servant as usize].level > 10,
-//         WorkTypes::Farm => game.state.works[WorkTypes::Teacher as usize].level > 10,
-//     }
-// }
+pub fn should_unlock_boost_item(input_boost_item: BoostItemTypes, game: &Game) -> bool {
+    let boost_item = &game.world.boost_items[input_boost_item as usize];
+    if boost_item.required_tier > game.state.rebirth_stats.class_tier {
+        return false;
+    }
+    true
+    // match input_boost_item {
+    //     BoostItemTypes::Mines => true,
+    //     BoostItemTypes::Fields => game.state.boost_items[BoostItemTypes::Mines as usize].level > 10,
+    //     BoostItemTypes::Servant => {
+    //         game.state.boost_items[BoostItemTypes::Fields as usize].level > 10
+    //     }
+    //     BoostItemTypes::Teacher => {
+    //         game.state.boost_items[BoostItemTypes::Servant as usize].level > 10
+    //     }
+    //     BoostItemTypes::Farm => game.state.boost_items[BoostItemTypes::Teacher as usize].level > 10,
+    // }
+}
 
-// pub fn should_be_visible_work(input_work: WorkTypes, game: &Game) -> bool {
-//     let work = &game.world.works[input_work as usize];
-//     work.required_tier <= game.state.rebirth_stats.class_tier + 1
-// }
+pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Game) -> bool {
+    let boost_item = &game.world.boost_items[input_boost_item as usize];
+    boost_item.required_tier <= game.state.rebirth_stats.class_tier + 1
+}
 
 pub fn get_boost_items() -> [BoostItem; BOOST_ITEM_SIZE] {
     let mut boost_items: [MaybeUninit<BoostItem>; BOOST_ITEM_SIZE] =

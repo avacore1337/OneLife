@@ -1,13 +1,5 @@
 <template>
-  <div>
-    <button v-on:click="save">Save</button>
-    <button v-on:click="load">Load</button>
-    <button v-on:click="hard_reset">Hard Reset</button>
-    <button v-on:click="setNumberFormat">{{ nextNumberFormat(numberFormat) }}</button>
-    <input type="checkbox" id="autosave" v-on:click="toggleAutoSave" :checked="metaData.autosave" />
-    <label for="autosave">Autosave</label>
-
-    <br />
+  <div style="border: solid; margin: 2px">
     <BaseStats v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
 
     <br />
@@ -43,15 +35,7 @@ import BaseStats from "./BaseStats.vue";
 export default {
   props: ["state", "world", "input", "wasm", "metaData"],
   components: { BaseStats },
-  data() {
-    return {
-      numberFormat: "DEFAULT",
-    };
-  },
   methods: {
-    toggleAutoSave: function () {
-      this.wasm.set_autosave(!this.metaData.autosave);
-    },
     printableNumbers: function (num) {
       if (num === undefined) {
         return null;
@@ -64,7 +48,7 @@ export default {
         return Math.floor(num).toString();
       }
 
-      if (this.numberFormat === "SCIENTIFIC") {
+      if (this.$parent.numberFormat === "SCIENTIFIC") {
         let exponent = 1;
         while (num >= 10) {
           num /= 10;
@@ -83,18 +67,6 @@ export default {
 
       return `${num.toFixed(1)}${ending[index]}`;
     },
-    nextNumberFormat: function (numberFormat) {
-      return {
-        DEFAULT: "Scientific notation",
-        SCIENTIFIC: "Natural numbers",
-      }[numberFormat];
-    },
-    setNumberFormat: function () {
-      this.numberFormat = {
-        DEFAULT: "SCIENTIFIC",
-        SCIENTIFIC: "DEFAULT",
-      }[this.numberFormat];
-    },
     prettyPrintDays: function (total_days) {
       const years = Math.floor(total_days / 365);
       const days = total_days % 365;
@@ -112,15 +84,6 @@ export default {
       }
 
       return this.printableNumbers(value);
-    },
-    save: function () {
-      this.wasm.save();
-    },
-    load: function () {
-      this.wasm.load();
-    },
-    hard_reset: function () {
-      this.wasm.hard_reset();
     },
   },
 };

@@ -17,9 +17,10 @@
         v-if="!state.items.boost_items[index].is_purchased"
         :key="item.name"
       >
-        <button v-on:click="buyItem(item.name)" :disabled="state.items.boost_items[index].is_unlocked">
+        <button v-on:click="buyItem(item.name)" :disabled="!state.items.boost_items[index].is_unlocked">
           {{ item.display_name }}
         </button>
+        {{ item.purchasing_cost }}
       </li>
     </ul>
   </div>

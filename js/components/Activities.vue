@@ -2,8 +2,12 @@
   <div style="border: solid; margin: 2px">
     Activity
     <ul>
-      <li v-for="activity in world.activities" :key="activity.name">
-        <button v-on:click="set_activity(activity.name)" style="margin: 2px">
+      <li v-for="(activity, index) in world.activities" v-if="state.activities[index].is_visible" :key="activity.name">
+        <button
+          v-on:click="set_activity(activity.name)"
+          style="margin: 2px"
+          :disabled="!state.activities[index].is_unlocked"
+        >
           <span v-if="activity.name == input.activity">{{ activity.name }} &lt;-- </span>
           <span v-if="activity.name != input.activity">{{ activity.name }}</span>
         </button>

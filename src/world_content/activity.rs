@@ -86,10 +86,10 @@ pub fn should_unlock_activity(input_activity: ActivityTypes, game: &Game) -> boo
     // }
 }
 
-// pub fn should_be_visible_activity(input_activity: ActivityTypes, game: &Game) -> bool {
-//     let activity = &game.world.activitys[input_activity as usize];
-//     activity.required_tier <= game.state.rebirth_stats.class_tier + 1
-// }
+pub fn should_be_visible_activity(input_activity: ActivityTypes, game: &Game) -> bool {
+    let activity = &game.world.activities[input_activity as usize];
+    activity.required_tier <= game.state.rebirth_stats.class_tier + 1
+}
 
 pub fn get_activities() -> [Activity; ACTIVITY_SIZE] {
     let mut activitys: [MaybeUninit<Activity>; ACTIVITY_SIZE] =
