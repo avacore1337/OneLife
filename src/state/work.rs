@@ -10,6 +10,7 @@ pub struct Work {
     pub next_level_progress: f64,
     pub next_level_required: f64,
     pub next_level_percentage: f64,
+    pub effective_income: f64,
     pub is_unlocked: bool,
     pub is_visible: bool,
 }
@@ -22,6 +23,7 @@ impl Work {
             next_level_progress: 0.0,
             next_level_required: 100.0,
             next_level_percentage: 0.0,
+            effective_income: 0.0,
             is_unlocked: false,
             is_visible: true,
         }

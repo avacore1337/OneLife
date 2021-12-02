@@ -14,7 +14,8 @@
         </td>
         <td>
           <p>
-            Level: {{ state.works[index].level }} Reached level: {{ state.rebirth_stats.max_job_levels[index] }}
+            Level: {{ state.works[index].level }} Reached level: {{ state.rebirth_stats.max_job_levels[index] }} Income
+            {{ state.works[index].effective_income.toFixed(1) }}/s
             <b-progress
               class="notransition w-75"
               :value="state.works[index].next_level_percentage.toFixed(2)"

@@ -53,7 +53,10 @@ fn internal_run(game: &mut Game) {
     apply_activities(game);
     apply_tombs(game);
 
+    apply_active_work(game);
+
     // Get the gains
+    calculate_works_income(game);
     do_work(game.input.work, game);
     gain_work_xp(game.input.work as usize, &mut game.state);
     gain_stat_xp(game);
@@ -148,7 +151,29 @@ fn apply_items(game: &mut Game) {
     }
 }
 
+fn calculate_works_income(game: &mut Game) {
+    for work_state in game.state.works.iter_mut() {
+        work_state.effective_income = game.intermediate_state.get_value(work_state.name.into());
+    }
+}
+
 fn apply_work(game: &mut Game) {
+    for work_state in game.state.works.iter_mut() {
+        let work = translate_work(work_state.name);
+
+        let main_stat_level = game.state.stats[work.main_stat as usize].level;
+        let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
+        game.intermediate_state
+            .add_multiplier(work.name.into(), stat_multiplier, "Stat");
+
+        let level_multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
+        game.intermediate_state
+            .add_multiplier(work.name.into(), level_multiplier, "Level");
+        game.intermediate_state
+            .set_base(work.name.into(), work.money);
+    }
+}
+fn apply_active_work(game: &mut Game) {
     let work = translate_work(game.input.work);
     game.intermediate_state.get_gains(&work);
 }
@@ -212,12 +237,7 @@ fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
 }
 
 fn do_work(input_work: WorkTypes, game: &mut Game) {
-    let work = translate_work(input_work);
-    let main_stat_level = game.state.stats[work.main_stat as usize].level;
-    let work_state = game.state.works[input_work as usize];
-    let level_multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
-    let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
-    let generic_multiplier: f64 = game.intermediate_state.get_multiplier(input_work.into());
-    game.state.items.money +=
-        work.money * level_multiplier * stat_multiplier * generic_multiplier / TICK_RATE;
+    game.state.items.money += game
+        .intermediate_state
+        .get_value_tick_rate(input_work.into());
 }
