@@ -21,7 +21,7 @@ mod presets;
 mod state;
 mod world_content;
 
-use engine::engine_run;
+use engine::{character_death_update, engine_run};
 use game::{Game, GameSave};
 use input::boost_item::BoostItemTypes;
 use input::rebirth_upgrade::RebirthUpgradeTypes;
@@ -116,7 +116,7 @@ pub fn do_rebirth() {
     }
     game.state.rebirth_stats.rebirth_count += 1;
     game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
-    game.input = Input::new();
+    game.input = Input::new(&game.state, &game.world);
     console::log_1(&JsValue::from_str("Rust did rebirth"));
 }
 
@@ -282,6 +282,13 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
         game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade_type as usize].is_purchased =
             true;
     }
+}
+
+#[wasm_bindgen]
+pub fn die() {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    character_death_update(game);
+    console::log_1(&JsValue::from_str("dying"));
 }
 
 #[wasm_bindgen]

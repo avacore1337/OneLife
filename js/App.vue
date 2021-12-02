@@ -40,9 +40,16 @@
       <div style="margin-left: 20px; float: left">
         <div
           style="margin-left: 20px; border: 5px solid white; width: 300px; display: inline; float: left; padding: 10px"
+          v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"
         >
           <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-          <RebirthUpgrades v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+          <RebirthUpgrades
+            v-if="state.rebirth_stats.class_tier > 0"
+            v-bind:state="state"
+            v-bind:input="input"
+            v-bind:world="world"
+            v-bind:wasm="wasm"
+          />
         </div>
 
         <div
@@ -124,8 +131,9 @@ export default {
 
     let self = this;
     setInterval(function () {
-      if (self.paused) {
+      if (self.paused || self.state.life_stats.is_dying || self.state.life_stats.dead) {
         self.wasm.paused();
+        self.update_dynamic_data();
         return;
       }
 

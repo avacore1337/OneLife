@@ -15,7 +15,7 @@
       <p>Lifespan: {{ prettyPrintDays(state.life_stats.lifespan) }}</p>
       <p>Health: {{ state.life_stats.health.toFixed(2) }}</p>
       <p>Happiness: {{ state.life_stats.happiness }}</p>
-      <p>Alive: {{ state.life_stats.dead ? "No ;(" : "Yes :)" }}</p>
+      <p>Alive: {{ life_status() }}</p>
     </div>
 
     <br />
@@ -36,6 +36,15 @@ export default {
   props: ["state", "world", "input", "wasm", "metaData"],
   components: { BaseStats },
   methods: {
+    life_status: function () {
+      if (this.state.life_stats.dead) {
+        return "No ;(";
+      }
+      if (this.state.life_stats.is_dying) {
+        return "Soon dead...";
+      }
+      return "Yes :)";
+    },
     printableNumbers: function (num) {
       if (num === undefined) {
         return null;

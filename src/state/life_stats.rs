@@ -11,6 +11,7 @@ pub struct LifeStats {
     pub lifespan: f64, // days
     pub health: f64,   // days
     pub happiness: f64,
+    pub is_dying: bool,
     pub dead: bool,
 }
 
@@ -22,6 +23,7 @@ impl LifeStats {
             lifespan: crate::BASE_LIFESPAN * (1.0 + health),
             health,
             happiness: 1.0,
+            is_dying: false,
             dead: false,
         }
     }

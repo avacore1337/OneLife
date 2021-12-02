@@ -27,24 +27,22 @@ use crate::world_content::stat::should_be_visible_stat;
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
 use crate::world_content::tutorial::check_for_tutorial_step;
 use crate::world_content::work::{should_be_visible_work, should_unlock_work, translate_work};
+use crate::TICK_RATE;
 use intermediate_state::IntermediateState;
 use strum::IntoEnumIterator;
 
 pub fn engine_run(game: &mut Game) {
     check_for_tutorial_step(game);
-    if game.state.life_stats.dead {
+    if game.state.life_stats.dead || game.state.life_stats.is_dying {
         return;
     }
     let run_count = game.meta_data.handle_run_count();
     for _ in 0..run_count {
-        run(game);
+        internal_run(game);
     }
 }
 
-pub fn run(game: &mut Game) {
-    if game.state.life_stats.dead {
-        return;
-    }
+fn internal_run(game: &mut Game) {
     game.intermediate_state = calculate_intermediate_state(game);
     let _old_state = game.state.clone(); //TODO use for delta?
 
@@ -68,7 +66,7 @@ pub fn run(game: &mut Game) {
 fn update_life_stats(game: &mut Game) {
     let life_stats = &mut game.state.life_stats;
     life_stats.happiness = game.intermediate_state.get_multiplier(KeyValues::Happiness);
-    life_stats.health += 0.000_06
+    life_stats.health += 0.000_08
         * game
             .intermediate_state
             .get_value_tick_rate(KeyValues::Health);
@@ -76,14 +74,13 @@ fn update_life_stats(game: &mut Game) {
     // Base gamespeed is that one life should take 30min for 0.0 health, the game runs in 30 ticks/second
     // Days/tick = total_days / (ticks in 30 min)
     // 52*365/(30*60*30) = 0.351
-    let time_progression = 52.0 * 365.0 / (30.0 * 60.0 * crate::TICK_RATE);
+    let time_progression = 52.0 * 365.0 / (30.0 * 60.0 * TICK_RATE);
     life_stats.age += time_progression * game.state.rebirth_stats.time_factor;
     life_stats.lifespan = crate::BASE_LIFESPAN * (1.0 + life_stats.health);
 
     let should_die = life_stats.age + life_stats.health >= life_stats.lifespan;
     if should_die {
-        life_stats.dead = true;
-        character_death_update(game);
+        life_stats.is_dying = true;
     }
 }
 
@@ -123,7 +120,8 @@ fn calculate_intermediate_state(_game: &Game) -> IntermediateState {
     IntermediateState::new()
 }
 
-fn character_death_update(game: &mut Game) {
+pub fn character_death_update(game: &mut Game) {
+    game.state.life_stats.dead = true;
     for (index, work) in game.state.works.iter().enumerate() {
         game.state.rebirth_stats.max_job_levels[index] =
             std::cmp::max(game.state.rebirth_stats.max_job_levels[index], work.level);
@@ -137,7 +135,7 @@ fn apply_housing(game: &mut Game) {
         housing = translate_housing(HousingTypes::StoneFloor);
         // TODO signal to frontend that you are out of cash?
     }
-    game.state.items.money -= housing.upkeep;
+    game.state.items.money -= housing.upkeep / TICK_RATE;
     game.intermediate_state.get_gains(&housing);
 }
 
@@ -171,9 +169,10 @@ fn apply_tombs(game: &mut Game) {
 
 fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
     let work: &mut StateWork = &mut state.works[input_work];
-    work.next_level_progress += 0.3
+    work.next_level_progress += 10.0
         * state.life_stats.happiness
-        * (1.0 + f64::sqrt(state.rebirth_stats.max_job_levels[input_work] as f64));
+        * (1.0 + f64::sqrt(state.rebirth_stats.max_job_levels[input_work] as f64))
+        / TICK_RATE;
     let mut next_level_xp_needed = calculate_work_next_level_xp_neeeded(work);
     while work.next_level_progress > next_level_xp_needed {
         work.level += 1;
@@ -218,5 +217,5 @@ fn do_work(input_work: WorkTypes, state: &mut StateContainer) {
     let work_state = state.works[input_work as usize];
     let level_multiplier: f64 = 1.0 + (work_state.level as f64 / 10.0);
     let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
-    state.items.money += work.money * level_multiplier * stat_multiplier;
+    state.items.money += work.money * level_multiplier * stat_multiplier / TICK_RATE;
 }

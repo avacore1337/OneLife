@@ -130,8 +130,14 @@ pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
     }
     match input_work {
         WorkTypes::Mines => true,
-        WorkTypes::Latrine => game.state.works[WorkTypes::Mines as usize].level >= 10,
-        WorkTypes::GalleyRower => game.state.works[WorkTypes::Latrine as usize].level >= 10,
+        WorkTypes::Latrine => {
+            game.state.works[WorkTypes::Mines as usize].level >= 10
+                || game.state.rebirth_stats.class_tier >= 1
+        }
+        WorkTypes::GalleyRower => {
+            game.state.works[WorkTypes::Latrine as usize].level >= 10
+                || game.state.rebirth_stats.class_tier >= 2
+        }
         WorkTypes::Fields => game.state.works[WorkTypes::GalleyRower as usize].level >= 10,
         WorkTypes::Mill => game.state.works[WorkTypes::Fields as usize].level >= 10,
         WorkTypes::Weaver => game.state.works[WorkTypes::Mill as usize].level >= 10,

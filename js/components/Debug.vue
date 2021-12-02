@@ -11,6 +11,8 @@
     <br />
     <button v-on:click="set_gamespeed(100)">Set GameSpeed 100</button>
     <br />
+    <button v-on:click="set_gamespeed(1000)">Set GameSpeed 1000</button>
+    <br />
     <button v-on:click="toggle_pause" style="margin: 2px">
       {{ $parent.paused ? "Resume the game" : "Pause the game" }}
     </button>

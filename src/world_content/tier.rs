@@ -1,14 +1,16 @@
 use crate::input::stat::STAT_SIZE;
+use crate::input::work::WorkTypes;
 use crate::state::stats::{get_stats_base, BaseStats, Stat};
 use serde::Serialize;
 
-#[derive(Serialize)]
+#[derive(Serialize, Debug)]
 pub struct Tier {
     pub level: u32,
     pub display_name: &'static str,
     pub description: &'static str,
     pub unlocks: Vec<&'static str>,
     pub starting_stats: [Stat; STAT_SIZE],
+    pub starting_work: WorkTypes,
     pub starting_health: f64,
     pub purchasing_cost: f64,
 }
@@ -43,6 +45,7 @@ pub fn init_tiers() -> Vec<Tier> {
                 dex: 5.0,
                 faith: 5.0,
             }),
+            starting_work: WorkTypes::Mines,
             starting_health: -0.3,
             purchasing_cost: 0.0,
         },
@@ -63,6 +66,7 @@ pub fn init_tiers() -> Vec<Tier> {
                 dex: 6.0,
                 faith: 6.0,
             }),
+            starting_work: WorkTypes::Latrine,
             starting_health: -0.2,
             purchasing_cost: 2.0,
         },
@@ -85,6 +89,7 @@ pub fn init_tiers() -> Vec<Tier> {
                 dex: 7.0,
                 faith: 7.0,
             }),
+            starting_work: WorkTypes::GalleyRower,
             starting_health: 0.0,
             purchasing_cost: 4.0,
         },
@@ -107,6 +112,7 @@ pub fn init_tiers() -> Vec<Tier> {
                 dex: 8.0,
                 faith: 8.0,
             }),
+            starting_work: WorkTypes::Fields,
             starting_health: 0.1,
             purchasing_cost: 8.0,
         },

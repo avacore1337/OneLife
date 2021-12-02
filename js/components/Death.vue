@@ -1,7 +1,11 @@
 <template>
   <div>
     Death Section
-    <button v-on:click="rebirth" style="margin: 2px">Rebirth</button>
+    <br />
+    <button v-on:click="die" v-if="state.life_stats.is_dying && !state.life_stats.dead" style="margin: 2px">
+      Go To The Other Side
+    </button>
+    <button v-on:click="rebirth" v-if="state.life_stats.dead" style="margin: 2px">Rebirth</button>
     <div style="border: solid; margin: 2px">
       <ul>
         <li v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.class_tier)" :key="tier.name">
@@ -26,6 +30,9 @@ export default {
     },
     rebirth: function () {
       this.wasm.do_rebirth();
+    },
+    die: function () {
+      this.wasm.die();
     },
   },
 };

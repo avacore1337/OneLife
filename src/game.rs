@@ -34,7 +34,7 @@ impl Game {
     pub fn new() -> Game {
         let world = World::new();
         let state = new_game(&world);
-        let input = Input::new();
+        let input = Input::new(&state, &world);
         let intermediate_state = IntermediateState::new();
         let meta_data = MetaData::new();
         Game {
@@ -48,7 +48,7 @@ impl Game {
 
     pub fn hard_reset(&mut self) {
         self.state = new_game(&self.world);
-        self.input = Input::new();
+        self.input = Input::new(&self.state, &self.world);
     }
 
     pub fn load_game(&mut self, save: GameSave) {
