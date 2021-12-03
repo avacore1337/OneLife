@@ -28,7 +28,7 @@ pub struct StateContainer {
 }
 
 pub fn new_game(world: &World) -> StateContainer {
-    let rebirth_stats = RebirthStats::new();
+    let rebirth_stats = RebirthStats::default();
     rebirth(world, rebirth_stats)
 }
 

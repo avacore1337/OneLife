@@ -23,7 +23,7 @@ fn make_poor_death(world: &World) -> (StateContainer, Input, MetaData) {
     state.items.money = 10.0;
     state.life_stats.age = 70.0 * 365.0;
 
-    let input = Input::new(&state, &world);
+    let input = Input::new(&state, world);
     (state, input, meta_data)
 }
 
@@ -33,7 +33,7 @@ fn make_rich_death(world: &World) -> (StateContainer, Input, MetaData) {
     state.items.money = 10000000.0;
     state.life_stats.age = 70.0 * 365.0;
 
-    let input = Input::new(&state, &world);
+    let input = Input::new(&state, world);
     (state, input, meta_data)
 }
 
@@ -53,7 +53,7 @@ fn make_t2(world: &World) -> (StateContainer, Input, MetaData) {
 
     r.rebirth_upgrades[RebirthUpgradeTypes::AcceptingDeath as usize].is_purchased = true;
 
-    let input = Input::new(&state, &world);
+    let input = Input::new(&state, world);
     (state, input, meta_data)
 }
 
@@ -67,7 +67,7 @@ fn make_full_unlock(world: &World) -> (StateContainer, Input, MetaData) {
     state.items.money = 10000000.0;
     state.rebirth_stats.coins = 10000000.0;
 
-    let input = Input::new(&state, &world);
+    let input = Input::new(&state, world);
     (state, input, meta_data)
 }
 
@@ -76,6 +76,6 @@ fn make_saved_ticks(world: &World) -> (StateContainer, Input, MetaData) {
     let mut meta_data = MetaData::new();
     meta_data.saved_ticks = 100_000.0;
 
-    let input = Input::new(&state, &world);
+    let input = Input::new(&state, world);
     (state, input, meta_data)
 }

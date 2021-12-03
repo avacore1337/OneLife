@@ -31,8 +31,8 @@ pub struct World {
     pub settings: Settings,
 }
 
-impl World {
-    pub fn new() -> World {
+impl Default for World {
+    fn default() -> World {
         World {
             tiers: init_tiers(),
             works: get_works(),
@@ -43,7 +43,7 @@ impl World {
             rebirth_upgrades: get_rebirth_upgrades(),
             tutorial_texts: get_tutorial_texts(),
             stats: get_stats(),
-            settings: Settings::new(),
+            settings: Settings::default(),
         }
     }
 }

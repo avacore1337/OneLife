@@ -32,7 +32,7 @@ impl From<&Game> for GameSave {
 
 impl Game {
     pub fn new() -> Game {
-        let world = World::new();
+        let world = World::default();
         let state = new_game(&world);
         let input = Input::new(&state, &world);
         let intermediate_state = IntermediateState::new();

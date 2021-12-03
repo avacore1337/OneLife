@@ -3,17 +3,17 @@ use crate::input::rebirth_upgrade::REBIRTH_UPGRADE_SIZE;
 use crate::input::work::WORK_SIZE;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
 pub struct Unlocks {
     pub can_end_early: bool,
 }
-impl Unlocks {
-    pub fn new() -> Unlocks {
-        Unlocks {
-            can_end_early: false,
-        }
-    }
-}
+// impl Default for Unlocks {
+//     fn default() -> Unlocks {
+//         Unlocks {
+//             can_end_early: false,
+//         }
+//     }
+// }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct RebirthStats {
@@ -27,8 +27,8 @@ pub struct RebirthStats {
     pub unlocks: Unlocks,
 }
 
-impl RebirthStats {
-    pub fn new() -> RebirthStats {
+impl Default for RebirthStats {
+    fn default() -> RebirthStats {
         RebirthStats {
             rebirth_count: 0,
             class_tier: 0,
@@ -37,7 +37,7 @@ impl RebirthStats {
             time_factor: 1.0,
             max_job_levels: [0; WORK_SIZE],
             rebirth_upgrades: get_rebirth_upgrades(),
-            unlocks: Unlocks::new(),
+            unlocks: Unlocks::default(),
         }
     }
 }

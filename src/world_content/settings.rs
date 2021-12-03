@@ -4,8 +4,8 @@ use serde::Serialize;
 pub struct Settings {
     pub display_debug: bool,
 }
-impl Settings {
-    pub fn new() -> Settings {
+impl Default for Settings {
+    fn default() -> Settings {
         Settings {
             display_debug: should_display_debug(),
         }
@@ -13,9 +13,5 @@ impl Settings {
 }
 
 fn should_display_debug() -> bool {
-    if cfg!(debug_assertions) {
-        true
-    } else {
-        false
-    }
+    cfg!(debug_assertions)
 }
