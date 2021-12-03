@@ -1,5 +1,7 @@
 use serde::Serialize;
 
+// This should contain any compile time/version setting like
+// toggles for front-end sections or A/B tests
 #[derive(Serialize, Clone, Debug)]
 pub struct Settings {
     pub display_debug: bool,

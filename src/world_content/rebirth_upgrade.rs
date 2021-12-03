@@ -20,10 +20,18 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
     match rebirth_upgrade {
         RebirthUpgradeTypes::EndItEarly => {
             unlocks.can_end_early = true;
-
-            //
         }
-        _ => (),
+        RebirthUpgradeTypes::AutoWork => {
+            unlocks.can_auto_work = true;
+        }
+        RebirthUpgradeTypes::AutoLive => {
+            unlocks.can_auto_living = true;
+        }
+        RebirthUpgradeTypes::AutoBuyItem => {
+            unlocks.can_auto_buy_item = true;
+        }
+        RebirthUpgradeTypes::StatMemory1 => {}
+        RebirthUpgradeTypes::AcceptingDeath => {}
     }
 }
 
@@ -62,6 +70,27 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description: "You can now commit a grave sin",
             display_name: "Ending It Early",
             required_tier: 3,
+        },
+        RebirthUpgradeTypes::AutoWork => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 12.0,
+            description: "You start making decisions out of habit",
+            display_name: "Automate Work Progression",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::AutoLive => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 12.0,
+            description: "If you can affort it, why not?",
+            display_name: "Automate Housing Progression",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::AutoBuyItem => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 60.0,
+            description: "Consumerism!",
+            display_name: "Automate Buying of Items",
+            required_tier: 2,
         },
     }
 }

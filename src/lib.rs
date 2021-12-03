@@ -97,6 +97,24 @@ pub fn paused() {
 }
 
 #[wasm_bindgen]
+pub fn set_auto_work(val: bool) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.input.options.auto_work = val;
+}
+
+#[wasm_bindgen]
+pub fn set_auto_living(val: bool) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.input.options.auto_living = val;
+}
+
+#[wasm_bindgen]
+pub fn set_auto_buy_item(val: bool) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.input.options.auto_buy_item = val;
+}
+
+#[wasm_bindgen]
 pub fn use_saved_ticks(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     game.meta_data.use_saved_ticks = val;
@@ -220,9 +238,9 @@ pub fn die() {
     character_death_update(game);
 }
 
-#[wasm_bindgen]
-#[cfg(not(debug_assertions))]
-pub fn get_preset_saves() -> JsValue {
-    let v: Vec<u64> = vec![];
-    JsValue::from_serde(&v).unwrap()
-}
+// #[wasm_bindgen]
+// #[cfg(not(debug_assertions))]
+// pub fn get_preset_saves() -> JsValue {
+//     let v: Vec<u64> = vec![];
+//     JsValue::from_serde(&v).unwrap()
+// }

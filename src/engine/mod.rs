@@ -1,3 +1,4 @@
+pub mod auto_functions;
 pub mod intermediate_state;
 pub mod value_keys;
 
@@ -31,6 +32,8 @@ use crate::TICK_RATE;
 use intermediate_state::IntermediateState;
 use strum::IntoEnumIterator;
 
+use self::auto_functions::{auto_buy_item, auto_living, auto_work};
+
 pub fn engine_run(game: &mut Game) {
     check_for_tutorial_step(game);
     if game.state.life_stats.dead || game.state.life_stats.is_dying {
@@ -46,6 +49,7 @@ fn internal_run(game: &mut Game) {
     game.intermediate_state = calculate_intermediate_state(game);
     let _old_state = game.state.clone(); //TODO use for delta?
 
+    auto_input_update(game);
     // Apply all modifiers to intermediate
     apply_housing(game);
     apply_items(game);
@@ -65,6 +69,18 @@ fn internal_run(game: &mut Game) {
     update_rebirth_unlocks(game);
     update_unlocks(game);
     update_life_stats(game);
+}
+
+fn auto_input_update(game: &mut Game) {
+    if game.input.options.auto_work {
+        auto_work(game);
+    }
+    if game.input.options.auto_living {
+        auto_living(game);
+    }
+    if game.input.options.auto_buy_item {
+        auto_buy_item(game);
+    }
 }
 
 fn update_life_stats(game: &mut Game) {
@@ -246,7 +262,7 @@ fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
 }
 
 fn do_work(input_work: WorkTypes, game: &mut Game) {
-    game.state.items.money += game
-        .intermediate_state
-        .get_value_tick_rate(input_work.into());
+    let income = game.intermediate_state.get_value(input_work.into());
+    game.state.items.income = income;
+    game.state.items.money += income / TICK_RATE;
 }

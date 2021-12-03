@@ -1,10 +1,42 @@
 <template>
   <div>
-    Debug
+    <h3>Settings</h3>
+    <br />
     <br />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
+    <br />
+    <button v-on:click="toggle_use_saved_ticks" style="margin: 2px">
+      {{ !metaData.use_saved_ticks ? "Use Saved Ticks" : "Don't Use Saved Ticks" }}
+    </button>
+    <br />
+    <button v-on:click="toggle_auto_work" style="margin: 2px">
+      {{ !input.options.auto_work ? "Auto Work" : "Don't Auto Work" }}
+    </button>
+    <br />
+    <button v-on:click="toggle_auto_living" style="margin: 2px">
+      {{ !input.options.auto_living ? "Auto Living" : "Don't Auto Living" }}
+    </button>
+    <br />
+    <button v-on:click="toggle_auto_buy_item" style="margin: 2px">
+      {{ !input.options.auto_buy_item ? "Auto Buy Item" : "Don't Auto Buy Item" }}
+    </button>
+    <br />
+    <button v-on:click="enable_tutorial">Enable Tutorial</button>
+    <br />
+    <button v-on:click="toggle_pause" style="margin: 2px">
+      {{ $parent.paused ? "Resume the game" : "Pause the game" }}
+    </button>
+    <br />
+    <button v-on:click="tick">Tick</button>
+    <br />
+    <br />
+    <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>
+    <br />
+    Import gamesave
+    <p>TODO</p>
 
     <br /><br />
+    <h3>Debug</h3>
     <button v-on:click="set_gamespeed(1)">Set GameSpeed 1</button>
     <br />
     <button v-on:click="set_gamespeed(10)">Set GameSpeed 10</button>
@@ -13,33 +45,12 @@
     <br />
     <button v-on:click="set_gamespeed(1000)">Set GameSpeed 1000</button>
     <br />
-    <button v-on:click="toggle_pause" style="margin: 2px">
-      {{ $parent.paused ? "Resume the game" : "Pause the game" }}
-    </button>
-    <br />
-    <button v-on:click="tick">Tick</button>
-    <br />
-    <button v-on:click="use_saved_ticks(true)">Use Saved Ticks</button>
-    <br />
-    <button v-on:click="use_saved_ticks(false)">Don't Use Saved Ticks</button>
-    <br />
     <br />
     <button v-on:click="print_debug_state">Print Debug State</button>
     <br />
     <button v-on:click="print_debug_meta">Print Debug Meta</button>
-
     <br />
     <br />
-    <button v-on:click="enable_tutorial">Enable Tutorial</button>
-
-    <br /><br />
-    <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>
-
-    <br />
-    Import gamesave
-    <p>TODO</p>
-
-    <br /><br />
     Presets
     <div v-for="(value, name) in presets" :key="name">
       <button v-on:click="load_preset(name)" style="margin: 2px">{{ name }}</button>
@@ -59,8 +70,17 @@ export default {
     this.presets = this.wasm.get_preset_saves();
   },
   methods: {
-    use_saved_ticks: function (should_use_saved_ticks) {
-      this.wasm.use_saved_ticks(should_use_saved_ticks);
+    toggle_use_saved_ticks: function () {
+      this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks);
+    },
+    toggle_auto_work: function () {
+      this.wasm.set_auto_work(!this.input.options.auto_work);
+    },
+    toggle_auto_living: function () {
+      this.wasm.set_auto_living(!this.input.options.auto_living);
+    },
+    toggle_auto_buy_item: function () {
+      this.wasm.set_auto_buy_item(!this.input.options.auto_buy_item);
     },
     print_debug_state: function () {
       this.wasm.print_debug_state();

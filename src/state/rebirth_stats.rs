@@ -6,14 +6,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Clone, Debug, Default)]
 pub struct Unlocks {
     pub can_end_early: bool,
+    pub can_auto_work: bool,
+    pub can_auto_living: bool,
+    pub can_auto_buy_item: bool,
 }
-// impl Default for Unlocks {
-//     fn default() -> Unlocks {
-//         Unlocks {
-//             can_end_early: false,
-//         }
-//     }
-// }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct RebirthStats {

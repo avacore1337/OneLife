@@ -26,6 +26,7 @@ impl BoostItem {
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Items {
     pub money: f64,
+    pub income: f64,
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
 }
 
@@ -33,6 +34,7 @@ impl Items {
     pub fn new() -> Items {
         Items {
             money: 0.0,
+            income: 0.0,
             boost_items: get_boost_items(),
         }
     }

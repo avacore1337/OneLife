@@ -6,7 +6,6 @@ use strum::IntoEnumIterator;
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Housing {
     pub name: HousingTypes,
-    pub is_unlocked: bool,
     pub is_visible: bool,
 }
 
@@ -14,7 +13,6 @@ impl Housing {
     pub fn new(housing: HousingTypes) -> Housing {
         Housing {
             name: housing,
-            is_unlocked: false,
             is_visible: true,
         }
     }

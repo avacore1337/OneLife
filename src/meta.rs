@@ -16,7 +16,7 @@ pub struct MetaData {
 impl MetaData {
     pub fn new() -> MetaData {
         MetaData {
-            game_speed: 100,
+            game_speed: 10,
             autosave: false,
             last_save_time: Date::new_0().get_time(),
             last_tick_time: Date::new_0().get_time(),

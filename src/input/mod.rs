@@ -1,6 +1,7 @@
 pub mod activity;
 pub mod boost_item;
 pub mod housing;
+pub mod options;
 pub mod rebirth_upgrade;
 pub mod stat;
 pub mod tomb;
@@ -8,6 +9,7 @@ pub mod work;
 
 use activity::ActivityTypes;
 use housing::HousingTypes;
+use options::Options;
 use work::WorkTypes;
 
 use serde::{Deserialize, Serialize};
@@ -19,6 +21,7 @@ pub struct Input {
     pub work: WorkTypes,
     pub housing: HousingTypes,
     pub activity: ActivityTypes,
+    pub options: Options,
 }
 
 impl Input {
@@ -27,6 +30,7 @@ impl Input {
             work: world.tiers[state.rebirth_stats.class_tier as usize].starting_work,
             housing: HousingTypes::StoneFloor,
             activity: ActivityTypes::Training,
+            options: Options::default(),
         }
     }
 }

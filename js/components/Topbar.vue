@@ -1,12 +1,13 @@
 <template>
   <div>
-    Top Bar
     <button v-on:click="save">Save</button>
     <button v-on:click="load">Load</button>
     <button v-on:click="hard_reset">Hard Reset</button>
-    <button v-on:click="setNumberFormat">{{ nextNumberFormat($parent.numberFormat) }}</button>
     <input type="checkbox" id="autosave" v-on:click="toggleAutoSave" :checked="metaData.autosave" />
     <label for="autosave">Autosave</label>
+    <button v-on:click="setNumberFormat">{{ nextNumberFormat($parent.numberFormat) }}</button>
+
+    <h1 style="text-align: center">One Life</h1>
   </div>
 </template>
 
