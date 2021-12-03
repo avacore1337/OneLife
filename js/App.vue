@@ -54,14 +54,9 @@
 
         <div
           style="margin-left: 20px; border: 5px solid white; width: 200px; display: inline; float: left; padding: 10px"
+          v-if="world.settings.display_debug"
         >
-          <Debug
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:presets="presets"
-            v-bind:wasm="wasm"
-          />
+          <Debug v-bind:metaData="metaData" v-bind:state="state" v-bind:input="input" v-bind:wasm="wasm" />
         </div>
       </div>
     </div>
@@ -102,6 +97,7 @@ export default {
         boost_items: [],
         rebirth_upgrades: [],
         tutorial_texts: [],
+        settings: {},
       },
       state: {
         stats: {},
@@ -116,7 +112,6 @@ export default {
       },
       input: {},
       metaData: { info: {}, saved_ticks: 0.0 },
-      presets: {},
       paused: false,
       numberFormat: "DEFAULT",
       modalText: "",
@@ -127,7 +122,6 @@ export default {
     this.state = this.wasm.get_state();
     this.input = this.wasm.get_input();
     this.metaData = this.wasm.get_meta_data();
-    this.presets = this.wasm.get_preset_saves();
 
     let self = this;
     setInterval(function () {

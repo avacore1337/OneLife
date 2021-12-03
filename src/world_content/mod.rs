@@ -2,6 +2,7 @@ pub mod activity;
 pub mod boost_item;
 pub mod housing;
 pub mod rebirth_upgrade;
+pub mod settings;
 pub mod stat;
 pub mod tier;
 pub mod tomb;

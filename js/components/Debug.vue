@@ -49,7 +49,15 @@
 
 <script>
 export default {
-  props: ["metaData", "state", "presets", "input", "wasm"],
+  props: ["metaData", "state", "input", "wasm"],
+  data() {
+    return {
+      presets: {},
+    };
+  },
+  mounted: function () {
+    this.presets = this.wasm.get_preset_saves();
+  },
   methods: {
     use_saved_ticks: function (should_use_saved_ticks) {
       this.wasm.use_saved_ticks(should_use_saved_ticks);

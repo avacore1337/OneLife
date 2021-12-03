@@ -12,3 +12,4 @@ Cargo.lock
 one-life/
 pkg/
 node_modules/
+dist/

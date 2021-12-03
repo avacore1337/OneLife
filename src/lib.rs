@@ -1,10 +1,6 @@
 #![feature(variant_count)]
 // use serde_json::json;
-use libflate::gzip::{Decoder, Encoder};
 use once_cell::sync::Lazy;
-use serde_json::{from_str, to_string};
-use std::io::{Read, Write};
-use std::str;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
@@ -19,16 +15,17 @@ mod input;
 mod meta;
 mod presets;
 mod state;
+mod wasm_api;
 mod world_content;
 
 use engine::{character_death_update, engine_run};
-use game::{Game, GameSave};
+use game::Game;
 use input::boost_item::BoostItemTypes;
 use input::rebirth_upgrade::RebirthUpgradeTypes;
 use input::tomb::TombTypes;
 use input::Input;
-use presets::get_presets;
 use state::state_container::rebirth;
+use wasm_api::meta::do_save;
 use world_content::boost_item::BoostItem;
 use world_content::rebirth_upgrade::RebirthUpgrade;
 use world_content::tier::Tier;
@@ -48,16 +45,6 @@ pub fn main_js() -> Result<(), JsValue> {
     console::log_1(&JsValue::from_str("Hello One Life!"));
 
     Ok(())
-}
-
-#[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, one-life!");
 }
 
 #[wasm_bindgen]
@@ -92,23 +79,6 @@ pub fn next_info_step() {
 }
 
 #[wasm_bindgen]
-pub fn get_preset_saves() -> JsValue {
-    let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&get_presets(&game.world)).unwrap()
-}
-
-#[wasm_bindgen]
-pub fn set_preset_saves(preset_name: &str) {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    let mut presets = get_presets(&game.world);
-    if let Some((state, input, meta_data)) = presets.remove(preset_name) {
-        game.state = state;
-        game.input = input;
-        game.meta_data = meta_data
-    }
-}
-
-#[wasm_bindgen]
 pub fn do_rebirth() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     if !game.state.life_stats.dead {
@@ -118,40 +88,6 @@ pub fn do_rebirth() {
     game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
     game.input = Input::new(&game.state, &game.world);
     console::log_1(&JsValue::from_str("Rust did rebirth"));
-}
-
-#[wasm_bindgen]
-pub fn set_disable_tutorial(val: bool) {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    game.meta_data.info.disable_tutorial = val;
-}
-
-#[wasm_bindgen]
-pub fn set_gamespeed(speed: u32) {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    game.meta_data.game_speed = speed;
-}
-
-#[wasm_bindgen]
-pub fn set_autosave(autosave: bool) {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    game.meta_data.autosave = autosave;
-}
-
-#[wasm_bindgen]
-pub fn print_debug_state() {
-    let game = GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_str(&format!(
-        "intermediate: {:#?}",
-        game.intermediate_state
-    )));
-    console::log_1(&JsValue::from_str(&format!("state: {:#?}", game.state)));
-}
-
-#[wasm_bindgen]
-pub fn print_debug_meta() {
-    let game = GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_str(&format!("meta: {:#?}", game.meta_data)));
 }
 
 #[wasm_bindgen]
@@ -176,12 +112,6 @@ pub fn tick() {
     for _ in 0..game.meta_data.game_speed {
         engine_run(game);
     }
-}
-
-#[wasm_bindgen]
-pub fn single_tick() {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    engine_run(&mut game);
 }
 
 #[wasm_bindgen]
@@ -234,7 +164,6 @@ pub fn can_buy_item(val: &JsValue) -> bool {
     can_afford
 }
 
-#[wasm_bindgen]
 pub fn can_buy_tomb(val: &JsValue) -> bool {
     let game = GLOBAL_DATA.lock().unwrap();
     let tomb_type: TombTypes = val.into_serde().unwrap();
@@ -287,86 +216,13 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
 #[wasm_bindgen]
 pub fn die() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    character_death_update(game);
     console::log_1(&JsValue::from_str("dying"));
+    character_death_update(game);
 }
 
 #[wasm_bindgen]
-pub fn hard_reset() {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    game.hard_reset();
-    console::log_1(&JsValue::from_str("Resetting game"));
-}
-
-#[wasm_bindgen]
-pub fn save() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    do_save(game);
-}
-
-pub fn do_save(game: &mut Game) {
-    let window = web_sys::window().unwrap();
-    console::log_1(&JsValue::from_str("Saving game"));
-    if let Ok(Some(local_storage)) = window.local_storage() {
-        local_storage
-            .set_item("save", &to_string(&GameSave::from(&*game)).unwrap())
-            .unwrap();
-        game.meta_data.set_save_time();
-    }
-}
-
-#[wasm_bindgen]
-pub fn load() {
-    let mut current_game = GLOBAL_DATA.lock().unwrap();
-    let window = web_sys::window().unwrap();
-    if let Ok(Some(local_storage)) = window.local_storage() {
-        match local_storage.get_item("save").unwrap() {
-            Some(json_save) => {
-                if let Ok(save) = from_str::<GameSave>(&json_save) {
-                    current_game.load_game(save);
-                }
-            }
-            None => console::log_1(&JsValue::from_str("You don't have a game to load")),
-        }
-    }
-    console::log_1(&JsValue::from_str("Loading game"));
-}
-
-#[wasm_bindgen]
-pub fn export_save() -> String {
-    let game: &Game = &*GLOBAL_DATA.lock().unwrap();
-    // let game = GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_str("exporting game"));
-    let json_data = to_string(&GameSave::from(game)).unwrap();
-
-    let mut encoder = Encoder::new(Vec::new()).unwrap();
-    encoder.write_all(json_data.as_bytes()).unwrap();
-    let res = encoder.finish().into_result().unwrap();
-    let b64 = base64::encode(res);
-    console::log_1(&JsValue::from_str(&b64));
-    b64
-}
-
-#[wasm_bindgen]
-pub fn import_save(save: String) {
-    let mut current_game = GLOBAL_DATA.lock().unwrap();
-    let data = base64::decode(save).unwrap();
-    let mut decoder = Decoder::new(&data[..]).unwrap();
-    let mut decoded_data = Vec::new();
-    decoder.read_to_end(&mut decoded_data).unwrap();
-    let save_state = match str::from_utf8(decoded_data.as_slice()) {
-        Ok(v) => v,
-        Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
-    };
-
-    console::log_1(&JsValue::from_str(save_state));
-    if let Ok(save) = from_str::<GameSave>(save_state) {
-        current_game.load_game(save);
-    }
-}
-
-#[wasm_bindgen]
-pub fn is_game_paused() -> bool {
-    let game = GLOBAL_DATA.lock().unwrap();
-    game.state.life_stats.dead
+#[cfg(not(debug_assertions))]
+pub fn get_preset_saves() -> JsValue {
+    let v: Vec<u64> = vec![];
+    JsValue::from_serde(&v).unwrap()
 }

@@ -2,6 +2,7 @@ use super::activity::{get_activities, Activity};
 use super::boost_item::{get_boost_items, BoostItem};
 use super::housing::{get_housings, Housing};
 use super::rebirth_upgrade::{get_rebirth_upgrades, RebirthUpgrade};
+use super::settings::Settings;
 use super::stat::{get_stats, Stat};
 use super::tier::{init_tiers, Tier};
 use super::tomb::{get_tombs, Tomb};
@@ -27,6 +28,7 @@ pub struct World {
     pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],
     pub tutorial_texts: Vec<&'static str>,
     pub stats: [Stat; STAT_SIZE],
+    pub settings: Settings,
 }
 
 impl World {
@@ -41,6 +43,7 @@ impl World {
             rebirth_upgrades: get_rebirth_upgrades(),
             tutorial_texts: get_tutorial_texts(),
             stats: get_stats(),
+            settings: Settings::new(),
         }
     }
 }
