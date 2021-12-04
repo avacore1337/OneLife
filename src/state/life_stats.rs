@@ -9,7 +9,8 @@ use wasm_bindgen::prelude::*;
 pub struct LifeStats {
     pub age: f64,      // days
     pub lifespan: f64, // days
-    pub health: f64,   // days
+    pub health: f64,
+    pub health_rate: f64,
     pub happiness: f64,
     pub is_dying: bool,
     pub dead: bool,
@@ -22,6 +23,7 @@ impl LifeStats {
             age: 15.0 * 365.0,
             lifespan: crate::BASE_LIFESPAN * (1.0 + health),
             health,
+            health_rate: 0.0,
             happiness: 1.0,
             is_dying: false,
             dead: false,

@@ -47,8 +47,20 @@ impl Gain for BoostItem {
             BoostItemTypes::Dumbell3 => {
                 intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
             }
+            BoostItemTypes::FishingGear => {
+                intermediate.add_multiplier(KeyValues::Fisherman, 2.0, "Fishing Gear");
+            }
             BoostItemTypes::CityClothes => {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, "City Clothes");
+            }
+            BoostItemTypes::Leach => {
+                intermediate.add_base(KeyValues::Health, 1.0);
+            }
+            BoostItemTypes::PitchFork => {
+                intermediate.add_multiplier(KeyValues::Farmer, 2.0, "PitchFork");
+            }
+            BoostItemTypes::HealthKit => {
+                intermediate.add_base(KeyValues::Health, 2.0);
             }
         }
     }
@@ -119,12 +131,40 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Kettlebell",
             required_tier: 1,
         },
+        BoostItemTypes::FishingGear => BoostItem {
+            name: item_type,
+            purchasing_cost: 16_000.0,
+            description: "The salesman for this got you hook, line and sinker",
+            display_name: "Fishing Gear",
+            required_tier: 1,
+        },
         BoostItemTypes::CityClothes => BoostItem {
             name: item_type,
             purchasing_cost: 40_000.0,
-            description: "You fit into the cityk the less nice parts that is",
+            description: "You fit into the city the less nice parts that is",
             display_name: "City Clothes",
             required_tier: 1,
+        },
+        BoostItemTypes::Leach => BoostItem {
+            name: item_type,
+            purchasing_cost: 400_000.0,
+            description: "Blood sucking bug, how is this healthy?",
+            display_name: "Blood Leach",
+            required_tier: 2,
+        },
+        BoostItemTypes::PitchFork => BoostItem {
+            name: item_type,
+            purchasing_cost: 800_000.0,
+            description: "Blood sucking bug, how is this healthy?",
+            display_name: "Pitchfork",
+            required_tier: 2,
+        },
+        BoostItemTypes::HealthKit => BoostItem {
+            name: item_type,
+            purchasing_cost: 4_000_000.0,
+            description: "What is this fancy box of cloth",
+            display_name: "Healthkit",
+            required_tier: 3,
         },
     }
 }

@@ -1,6 +1,8 @@
 use crate::{
     game::Game,
-    world_content::{housing::translate_housing, work::translate_work},
+    world_content::{
+        boost_item::translate_boost_item, housing::translate_housing, work::translate_work,
+    },
 };
 
 pub fn auto_work(game: &mut Game) {
@@ -26,6 +28,12 @@ pub fn auto_living(game: &mut Game) {
     }
 }
 
-pub fn auto_buy_item(_game: &mut Game) {
-    //
+pub fn auto_buy_item(game: &mut Game) {
+    for item in game.state.items.boost_items.iter_mut() {
+        let world_item = translate_boost_item(item.name);
+        if !item.is_purchased && game.state.items.money >= world_item.purchasing_cost {
+            item.is_purchased = true;
+            game.state.items.money -= world_item.purchasing_cost;
+        }
+    }
 }

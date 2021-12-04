@@ -58,14 +58,6 @@ impl IntermediateState {
             .unwrap_or(0.0)
     }
 
-    pub fn get_value_tick_rate(&mut self, key: KeyValues) -> f64 {
-        self.value_gains
-            .get(&key)
-            .map(|value_gains| value_gains.calculate_value())
-            .unwrap_or(0.0)
-            / crate::TICK_RATE
-    }
-
     pub fn get_multiplier(&self, key: KeyValues) -> f64 {
         self.value_gains
             .get(&key)
@@ -94,6 +86,14 @@ impl IntermediateState {
             .entry(key)
             .or_insert_with(|| ValueGains::new(key));
         values.base_gain = value;
+    }
+
+    pub fn add_base(&mut self, key: KeyValues, value: f64) {
+        let values = self
+            .value_gains
+            .entry(key)
+            .or_insert_with(|| ValueGains::new(key));
+        values.base_gain += value;
     }
 }
 

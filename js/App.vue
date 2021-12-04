@@ -105,7 +105,7 @@ export default {
         items: {
           boost_items: [],
         },
-        life_stats: { health: 0.0 },
+        life_stats: { health: 0.0, health_rate: 0.0 },
         rebirth_stats: {
           rebirth_upgrades: [],
         },

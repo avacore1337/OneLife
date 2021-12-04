@@ -13,9 +13,11 @@ pub enum BoostItemTypes {
     FarmersClothes,
     Book3,
     Dumbell3,
+    FishingGear,
     CityClothes,
-    // HealthKit,
-    // Leach,
+    Leach,
+    PitchFork,
+    HealthKit,
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();

@@ -83,13 +83,19 @@ fn auto_input_update(game: &mut Game) {
     }
 }
 
+fn get_happiness(game: &Game) -> f64 {
+    game.intermediate_state.get_multiplier(KeyValues::Happiness)
+}
+
 fn update_life_stats(game: &mut Game) {
+    game.state.life_stats.happiness = get_happiness(game);
     let life_stats = &mut game.state.life_stats;
-    life_stats.happiness = game.intermediate_state.get_multiplier(KeyValues::Happiness);
-    life_stats.health += 0.000_08
-        * game
-            .intermediate_state
-            .get_value_tick_rate(KeyValues::Health);
+    let mut health_rate = 0.000_08 * game.intermediate_state.get_value(KeyValues::Health);
+    if life_stats.health > 0.0 && health_rate > 0.0 {
+        health_rate = health_rate * (1.0 - life_stats.health).powi(2);
+    }
+    life_stats.health_rate = health_rate;
+    life_stats.health += health_rate / TICK_RATE;
 
     // Base gamespeed is that one life should take 30min for 0.0 health, the game runs in 30 ticks/second
     // Days/tick = total_days / (ticks in 30 min)
@@ -235,13 +241,12 @@ fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
 
 fn gain_stat_xp(game: &mut Game) {
     let int_level = game.state.stats[StatTypes::Int as usize].level;
-    let stat_xp_multiplier = 1.0 + (int_level as f64 / 10.0);
+    let level_multiplier = 1.0 + (int_level as f64 / 10.0);
     for stat_type in StatTypes::iter() {
-        let stat_xp = game
-            .intermediate_state
-            .get_value_tick_rate(stat_type.into());
+        let stat_xp = game.intermediate_state.get_value(stat_type.into()) * level_multiplier;
         let stat: &mut Stat = &mut game.state.stats[stat_type as usize];
-        stat.next_level_progress += stat_xp * stat_xp_multiplier;
+        stat.xp_rate = stat_xp;
+        stat.next_level_progress += stat_xp / TICK_RATE;
         let mut next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
         while stat.next_level_progress > next_level_xp_needed {
             stat.level += 1.0;

@@ -60,12 +60,19 @@ fn make_t2(world: &World) -> (StateContainer, Input, MetaData) {
 fn make_full_unlock(world: &World) -> (StateContainer, Input, MetaData) {
     let mut state = new_game(world);
     let meta_data = MetaData::new();
-    state.rebirth_stats.class_tier = 3;
-    state.rebirth_stats.coins = 8.0;
-    state.rebirth_stats.rebirth_count = 16;
+    let r = &mut state.rebirth_stats;
+    r.class_tier = 3;
+    r.coins = 8.0;
+    r.rebirth_count = 16;
+    r.max_job_levels[WorkTypes::Fields as usize] = 50;
+    r.max_job_levels[WorkTypes::Mill as usize] = 50;
+    r.max_job_levels[WorkTypes::Weaver as usize] = 50;
+    r.max_job_levels[WorkTypes::Fisherman as usize] = 50;
+    r.max_job_levels[WorkTypes::Farmer as usize] = 50;
+
     state = rebirth(world, state.rebirth_stats.clone());
-    state.items.money = 10000000.0;
-    state.rebirth_stats.coins = 10000000.0;
+    state.items.money = 1_000_000_000.0;
+    state.rebirth_stats.coins = 10_000_000.0;
 
     let input = Input::new(&state, world);
     (state, input, meta_data)

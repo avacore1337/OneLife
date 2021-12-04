@@ -21,19 +21,19 @@ impl Gain for Work {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             WorkTypes::Mines => {
-                intermediate.set_base(KeyValues::Health, -5.0);
+                intermediate.add_base(KeyValues::Health, -5.0);
             }
             WorkTypes::Latrine => {
-                intermediate.set_base(KeyValues::Health, -4.0);
+                intermediate.add_base(KeyValues::Health, -4.0);
             }
             WorkTypes::GalleyRower => {
-                intermediate.set_base(KeyValues::Health, -3.0);
+                intermediate.add_base(KeyValues::Health, -3.0);
             }
             WorkTypes::Fields => {
-                intermediate.set_base(KeyValues::Health, -2.0);
+                intermediate.add_base(KeyValues::Health, -2.0);
             }
             WorkTypes::Mill => {
-                intermediate.set_base(KeyValues::Health, -1.0);
+                intermediate.add_base(KeyValues::Health, -1.0);
             }
             _ => (),
         }
