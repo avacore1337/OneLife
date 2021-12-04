@@ -23,8 +23,8 @@ impl Gain for BoostItem {
             BoostItemTypes::Book => {
                 intermediate.add_multiplier(KeyValues::Int, 1.5, "Book");
             }
-            BoostItemTypes::Dumbell => {
-                intermediate.add_multiplier(KeyValues::Str, 1.5, "Dumbell");
+            BoostItemTypes::Shoe1 => {
+                intermediate.add_multiplier(KeyValues::Con, 1.5, "Shoe");
             }
             BoostItemTypes::RaggedClothes => {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, "Ragged Clothes");
@@ -35,8 +35,8 @@ impl Gain for BoostItem {
             BoostItemTypes::Book2 => {
                 intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
             }
-            BoostItemTypes::Dumbell2 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
+            BoostItemTypes::Shoe2 => {
+                intermediate.add_multiplier(KeyValues::Con, 2.0, "Shoe");
             }
             BoostItemTypes::FarmersClothes => {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, "Farmers Clothes");
@@ -44,8 +44,8 @@ impl Gain for BoostItem {
             BoostItemTypes::Book3 => {
                 intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
             }
-            BoostItemTypes::Dumbell3 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
+            BoostItemTypes::Shoe3 => {
+                intermediate.add_multiplier(KeyValues::Con, 2.0, "Shoe");
             }
             BoostItemTypes::FishingGear => {
                 intermediate.add_multiplier(KeyValues::Fisherman, 2.0, "Fishing Gear");
@@ -62,6 +62,15 @@ impl Gain for BoostItem {
             BoostItemTypes::HealthKit => {
                 intermediate.add_base(KeyValues::Health, 2.0);
             }
+            BoostItemTypes::Dumbell => {
+                intermediate.add_multiplier(KeyValues::Str, 1.5, "Dumbell");
+            }
+            BoostItemTypes::Dumbell2 => {
+                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
+            }
+            BoostItemTypes::Dumbell3 => {
+                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
+            }
         }
     }
 }
@@ -75,11 +84,11 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Learning to read",
             required_tier: 0,
         },
-        BoostItemTypes::Dumbell => BoostItem {
+        BoostItemTypes::Shoe1 => BoostItem {
             name: item_type,
             purchasing_cost: 1_000.0,
-            description: "It's just a stick",
-            display_name: "Wooden Dumbell",
+            description: "\"Shoes\"",
+            display_name: "Raggs Shoes",
             required_tier: 0,
         },
         BoostItemTypes::RaggedClothes => BoostItem {
@@ -103,11 +112,11 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Reading for children",
             required_tier: 0,
         },
-        BoostItemTypes::Dumbell2 => BoostItem {
+        BoostItemTypes::Shoe2 => BoostItem {
             name: item_type,
             purchasing_cost: 6_000.0,
-            description: "Couldn't I just use a normal stone?",
-            display_name: "Stone dumbell",
+            description: "Nice description of a piece of wood tied to you foot",
+            display_name: "Wooden Shoe",
             required_tier: 0,
         },
         BoostItemTypes::FarmersClothes => BoostItem {
@@ -124,11 +133,11 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Dunner Kruger's peak",
             required_tier: 1,
         },
-        BoostItemTypes::Dumbell3 => BoostItem {
+        BoostItemTypes::Shoe3 => BoostItem {
             name: item_type,
             purchasing_cost: 16_000.0,
-            description: "Cowbell, Kettlebell, what's the difference anyway",
-            display_name: "Kettlebell",
+            description: "Actually a type of shoe",
+            display_name: "Sandals",
             required_tier: 1,
         },
         BoostItemTypes::FishingGear => BoostItem {
@@ -159,11 +168,32 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Pitchfork",
             required_tier: 2,
         },
+        BoostItemTypes::Dumbell => BoostItem {
+            name: item_type,
+            purchasing_cost: 1_000_000.0,
+            description: "It's just a stick",
+            display_name: "Wooden Dumbell",
+            required_tier: 2,
+        },
+        BoostItemTypes::Dumbell2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 3_000_000.0,
+            description: "Couldn't I just use a normal stone?",
+            display_name: "Stone dumbell",
+            required_tier: 2,
+        },
         BoostItemTypes::HealthKit => BoostItem {
             name: item_type,
             purchasing_cost: 4_000_000.0,
             description: "What is this fancy box of cloth",
             display_name: "Healthkit",
+            required_tier: 3,
+        },
+        BoostItemTypes::Dumbell3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 16_000_000.0,
+            description: "Cowbell, Kettlebell, what's the difference anyway",
+            display_name: "Kettlebell",
             required_tier: 3,
         },
     }

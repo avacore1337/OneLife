@@ -48,7 +48,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor that kills you",
             display_name: "The Mines",
             required_tier: 0,
-            main_stat: StatTypes::Str,
+            main_stat: StatTypes::Con,
         },
         WorkTypes::Latrine => Work {
             name: work,
@@ -56,7 +56,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "A shitty job",
             display_name: "Latrine Duty",
             required_tier: 0,
-            main_stat: StatTypes::Str,
+            main_stat: StatTypes::Con,
         },
         WorkTypes::GalleyRower => Work {
             name: work,
@@ -64,7 +64,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Row row row your boat",
             display_name: "Gallery Rower",
             required_tier: 0,
-            main_stat: StatTypes::Str,
+            main_stat: StatTypes::Con,
         },
         WorkTypes::Fields => Work {
             name: work,
@@ -72,7 +72,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "You ain't picking flowers",
             display_name: "Field Work",
             required_tier: 0,
-            main_stat: StatTypes::Str,
+            main_stat: StatTypes::Con,
         },
         WorkTypes::Mill => Work {
             name: work,
@@ -80,7 +80,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor",
             display_name: "Mill Worker",
             required_tier: 0,
-            main_stat: StatTypes::Str,
+            main_stat: StatTypes::Con,
         },
         WorkTypes::Weaver => Work {
             name: work,
@@ -88,7 +88,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Real work",
             display_name: "Weaver",
             required_tier: 1,
-            main_stat: StatTypes::Str,
+            main_stat: StatTypes::Con,
         },
         WorkTypes::Fisherman => Work {
             name: work,
@@ -96,7 +96,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "A man of the sea",
             display_name: "Fisherman",
             required_tier: 1,
-            main_stat: StatTypes::Str,
+            main_stat: StatTypes::Con,
         },
         WorkTypes::Farmer => Work {
             name: work,
@@ -104,7 +104,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor for a free man",
             display_name: "Farmer",
             required_tier: 2,
-            main_stat: StatTypes::Str,
+            main_stat: StatTypes::Con,
         },
         // WorkTypes::Servant => Work {
         //     name: work,

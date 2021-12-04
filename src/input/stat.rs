@@ -4,12 +4,12 @@ use strum::EnumIter;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum StatTypes {
-    Str,
-    Int,
-    Cha,
     Con,
-    Dex,
+    Int,
+    Str,
+    Cha,
     Faith,
+    Dex,
 }
 
 pub const STAT_SIZE: usize = variant_count::<StatTypes>();

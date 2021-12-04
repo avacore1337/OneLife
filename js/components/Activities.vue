@@ -8,8 +8,8 @@
           style="margin: 2px"
           :disabled="!state.activities[index].is_unlocked"
         >
-          <span v-if="activity.name == input.activity">{{ activity.name }} &lt;-- </span>
-          <span v-if="activity.name != input.activity">{{ activity.name }}</span>
+          <span v-if="activity.name == input.activity">{{ activity.display_name }} &lt;-- </span>
+          <span v-if="activity.name != input.activity">{{ activity.display_name }}</span>
         </button>
       </li>
     </ul>

@@ -10,6 +10,7 @@ use strum::IntoEnumIterator;
 pub struct Activity {
     pub name: ActivityTypes,
     pub description: &'static str,
+    pub display_name: &'static str,
     pub required_tier: u32,
 }
 
@@ -43,32 +44,38 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
         ActivityTypes::Training => Activity {
             name: activity,
             description: "Getting stronger, faster",
-            required_tier: 0,
+            display_name: "Weight Lifting",
+            required_tier: 2,
         },
         ActivityTypes::Studying => Activity {
             name: activity,
             description: "Getting smarter",
+            display_name: "Studying",
             required_tier: 0,
         },
         ActivityTypes::Flirt => Activity {
             name: activity,
             description: "Getting what you want",
+            display_name: "Flirt",
             required_tier: 1,
         },
         ActivityTypes::Run => Activity {
             name: activity,
             description: "Going further",
-            required_tier: 1,
+            display_name: "Running",
+            required_tier: 0,
         },
         ActivityTypes::Acrobatics => Activity {
             name: activity,
             description: "Getting bendier",
-            required_tier: 1,
+            display_name: "Acrobatics",
+            required_tier: 7,
         },
         ActivityTypes::Praying => Activity {
             name: activity,
             description: "Getting more pieus",
-            required_tier: 3,
+            display_name: "Praying",
+            required_tier: 5,
         },
     }
 }

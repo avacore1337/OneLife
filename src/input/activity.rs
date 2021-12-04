@@ -4,12 +4,12 @@ use strum::EnumIter;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum ActivityTypes {
-    Training,
-    Studying,
-    Flirt,
     Run,
-    Acrobatics,
+    Studying,
+    Training,
+    Flirt,
     Praying,
+    Acrobatics,
 }
 
 pub const ACTIVITY_SIZE: usize = variant_count::<ActivityTypes>();

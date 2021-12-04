@@ -29,7 +29,7 @@ impl Input {
         Input {
             work: world.tiers[state.rebirth_stats.class_tier as usize].starting_work,
             housing: HousingTypes::StoneFloor,
-            activity: ActivityTypes::Training,
+            activity: ActivityTypes::Run,
             options: Options::default(),
         }
     }
