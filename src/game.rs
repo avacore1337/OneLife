@@ -61,7 +61,7 @@ impl Game {
         if let Some(name) = self.inputs.get(&tick) {
             let input_mapping = InputMapping::default();
             if let Some(function) = input_mapping.user_function.get(name) {
-                function();
+                function(self);
             }
         }
     }

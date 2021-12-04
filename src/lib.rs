@@ -1,4 +1,5 @@
 #![feature(variant_count)]
+use input::activity::ActivityTypes;
 use input::housing::HousingTypes;
 use input::work::WorkTypes;
 // use serde_json::json;
@@ -152,11 +153,11 @@ pub fn tick() {
 pub fn set_work(val: &JsValue) {
     console::log_1(&JsValue::from_str("Rust set work"));
     let work_type = val.into_serde().unwrap();
-    set_work_internal(work_type);
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_work_internal(work_type, game);
 }
 
-pub fn set_work_internal(work_type: WorkTypes) {
-    let mut game = GLOBAL_DATA.lock().unwrap();
+pub fn set_work_internal(work_type: WorkTypes, game: &mut Game) {
     let name: String = format!("Set Work {:#?}", work_type);
     game.register_input(name);
     game.input.work = work_type;
@@ -166,11 +167,11 @@ pub fn set_work_internal(work_type: WorkTypes) {
 pub fn set_housing(val: &JsValue) {
     console::log_1(&JsValue::from_str("Rust set housing"));
     let housing_type = val.into_serde().unwrap();
-    set_housing_internal(housing_type);
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_housing_internal(housing_type, game);
 }
 
-pub fn set_housing_internal(housing_type: HousingTypes) {
-    let mut game = GLOBAL_DATA.lock().unwrap();
+pub fn set_housing_internal(housing_type: HousingTypes, game: &mut Game) {
     let name: String = format!("Set Housing {:#?}", housing_type);
     game.register_input(name);
     game.input.housing = housing_type;
@@ -178,9 +179,16 @@ pub fn set_housing_internal(housing_type: HousingTypes) {
 
 #[wasm_bindgen]
 pub fn set_activity(val: &JsValue) {
-    let mut game = GLOBAL_DATA.lock().unwrap();
-    game.input.activity = val.into_serde().unwrap();
     console::log_1(&JsValue::from_str("Rust set activity"));
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let activity_type = val.into_serde().unwrap();
+    set_activity_internal(activity_type, game);
+}
+
+pub fn set_activity_internal(activity_type: ActivityTypes, game: &mut Game) {
+    let name: String = format!("Set Activity {:#?}", activity_type);
+    game.register_input(name);
+    game.input.activity = activity_type;
 }
 
 #[wasm_bindgen]
@@ -204,24 +212,17 @@ pub fn buy_tier(val: u32) {
     }
 }
 
-pub fn can_buy_tomb(tomb_type: TombTypes) -> bool {
-    let game = GLOBAL_DATA.lock().unwrap();
-    let tomb: &Tomb = &game.world.tombs[tomb_type as usize];
-    let can_afford: bool = game.state.items.money >= tomb.purchasing_cost;
-    can_afford
-}
-
 #[wasm_bindgen]
 pub fn buy_tomb(val: &JsValue) {
-    let tomb_type: TombTypes = val.into_serde().unwrap();
     console::log_1(&JsValue::from_str("Rust buy tomb"));
-    buy_tomb_internal(tomb_type);
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let tomb_type: TombTypes = val.into_serde().unwrap();
+    buy_tomb_internal(tomb_type, game);
 }
 
-pub fn buy_tomb_internal(tomb_type: TombTypes) {
-    if can_buy_tomb(tomb_type) {
+pub fn buy_tomb_internal(tomb_type: TombTypes, game: &mut Game) {
+    if can_buy_tomb(tomb_type, game) {
         console::log_1(&JsValue::from_str("Can buy tomb"));
-        let mut game = GLOBAL_DATA.lock().unwrap();
         let name: String = format!("Buy Tomb {:#?}", tomb_type);
         game.register_input(name);
 
@@ -231,17 +232,23 @@ pub fn buy_tomb_internal(tomb_type: TombTypes) {
     }
 }
 
-#[wasm_bindgen]
-pub fn buy_item(val: &JsValue) {
-    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
-    console::log_1(&JsValue::from_str("Rust buy item"));
-    buy_item_internal(boost_item_type);
+pub fn can_buy_tomb(tomb_type: TombTypes, game: &mut Game) -> bool {
+    let tomb: &Tomb = &game.world.tombs[tomb_type as usize];
+    let can_afford: bool = game.state.items.money >= tomb.purchasing_cost;
+    can_afford
 }
 
-pub fn buy_item_internal(boost_item_type: BoostItemTypes) {
-    if can_buy_item(boost_item_type) {
+#[wasm_bindgen]
+pub fn buy_item(val: &JsValue) {
+    console::log_1(&JsValue::from_str("Rust buy item"));
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
+    buy_item_internal(boost_item_type, game);
+}
+
+pub fn buy_item_internal(boost_item_type: BoostItemTypes, game: &mut Game) {
+    if can_buy_item(boost_item_type, game) {
         console::log_1(&JsValue::from_str("Can buy item"));
-        let mut game = GLOBAL_DATA.lock().unwrap();
         let name: String = format!("Buy Item {:#?}", boost_item_type);
         game.register_input(name);
         let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
@@ -250,8 +257,7 @@ pub fn buy_item_internal(boost_item_type: BoostItemTypes) {
     }
 }
 
-pub fn can_buy_item(boost_item_type: BoostItemTypes) -> bool {
-    let game = GLOBAL_DATA.lock().unwrap();
+pub fn can_buy_item(boost_item_type: BoostItemTypes, game: &mut Game) -> bool {
     let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
     let can_afford: bool = game.state.items.money >= item.purchasing_cost;
     can_afford
