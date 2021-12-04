@@ -1,9 +1,11 @@
 use crate::engine::intermediate_state::IntermediateState;
+use crate::experiment::InputMapping;
 use crate::input::Input;
 use crate::meta::MetaData;
 use crate::state::state_container::{new_game, StateContainer};
 use crate::world_content::world::World;
 use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
 
 pub struct Game {
     pub input: Input,
@@ -11,6 +13,7 @@ pub struct Game {
     pub state: StateContainer,
     pub intermediate_state: IntermediateState,
     pub meta_data: MetaData,
+    pub inputs: BTreeMap<u32, String>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -37,12 +40,29 @@ impl Game {
         let input = Input::new(&state, &world);
         let intermediate_state = IntermediateState::new();
         let meta_data = MetaData::new();
+        let inputs = BTreeMap::new();
         Game {
             world,
             state,
             input,
             intermediate_state,
             meta_data,
+            inputs,
+        }
+    }
+
+    pub fn register_input(&mut self, name: String) {
+        let tick = self.state.life_stats.current_tick;
+        self.inputs.insert(tick, name);
+    }
+
+    pub fn replay_input(&mut self) {
+        let tick = self.state.life_stats.current_tick;
+        if let Some(name) = self.inputs.get(&tick) {
+            let input_mapping = InputMapping::default();
+            if let Some(function) = input_mapping.user_function.get(name) {
+                function();
+            }
         }
     }
 

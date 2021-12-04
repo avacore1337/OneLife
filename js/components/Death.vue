@@ -13,6 +13,7 @@
       Go To The Other Side
     </button>
     <button v-on:click="rebirth" v-if="state.life_stats.dead" style="margin: 2px">Rebirth</button>
+    <button v-on:click="rebirth_replay" v-if="state.life_stats.dead" style="margin: 2px">Rebirth Replay</button>
     <div style="border: solid; margin: 2px">
       <ul>
         <li v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.class_tier)" :key="tier.name">
@@ -37,6 +38,9 @@ export default {
     },
     rebirth: function () {
       this.wasm.do_rebirth();
+    },
+    rebirth_replay: function () {
+      this.wasm.do_rebirth_replay();
     },
     die: function () {
       this.wasm.die();

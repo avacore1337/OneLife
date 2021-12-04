@@ -29,6 +29,8 @@
     <br />
     <button v-on:click="tick">Tick</button>
     <br />
+    <button v-on:click="test">Test</button>
+    <br />
     <br />
     <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>
     <br />
@@ -70,6 +72,9 @@ export default {
     this.presets = this.wasm.get_preset_saves();
   },
   methods: {
+    test: function () {
+      this.wasm.test();
+    },
     toggle_use_saved_ticks: function () {
       this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks);
     },

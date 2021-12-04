@@ -48,6 +48,10 @@ pub fn engine_run(game: &mut Game) {
 fn internal_run(game: &mut Game) {
     game.intermediate_state = calculate_intermediate_state(game);
     let _old_state = game.state.clone(); //TODO use for delta?
+    if game.state.life_stats.replaying {
+        game.replay_input();
+    }
+    game.state.life_stats.current_tick += 1;
 
     auto_input_update(game);
     // Apply all modifiers to intermediate

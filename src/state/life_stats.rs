@@ -14,6 +14,8 @@ pub struct LifeStats {
     pub happiness: f64,
     pub is_dying: bool,
     pub dead: bool,
+    pub current_tick: u32,
+    pub replaying: bool,
 }
 
 impl LifeStats {
@@ -27,6 +29,8 @@ impl LifeStats {
             happiness: 1.0,
             is_dying: false,
             dead: false,
+            current_tick: 0,
+            replaying: false,
         }
     }
 }
