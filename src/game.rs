@@ -21,6 +21,7 @@ pub struct GameSave {
     pub input: Input,
     pub state: StateContainer,
     pub meta_data: MetaData,
+    pub inputs: BTreeMap<u32, String>,
 }
 
 impl From<&Game> for GameSave {
@@ -29,6 +30,7 @@ impl From<&Game> for GameSave {
             input: game.input,
             state: game.state.clone(),
             meta_data: game.meta_data.clone(),
+            inputs: game.inputs.clone(),
         }
     }
 }

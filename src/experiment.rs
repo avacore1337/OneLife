@@ -78,17 +78,17 @@ impl Default for InputMapping {
                 }),
             );
         }
-        console::log_1(&JsValue::from_str(&format!(
-            "Mapping: {:#?}",
-            mapping.user_function.keys()
-        )));
         mapping
     }
 }
 
 #[wasm_bindgen]
 pub fn test() {
-    let _user_input_mapping = InputMapping::default();
+    let user_input_mapping = InputMapping::default();
+    console::log_1(&JsValue::from_str(&format!(
+        "Mapping: {:#?}",
+        user_input_mapping.user_function.keys()
+    )));
     let game = GLOBAL_DATA.lock().unwrap();
     console::log_1(&JsValue::from_str(&format!("input: {:#?}", game.inputs)));
 }
