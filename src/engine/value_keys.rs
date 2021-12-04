@@ -27,6 +27,14 @@ pub enum KeyValues {
     Weaver,
     Fisherman,
     Farmer,
+    //Soldiers
+    BagageBoy,
+    Slinger,
+    Peltasts,
+    Pikeman,
+    FootCompanion,
+    Hypaspists,
+    LightCavalery,
     //
 }
 
@@ -54,6 +62,13 @@ impl From<WorkTypes> for KeyValues {
             WorkTypes::Weaver => KeyValues::Weaver,
             WorkTypes::Fisherman => KeyValues::Fisherman,
             WorkTypes::Farmer => KeyValues::Farmer,
+            WorkTypes::BagageBoy => KeyValues::BagageBoy,
+            WorkTypes::Slinger => KeyValues::Slinger,
+            WorkTypes::Peltasts => KeyValues::Peltasts,
+            WorkTypes::Pikeman => KeyValues::Pikeman,
+            WorkTypes::FootCompanion => KeyValues::FootCompanion,
+            WorkTypes::Hypaspists => KeyValues::Hypaspists,
+            WorkTypes::LightCavalery => KeyValues::LightCavalery,
         }
     }
 }

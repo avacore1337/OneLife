@@ -106,20 +106,63 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             required_tier: 2,
             main_stat: StatTypes::Con,
         },
-        // WorkTypes::Servant => Work {
-        //     name: work,
-        //     money: 2.0,
-        //     description: "Hard labor",
-        //     display_name: "Mines",
-        //     required_tier: 0,
-        // },
-        // WorkTypes::Teacher => Work {
-        //     name: work,
-        //     money: 3.0,
-        //     description: "Good labor ",
-        //     display_name: "Mines",
-        //     required_tier: 1,
-        // },
+        // ------------------Soldiers ---------------------
+        WorkTypes::BagageBoy => Work {
+            name: work,
+            money: 2.0,
+            description: "todo",
+            display_name: "Bagage Boy",
+            required_tier: 2,
+            main_stat: StatTypes::Str,
+        },
+        WorkTypes::Slinger => Work {
+            name: work,
+            money: 4.0,
+            description: "todo",
+            display_name: "Slinger",
+            required_tier: 2,
+            main_stat: StatTypes::Str,
+        },
+        WorkTypes::Peltasts => Work {
+            name: work,
+            money: 8.0,
+            description: "todo",
+            display_name: "Peltasts",
+            required_tier: 2,
+            main_stat: StatTypes::Str,
+        },
+        WorkTypes::Pikeman => Work {
+            name: work,
+            money: 16.0,
+            description: "todo",
+            display_name: "Pikeman",
+            required_tier: 2,
+            main_stat: StatTypes::Str,
+        },
+        WorkTypes::FootCompanion => Work {
+            name: work,
+            money: 32.0,
+            description: "todo",
+            display_name: "FootCompanion",
+            required_tier: 2,
+            main_stat: StatTypes::Str,
+        },
+        WorkTypes::Hypaspists => Work {
+            name: work,
+            money: 64.0,
+            description: "todo",
+            display_name: "Hypaspists",
+            required_tier: 3,
+            main_stat: StatTypes::Str,
+        },
+        WorkTypes::LightCavalery => Work {
+            name: work,
+            money: 128.0,
+            description: "todo",
+            display_name: "Light Cavalery",
+            required_tier: 3,
+            main_stat: StatTypes::Str,
+        },
     }
 }
 
@@ -152,6 +195,13 @@ pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
         }
         WorkTypes::Fisherman => game.state.works[WorkTypes::Weaver as usize].level >= 10,
         WorkTypes::Farmer => game.state.works[WorkTypes::Fisherman as usize].level >= 10,
+        WorkTypes::BagageBoy => true,
+        WorkTypes::Slinger => game.state.works[WorkTypes::BagageBoy as usize].level >= 10,
+        WorkTypes::Peltasts => game.state.works[WorkTypes::Slinger as usize].level >= 10,
+        WorkTypes::Pikeman => game.state.works[WorkTypes::Peltasts as usize].level >= 10,
+        WorkTypes::FootCompanion => game.state.works[WorkTypes::Pikeman as usize].level >= 10,
+        WorkTypes::Hypaspists => game.state.works[WorkTypes::FootCompanion as usize].level >= 10,
+        WorkTypes::LightCavalery => game.state.works[WorkTypes::Hypaspists as usize].level >= 10,
     }
 }
 

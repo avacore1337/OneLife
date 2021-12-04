@@ -4,6 +4,7 @@ use strum::EnumIter;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum WorkTypes {
+    // Worker Types
     Mines,
     Latrine,
     GalleyRower,
@@ -12,6 +13,20 @@ pub enum WorkTypes {
     Weaver,
     Fisherman,
     Farmer,
+    // Army Types
+    BagageBoy,
+    Slinger,
+    Peltasts,
+    Pikeman,
+    FootCompanion,
+    Hypaspists,
+    LightCavalery,
+    // ThessalianCavalery,
+    // CompanionCavalery,
+    // SquadCommander,
+    // Commander,
+    // General,
+    // Intellectual Types
     // Servant,
     // Teacher,
 }

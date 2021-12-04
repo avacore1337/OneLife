@@ -1,30 +1,62 @@
 <template>
   <div class="works">
-    <h3>Works</h3>
-    <table>
-      <tr
-        v-for="(work, index) in world.works"
-        v-if="state.works[index].is_visible"
-        v-on:click="state.works[index].is_unlocked && set_work(work.name)"
-        v-bind:class="{ disabled: !state.works[index].is_unlocked }"
-        :key="work.name"
-      >
-        <td>
-          <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
-        </td>
-        <td>
-          <p>
-            Level: {{ state.works[index].level }} Reached level: {{ state.rebirth_stats.max_job_levels[index] }} Income
-            {{ state.works[index].effective_income.toFixed(1) }}/s
-            <b-progress
-              class="notransition w-75"
-              :value="state.works[index].next_level_percentage.toFixed(2)"
-              animated
-            ></b-progress>
-          </p>
-        </td>
-      </tr>
-    </table>
+    <div>
+      <h3>Labour</h3>
+      <table>
+        <tr
+          v-for="(work, index) in world.works"
+          v-if="state.works[index].is_visible && work.main_stat == 'Con'"
+          v-on:click="state.works[index].is_unlocked && set_work(work.name)"
+          v-bind:class="{ disabled: !state.works[index].is_unlocked }"
+          :key="work.name"
+        >
+          <td>
+            <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
+          </td>
+          <td>
+            <p>
+              Level: {{ state.works[index].level }} Reached level:
+              {{ state.rebirth_stats.max_job_levels[index] }} Income
+              {{ state.works[index].effective_income.toFixed(1) }}/s
+              <b-progress
+                class="notransition w-75"
+                :value="state.works[index].next_level_percentage.toFixed(2)"
+                animated
+              ></b-progress>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div v-if="state.rebirth_stats.class_tier >= 2">
+      <br />
+      <h3>Soldiering</h3>
+      <table>
+        <tr
+          v-for="(work, index) in world.works"
+          v-if="state.works[index].is_visible && work.main_stat == 'Str'"
+          v-on:click="state.works[index].is_unlocked && set_work(work.name)"
+          v-bind:class="{ disabled: !state.works[index].is_unlocked }"
+          :key="work.name"
+        >
+          <td>
+            <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
+          </td>
+          <td>
+            <p>
+              Level: {{ state.works[index].level }} Reached level:
+              {{ state.rebirth_stats.max_job_levels[index] }} Income
+              {{ state.works[index].effective_income.toFixed(1) }}/s
+              <b-progress
+                class="notransition w-75"
+                :value="state.works[index].next_level_percentage.toFixed(2)"
+                animated
+              ></b-progress>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
