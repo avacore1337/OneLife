@@ -190,6 +190,8 @@ pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Gam
         BoostItemTypes::CityClothes => {
             game.state.items.boost_items[BoostItemTypes::FarmersClothes as usize].is_purchased
         }
+        BoostItemTypes::FishingGear => game.state.works[WorkTypes::Fisherman as usize].level > 25,
+        BoostItemTypes::PitchFork => game.state.works[WorkTypes::Farmer as usize].level > 25,
         _ => true,
     }
 }

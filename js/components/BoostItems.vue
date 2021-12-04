@@ -14,7 +14,7 @@
     <ul>
       <li
         v-for="(item, index) in world.boost_items"
-        v-if="!state.items.boost_items[index].is_purchased"
+        v-if="!state.items.boost_items[index].is_purchased && state.items.boost_items[index].is_visible"
         :key="item.name"
       >
         <button v-on:click="buyItem(item.name)" :disabled="!state.items.boost_items[index].is_unlocked">
