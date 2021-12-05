@@ -11,11 +11,10 @@ use crate::{
     set_work_internal, GLOBAL_DATA,
 };
 // use serde::{Deserialize, Serialize};
+use log::info;
 use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsValue;
-use web_sys::console;
 type Callback = Box<dyn Fn(&mut Game) -> ()>;
 
 pub struct InputMapping {
@@ -84,11 +83,8 @@ impl Default for InputMapping {
 
 #[wasm_bindgen]
 pub fn test() {
-    let user_input_mapping = InputMapping::default();
-    console::log_1(&JsValue::from_str(&format!(
-        "Mapping: {:#?}",
-        user_input_mapping.user_function.keys()
-    )));
+    // let user_input_mapping = InputMapping::default();
+    // info!("Mapping: {:#?}", user_input_mapping.user_function.keys());
     let game = GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_str(&format!("input: {:#?}", game.inputs)));
+    info!("input: {:#?}", game.inputs);
 }

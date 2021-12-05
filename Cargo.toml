@@ -27,6 +27,8 @@ strum = { version = "0.21", features = ["derive"] }
 libflate = "1.1.1"
 base64 = "0.13.0"
 js-sys = "0.3.55"
+log = "0.4"
+console_log = "0.2.0"
 
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
 # compared to the default allocator's ~10K. However, it is slower than the default

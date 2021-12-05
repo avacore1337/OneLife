@@ -1,12 +1,8 @@
 #![feature(variant_count)]
-use input::activity::ActivityTypes;
-use input::housing::HousingTypes;
-use input::work::WorkTypes;
-// use serde_json::json;
+use log::{info, Level};
 use once_cell::sync::Lazy;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
-use web_sys::console;
 
 const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 const TICK_RATE: f64 = 30.0;
@@ -24,9 +20,12 @@ mod world_content;
 
 use engine::{character_death_update, engine_run};
 use game::Game;
+use input::activity::ActivityTypes;
 use input::boost_item::BoostItemTypes;
+use input::housing::HousingTypes;
 use input::rebirth_upgrade::RebirthUpgradeTypes;
 use input::tomb::TombTypes;
+use input::work::WorkTypes;
 use input::Input;
 use state::state_container::rebirth;
 use wasm_api::meta::do_save;
@@ -40,13 +39,14 @@ static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| Mutex::new(Game::new()));
 // This is like the `main` function, except for JavaScript.
 #[wasm_bindgen(start)]
 pub fn main_js() -> Result<(), JsValue> {
+    console_log::init_with_level(Level::Info).expect("error initializing log");
     // This provides better error messages in debug mode.
     // It's disabled in release mode so it doesn't bloat up the file size.
     #[cfg(debug_assertions)]
     console_error_panic_hook::set_once();
 
     // Your code goes here!
-    console::log_1(&JsValue::from_str("Hello One Life!"));
+    info!("Hello One Life!");
 
     Ok(())
 }
@@ -91,7 +91,7 @@ pub fn do_rebirth() {
     game.state.rebirth_stats.rebirth_count += 1;
     game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
     game.input = Input::new(&game.state, &game.world);
-    console::log_1(&JsValue::from_str("Rust did rebirth"));
+    info!("Rust did rebirth");
 }
 
 #[wasm_bindgen]
@@ -104,7 +104,7 @@ pub fn do_rebirth_replay() {
     game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
     game.input = Input::new(&game.state, &game.world);
     game.state.life_stats.replaying = true;
-    console::log_1(&JsValue::from_str("Rust did rebirth replay"));
+    info!("Rust did rebirth replay");
 }
 
 #[wasm_bindgen]
@@ -151,7 +151,7 @@ pub fn tick() {
 
 #[wasm_bindgen]
 pub fn set_work(val: &JsValue) {
-    console::log_1(&JsValue::from_str("Rust set work"));
+    info!("Rust set work");
     let work_type = val.into_serde().unwrap();
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     set_work_internal(work_type, game);
@@ -165,7 +165,7 @@ pub fn set_work_internal(work_type: WorkTypes, game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn set_housing(val: &JsValue) {
-    console::log_1(&JsValue::from_str("Rust set housing"));
+    info!("Rust set housing");
     let housing_type = val.into_serde().unwrap();
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     set_housing_internal(housing_type, game);
@@ -179,7 +179,7 @@ pub fn set_housing_internal(housing_type: HousingTypes, game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn set_activity(val: &JsValue) {
-    console::log_1(&JsValue::from_str("Rust set activity"));
+    info!("Rust set activity");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     let activity_type = val.into_serde().unwrap();
     set_activity_internal(activity_type, game);
@@ -202,9 +202,9 @@ pub fn can_buy_tier(val: u32) -> bool {
 
 #[wasm_bindgen]
 pub fn buy_tier(val: u32) {
-    console::log_1(&JsValue::from_str("Rust buy tier"));
+    info!("Rust buy tier");
     if can_buy_tier(val) {
-        console::log_1(&JsValue::from_str("Can buy tier"));
+        info!("Can buy tier");
         let mut game = GLOBAL_DATA.lock().unwrap();
         let tier: &Tier = &game.world.tiers[val as usize];
         game.state.rebirth_stats.coins -= tier.purchasing_cost;
@@ -214,7 +214,7 @@ pub fn buy_tier(val: u32) {
 
 #[wasm_bindgen]
 pub fn buy_tomb(val: &JsValue) {
-    console::log_1(&JsValue::from_str("Rust buy tomb"));
+    info!("Rust buy tomb");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     let tomb_type: TombTypes = val.into_serde().unwrap();
     buy_tomb_internal(tomb_type, game);
@@ -222,7 +222,7 @@ pub fn buy_tomb(val: &JsValue) {
 
 pub fn buy_tomb_internal(tomb_type: TombTypes, game: &mut Game) {
     if can_buy_tomb(tomb_type, game) {
-        console::log_1(&JsValue::from_str("Can buy tomb"));
+        info!("Can buy tomb");
         let name: String = format!("Buy Tomb {:#?}", tomb_type);
         game.register_input(name);
 
@@ -240,7 +240,7 @@ pub fn can_buy_tomb(tomb_type: TombTypes, game: &mut Game) -> bool {
 
 #[wasm_bindgen]
 pub fn buy_item(val: &JsValue) {
-    console::log_1(&JsValue::from_str("Rust buy item"));
+    info!("Rust buy item");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
     buy_item_internal(boost_item_type, game);
@@ -248,7 +248,7 @@ pub fn buy_item(val: &JsValue) {
 
 pub fn buy_item_internal(boost_item_type: BoostItemTypes, game: &mut Game) {
     if can_buy_item(boost_item_type, game) {
-        console::log_1(&JsValue::from_str("Can buy item"));
+        info!("Can buy item");
         let name: String = format!("Buy Item {:#?}", boost_item_type);
         game.register_input(name);
         let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
@@ -266,9 +266,9 @@ pub fn can_buy_item(boost_item_type: BoostItemTypes, game: &mut Game) -> bool {
 #[wasm_bindgen]
 pub fn buy_rebirth_upgrade(val: &JsValue) {
     let rebirth_upgrade_type: RebirthUpgradeTypes = val.into_serde().unwrap();
-    console::log_1(&JsValue::from_str("Rust buy rebirth upgrade"));
+    info!("Rust buy rebirth upgrade");
     if true {
-        console::log_1(&JsValue::from_str("Can buy rebirth upgrade"));
+        info!("Can buy rebirth upgrade");
         let mut game = GLOBAL_DATA.lock().unwrap();
         let rebirth_upgrade: &RebirthUpgrade =
             &game.world.rebirth_upgrades[rebirth_upgrade_type as usize];
@@ -281,7 +281,7 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
 #[wasm_bindgen]
 pub fn die() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_str("dying"));
+    info!("dying");
     character_death_update(game);
 }
 

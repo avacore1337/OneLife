@@ -3,11 +3,11 @@
 use crate::game::{Game, GameSave};
 use crate::GLOBAL_DATA;
 use libflate::gzip::{Decoder, Encoder};
+use log::info;
 use serde_json::{from_str, to_string};
 use std::io::{Read, Write};
 use std::str;
 use wasm_bindgen::prelude::*;
-use web_sys::console;
 
 #[wasm_bindgen]
 pub fn set_disable_tutorial(val: bool) {
@@ -25,7 +25,7 @@ pub fn set_autosave(autosave: bool) {
 pub fn hard_reset() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.hard_reset();
-    console::log_1(&JsValue::from_str("Resetting game"));
+    info!("Resetting game");
 }
 
 #[wasm_bindgen]
@@ -36,7 +36,7 @@ pub fn save() {
 
 pub fn do_save(game: &mut Game) {
     let window = web_sys::window().unwrap();
-    console::log_1(&JsValue::from_str("Saving game"));
+    info!("Saving game");
     if let Ok(Some(local_storage)) = window.local_storage() {
         local_storage
             .set_item("save", &to_string(&GameSave::from(&*game)).unwrap())
@@ -56,24 +56,24 @@ pub fn load() {
                     current_game.load_game(save);
                 }
             }
-            None => console::log_1(&JsValue::from_str("You don't have a game to load")),
+            None => info!("You don't have a game to load"),
         }
     }
-    console::log_1(&JsValue::from_str("Loading game"));
+    info!("Loading game");
 }
 
 #[wasm_bindgen]
 pub fn export_save() -> String {
     let game: &Game = &*GLOBAL_DATA.lock().unwrap();
     // let game = GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_str("exporting game"));
+    info!("exporting game");
     let json_data = to_string(&GameSave::from(game)).unwrap();
 
     let mut encoder = Encoder::new(Vec::new()).unwrap();
     encoder.write_all(json_data.as_bytes()).unwrap();
     let res = encoder.finish().into_result().unwrap();
     let b64 = base64::encode(res);
-    console::log_1(&JsValue::from_str(&b64));
+    info!("{}", &b64);
     b64
 }
 
@@ -89,7 +89,7 @@ pub fn import_save(save: String) {
         Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
     };
 
-    console::log_1(&JsValue::from_str(save_state));
+    info!("{}", save_state);
     if let Ok(save) = from_str::<GameSave>(save_state) {
         current_game.load_game(save);
     }

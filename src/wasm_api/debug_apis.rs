@@ -3,25 +3,22 @@
 
 use crate::engine::engine_run;
 use crate::presets::get_presets;
+use log::info;
 use wasm_bindgen::prelude::*;
-use web_sys::console;
 
 use crate::GLOBAL_DATA;
 
 #[wasm_bindgen]
 pub fn print_debug_state() {
     let game = GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_str(&format!(
-        "intermediate: {:#?}",
-        game.intermediate_state
-    )));
-    console::log_1(&JsValue::from_str(&format!("state: {:#?}", game.state)));
+    info!("intermediate: {:#?}", game.intermediate_state);
+    info!("state: {:#?}", game.state);
 }
 
 #[wasm_bindgen]
 pub fn print_debug_meta() {
     let game = GLOBAL_DATA.lock().unwrap();
-    console::log_1(&JsValue::from_str(&format!("meta: {:#?}", game.meta_data)));
+    info!("meta: {:#?}", game.meta_data);
 }
 
 #[wasm_bindgen]
