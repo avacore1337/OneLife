@@ -1,4 +1,5 @@
 use super::activity::{get_activities, Activity};
+use super::blessing::{get_blessings, Blessing};
 use super::boost_item::{get_boost_items, BoostItem};
 use super::housing::{get_housings, Housing};
 use super::rebirth_upgrade::{get_rebirth_upgrades, RebirthUpgrade};
@@ -9,6 +10,7 @@ use super::tomb::{get_tombs, Tomb};
 use super::tutorial::get_tutorial_texts;
 use super::work::{get_works, Work};
 use crate::input::activity::ACTIVITY_SIZE;
+use crate::input::blessing::BLESSING_SIZE;
 use crate::input::boost_item::BOOST_ITEM_SIZE;
 use crate::input::housing::HOUSING_SIZE;
 use crate::input::rebirth_upgrade::REBIRTH_UPGRADE_SIZE;
@@ -29,6 +31,7 @@ pub struct World {
     pub tutorial_texts: Vec<&'static str>,
     pub stats: [Stat; STAT_SIZE],
     pub settings: Settings,
+    pub blessings: [Blessing; BLESSING_SIZE],
 }
 
 impl Default for World {
@@ -44,6 +47,7 @@ impl Default for World {
             tutorial_texts: get_tutorial_texts(),
             stats: get_stats(),
             settings: Settings::default(),
+            blessings: get_blessings(),
         }
     }
 }

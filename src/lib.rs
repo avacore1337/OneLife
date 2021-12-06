@@ -3,6 +3,7 @@ use log::{info, Level};
 use once_cell::sync::Lazy;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
+use world_content::blessing::Blessing;
 
 const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 const TICK_RATE: f64 = 30.0;
@@ -33,6 +34,8 @@ use world_content::boost_item::BoostItem;
 use world_content::rebirth_upgrade::RebirthUpgrade;
 use world_content::tier::Tier;
 use world_content::tomb::Tomb;
+
+use crate::input::blessing::BlessingTypes;
 
 static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| Mutex::new(Game::new()));
 
@@ -235,6 +238,31 @@ pub fn buy_tomb_internal(tomb_type: TombTypes, game: &mut Game) {
 pub fn can_buy_tomb(tomb_type: TombTypes, game: &mut Game) -> bool {
     let tomb: &Tomb = &game.world.tombs[tomb_type as usize];
     let can_afford: bool = game.state.items.money >= tomb.purchasing_cost;
+    can_afford
+}
+
+#[wasm_bindgen]
+pub fn buy_blessing(val: &JsValue) {
+    info!("Rust buy item");
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let boost_item_type: BlessingTypes = val.into_serde().unwrap();
+    buy_blessing_internal(boost_item_type, game);
+}
+
+pub fn buy_blessing_internal(blessing_type: BlessingTypes, game: &mut Game) {
+    if can_buy_blessing(blessing_type, game) {
+        info!("Can buy blessing");
+        let name: String = format!("Buy Blessing {:#?}", blessing_type);
+        game.register_input(name);
+        let blessing: &Blessing = &game.world.blessings[blessing_type as usize];
+        game.state.items.divine_favor -= blessing.purchasing_cost;
+        game.state.blessings[blessing_type as usize].is_purchased = true;
+    }
+}
+
+pub fn can_buy_blessing(blessing: BlessingTypes, game: &mut Game) -> bool {
+    let blessing: &Blessing = &game.world.blessings[blessing as usize];
+    let can_afford: bool = game.state.items.divine_favor >= blessing.purchasing_cost;
     can_afford
 }
 

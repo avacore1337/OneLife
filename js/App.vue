@@ -35,6 +35,13 @@
         <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <Blessings
+          v-if="state.rebirth_stats.unlocks.has_faith"
+          v-bind:state="state"
+          v-bind:input="input"
+          v-bind:world="world"
+          v-bind:wasm="wasm"
+        />
       </div>
 
       <div style="margin-left: 20px; float: left">
@@ -66,6 +73,7 @@
 <script>
 import Works from "./components/Works.vue";
 import Tombs from "./components/Tombs.vue";
+import Blessings from "./components/Blessings.vue";
 import Housing from "./components/Housing.vue";
 import Activities from "./components/Activities.vue";
 import Death from "./components/Death.vue";
@@ -87,7 +95,19 @@ Vue.config.performance = true;
 
 export default {
   props: ["wasm"],
-  components: { Works, Housing, Activities, Debug, BoostItems, Death, Sidebar, Topbar, Tombs, RebirthUpgrades },
+  components: {
+    Works,
+    Housing,
+    Activities,
+    Debug,
+    BoostItems,
+    Death,
+    Sidebar,
+    Topbar,
+    Blessings,
+    Tombs,
+    RebirthUpgrades,
+  },
   data() {
     return {
       world: {
@@ -109,6 +129,7 @@ export default {
         life_stats: { health: 0.0, health_rate: 0.0 },
         rebirth_stats: {
           rebirth_upgrades: [],
+          unlocks: {},
         },
       },
       input: {},

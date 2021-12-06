@@ -5,6 +5,7 @@ pub mod value_keys;
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::activity::ActivityTypes;
+use crate::input::blessing::BlessingTypes;
 use crate::input::boost_item::BoostItemTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
@@ -17,6 +18,7 @@ use crate::state::work::Work as StateWork;
 use crate::world_content::activity::{
     should_be_visible_activity, should_unlock_activity, translate_activity,
 };
+use crate::world_content::blessing::{should_be_visible_blessing, should_unlock_blessing};
 use crate::world_content::boost_item::{
     should_be_visible_boost_item, should_unlock_boost_item, translate_boost_item,
 };
@@ -151,6 +153,12 @@ fn update_unlocks(game: &mut Game) {
             should_unlock_boost_item(boost_item, game);
         game.state.items.boost_items[boost_item as usize].is_visible =
             should_be_visible_boost_item(boost_item, game);
+    }
+    for blessing in BlessingTypes::iter() {
+        game.state.blessings[blessing as usize].is_unlocked =
+            should_unlock_blessing(blessing, game);
+        game.state.blessings[blessing as usize].is_visible =
+            should_be_visible_blessing(blessing, game);
     }
 }
 

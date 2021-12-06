@@ -204,6 +204,9 @@ pub fn should_unlock_boost_item(input_boost_item: BoostItemTypes, game: &Game) -
     if boost_item.required_tier > game.state.rebirth_stats.class_tier {
         return false;
     }
+    if boost_item.purchasing_cost > game.state.items.money {
+        return false;
+    }
     true
 }
 

@@ -2,13 +2,14 @@
 
 use crate::game::Game;
 use crate::input::activity::ActivityTypes;
+use crate::input::blessing::BlessingTypes;
 use crate::input::boost_item::BoostItemTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
 use crate::{
-    buy_item_internal, buy_tomb_internal, set_activity_internal, set_housing_internal,
-    set_work_internal, GLOBAL_DATA,
+    buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
+    set_housing_internal, set_work_internal, GLOBAL_DATA,
 };
 // use serde::{Deserialize, Serialize};
 use log::info;
@@ -32,6 +33,15 @@ impl Default for InputMapping {
         //         set_auto_work(true, game);
         //     }),
         // );
+        for blessing in BlessingTypes::iter() {
+            let name: String = format!("Buy Blessing {:#?}", blessing);
+            mapping.user_function.insert(
+                name.clone(),
+                Box::new(move |game: &mut Game| {
+                    buy_blessing_internal(blessing, game);
+                }),
+            );
+        }
         for tomb in TombTypes::iter() {
             let name: String = format!("Buy Tomb {:#?}", tomb);
             mapping.user_function.insert(
