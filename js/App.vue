@@ -83,6 +83,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
 Vue.use(BootstrapVue);
+Vue.config.performance = true;
 
 export default {
   props: ["wasm"],
@@ -118,7 +119,7 @@ export default {
     };
   },
   mounted: function () {
-    this.world = this.wasm.get_world();
+    this.world = Object.freeze(this.wasm.get_world());
     this.state = this.wasm.get_state();
     this.input = this.wasm.get_input();
     this.metaData = this.wasm.get_meta_data();
@@ -138,10 +139,28 @@ export default {
     }, 1000 / 30);
   },
   methods: {
+    recurse_update(o, o2) {
+      for (var key in o2) {
+        if (typeof o2[key] == "object") {
+          this.recurse_update(o[key], o2[key]);
+          continue;
+        }
+        if (o[key] != o2[key]) {
+          /* console.log(typeof o[key]); */
+          /* console.log(key, o[key], o2[key]); */
+          o[key] = o2[key];
+        }
+      }
+    },
     update_dynamic_data() {
-      this.state = this.wasm.get_state();
-      this.input = this.wasm.get_input();
-      this.metaData = this.wasm.get_meta_data();
+      // 20 fps
+      /* this.state= this.wasm.get_state(); */
+      /* this.input= this.wasm.get_input(); */
+      /* this.metaData= this.wasm.get_meta_data(); */
+      // 30 fps
+      this.recurse_update(this.state, this.wasm.get_state());
+      this.recurse_update(this.input, this.wasm.get_input());
+      this.recurse_update(this.metaData, this.wasm.get_meta_data());
     },
     updateModal() {
       let modal = this.$refs["the-modal"];
