@@ -30,6 +30,12 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::AutoBuyItem => {
             unlocks.can_auto_buy_item = true;
         }
+        RebirthUpgradeTypes::Replay => {
+            unlocks.can_replay = true;
+        }
+        RebirthUpgradeTypes::TheDivine => {
+            unlocks.has_faith = true;
+        }
         RebirthUpgradeTypes::StatMemory1 => {}
         RebirthUpgradeTypes::AcceptingDeath => {}
     }
@@ -91,6 +97,20 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description: "Consumerism!",
             display_name: "Automate Buying of Items",
             required_tier: 2,
+        },
+        RebirthUpgradeTypes::Replay => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 6000.0,
+            description: "Are you still playing?",
+            display_name: "Replay",
+            required_tier: 5,
+        },
+        RebirthUpgradeTypes::TheDivine => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 600_000.0,
+            description: "Have a little faith",
+            display_name: "Connect With The Gods",
+            required_tier: 6,
         },
     }
 }

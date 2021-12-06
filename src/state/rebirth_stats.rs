@@ -9,6 +9,8 @@ pub struct Unlocks {
     pub can_auto_work: bool,
     pub can_auto_living: bool,
     pub can_auto_buy_item: bool,
+    pub can_replay: bool,
+    pub has_faith: bool,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

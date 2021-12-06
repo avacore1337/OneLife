@@ -21,11 +21,26 @@ impl Gain for Tomb {
             TombTypes::ShallowGrave => {
                 intermediate.set_base(KeyValues::Coins, 2.0);
             }
-            TombTypes::Tomb => {
+            TombTypes::BurialPit => {
                 intermediate.set_base(KeyValues::Coins, 16.0);
             }
-            TombTypes::Mausuleum => {
+            TombTypes::Grave => {
+                intermediate.set_base(KeyValues::Coins, 64.0);
+            }
+            TombTypes::FamilyGrave => {
                 intermediate.set_base(KeyValues::Coins, 320.0);
+            }
+            TombTypes::Tomb => {
+                intermediate.set_base(KeyValues::Coins, 1000.0);
+            }
+            TombTypes::Crypt => {
+                intermediate.set_base(KeyValues::Coins, 4.0e3);
+            }
+            TombTypes::Mausuleum => {
+                intermediate.set_base(KeyValues::Coins, 1.6e4);
+            }
+            TombTypes::Catacomb => {
+                intermediate.set_base(KeyValues::Coins, 6.4e4);
             }
         }
     }
@@ -40,19 +55,54 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             display_name: "Shallow Grave",
             required_tier: 0,
         },
+        TombTypes::BurialPit => Tomb {
+            name: tomb,
+            purchasing_cost: 1.0e6,
+            description: "todo",
+            display_name: "BurialPit ",
+            required_tier: 1,
+        },
+        TombTypes::Grave => Tomb {
+            name: tomb,
+            purchasing_cost: 1.0e8,
+            description: "You were someone",
+            display_name: "Grave ",
+            required_tier: 2,
+        },
+        TombTypes::FamilyGrave => Tomb {
+            name: tomb,
+            purchasing_cost: 1.0e10,
+            description: "Wait, who's family is burried here?",
+            display_name: "FamilyGrave ",
+            required_tier: 3,
+        },
         TombTypes::Tomb => Tomb {
             name: tomb,
-            purchasing_cost: 1_000_000.0,
-            description: "You were someone",
+            purchasing_cost: 1.0e12,
+            description: "Hope you don't get raided",
             display_name: "Tomb ",
-            required_tier: 1,
+            required_tier: 4,
+        },
+        TombTypes::Crypt => Tomb {
+            name: tomb,
+            purchasing_cost: 1.0e14,
+            description: "A mysterious place",
+            display_name: "Crypt ",
+            required_tier: 5,
         },
         TombTypes::Mausuleum => Tomb {
             name: tomb,
-            purchasing_cost: 1_000_000_000.0,
-            description: "A man of importance!",
+            purchasing_cost: 1.0e16,
+            description: "Why are there so many mice in here?",
             display_name: "Mausuleum ",
-            required_tier: 4,
+            required_tier: 6,
+        },
+        TombTypes::Catacomb => Tomb {
+            name: tomb,
+            purchasing_cost: 1.0e18,
+            description: "This one has cats to take care of the mice",
+            display_name: "Catacomb ",
+            required_tier: 7,
         },
     }
 }

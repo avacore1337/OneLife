@@ -6,6 +6,10 @@
     Items
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>Money: {{ printableNumbers(state.items.money) }} Income: {{ printableNumbers(state.items.income) }}</p>
+      <p>
+        Divine Favor: {{ printableNumbers(state.items.divine_favor) }} Rate:
+        {{ printableNumbers(state.items.divine_favor_rate) }}
+      </p>
     </div>
 
     <br />

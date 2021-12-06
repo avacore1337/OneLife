@@ -27,6 +27,8 @@ impl BoostItem {
 pub struct Items {
     pub money: f64,
     pub income: f64,
+    pub divine_favor: f64,
+    pub divine_favor_rate: f64,
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
 }
 
@@ -35,6 +37,8 @@ impl Items {
         Items {
             money: 0.0,
             income: 0.0,
+            divine_favor: 0.0,
+            divine_favor_rate: 0.0,
             boost_items: get_boost_items(),
         }
     }
