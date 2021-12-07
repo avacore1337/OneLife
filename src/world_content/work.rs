@@ -15,6 +15,7 @@ pub struct Work {
     pub display_name: &'static str,
     pub required_tier: u32,
     pub main_stat: StatTypes,
+    pub xp_req_modifier: f64,
 }
 
 impl Gain for Work {
@@ -49,6 +50,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "The Mines",
             required_tier: 0,
             main_stat: StatTypes::Con,
+            xp_req_modifier: 1.0,
         },
         WorkTypes::Latrine => Work {
             name: work,
@@ -57,6 +59,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Latrine Duty",
             required_tier: 0,
             main_stat: StatTypes::Con,
+            xp_req_modifier: 2.0,
         },
         WorkTypes::GalleyRower => Work {
             name: work,
@@ -65,6 +68,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Gallery Rower",
             required_tier: 0,
             main_stat: StatTypes::Con,
+            xp_req_modifier: 4.0,
         },
         WorkTypes::Fields => Work {
             name: work,
@@ -73,6 +77,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Field Work",
             required_tier: 0,
             main_stat: StatTypes::Con,
+            xp_req_modifier: 8.0,
         },
         WorkTypes::Mill => Work {
             name: work,
@@ -81,6 +86,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Mill Worker",
             required_tier: 0,
             main_stat: StatTypes::Con,
+            xp_req_modifier: 16.0,
         },
         WorkTypes::Weaver => Work {
             name: work,
@@ -89,6 +95,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Weaver",
             required_tier: 1,
             main_stat: StatTypes::Con,
+            xp_req_modifier: 32.0,
         },
         WorkTypes::Fisherman => Work {
             name: work,
@@ -97,6 +104,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Fisherman",
             required_tier: 1,
             main_stat: StatTypes::Con,
+            xp_req_modifier: 64.0,
         },
         WorkTypes::Farmer => Work {
             name: work,
@@ -105,6 +113,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Farmer",
             required_tier: 2,
             main_stat: StatTypes::Con,
+            xp_req_modifier: 128.0,
         },
         // ------------------Soldiers ---------------------
         WorkTypes::BagageBoy => Work {
@@ -114,6 +123,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Bagage Boy",
             required_tier: 2,
             main_stat: StatTypes::Str,
+            xp_req_modifier: 32.0,
         },
         WorkTypes::Slinger => Work {
             name: work,
@@ -122,6 +132,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Slinger",
             required_tier: 2,
             main_stat: StatTypes::Str,
+            xp_req_modifier: 64.0,
         },
         WorkTypes::Peltasts => Work {
             name: work,
@@ -130,6 +141,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Peltasts",
             required_tier: 2,
             main_stat: StatTypes::Str,
+            xp_req_modifier: 128.0,
         },
         WorkTypes::Pikeman => Work {
             name: work,
@@ -138,6 +150,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Pikeman",
             required_tier: 2,
             main_stat: StatTypes::Str,
+            xp_req_modifier: 256.0,
         },
         WorkTypes::FootCompanion => Work {
             name: work,
@@ -146,6 +159,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "FootCompanion",
             required_tier: 2,
             main_stat: StatTypes::Str,
+            xp_req_modifier: 512.0,
         },
         WorkTypes::Hypaspists => Work {
             name: work,
@@ -154,6 +168,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Hypaspists",
             required_tier: 3,
             main_stat: StatTypes::Str,
+            xp_req_modifier: 1024.0,
         },
         WorkTypes::LightCavalery => Work {
             name: work,
@@ -162,6 +177,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Light Cavalery",
             required_tier: 3,
             main_stat: StatTypes::Str,
+            xp_req_modifier: 2048.0,
         },
     }
 }

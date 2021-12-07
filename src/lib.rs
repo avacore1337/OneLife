@@ -146,6 +146,9 @@ pub fn tick() {
     if game.meta_data.should_autosave() {
         do_save(game);
     }
+    if game.state.life_stats.is_dying {
+        return;
+    }
     game.meta_data.update_tick_time();
     for _ in 0..game.meta_data.game_speed {
         engine_run(game);
@@ -310,6 +313,7 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
 pub fn die() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     info!("dying");
+    engine_run(game);
     character_death_update(game);
 }
 

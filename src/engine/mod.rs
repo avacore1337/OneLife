@@ -12,7 +12,6 @@ use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::stat::StatTypes;
 use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
-use crate::state::state_container::StateContainer;
 use crate::state::stats::Stat;
 use crate::state::work::Work as StateWork;
 use crate::world_content::activity::{
@@ -26,10 +25,12 @@ use crate::world_content::housing::translate_housing;
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade, unlock,
 };
-use crate::world_content::stat::should_be_visible_stat;
+use crate::world_content::stat::{get_stats_gains, should_be_visible_stat};
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
 use crate::world_content::tutorial::check_for_tutorial_step;
-use crate::world_content::work::{should_be_visible_work, should_unlock_work, translate_work};
+use crate::world_content::work::{
+    should_be_visible_work, should_unlock_work, translate_work, Work as WorkWorld,
+};
 use crate::TICK_RATE;
 use intermediate_state::IntermediateState;
 use strum::IntoEnumIterator;
@@ -38,7 +39,7 @@ use self::auto_functions::{auto_buy_item, auto_living, auto_work};
 
 pub fn engine_run(game: &mut Game) {
     check_for_tutorial_step(game);
-    if game.state.life_stats.dead || game.state.life_stats.is_dying {
+    if game.state.life_stats.dead {
         return;
     }
     let run_count = game.meta_data.handle_run_count();
@@ -62,13 +63,14 @@ fn internal_run(game: &mut Game) {
     apply_work(game);
     apply_activities(game);
     apply_tombs(game);
+    apply_stats(game);
 
     apply_active_work(game);
 
     // Get the gains
     calculate_works_income(game);
     do_work(game.input.work, game);
-    gain_work_xp(game.input.work as usize, &mut game.state);
+    gain_work_xp(game);
     gain_stat_xp(game);
 
     // update frontend read values
@@ -235,17 +237,25 @@ fn apply_tombs(game: &mut Game) {
     }
 }
 
-fn gain_work_xp(input_work: usize, state: &mut StateContainer) {
-    let work: &mut StateWork = &mut state.works[input_work];
+fn apply_stats(game: &mut Game) {
+    for stat in StatTypes::iter() {
+        get_stats_gains(stat, game);
+    }
+}
+
+fn gain_work_xp(game: &mut Game) {
+    let input_work = game.input.work as usize;
+    let work: &mut StateWork = &mut game.state.works[input_work];
+    let work_world = &game.world.works[input_work];
     work.next_level_progress += 10.0
-        * state.life_stats.happiness
-        * (1.0 + f64::sqrt(state.rebirth_stats.max_job_levels[input_work] as f64))
+        * game.state.life_stats.happiness
+        * (1.0 + f64::sqrt(game.state.rebirth_stats.max_job_levels[input_work] as f64))
         / TICK_RATE;
-    let mut next_level_xp_needed = calculate_work_next_level_xp_neeeded(work);
+    let mut next_level_xp_needed = calculate_work_next_level_xp_neeeded(work, work_world);
     while work.next_level_progress > next_level_xp_needed {
         work.level += 1;
         work.next_level_progress -= next_level_xp_needed;
-        next_level_xp_needed = calculate_work_next_level_xp_neeeded(work);
+        next_level_xp_needed = calculate_work_next_level_xp_neeeded(work, work_world);
     }
     work.next_level_required = next_level_xp_needed;
     work.next_level_percentage = (work.next_level_progress * 100.0) / next_level_xp_needed;
@@ -274,8 +284,8 @@ fn calculate_stat_next_level_xp_neeeded(stat: &mut Stat) -> f64 {
     (100.0 + (4.0 * stat.level * stat.level)) as f64
 }
 
-fn calculate_work_next_level_xp_neeeded(work: &mut StateWork) -> f64 {
-    (100 + (4 * work.level * work.level)) as f64
+fn calculate_work_next_level_xp_neeeded(work: &mut StateWork, work_world: &WorkWorld) -> f64 {
+    (100 + (4 * work.level * work.level)) as f64 * work_world.xp_req_modifier
 }
 
 fn do_work(input_work: WorkTypes, game: &mut Game) {

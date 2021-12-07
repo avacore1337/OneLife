@@ -1,5 +1,4 @@
-// use crate::engine::intermediate_state::{Gain, IntermediateState};
-// use crate::engine::value_keys::KeyValues;
+use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::stat::{StatTypes, STAT_SIZE};
 use serde::Serialize;
@@ -14,21 +13,31 @@ pub struct Stat {
     pub required_tier: u32,
 }
 
-// impl Gain for Stat {
-//     fn gain(&self, intermediate: &mut IntermediateState) {
-//         match self.name {
-//             StatTypes::ShallowGrave => {
-//                 intermediate.set_base(KeyValues::Coins, 2.0);
-//             }
-//             StatTypes::Stat => {
-//                 intermediate.set_base(KeyValues::Coins, 16.0);
-//             }
-//             StatTypes::Mausuleum => {
-//                 intermediate.set_base(KeyValues::Coins, 320.0);
-//             }
-//         }
-//     }
-// }
+pub fn get_stats_gains(stat_type: StatTypes, game: &mut Game) {
+    // let world_stat = &game.world.stats[stat_type as usize];
+    let stat_state = &mut game.state.stats[stat_type as usize];
+    if !stat_state.is_visible {
+        return;
+    }
+
+    match stat_type {
+        StatTypes::Con => {
+            game.intermediate_state.add_multiplier(
+                KeyValues::Health,
+                0.05 * stat_state.level,
+                "Constitution",
+            );
+        }
+        StatTypes::Cha => {
+            game.intermediate_state.add_multiplier(
+                KeyValues::Coins,
+                1.0 + 0.05 * stat_state.level,
+                "Charisma",
+            );
+        }
+        _ => {}
+    }
+}
 
 pub const fn translate_stat(stat: StatTypes) -> Stat {
     match stat {
