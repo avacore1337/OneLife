@@ -16,7 +16,7 @@ use log::info;
 use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use wasm_bindgen::prelude::*;
-type Callback = Box<dyn Fn(&mut Game) -> ()>;
+type Callback = Box<dyn Fn(&mut Game)>;
 
 pub struct InputMapping {
     pub user_function: HashMap<String, Callback>,

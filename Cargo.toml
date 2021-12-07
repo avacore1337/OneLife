@@ -1,6 +1,6 @@
 # You must change these to your own details.
 [package]
-name = "rust-webpack-template"
+name = "one_life"
 description = "My super awesome Rust, WebAssembly, and Webpack project!"
 version = "0.1.0"
 authors = ["You <you@example.com>"]
@@ -9,7 +9,8 @@ readme = "README.md"
 edition = "2021"
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
+name = "one_life"
 
 [profile.release]
 # This makes the compiled code faster and smaller, but it makes compiling slower,
@@ -50,7 +51,4 @@ console_error_panic_hook = "0.1.5"
 
 # These crates are used for running unit tests.
 [dev-dependencies]
-wasm-bindgen-test = "0.2.48"
-futures = "0.1.27"
-js-sys = "0.3.22"
-wasm-bindgen-futures = "0.3.22"
+wasm-bindgen-test = "0.3"

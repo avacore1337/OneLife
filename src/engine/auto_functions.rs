@@ -1,7 +1,8 @@
 use crate::{
     game::Game,
     world_content::{
-        boost_item::translate_boost_item, housing::translate_housing, work::translate_work,
+        boost_item::translate_boost_item, housing::translate_housing, tomb::translate_tomb,
+        work::translate_work,
     },
 };
 
@@ -35,6 +36,17 @@ pub fn auto_buy_item(game: &mut Game) {
         if !item.is_purchased && can_afford && item.is_visible {
             item.is_purchased = true;
             game.state.items.money -= world_item.purchasing_cost;
+        }
+    }
+}
+
+pub fn auto_buy_tomb(game: &mut Game) {
+    for tomb in game.state.tombs.iter_mut() {
+        let world_tomb = translate_tomb(tomb.name);
+        let can_afford = game.state.items.money >= world_tomb.purchasing_cost;
+        if !tomb.is_purchased && can_afford && tomb.is_visible {
+            tomb.is_purchased = true;
+            game.state.items.money -= world_tomb.purchasing_cost;
         }
     }
 }

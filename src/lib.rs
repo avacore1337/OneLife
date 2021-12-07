@@ -8,16 +8,16 @@ use world_content::blessing::Blessing;
 const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 const TICK_RATE: f64 = 30.0;
 
-mod engine;
-mod experiment;
-mod game;
-mod info;
-mod input;
-mod meta;
-mod presets;
-mod state;
-mod wasm_api;
-mod world_content;
+pub mod engine;
+pub mod experiment;
+pub mod game;
+pub mod info;
+pub mod input;
+pub mod meta;
+pub mod presets;
+pub mod state;
+pub mod wasm_api;
+pub mod world_content;
 
 use engine::{character_death_update, engine_run};
 use game::Game;
@@ -132,6 +132,12 @@ pub fn set_auto_living(val: bool) {
 pub fn set_auto_buy_item(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     game.input.options.auto_buy_item = val;
+}
+
+#[wasm_bindgen]
+pub fn set_auto_buy_tomb(val: bool) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.input.options.auto_buy_tomb = val;
 }
 
 #[wasm_bindgen]

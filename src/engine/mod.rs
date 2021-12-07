@@ -35,7 +35,7 @@ use crate::TICK_RATE;
 use intermediate_state::IntermediateState;
 use strum::IntoEnumIterator;
 
-use self::auto_functions::{auto_buy_item, auto_living, auto_work};
+use self::auto_functions::{auto_buy_item, auto_buy_tomb, auto_living, auto_work};
 
 pub fn engine_run(game: &mut Game) {
     check_for_tutorial_step(game);
@@ -89,6 +89,9 @@ fn auto_input_update(game: &mut Game) {
     if game.input.options.auto_buy_item {
         auto_buy_item(game);
     }
+    if game.input.options.auto_buy_tomb {
+        auto_buy_tomb(game);
+    }
 }
 
 fn get_happiness(game: &Game) -> f64 {
@@ -100,7 +103,7 @@ fn update_life_stats(game: &mut Game) {
     let life_stats = &mut game.state.life_stats;
     let mut health_rate = 0.000_08 * game.intermediate_state.get_value(KeyValues::Health);
     if life_stats.health > 0.0 && health_rate > 0.0 {
-        health_rate = health_rate * (1.0 - life_stats.health).powi(2);
+        health_rate *= (1.0 - life_stats.health).powi(2);
     }
     life_stats.health_rate = health_rate;
     life_stats.health += health_rate / TICK_RATE;

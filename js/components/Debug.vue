@@ -21,6 +21,10 @@
       {{ !input.options.auto_buy_item ? "Auto Buy Item" : "Don't Auto Buy Item" }}
     </button>
     <br />
+    <button v-on:click="toggle_auto_buy_tomb" style="margin: 2px">
+      {{ !input.options.auto_buy_tomb ? "Auto Buy Tomb" : "Don't Auto Buy Tomb" }}
+    </button>
+    <br />
     <button v-on:click="enable_tutorial">Enable Tutorial</button>
     <br />
     <button v-on:click="toggle_pause" style="margin: 2px">
@@ -86,6 +90,9 @@ export default {
     },
     toggle_auto_buy_item: function () {
       this.wasm.set_auto_buy_item(!this.input.options.auto_buy_item);
+    },
+    toggle_auto_buy_tomb: function () {
+      this.wasm.set_auto_buy_tomb(!this.input.options.auto_buy_tomb);
     },
     print_debug_state: function () {
       this.wasm.print_debug_state();

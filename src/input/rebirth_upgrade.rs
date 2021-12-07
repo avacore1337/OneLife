@@ -11,6 +11,7 @@ pub enum RebirthUpgradeTypes {
     AutoWork, // automatically progresses current job
     AutoLive, // automatically bumps place to live if income > cost * 1.5
     AutoBuyItem,
+    AutoBuyTomb,
     Replay,
     TheDivine,
 }

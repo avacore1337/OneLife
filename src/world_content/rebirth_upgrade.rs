@@ -30,6 +30,9 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::AutoBuyItem => {
             unlocks.can_auto_buy_item = true;
         }
+        RebirthUpgradeTypes::AutoBuyTomb => {
+            unlocks.can_auto_buy_tomb = true;
+        }
         RebirthUpgradeTypes::Replay => {
             unlocks.can_replay = true;
         }
@@ -97,6 +100,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description: "Consumerism!",
             display_name: "Automate Buying of Items",
             required_tier: 2,
+        },
+        RebirthUpgradeTypes::AutoBuyTomb => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 160.0,
+            description: "Put some more thought into it!",
+            display_name: "Automate Buying of Tombs",
+            required_tier: 3,
         },
         RebirthUpgradeTypes::Replay => RebirthUpgrade {
             name: rebirth_upgrade,
