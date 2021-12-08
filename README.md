@@ -43,21 +43,25 @@ git subtree push --prefix dist origin gh-pages
 ```
 
 ## Test
+
 ### Easy way
+
 ```
-wasm-pack test --node
+WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node
 ```
 
 ### Manual Way
 
 Install:
+
 ```
 cargo install wasm-bindgen-cli
 ```
 
 Run with:
+
 ```
-cargo test --target wasm32-unknown-unknown
+WASM_BINDGEN_TEST_TIMEOUT=60 cargo test --target wasm32-unknown-unknown
 ```
 
 ## Code Standards
