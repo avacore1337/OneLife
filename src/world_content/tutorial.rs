@@ -41,15 +41,15 @@ pub fn check_for_tutorial_step(game: &mut Game) {
     if info.tutorial_step == 0 {
         info.show_tutorial = true;
     }
-    if info.tutorial_step == 2 && game.state.life_stats.is_dying {
+    if info.tutorial_step == 1 && game.state.life_stats.is_dying {
         info.show_tutorial = true;
     }
-    if info.tutorial_step == 3 && game.state.life_stats.dead {
+    if info.tutorial_step == 2 && game.state.life_stats.dead {
         info.show_tutorial = true;
     }
-    if info.tutorial_step == 4
+    if info.tutorial_step == 3
         && !game.state.life_stats.dead
-        && game.state.rebirth_stats.rebirth_count == 1
+        && game.state.rebirth_stats.rebirth_count >= 1
     {
         info.show_tutorial = true;
     }

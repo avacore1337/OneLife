@@ -27,7 +27,6 @@ use crate::world_content::rebirth_upgrade::{
 };
 use crate::world_content::stat::{get_stats_gains, should_be_visible_stat};
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
-use crate::world_content::tutorial::check_for_tutorial_step;
 use crate::world_content::work::{
     should_be_visible_work, should_unlock_work, translate_work, Work as WorkWorld,
 };
@@ -38,7 +37,6 @@ use strum::IntoEnumIterator;
 use self::auto_functions::{auto_buy_item, auto_buy_tomb, auto_living, auto_work};
 
 pub fn engine_run(game: &mut Game) {
-    check_for_tutorial_step(game);
     if game.state.life_stats.dead {
         return;
     }

@@ -150,6 +150,7 @@ export default {
       if (self.paused || self.state.life_stats.is_dying || self.state.life_stats.dead) {
         self.wasm.paused();
         self.update_dynamic_data();
+        self.updateModal();
         return;
       }
 

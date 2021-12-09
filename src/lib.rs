@@ -19,6 +19,7 @@ pub mod state;
 pub mod wasm_api;
 pub mod world_content;
 
+use crate::world_content::tutorial::check_for_tutorial_step;
 use engine::{character_death_update, engine_run};
 use game::Game;
 use input::activity::ActivityTypes;
@@ -113,6 +114,7 @@ pub fn do_rebirth_replay() {
 #[wasm_bindgen]
 pub fn paused() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    check_for_tutorial_step(game);
     game.meta_data.paused_tick_time();
 }
 
@@ -149,6 +151,7 @@ pub fn use_saved_ticks(val: bool) {
 #[wasm_bindgen]
 pub fn tick() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    check_for_tutorial_step(game);
     if game.meta_data.should_autosave() {
         do_save(game);
     }
