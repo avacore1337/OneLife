@@ -1,3 +1,4 @@
+use super::Recordable;
 use serde::{Deserialize, Serialize};
 use std::mem::variant_count;
 use strum::EnumIter;
@@ -11,3 +12,9 @@ pub enum HousingTypes {
 }
 
 pub const HOUSING_SIZE: usize = variant_count::<HousingTypes>();
+
+impl Recordable for HousingTypes {
+    fn to_record_key(&self) -> String {
+        format!("Set Housing {:#?}", self)
+    }
+}

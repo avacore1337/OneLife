@@ -35,3 +35,7 @@ impl Input {
         }
     }
 }
+
+pub trait Recordable {
+    fn to_record_key(&self) -> String;
+}

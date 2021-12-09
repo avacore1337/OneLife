@@ -17,3 +17,9 @@ pub enum RebirthUpgradeTypes {
 }
 
 pub const REBIRTH_UPGRADE_SIZE: usize = variant_count::<RebirthUpgradeTypes>();
+
+// impl Recordable for RebirthUpgradeTypes {
+//     fn to_record_key(&self) -> String {
+//         format!("Buy Rebirth Upgrade {:#?}", self)
+//     }
+// }

@@ -2,6 +2,8 @@ use serde::{Deserialize, Serialize};
 use std::mem::variant_count;
 use strum::EnumIter;
 
+use super::Recordable;
+
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum BoostItemTypes {
     Book,
@@ -24,3 +26,9 @@ pub enum BoostItemTypes {
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();
+
+impl Recordable for BoostItemTypes {
+    fn to_record_key(&self) -> String {
+        format!("Buy Item {:#?}", self)
+    }
+}

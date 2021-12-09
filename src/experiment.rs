@@ -7,6 +7,7 @@ use crate::input::boost_item::BoostItemTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
+use crate::input::Recordable;
 use crate::{
     buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
     set_housing_internal, set_work_internal, GLOBAL_DATA,
@@ -22,6 +23,12 @@ pub struct InputMapping {
     pub user_function: HashMap<String, Callback>,
 }
 
+impl InputMapping {
+    fn add<T: Recordable>(&mut self, key: T, callback: Callback) {
+        self.user_function.insert(key.to_record_key(), callback);
+    }
+}
+
 impl Default for InputMapping {
     fn default() -> InputMapping {
         let mut mapping = InputMapping {
@@ -34,54 +41,48 @@ impl Default for InputMapping {
         //     }),
         // );
         for blessing in BlessingTypes::iter() {
-            let name: String = format!("Buy Blessing {:#?}", blessing);
-            mapping.user_function.insert(
-                name.clone(),
+            mapping.add(
+                blessing,
                 Box::new(move |game: &mut Game| {
                     buy_blessing_internal(blessing, game);
                 }),
             );
         }
         for tomb in TombTypes::iter() {
-            let name: String = format!("Buy Tomb {:#?}", tomb);
-            mapping.user_function.insert(
-                name.clone(),
+            mapping.add(
+                tomb,
                 Box::new(move |game: &mut Game| {
                     buy_tomb_internal(tomb, game);
                 }),
             );
         }
         for item in BoostItemTypes::iter() {
-            let name: String = format!("Buy Item {:#?}", item);
-            mapping.user_function.insert(
-                name.clone(),
+            mapping.add(
+                item,
                 Box::new(move |game: &mut Game| {
                     buy_item_internal(item, game);
                 }),
             );
         }
         for work in WorkTypes::iter() {
-            let name: String = format!("Set Work {:#?}", work);
-            mapping.user_function.insert(
-                name.clone(),
+            mapping.add(
+                work,
                 Box::new(move |game: &mut Game| {
                     set_work_internal(work, game);
                 }),
             );
         }
         for housing in HousingTypes::iter() {
-            let name: String = format!("Set Housing {:#?}", housing);
-            mapping.user_function.insert(
-                name.clone(),
+            mapping.add(
+                housing,
                 Box::new(move |game: &mut Game| {
                     set_housing_internal(housing, game);
                 }),
             );
         }
         for activity in ActivityTypes::iter() {
-            let name: String = format!("Set Activity {:#?}", activity);
-            mapping.user_function.insert(
-                name.clone(),
+            mapping.add(
+                activity,
                 Box::new(move |game: &mut Game| {
                     set_activity_internal(activity, game);
                 }),

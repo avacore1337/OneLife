@@ -1,6 +1,6 @@
 use crate::engine::intermediate_state::IntermediateState;
 use crate::experiment::InputMapping;
-use crate::input::Input;
+use crate::input::{Input, Recordable};
 use crate::meta::MetaData;
 use crate::state::state_container::{new_game, StateContainer};
 use crate::world_content::world::World;
@@ -53,9 +53,9 @@ impl Game {
         }
     }
 
-    pub fn register_input(&mut self, name: String) {
+    pub fn register_input<T: Recordable>(&mut self, key: T) {
         let tick = self.state.life_stats.current_tick;
-        self.inputs.insert(tick, name);
+        self.inputs.insert(tick, key.to_record_key());
     }
 
     pub fn replay_input(&mut self) {

@@ -173,8 +173,7 @@ pub fn set_work(val: &JsValue) {
 }
 
 pub fn set_work_internal(work_type: WorkTypes, game: &mut Game) {
-    let name: String = format!("Set Work {:#?}", work_type);
-    game.register_input(name);
+    game.register_input(work_type);
     game.input.work = work_type;
 }
 
@@ -187,8 +186,7 @@ pub fn set_housing(val: &JsValue) {
 }
 
 pub fn set_housing_internal(housing_type: HousingTypes, game: &mut Game) {
-    let name: String = format!("Set Housing {:#?}", housing_type);
-    game.register_input(name);
+    game.register_input(housing_type);
     game.input.housing = housing_type;
 }
 
@@ -201,8 +199,7 @@ pub fn set_activity(val: &JsValue) {
 }
 
 pub fn set_activity_internal(activity_type: ActivityTypes, game: &mut Game) {
-    let name: String = format!("Set Activity {:#?}", activity_type);
-    game.register_input(name);
+    game.register_input(activity_type);
     game.input.activity = activity_type;
 }
 
@@ -238,8 +235,7 @@ pub fn buy_tomb(val: &JsValue) {
 pub fn buy_tomb_internal(tomb_type: TombTypes, game: &mut Game) {
     if can_buy_tomb(tomb_type, game) {
         info!("Can buy tomb");
-        let name: String = format!("Buy Tomb {:#?}", tomb_type);
-        game.register_input(name);
+        game.register_input(tomb_type);
 
         let tomb: &Tomb = &game.world.tombs[tomb_type as usize];
         game.state.items.money -= tomb.purchasing_cost;
@@ -264,8 +260,7 @@ pub fn buy_blessing(val: &JsValue) {
 pub fn buy_blessing_internal(blessing_type: BlessingTypes, game: &mut Game) {
     if can_buy_blessing(blessing_type, game) {
         info!("Can buy blessing");
-        let name: String = format!("Buy Blessing {:#?}", blessing_type);
-        game.register_input(name);
+        game.register_input(blessing_type);
         let blessing: &Blessing = &game.world.blessings[blessing_type as usize];
         game.state.items.divine_favor -= blessing.purchasing_cost;
         game.state.blessings[blessing_type as usize].is_purchased = true;
@@ -289,8 +284,7 @@ pub fn buy_item(val: &JsValue) {
 pub fn buy_item_internal(boost_item_type: BoostItemTypes, game: &mut Game) {
     if can_buy_item(boost_item_type, game) {
         info!("Can buy item");
-        let name: String = format!("Buy Item {:#?}", boost_item_type);
-        game.register_input(name);
+        game.register_input(boost_item_type);
         let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
         game.state.items.money -= item.purchasing_cost;
         game.state.items.boost_items[boost_item_type as usize].is_purchased = true;
