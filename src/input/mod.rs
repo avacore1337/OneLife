@@ -4,6 +4,7 @@ pub mod boost_item;
 pub mod housing;
 pub mod options;
 pub mod rebirth_upgrade;
+pub mod skill;
 pub mod stat;
 pub mod tomb;
 pub mod work;

@@ -4,6 +4,7 @@ use super::boost_item::{get_boost_items, BoostItem};
 use super::housing::{get_housings, Housing};
 use super::rebirth_upgrade::{get_rebirth_upgrades, RebirthUpgrade};
 use super::settings::Settings;
+use super::skill::{get_skills, Skill};
 use super::stat::{get_stats, Stat};
 use super::tier::{init_tiers, Tier};
 use super::tomb::{get_tombs, Tomb};
@@ -14,6 +15,7 @@ use crate::input::blessing::BLESSING_SIZE;
 use crate::input::boost_item::BOOST_ITEM_SIZE;
 use crate::input::housing::HOUSING_SIZE;
 use crate::input::rebirth_upgrade::REBIRTH_UPGRADE_SIZE;
+use crate::input::skill::SKILL_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::WORK_SIZE;
@@ -32,6 +34,7 @@ pub struct World {
     pub stats: [Stat; STAT_SIZE],
     pub settings: Settings,
     pub blessings: [Blessing; BLESSING_SIZE],
+    pub skills: [Skill; SKILL_SIZE],
 }
 
 impl Default for World {
@@ -48,6 +51,7 @@ impl Default for World {
             stats: get_stats(),
             settings: Settings::default(),
             blessings: get_blessings(),
+            skills: get_skills(),
         }
     }
 }
