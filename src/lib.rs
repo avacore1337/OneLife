@@ -319,10 +319,3 @@ pub fn die() {
     engine_run(game);
     character_death_update(game);
 }
-
-// #[wasm_bindgen]
-// #[cfg(not(debug_assertions))]
-// pub fn get_preset_saves() -> JsValue {
-//     let v: Vec<u64> = vec![];
-//     JsValue::from_serde(&v).unwrap()
-// }

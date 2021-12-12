@@ -6,12 +6,16 @@ use super::Recordable;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum ActivityTypes {
+    //Stat boosts
     Run,
     Studying,
     Training,
     Flirt,
     Praying,
     Acrobatics,
+    //Skills
+    Meditate,
+    WarGames,
 }
 
 pub const ACTIVITY_SIZE: usize = variant_count::<ActivityTypes>();

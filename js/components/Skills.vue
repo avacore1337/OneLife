@@ -2,11 +2,11 @@
   <div>
     Base Stats
     <div style="border: solid; margin: 2px; padding: 10px">
-      <div v-for="(stat, index) in world.stats" v-if="state.stats[index].is_visible" :key="stat.name">
-        <p>{{ stat.display_name }}: {{ state.stats[index].level }} xp rate: {{ state.stats[index].xp_rate }}</p>
+      <div v-for="(skill, index) in world.skills" v-if="state.skills[index].is_visible" :key="skill.name">
+        <p>{{ skill.display_name }}: {{ state.skills[index].level }} xp rate: {{ state.skills[index].xp_rate }}</p>
         <b-progress
           class="notransition w-75"
-          :value="state.stats[index].next_level_percentage.toFixed(2)"
+          :value="state.skills[index].next_level_percentage.toFixed(2)"
           animated
         ></b-progress>
         <br />

@@ -1,3 +1,4 @@
+use crate::input::skill::SkillTypes;
 use crate::input::stat::StatTypes;
 use crate::input::work::WorkTypes;
 use serde::{Deserialize, Serialize};
@@ -18,6 +19,9 @@ pub enum KeyValues {
     Con,
     Dex,
     Faith,
+    //Skill
+    Mindfull,
+    Tactics,
     //Work
     Mines,
     Latrine,
@@ -36,6 +40,15 @@ pub enum KeyValues {
     Hypaspists,
     LightCavalery,
     //
+}
+
+impl From<SkillTypes> for KeyValues {
+    fn from(stat: SkillTypes) -> Self {
+        match stat {
+            SkillTypes::Mindfull => KeyValues::Mindfull,
+            SkillTypes::Tactics => KeyValues::Tactics,
+        }
+    }
 }
 
 impl From<StatTypes> for KeyValues {

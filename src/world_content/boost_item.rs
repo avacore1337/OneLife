@@ -14,7 +14,6 @@ pub struct BoostItem {
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
-    // pub item_effect:
 }
 
 impl Gain for BoostItem {

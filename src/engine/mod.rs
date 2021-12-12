@@ -9,6 +9,7 @@ use crate::input::blessing::BlessingTypes;
 use crate::input::boost_item::BoostItemTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
+use crate::input::skill::SkillTypes;
 use crate::input::stat::StatTypes;
 use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
@@ -25,6 +26,7 @@ use crate::world_content::housing::translate_housing;
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade, unlock,
 };
+use crate::world_content::skill::should_be_visible_skill;
 use crate::world_content::stat::{get_stats_gains, should_be_visible_stat};
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
 use crate::world_content::work::{
@@ -140,6 +142,9 @@ fn update_unlocks(game: &mut Game) {
     }
     for stat in StatTypes::iter() {
         game.state.stats[stat as usize].is_visible = should_be_visible_stat(stat, game);
+    }
+    for stat in SkillTypes::iter() {
+        game.state.skills[stat as usize].is_visible = should_be_visible_skill(stat, game);
     }
     for rebirth_upgrade in RebirthUpgradeTypes::iter() {
         game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade as usize].is_unlocked =

@@ -1,6 +1,7 @@
 <template>
   <div style="border: solid; margin: 2px">
     <BaseStats v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+    <Skills v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
 
     <br />
     Items
@@ -36,9 +37,10 @@
 
 <script>
 import BaseStats from "./BaseStats.vue";
+import Skills from "./Skills.vue";
 export default {
   props: ["state", "world", "input", "wasm", "metaData"],
-  components: { BaseStats },
+  components: { BaseStats, Skills },
   methods: {
     life_status: function () {
       if (this.state.life_stats.dead) {

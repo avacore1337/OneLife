@@ -1,4 +1,4 @@
-// use crate::engine::value_keys::KeyValues;
+use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::skill::{SkillTypes, SKILL_SIZE};
 use serde::Serialize;
@@ -21,20 +21,13 @@ pub fn get_skills_gains(skill_type: SkillTypes, game: &mut Game) {
     }
 
     match skill_type {
-        // SkillTypes::Con => {
-        //     game.intermediate_state.add_multiplier(
-        //         KeyValues::Health,
-        //         0.05 * skill_state.level,
-        //         "Constitution",
-        //     );
-        // }
-        // SkillTypes::Cha => {
-        //     game.intermediate_state.add_multiplier(
-        //         KeyValues::Coins,
-        //         1.0 + 0.05 * skill_state.level,
-        //         "Charisma",
-        //     );
-        // }
+        SkillTypes::Mindfull => {
+            game.intermediate_state.add_multiplier(
+                KeyValues::Happiness,
+                0.05 * skill_state.level,
+                "Mindfull",
+            );
+        }
         _ => {}
     }
 }
@@ -43,15 +36,15 @@ pub const fn translate_skill(skill: SkillTypes) -> Skill {
     match skill {
         SkillTypes::Mindfull => Skill {
             name: skill,
-            description: "Do you even lift?",
-            display_name: "Strength",
+            description: "Be one with the world",
+            display_name: "Mindefullness",
             required_tier: 2,
         },
         SkillTypes::Tactics => Skill {
             name: skill,
-            description: "Do you even lift?",
-            display_name: "Strength",
-            required_tier: 2,
+            description: "Flank them!",
+            display_name: "Military Tactics",
+            required_tier: 4,
         },
     }
 }

@@ -35,6 +35,12 @@ impl Gain for Activity {
             ActivityTypes::Praying => {
                 intermediate.set_base(KeyValues::Faith, 10.0);
             }
+            ActivityTypes::Meditate => {
+                intermediate.set_base(KeyValues::Mindfull, 10.0);
+            }
+            ActivityTypes::WarGames => {
+                intermediate.set_base(KeyValues::Tactics, 10.0);
+            }
         }
     }
 }
@@ -77,6 +83,18 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             display_name: "Praying",
             required_tier: 5,
         },
+        ActivityTypes::Meditate => Activity {
+            name: activity,
+            description: "Introspect on your being",
+            display_name: "Meditate",
+            required_tier: 2,
+        },
+        ActivityTypes::WarGames => Activity {
+            name: activity,
+            description: "Train tactics",
+            display_name: "War Games",
+            required_tier: 2,
+        },
     }
 }
 
@@ -88,7 +106,6 @@ pub fn should_unlock_activity(input_activity: ActivityTypes, game: &Game) -> boo
     true
     // match input_activity {
     //     ActivityTypes::Training => true,
-    //     ActivityTypes::Studying => true,
     //     ActivityTypes::Fields => game.state.activitys[ActivityTypes::Mines as usize].level > 10,
     // }
 }

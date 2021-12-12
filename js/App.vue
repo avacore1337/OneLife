@@ -122,6 +122,7 @@ export default {
       },
       state: {
         stats: {},
+        skills: {},
         housing: [],
         items: {
           boost_items: [],

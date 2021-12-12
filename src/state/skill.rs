@@ -1,17 +1,7 @@
-// use crate::game::Game;
 use crate::input::skill::{SkillTypes, SKILL_SIZE};
 use serde::{Deserialize, Serialize};
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
-
-// pub struct BaseSkills {
-//     pub str: f64,
-//     pub int: f64,
-//     pub cha: f64,
-//     pub con: f64,
-//     pub dex: f64,
-//     pub faith: f64,
-// }
 
 #[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Skill {
@@ -46,8 +36,3 @@ pub fn get_skills() -> [Skill; SKILL_SIZE] {
     }
     unsafe { mem::transmute(skills) }
 }
-
-// pub fn get_skills_base(base: BaseSkills) -> [Skill; SKILL_SIZE] {
-//     let initial_values = [base.str, base.int, base.cha, base.con, base.dex, base.faith];
-//     get_skills(initial_values)
-// }
