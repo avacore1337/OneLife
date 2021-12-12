@@ -29,14 +29,6 @@
 <script>
 export default {
   props: ["state", "world", "input", "wasm"],
-  /* computed: { */
-  /*   ownedItems: function () { */
-  /*     return this.state.items.boost_items.filter((item) => item.is_purchased); */
-  /*   }, */
-  /*   notOwnedItems: function () { */
-  /*     return this.state.items.boost_items.filter((item) => !item.is_purchased); */
-  /*   }, */
-  /* }, */
   methods: {
     buyItem: function (item_name) {
       this.wasm.buy_item(item_name);
