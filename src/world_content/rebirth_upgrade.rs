@@ -1,8 +1,10 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
+use crate::input::boost_item::BoostItemTypes;
 use crate::input::rebirth_upgrade::{RebirthUpgradeTypes, REBIRTH_UPGRADE_SIZE};
 use crate::state::rebirth_stats::Unlocks;
+use crate::state::state_container::StateContainer;
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
@@ -14,6 +16,17 @@ pub struct RebirthUpgrade {
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
+}
+
+pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: RebirthUpgradeTypes) {
+    match rebirth_upgrade {
+        RebirthUpgradeTypes::StartingItems1 => {
+            state.items.boost_items[BoostItemTypes::Book as usize].is_purchased = true;
+            state.items.boost_items[BoostItemTypes::Shoe1 as usize].is_purchased = true;
+            state.items.boost_items[BoostItemTypes::RaggedClothes as usize].is_purchased = true;
+        }
+        _ => (),
+    }
 }
 
 pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
@@ -39,8 +52,7 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::TheDivine => {
             unlocks.has_faith = true;
         }
-        RebirthUpgradeTypes::StatMemory1 => {}
-        RebirthUpgradeTypes::AcceptingDeath => {}
+        _ => (),
     }
 }
 
@@ -49,9 +61,6 @@ impl Gain for RebirthUpgrade {
         match self.name {
             RebirthUpgradeTypes::AcceptingDeath => {
                 intermediate.add_multiplier(KeyValues::Happiness, 2.0, "AcceptingDeath");
-            }
-            RebirthUpgradeTypes::EndItEarly => {
-                //
             }
             _ => (),
         }
@@ -78,6 +87,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 600.0,
             description: "You can now commit a grave sin",
             display_name: "Ending It Early",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::StartingItems1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 900.0,
+            description: "Anything is better than nothing",
+            display_name: "Starting Items",
             required_tier: 3,
         },
         RebirthUpgradeTypes::AutoWork => RebirthUpgrade {

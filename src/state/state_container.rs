@@ -15,6 +15,7 @@ use crate::input::skill::SKILL_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::WORK_SIZE;
+use crate::world_content::rebirth_upgrade::apply_starting_upgrade;
 use crate::world_content::world::World;
 
 use serde::{Deserialize, Serialize};
@@ -40,7 +41,7 @@ pub fn new_game(world: &World) -> StateContainer {
 
 pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
     let life_stats = LifeStats::new(world, &rebirth_stats);
-    StateContainer {
+    let mut state = StateContainer {
         stats: world
             .tiers
             .get(rebirth_stats.class_tier as usize)
@@ -55,5 +56,11 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
         tombs: get_tombs(),
         blessings: get_blessings(),
         skills: get_skills(),
+    };
+    for upgrade in state.rebirth_stats.rebirth_upgrades {
+        if upgrade.is_purchased {
+            apply_starting_upgrade(&mut state, upgrade.name);
+        }
     }
+    state
 }

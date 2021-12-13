@@ -5,11 +5,12 @@ use strum::EnumIter;
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum RebirthUpgradeTypes {
     AcceptingDeath,
+    StartingItems1,
     StatMemory1,
     EndItEarly,
     // GemSense, // gives you a huge multiplier to mining
-    AutoWork, // automatically progresses current job
-    AutoLive, // automatically bumps place to live if income > cost * 1.5
+    AutoWork,
+    AutoLive,
     AutoBuyItem,
     AutoBuyTomb,
     Replay,
