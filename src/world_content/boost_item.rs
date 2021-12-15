@@ -80,7 +80,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             name: item_type,
             purchasing_cost: 100.0,
             description: "Me dumb? That's unpossible",
-            display_name: "Learning to read",
+            display_name: "Book: Learning to read",
             required_tier: 0,
         },
         BoostItemTypes::Shoe1 => BoostItem {
@@ -108,7 +108,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             name: item_type,
             purchasing_cost: 4_000.0,
             description: "Very expensive for a childrens book",
-            display_name: "Reading for children",
+            display_name: "Book: Reading for children",
             required_tier: 0,
         },
         BoostItemTypes::Shoe2 => BoostItem {
@@ -129,7 +129,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             name: item_type,
             purchasing_cost: 16_000.0,
             description: "The book makes you feel really really smart",
-            display_name: "Dunner Kruger's peak",
+            display_name: "Book: Dunner Kruger's peak",
             required_tier: 1,
         },
         BoostItemTypes::Shoe3 => BoostItem {
@@ -163,7 +163,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         BoostItemTypes::PitchFork => BoostItem {
             name: item_type,
             purchasing_cost: 800_000.0,
-            description: "Blood sucking bug, how is this healthy?",
+            description: "Grab one",
             display_name: "Pitchfork",
             required_tier: 2,
         },

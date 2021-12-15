@@ -1,5 +1,5 @@
 <template>
-  <Section title="Benefits">
+  <Section title="Bought Items">
     <span v-if="state.items.boost_items.some((item) => item.is_purchased)">
       <h4>Acquired benefits</h4>
       <table>
@@ -20,7 +20,7 @@
       </table>
     </span>
 
-    <h4>Invest in</h4>
+    <h4>Items</h4>
     <table>
       <tr
         v-for="{ item, index } in world.boost_items
