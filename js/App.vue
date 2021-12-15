@@ -47,7 +47,7 @@
         />
       </div>
 
-      <div style="margin-left: 2%; float: left">
+      <div style="margin-left: 2%; float: left; width: 18%">
         <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0">
           <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
           <RebirthUpgrades
@@ -212,6 +212,7 @@ export default {
 body {
   background-color: #232c3a;
   color: white;
+  overflow-x: hidden;
 }
 
 span.the-modal {
