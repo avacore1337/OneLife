@@ -5,9 +5,11 @@ use crate::input::activity::ActivityTypes;
 use crate::input::blessing::BlessingTypes;
 use crate::input::boost_item::BoostItemTypes;
 use crate::input::housing::HousingTypes;
+use crate::input::options::AutoSettingTypes;
 use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
 use crate::input::Recordable;
+use crate::set_auto_work_internal;
 use crate::{
     buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
     set_housing_internal, set_work_internal,
@@ -32,12 +34,12 @@ impl Default for InputMapping {
         let mut mapping = InputMapping {
             user_function: HashMap::new(),
         };
-        // mapping.user_function.insert(
-        //     "Set auto Work".into(),
-        //     Box::new(|game: &mut Game| {
-        //         set_auto_work(true, game);
-        //     }),
-        // );
+        mapping.add(
+            AutoSettingTypes::AutoWorkTrue,
+            Box::new(move |game: &mut Game| {
+                set_auto_work_internal(true, game);
+            }),
+        );
         for blessing in BlessingTypes::iter() {
             mapping.add(
                 blessing,

@@ -121,24 +121,40 @@ pub fn paused() {
 #[wasm_bindgen]
 pub fn set_auto_work(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_auto_work_internal(val, game);
+}
+
+pub fn set_auto_work_internal(val: bool, game: &mut Game) {
     game.meta_data.options.auto_work = val;
 }
 
 #[wasm_bindgen]
 pub fn set_auto_living(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_auto_living_internal(val, game);
+}
+
+pub fn set_auto_living_internal(val: bool, game: &mut Game) {
     game.meta_data.options.auto_living = val;
 }
 
 #[wasm_bindgen]
 pub fn set_auto_buy_item(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_auto_buy_item_internal(val, game);
+}
+
+pub fn set_auto_buy_item_internal(val: bool, game: &mut Game) {
     game.meta_data.options.auto_buy_item = val;
 }
 
 #[wasm_bindgen]
 pub fn set_auto_buy_tomb(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_auto_buy_tomb_internal(val, game);
+}
+
+pub fn set_auto_buy_tomb_internal(val: bool, game: &mut Game) {
     game.meta_data.options.auto_buy_tomb = val;
 }
 
