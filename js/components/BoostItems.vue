@@ -1,7 +1,7 @@
 <template>
-  <Section title="Bought Items">
+  <Section title="Items">
     <span v-if="state.items.boost_items.some((item) => item.is_purchased)">
-      <h4>Acquired benefits</h4>
+      <h4>Bought Items</h4>
       <table>
         <tr
           v-for="{ item } in world.boost_items
@@ -20,7 +20,7 @@
       </table>
     </span>
 
-    <h4>Items</h4>
+    <h4>Buyable Items</h4>
     <table>
       <tr
         v-for="{ item, index } in world.boost_items
