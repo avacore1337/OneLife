@@ -1,18 +1,20 @@
 <template>
   <Section title="Housing">
-    <tr
-      v-for="housing in world.housing.filter((_, index) => state.housing[index].is_visible)"
-      v-on:click="set_housing(housing.name)"
-      :key="housing.name"
-    >
-      <td>
-        <p>
-          <span v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }} </span>
-          <br />
-          Cost: {{ housing.upkeep }}/s
-        </p>
-      </td>
-    </tr>
+    <table>
+      <tr
+        v-for="housing in world.housing.filter((_, index) => state.housing[index].is_visible)"
+        v-on:click="set_housing(housing.name)"
+        :key="housing.name"
+      >
+        <td>
+          <p>
+            <span v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }} </span>
+            <br />
+            Cost: {{ housing.upkeep }}/s
+          </p>
+        </td>
+      </tr>
+    </table>
   </Section>
 </template>
 

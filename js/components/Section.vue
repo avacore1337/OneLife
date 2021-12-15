@@ -59,7 +59,7 @@ tr.disabled {
   color: rgba(255, 255, 255, 0.5);
 }
 
-p.selected {
+.selected {
   text-decoration: underline;
   font-weight: bold;
 }
