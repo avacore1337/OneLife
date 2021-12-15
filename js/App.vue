@@ -19,7 +19,7 @@
       />
     </div>
     <div>
-      <div style="width: 20%; float: left">
+      <div style="width: 15%; float: left">
         <Sidebar
           v-bind:state="state"
           v-bind:input="input"
@@ -35,8 +35,8 @@
       </div>
 
       <div style="margin-left: 2%; float: left; width: 30%">
-        <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <Blessings
           v-if="state.rebirth_stats.unlocks.has_faith"
@@ -48,10 +48,7 @@
       </div>
 
       <div style="margin-left: 2%; float: left">
-        <div
-          style="margin-left: 20px; border: 5px solid white; width: 300px; display: inline; float: left; padding: 10px"
-          v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"
-        >
+        <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0">
           <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
           <RebirthUpgrades
             v-if="state.rebirth_stats.class_tier > 0"
