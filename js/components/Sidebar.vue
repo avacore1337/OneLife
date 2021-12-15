@@ -1,7 +1,13 @@
 <template>
   <div style="border: solid; margin: 2px">
     <BaseStats v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-    <Skills v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+    <Skills
+      v-if="state.rebirth_stats.class_tier >= 2"
+      v-bind:state="state"
+      v-bind:input="input"
+      v-bind:world="world"
+      v-bind:wasm="wasm"
+    />
 
     <br />
     Items
