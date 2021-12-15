@@ -2,13 +2,14 @@
   <div>
     Skills
     <div style="border: solid; margin: 2px; padding: 10px">
-      <div v-for="(skill, index) in world.skills" v-if="state.skills[index].is_visible" :key="skill.name">
+      <div
+        v-for="(skill, index) in world.skills
+          .map((skill, index) => ({ skill, index }))
+          .filter(({ skill, index }) => state.skills[index].is_visible)"
+        :key="skill.name"
+      >
         <p>{{ skill.display_name }}: {{ state.skills[index].level }} xp rate: {{ state.skills[index].xp_rate }}</p>
-        <b-progress
-          class="notransition w-75"
-          :value="state.skills[index].next_level_percentage.toFixed(2)"
-          animated
-        ></b-progress>
+        <ProgressBar :value="state.skills[index].next_level_percentage" :decimalPoints="2"> </ProgressBar>
         <br />
       </div>
     </div>
@@ -16,8 +17,12 @@
 </template>
 
 <script>
+import Section from "./Section.vue";
+import ProgressBar from "./ProgressBar.vue";
+
 export default {
   props: ["state", "world", "input", "wasm"],
+  components: { Section, ProgressBar },
   methods: {},
 };
 </script>

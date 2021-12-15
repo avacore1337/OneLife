@@ -29,9 +29,12 @@
         />
       </div>
 
-      <div style="margin-left: 2%; float: left; width: 35%">
+      <div style="margin-left: 2%; float: left; width: 30%">
         <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+      </div>
+
+      <div style="margin-left: 2%; float: left; width: 30%">
         <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
@@ -44,7 +47,7 @@
         />
       </div>
 
-      <div style="margin-left: 20px; float: left">
+      <div style="margin-left: 2%; float: left">
         <div
           style="margin-left: 20px; border: 5px solid white; width: 300px; display: inline; float: left; padding: 10px"
           v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"
