@@ -1,6 +1,6 @@
 use crate::engine::intermediate_state::IntermediateState;
-use crate::experiment::InputMapping;
 use crate::input::{Input, Recordable};
+use crate::input_mapping::InputMapping;
 use crate::meta::MetaData;
 use crate::state::state_container::{new_game, StateContainer};
 use crate::world_content::world::World;

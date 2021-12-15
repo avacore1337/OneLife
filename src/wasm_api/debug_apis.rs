@@ -49,3 +49,11 @@ pub fn set_preset_saves(preset_name: &str) {
         game.meta_data = meta_data
     }
 }
+
+#[wasm_bindgen]
+pub fn test() {
+    // let user_input_mapping = InputMapping::default();
+    // info!("Mapping: {:#?}", user_input_mapping.user_function.keys());
+    let game = GLOBAL_DATA.lock().unwrap();
+    info!("input: {:#?}", game.inputs);
+}

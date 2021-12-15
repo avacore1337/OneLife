@@ -10,13 +10,11 @@ use crate::input::work::WorkTypes;
 use crate::input::Recordable;
 use crate::{
     buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
-    set_housing_internal, set_work_internal, GLOBAL_DATA,
+    set_housing_internal, set_work_internal,
 };
 // use serde::{Deserialize, Serialize};
-use log::info;
 use std::collections::HashMap;
 use strum::IntoEnumIterator;
-use wasm_bindgen::prelude::*;
 type Callback = Box<dyn Fn(&mut Game)>;
 
 pub struct InputMapping {

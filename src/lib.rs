@@ -9,10 +9,10 @@ const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 const TICK_RATE: f64 = 30.0;
 
 pub mod engine;
-pub mod experiment;
 pub mod game;
 pub mod info;
 pub mod input;
+pub mod input_mapping;
 pub mod meta;
 pub mod presets;
 pub mod state;
