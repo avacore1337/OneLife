@@ -1,15 +1,13 @@
 <template>
   <div class="section">
-    <h3>{{ title }}</h3>
-    <table>
-      <slot />
-    </table>
+    <h3 class="title">{{ title }}</h3>
+    <slot />
   </div>
 </template>
 
 <script>
 export default {
-  props: ["title", "rows"],
+  props: ["title"],
 };
 </script>
 
@@ -17,12 +15,16 @@ export default {
 .section {
   width: 100%;
   margin-bottom: 1rem;
-  padding: 2rem 1rem 1rem 2rem;
+  padding: 1rem 1rem 1rem 2rem;
   background-color: #333c4a;
   border-radius: 3rem 3rem 0 0;
   border-top: 0.4rem solid #1a202b;
   border-left: 0.4rem solid #1a202b;
   border-right: 0.4rem solid #1a202b;
+}
+
+.title {
+  padding-bottom: 1rem;
 }
 
 table {
