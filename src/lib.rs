@@ -1,6 +1,7 @@
 #![feature(variant_count)]
 use log::{info, Level};
 use once_cell::sync::Lazy;
+use std::collections::BTreeMap;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 use world_content::blessing::Blessing;
@@ -25,6 +26,7 @@ use game::Game;
 use input::activity::ActivityTypes;
 use input::boost_item::BoostItemTypes;
 use input::housing::HousingTypes;
+use input::options::AutoSettingTypes;
 use input::rebirth_upgrade::RebirthUpgradeTypes;
 use input::tomb::TombTypes;
 use input::work::WorkTypes;
@@ -38,7 +40,11 @@ use world_content::tomb::Tomb;
 
 use crate::input::blessing::BlessingTypes;
 
-static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| Mutex::new(Game::new()));
+static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| {
+    let game = Mutex::new(Game::new());
+    register_auto_settings(&mut *game.lock().unwrap());
+    game
+});
 
 // This is like the `main` function, except for JavaScript.
 #[wasm_bindgen(start)]
@@ -88,25 +94,53 @@ pub fn next_info_step() {
 
 #[wasm_bindgen]
 pub fn do_rebirth() {
-    let mut game = GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     if !game.state.life_stats.dead {
         return;
     }
+    do_rebirth_internal(game);
+    register_auto_settings(game);
+    info!("Rust did rebirth");
+}
+
+pub fn do_rebirth_internal(game: &mut Game) {
     game.state.rebirth_stats.rebirth_count += 1;
     game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
     game.input = Input::new(&game.state, &game.world);
-    info!("Rust did rebirth");
+    game.previous_inputs = game.inputs.clone();
+    game.inputs = BTreeMap::new();
+}
+
+fn register_auto_settings(game: &mut Game) {
+    if game.meta_data.options.auto_work {
+        game.register_input(AutoSettingTypes::AutoWorkTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoWorkFalse)
+    };
+    if game.meta_data.options.auto_living {
+        game.register_input(AutoSettingTypes::AutoLivingTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoLivingFalse)
+    };
+    if game.meta_data.options.auto_buy_item {
+        game.register_input(AutoSettingTypes::AutoBuyItemTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoBuyItemFalse)
+    };
+    if game.meta_data.options.auto_buy_tomb {
+        game.register_input(AutoSettingTypes::AutoBuyTombTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoBuyTombFalse)
+    };
 }
 
 #[wasm_bindgen]
 pub fn do_rebirth_replay() {
-    let mut game = GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     if !game.state.life_stats.dead {
         return;
     }
-    game.state.rebirth_stats.rebirth_count += 1;
-    game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
-    game.input = Input::new(&game.state, &game.world);
+    do_rebirth_internal(game);
     game.state.life_stats.replaying = true;
     info!("Rust did rebirth replay");
 }
@@ -125,6 +159,11 @@ pub fn set_auto_work(val: bool) {
 }
 
 pub fn set_auto_work_internal(val: bool, game: &mut Game) {
+    if val {
+        game.register_input(AutoSettingTypes::AutoWorkTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoWorkFalse)
+    };
     game.meta_data.options.auto_work = val;
 }
 
@@ -135,6 +174,11 @@ pub fn set_auto_living(val: bool) {
 }
 
 pub fn set_auto_living_internal(val: bool, game: &mut Game) {
+    if val {
+        game.register_input(AutoSettingTypes::AutoLivingTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoLivingFalse)
+    };
     game.meta_data.options.auto_living = val;
 }
 
@@ -145,6 +189,11 @@ pub fn set_auto_buy_item(val: bool) {
 }
 
 pub fn set_auto_buy_item_internal(val: bool, game: &mut Game) {
+    if val {
+        game.register_input(AutoSettingTypes::AutoBuyItemTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoBuyItemFalse)
+    };
     game.meta_data.options.auto_buy_item = val;
 }
 
@@ -155,6 +204,11 @@ pub fn set_auto_buy_tomb(val: bool) {
 }
 
 pub fn set_auto_buy_tomb_internal(val: bool, game: &mut Game) {
+    if val {
+        game.register_input(AutoSettingTypes::AutoBuyTombTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoBuyTombFalse)
+    };
     game.meta_data.options.auto_buy_tomb = val;
 }
 

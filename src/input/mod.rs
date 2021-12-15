@@ -17,7 +17,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{state::state_container::StateContainer, world_content::world::World};
 
-#[derive(Serialize, Deserialize, Clone, Copy)]
+#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Input {
     pub work: WorkTypes,
     pub housing: HousingTypes,

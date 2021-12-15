@@ -9,11 +9,12 @@ use crate::input::options::AutoSettingTypes;
 use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
 use crate::input::Recordable;
-use crate::set_auto_work_internal;
 use crate::{
     buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
-    set_housing_internal, set_work_internal,
+    set_auto_buy_item_internal, set_auto_buy_tomb_internal, set_housing_internal,
+    set_work_internal,
 };
+use crate::{set_auto_living_internal, set_auto_work_internal};
 // use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use strum::IntoEnumIterator;
@@ -34,12 +35,58 @@ impl Default for InputMapping {
         let mut mapping = InputMapping {
             user_function: HashMap::new(),
         };
-        mapping.add(
-            AutoSettingTypes::AutoWorkTrue,
-            Box::new(move |game: &mut Game| {
-                set_auto_work_internal(true, game);
-            }),
-        );
+        for auto_setting in AutoSettingTypes::iter() {
+            match auto_setting {
+                AutoSettingTypes::AutoWorkTrue => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_work_internal(true, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoWorkFalse => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_work_internal(false, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoLivingTrue => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_living_internal(true, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoLivingFalse => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_living_internal(false, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoBuyItemTrue => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_buy_item_internal(true, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoBuyItemFalse => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_buy_item_internal(false, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoBuyTombTrue => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_buy_tomb_internal(true, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoBuyTombFalse => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_buy_tomb_internal(false, game);
+                    }),
+                ),
+            }
+        }
         for blessing in BlessingTypes::iter() {
             mapping.add(
                 blessing,

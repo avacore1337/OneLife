@@ -13,7 +13,8 @@ pub struct Game {
     pub state: StateContainer,
     pub intermediate_state: IntermediateState,
     pub meta_data: MetaData,
-    pub inputs: BTreeMap<u32, String>,
+    pub inputs: BTreeMap<u32, Vec<String>>,
+    pub previous_inputs: BTreeMap<u32, Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -21,7 +22,8 @@ pub struct GameSave {
     pub input: Input,
     pub state: StateContainer,
     pub meta_data: MetaData,
-    pub inputs: BTreeMap<u32, String>,
+    pub inputs: BTreeMap<u32, Vec<String>>,
+    pub previous_inputs: BTreeMap<u32, Vec<String>>,
 }
 
 impl From<&Game> for GameSave {
@@ -31,6 +33,7 @@ impl From<&Game> for GameSave {
             state: game.state.clone(),
             meta_data: game.meta_data.clone(),
             inputs: game.inputs.clone(),
+            previous_inputs: game.inputs.clone(),
         }
     }
 }
@@ -43,6 +46,7 @@ impl Game {
         let intermediate_state = IntermediateState::new();
         let meta_data = MetaData::new();
         let inputs = BTreeMap::new();
+        let previous_inputs = BTreeMap::new();
         Game {
             world,
             state,
@@ -50,20 +54,28 @@ impl Game {
             intermediate_state,
             meta_data,
             inputs,
+            previous_inputs,
         }
     }
 
     pub fn register_input<T: Recordable>(&mut self, key: T) {
         let tick = self.state.life_stats.current_tick;
-        self.inputs.insert(tick, key.to_record_key());
+        self.inputs
+            .entry(tick)
+            .or_default()
+            .push(key.to_record_key());
     }
 
     pub fn replay_input(&mut self) {
         let tick = self.state.life_stats.current_tick;
-        if let Some(name) = self.inputs.get(&tick) {
-            let input_mapping = InputMapping::default();
-            if let Some(function) = input_mapping.user_function.get(name) {
-                function(self);
+        // log::info!("{:?}", tick);
+        if let Some(names) = self.previous_inputs.get(&tick) {
+            log::info!("{:?}", names);
+            for name in names.clone().iter() {
+                let input_mapping = InputMapping::default();
+                if let Some(function) = input_mapping.user_function.get(name) {
+                    function(self);
+                }
             }
         }
     }
