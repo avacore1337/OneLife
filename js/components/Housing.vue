@@ -1,28 +1,27 @@
 <template>
-  <div class="housing">
-    <h3>Housing</h3>
-    <table>
-      <tr
-        v-for="(housing, index) in world.housing"
-        v-if="state.housing[index].is_visible"
-        v-on:click="set_housing(housing.name)"
-        :key="housing.name"
-      >
-        <td>
-          <p>
-            <span v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }} </span>
-            <br />
-            Cost: {{ housing.upkeep }}/s
-          </p>
-        </td>
-      </tr>
-    </table>
-  </div>
+  <Section title="Housing">
+    <tr
+      v-for="housing in world.housing.filter((_, index) => state.housing[index].is_visible)"
+      v-on:click="set_housing(housing.name)"
+      :key="housing.name"
+    >
+      <td>
+        <p>
+          <span v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }} </span>
+          <br />
+          Cost: {{ housing.upkeep }}/s
+        </p>
+      </td>
+    </tr>
+  </Section>
 </template>
 
 <script>
+import Section from "./Section.vue";
+
 export default {
   props: ["state", "world", "input", "wasm"],
+  components: { Section },
   methods: {
     set_housing: function (housing_name) {
       this.wasm.set_housing(housing_name);
@@ -31,52 +30,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.housing {
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 2rem 1rem 1rem 2rem;
-  background-color: #333c4a;
-  border-radius: 3rem 3rem 0 0;
-  border-top: 0.4rem solid #1a202b;
-  border-left: 0.4rem solid #1a202b;
-  border-right: 0.4rem solid #1a202b;
-}
-
-table {
-  width: 100%;
-  height: 100%;
-}
-
-tr {
-  height: 4rem;
-}
-
-tr:not(:last-child) {
-  border-top: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-}
-
-tr:hover {
-  cursor: pointer;
-}
-
-tr > td:first-child {
-  width: 30%;
-}
-
-tr > td:not(:first-child) {
-  width: 70%;
-}
-
-tr.disabled {
-  cursor: inherit;
-  background-color: #84878a;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-span.selected {
-  text-decoration: underline;
-  font-weight: bold;
-}
-</style>
+<style scoped></style>

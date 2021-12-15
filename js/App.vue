@@ -85,7 +85,6 @@ import RebirthUpgrades from "./components/RebirthUpgrades.vue";
 
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
-import { downloadFile } from "./utility.js";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -213,14 +212,6 @@ export default {
 body {
   background-color: #232c3a;
   color: white;
-}
-
-.notransition > div.progress-bar {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -o-transition: none !important;
-  -ms-transition: none !important;
-  transition: none !important;
 }
 
 span.the-modal {

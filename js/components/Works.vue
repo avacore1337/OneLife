@@ -1,68 +1,65 @@
 <template>
-  <div class="works">
-    <div>
-      <h3>Labour</h3>
-      <table>
-        <tr
-          v-for="(work, index) in world.works"
-          v-if="state.works[index].is_visible && work.main_stat == 'Con'"
-          v-on:click="state.works[index].is_unlocked && set_work(work.name)"
-          v-bind:class="{ disabled: !state.works[index].is_unlocked }"
-          :key="work.name"
-        >
-          <td>
-            <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
-          </td>
-          <td>
-            <p>
-              Level: {{ state.works[index].level }} Reached level:
-              {{ state.rebirth_stats.max_job_levels[index] }} Income
-              {{ state.works[index].effective_income.toFixed(1) }}/s
-              <b-progress
-                class="notransition w-75"
-                :value="state.works[index].next_level_percentage.toFixed(2)"
-                animated
-              ></b-progress>
-            </p>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div v-if="state.rebirth_stats.class_tier >= 2">
-      <br />
-      <h3>Soldiering</h3>
-      <table>
-        <tr
-          v-for="(work, index) in world.works"
-          v-if="state.works[index].is_visible && work.main_stat == 'Str'"
-          v-on:click="state.works[index].is_unlocked && set_work(work.name)"
-          v-bind:class="{ disabled: !state.works[index].is_unlocked }"
-          :key="work.name"
-        >
-          <td>
-            <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
-          </td>
-          <td>
-            <p>
-              Level: {{ state.works[index].level }} Reached level:
-              {{ state.rebirth_stats.max_job_levels[index] }} Income
-              {{ state.works[index].effective_income.toFixed(1) }}/s
-              <b-progress
-                class="notransition w-75"
-                :value="state.works[index].next_level_percentage.toFixed(2)"
-                animated
-              ></b-progress>
-            </p>
-          </td>
-        </tr>
-      </table>
-    </div>
+  <div>
+    <Section title="Labour">
+      <tr
+        v-for="(work, index) in world.works.filter(
+          (work, index) => state.works[index].is_visible && work.main_stat == 'Con'
+        )"
+        v-on:click="state.works[index].is_unlocked && set_work(work.name)"
+        v-bind:class="{ disabled: !state.works[index].is_unlocked }"
+        :key="work.name"
+      >
+        <td>
+          <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
+        </td>
+        <td>
+          <p>
+            Level: {{ state.works[index].level }} Reached level: {{ state.rebirth_stats.max_job_levels[index] }} Income
+            {{ state.works[index].effective_income.toFixed(1) }}/s
+            <b-progress
+              class="notransition w-75"
+              :value="state.works[index].next_level_percentage.toFixed(2)"
+              animated
+            ></b-progress>
+          </p>
+        </td>
+      </tr>
+    </Section>
+    <Section title="Soldiering" v-if="state.rebirth_stats.class_tier >= 2">
+      <tr
+        v-for="(work, index) in world.works.filter(
+          (work, index) => state.works[index].is_visible && work.main_stat == 'Str'
+        )"
+        v-on:click="state.works[index].is_unlocked && set_work(work.name)"
+        v-bind:class="{ disabled: !state.works[index].is_unlocked }"
+        :key="work.name"
+      >
+        <td>
+          <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
+        </td>
+        <td>
+          <p>
+            Level: {{ state.works[index].level }} Reached level: {{ state.rebirth_stats.max_job_levels[index] }} Income
+            {{ state.works[index].effective_income.toFixed(1) }}/s
+            <b-progress
+              class="notransition w-75"
+              :value="state.works[index].next_level_percentage.toFixed(2)"
+              animated
+            ></b-progress>
+          </p>
+        </td>
+      </tr>
+    </Section>
   </div>
 </template>
 
 <script>
+import ProgressBar from "./ProgressBar.vue";
+import Section from "./Section.vue";
+
 export default {
   props: ["state", "world", "input", "wasm"],
+  components: { ProgressBar, Section },
   methods: {
     set_work: function (work_name) {
       this.wasm.set_work(work_name);
@@ -71,52 +68,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.works {
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 2rem 1rem 1rem 2rem;
-  background-color: #333c4a;
-  border-radius: 3rem 3rem 0 0;
-  border-top: 0.4rem solid #1a202b;
-  border-left: 0.4rem solid #1a202b;
-  border-right: 0.4rem solid #1a202b;
-}
-
-table {
-  width: 100%;
-  height: 100%;
-}
-
-tr {
-  height: 4rem;
-}
-
-tr:not(:last-child) {
-  border-top: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-}
-
-tr:hover {
-  cursor: pointer;
-}
-
-tr > td:first-child {
-  width: 30%;
-}
-
-tr > td:not(:first-child) {
-  width: 70%;
-}
-
-tr.disabled {
-  cursor: inherit;
-  background-color: #84878a;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-p.selected {
-  text-decoration: underline;
-  font-weight: bold;
-}
-</style>
+<style scoped></style>
