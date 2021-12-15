@@ -10,19 +10,19 @@
     </button>
     <br />
     <button v-on:click="toggle_auto_work" style="margin: 2px">
-      {{ !input.options.auto_work ? "Auto Work" : "Don't Auto Work" }}
+      {{ !metaData.options.auto_work ? "Auto Work" : "Don't Auto Work" }}
     </button>
     <br />
     <button v-on:click="toggle_auto_living" style="margin: 2px">
-      {{ !input.options.auto_living ? "Auto Living" : "Don't Auto Living" }}
+      {{ !metaData.options.auto_living ? "Auto Living" : "Don't Auto Living" }}
     </button>
     <br />
     <button v-on:click="toggle_auto_buy_item" style="margin: 2px">
-      {{ !input.options.auto_buy_item ? "Auto Buy Item" : "Don't Auto Buy Item" }}
+      {{ !metaData.options.auto_buy_item ? "Auto Buy Item" : "Don't Auto Buy Item" }}
     </button>
     <br />
     <button v-on:click="toggle_auto_buy_tomb" style="margin: 2px">
-      {{ !input.options.auto_buy_tomb ? "Auto Buy Tomb" : "Don't Auto Buy Tomb" }}
+      {{ !metaData.options.auto_buy_tomb ? "Auto Buy Tomb" : "Don't Auto Buy Tomb" }}
     </button>
     <br />
     <button v-on:click="enable_tutorial">Enable Tutorial</button>
@@ -83,16 +83,16 @@ export default {
       this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks);
     },
     toggle_auto_work: function () {
-      this.wasm.set_auto_work(!this.input.options.auto_work);
+      this.wasm.set_auto_work(!this.metaData.options.auto_work);
     },
     toggle_auto_living: function () {
-      this.wasm.set_auto_living(!this.input.options.auto_living);
+      this.wasm.set_auto_living(!this.metaData.options.auto_living);
     },
     toggle_auto_buy_item: function () {
-      this.wasm.set_auto_buy_item(!this.input.options.auto_buy_item);
+      this.wasm.set_auto_buy_item(!this.metaData.options.auto_buy_item);
     },
     toggle_auto_buy_tomb: function () {
-      this.wasm.set_auto_buy_tomb(!this.input.options.auto_buy_tomb);
+      this.wasm.set_auto_buy_tomb(!this.metaData.options.auto_buy_tomb);
     },
     print_debug_state: function () {
       this.wasm.print_debug_state();

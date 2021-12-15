@@ -80,16 +80,16 @@ fn internal_run(game: &mut Game) {
 }
 
 fn auto_input_update(game: &mut Game) {
-    if game.input.options.auto_work {
+    if game.meta_data.options.auto_work {
         auto_work(game);
     }
-    if game.input.options.auto_living {
+    if game.meta_data.options.auto_living {
         auto_living(game);
     }
-    if game.input.options.auto_buy_item {
+    if game.meta_data.options.auto_buy_item {
         auto_buy_item(game);
     }
-    if game.input.options.auto_buy_tomb {
+    if game.meta_data.options.auto_buy_tomb {
         auto_buy_tomb(game);
     }
 }

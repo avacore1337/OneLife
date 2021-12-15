@@ -1,4 +1,5 @@
 use crate::info::Info;
+use crate::input::options::Options;
 use js_sys::Date;
 use serde::{Deserialize, Serialize};
 
@@ -11,6 +12,7 @@ pub struct MetaData {
     pub saved_ticks: f64,
     pub info: Info,
     pub use_saved_ticks: bool,
+    pub options: Options,
 }
 
 impl MetaData {
@@ -23,6 +25,7 @@ impl MetaData {
             saved_ticks: 0.0,
             info: Info::new(),
             use_saved_ticks: false,
+            options: Options::default(),
         }
     }
 

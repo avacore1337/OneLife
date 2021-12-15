@@ -10,10 +10,10 @@ use one_life::state::state_container::rebirth;
 use wasm_bindgen_test::wasm_bindgen_test;
 
 fn set_full_auto(game: &mut Game) {
-    game.input.options.auto_work = true;
-    game.input.options.auto_living = true;
-    game.input.options.auto_buy_item = true;
-    game.input.options.auto_buy_tomb = true;
+    game.meta_data.options.auto_work = true;
+    game.meta_data.options.auto_living = true;
+    game.meta_data.options.auto_buy_item = true;
+    game.meta_data.options.auto_buy_tomb = true;
 }
 
 fn run_until_dead(game: &mut Game) {
@@ -34,7 +34,7 @@ fn do_rebirth(game: &mut Game) {
 fn test_auto_buy_tomb() {
     let mut game = Game::new();
     game.state.items.money = game.world.tombs[TombTypes::ShallowGrave as usize].purchasing_cost;
-    game.input.options.auto_buy_tomb = true;
+    game.meta_data.options.auto_buy_tomb = true;
     engine_run(&mut game);
     character_death_update(&mut game);
     assert_eq!(game.state.rebirth_stats.coins, 2.0);

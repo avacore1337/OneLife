@@ -11,7 +11,6 @@ pub mod work;
 
 use activity::ActivityTypes;
 use housing::HousingTypes;
-use options::Options;
 use work::WorkTypes;
 
 use serde::{Deserialize, Serialize};
@@ -23,7 +22,6 @@ pub struct Input {
     pub work: WorkTypes,
     pub housing: HousingTypes,
     pub activity: ActivityTypes,
-    pub options: Options,
 }
 
 impl Input {
@@ -32,7 +30,6 @@ impl Input {
             work: world.tiers[state.rebirth_stats.class_tier as usize].starting_work,
             housing: HousingTypes::StoneFloor,
             activity: ActivityTypes::Run,
-            options: Options::default(),
         }
     }
 }
