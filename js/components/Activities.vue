@@ -1,5 +1,5 @@
 <template>
-  <Section title="Activity">
+  <Section title="Activity" v-if="world.activities !== undefined">
     <table>
       <tr
         v-for="{ activity, index } in world.activities

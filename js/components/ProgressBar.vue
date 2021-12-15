@@ -1,5 +1,10 @@
 <template>
-  <b-progress class="notransition w-75" :value="value.toFixed(decimalPoints)" animated></b-progress>
+  <b-progress
+    v-if="value !== undefined"
+    class="notransition w-75"
+    :value="value.toFixed(decimalPoints)"
+    animated
+  ></b-progress>
 </template>
 
 <script>
