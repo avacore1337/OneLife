@@ -12,6 +12,7 @@ pub struct Unlocks {
     pub can_auto_buy_tomb: bool,
     pub can_replay: bool,
     pub has_faith: bool,
+    pub has_skills: bool,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

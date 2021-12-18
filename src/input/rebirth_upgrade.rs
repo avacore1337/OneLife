@@ -5,6 +5,7 @@ use strum::EnumIter;
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum RebirthUpgradeTypes {
     AcceptingDeath,
+    Skills,
     StartingItems1,
     StatMemory1,
     EndItEarly,

@@ -2,9 +2,21 @@ use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::work::WorkTypes;
 use crate::input::Input;
 use crate::meta::MetaData;
+use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::{new_game, rebirth, StateContainer};
+use crate::world_content::rebirth_upgrade::translate_rebirth_upgrade;
 use crate::world_content::world::World;
 use std::collections::BTreeMap;
+
+fn get_all_upgrades_up_to_current_tier(rebirth_stats: &mut RebirthStats) {
+    let tier = rebirth_stats.class_tier;
+    for upgrade in rebirth_stats.rebirth_upgrades.iter_mut() {
+        let upgrade_world = translate_rebirth_upgrade(upgrade.name);
+        if upgrade_world.required_tier < tier {
+            upgrade.is_purchased = true;
+        }
+    }
+}
 
 pub fn get_presets(world: &World) -> BTreeMap<&'static str, (StateContainer, Input, MetaData)> {
     let mut presets = BTreeMap::new();
@@ -43,6 +55,7 @@ fn make_t2(world: &World) -> (StateContainer, Input, MetaData) {
     let meta_data = MetaData::new();
     let r = &mut state.rebirth_stats;
     r.class_tier = 2;
+    get_all_upgrades_up_to_current_tier(r);
     r.coins = 8.0;
     r.rebirth_count = 8;
 
@@ -63,6 +76,7 @@ fn make_t3(world: &World) -> (StateContainer, Input, MetaData) {
     let meta_data = MetaData::new();
     let r = &mut state.rebirth_stats;
     r.class_tier = 3;
+    get_all_upgrades_up_to_current_tier(r);
     r.coins = 100.0;
     r.rebirth_count = 16;
     r.max_job_levels[WorkTypes::Fields as usize] = 50;
@@ -83,6 +97,7 @@ fn make_t5_faith(world: &World) -> (StateContainer, Input, MetaData) {
     let meta_data = MetaData::new();
     let r = &mut state.rebirth_stats;
     r.class_tier = 5;
+    get_all_upgrades_up_to_current_tier(r);
     r.coins = 8000.0;
     r.rebirth_count = 32;
     r.max_job_levels[WorkTypes::Fields as usize] = 80;

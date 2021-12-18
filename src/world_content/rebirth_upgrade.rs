@@ -31,6 +31,9 @@ pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: Rebir
 
 pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
     match rebirth_upgrade {
+        RebirthUpgradeTypes::Skills => {
+            unlocks.has_skills = true;
+        }
         RebirthUpgradeTypes::EndItEarly => {
             unlocks.can_end_early = true;
         }
@@ -75,6 +78,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Accepting Death",
             required_tier: 1,
         },
+        RebirthUpgradeTypes::Skills => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 4.0,
+            description: "You can be good at things now",
+            display_name: "Skills",
+            required_tier: 1,
+        },
         RebirthUpgradeTypes::StatMemory1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 60.0,
@@ -108,21 +118,21 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 12.0,
             description: "If you can affort it, why not?",
             display_name: "Automate Housing Progression",
-            required_tier: 1,
+            required_tier: 2,
         },
         RebirthUpgradeTypes::AutoBuyItem => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 60.0,
             description: "Consumerism!",
             display_name: "Automate Buying of Items",
-            required_tier: 2,
+            required_tier: 3,
         },
         RebirthUpgradeTypes::AutoBuyTomb => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 160.0,
             description: "Put some more thought into it!",
             display_name: "Automate Buying of Tombs",
-            required_tier: 3,
+            required_tier: 4,
         },
         RebirthUpgradeTypes::Replay => RebirthUpgrade {
             name: rebirth_upgrade,

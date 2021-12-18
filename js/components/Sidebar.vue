@@ -2,7 +2,7 @@
   <div style="border: solid; margin: 2px">
     <BaseStats v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
     <Skills
-      v-if="state.rebirth_stats.class_tier >= 2"
+      v-if="state.rebirth_stats.unlocks.has_skills"
       v-bind:state="state"
       v-bind:input="input"
       v-bind:world="world"

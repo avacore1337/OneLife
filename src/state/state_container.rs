@@ -11,12 +11,14 @@ use super::work::{get_works, Work};
 use crate::input::activity::ACTIVITY_SIZE;
 use crate::input::blessing::BLESSING_SIZE;
 use crate::input::housing::HOUSING_SIZE;
+use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::skill::SKILL_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::WORK_SIZE;
 use crate::world_content::rebirth_upgrade::apply_starting_upgrade;
 use crate::world_content::world::World;
+use strum::IntoEnumIterator;
 
 use serde::{Deserialize, Serialize};
 
@@ -57,9 +59,9 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
         blessings: get_blessings(),
         skills: get_skills(),
     };
-    for upgrade in state.rebirth_stats.rebirth_upgrades {
-        if upgrade.is_purchased {
-            apply_starting_upgrade(&mut state, upgrade.name);
+    for upgrade_type in RebirthUpgradeTypes::iter() {
+        if state.rebirth_stats.rebirth_upgrades[upgrade_type as usize].is_purchased {
+            apply_starting_upgrade(&mut state, upgrade_type);
         }
     }
     state

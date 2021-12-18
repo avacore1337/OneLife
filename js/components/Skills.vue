@@ -8,7 +8,9 @@
           .filter(({ skill, index }) => state.skills[index].is_visible)"
         :key="skill.name"
       >
-        <p>{{ skill.display_name }}: {{ state.skills[index].level }} xp rate: {{ state.skills[index].xp_rate }}</p>
+        <p>
+          {{ skill.skill.display_name }}: {{ state.skills[index].level }} xp rate: {{ state.skills[index].xp_rate }}
+        </p>
         <ProgressBar :value="state.skills[index].next_level_percentage" :decimalPoints="2"> </ProgressBar>
         <br />
       </div>
