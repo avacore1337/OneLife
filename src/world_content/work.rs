@@ -115,6 +115,33 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             main_stat: StatTypes::Con,
             xp_req_modifier: 128.0,
         },
+        WorkTypes::BlacksmithApprentice => Work {
+            name: work,
+            money: 60.0,
+            description: "Hope to become muscular",
+            display_name: "Blacksmith Apprentice",
+            required_tier: 2,
+            main_stat: StatTypes::Con,
+            xp_req_modifier: 512.0,
+        },
+        WorkTypes::Blacksmith => Work {
+            name: work,
+            money: 90.0,
+            description: "Hammer time",
+            display_name: "Blacksmith",
+            required_tier: 2,
+            main_stat: StatTypes::Con,
+            xp_req_modifier: 2048.0,
+        },
+        WorkTypes::Trader => Work {
+            name: work,
+            money: 150.0,
+            description: "Sell low, Buy when high",
+            display_name: "Trader",
+            required_tier: 2,
+            main_stat: StatTypes::Con,
+            xp_req_modifier: 4_000.0,
+        },
         // ------------------Soldiers ---------------------
         WorkTypes::BagageBoy => Work {
             name: work,
@@ -211,6 +238,11 @@ pub fn should_unlock_work(input_work: WorkTypes, game: &Game) -> bool {
         }
         WorkTypes::Fisherman => game.state.works[WorkTypes::Weaver as usize].level >= 10,
         WorkTypes::Farmer => game.state.works[WorkTypes::Fisherman as usize].level >= 10,
+        WorkTypes::BlacksmithApprentice => game.state.works[WorkTypes::Farmer as usize].level >= 10,
+        WorkTypes::Blacksmith => {
+            game.state.works[WorkTypes::BlacksmithApprentice as usize].level >= 10
+        }
+        WorkTypes::Trader => game.state.works[WorkTypes::Trader as usize].level >= 10,
         WorkTypes::BagageBoy => true,
         WorkTypes::Slinger => game.state.works[WorkTypes::BagageBoy as usize].level >= 10,
         WorkTypes::Peltasts => game.state.works[WorkTypes::Slinger as usize].level >= 10,

@@ -15,6 +15,9 @@ pub enum WorkTypes {
     Weaver,
     Fisherman,
     Farmer,
+    BlacksmithApprentice,
+    Blacksmith,
+    Trader,
     // Army Types
     BagageBoy,
     Slinger,
