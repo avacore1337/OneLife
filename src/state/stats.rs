@@ -13,7 +13,7 @@ pub struct BaseStats {
     pub faith: f64,
 }
 
-#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Stat {
     pub name: StatTypes,
     pub level: f64,

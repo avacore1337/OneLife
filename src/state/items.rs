@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
-#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct BoostItem {
     pub name: BoostItemTypes,
     pub is_purchased: bool,

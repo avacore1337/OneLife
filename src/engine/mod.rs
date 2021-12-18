@@ -194,7 +194,7 @@ fn apply_housing(game: &mut Game) {
 }
 
 fn apply_items(game: &mut Game) {
-    for item in game.state.items.boost_items {
+    for item in game.state.items.boost_items.clone() {
         if item.is_purchased {
             let boost_item = translate_boost_item(item.name);
             game.intermediate_state.get_gains(&boost_item);
