@@ -4,11 +4,9 @@
       <h4>Labour</h4>
       <table>
         <tr
-          v-for="{ work, index } in world.works
-            .map((work, index) => ({ work, index }))
-            .filter(({ work, index }) => state.works[index].is_visible && work.main_stat === 'Con')"
-          v-on:click="state.works[index].is_unlocked && set_work(work.name)"
-          v-bind:class="{ disabled: !state.works[index].is_unlocked }"
+          v-for="[work, work_state, max_job_levels] in visible_labour_work"
+          v-on:click="work_state.is_unlocked && set_work(work.name)"
+          v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
         >
           <td>
@@ -16,10 +14,9 @@
           </td>
           <td>
             <p>
-              Level: {{ state.works[index].level }} Reached level:
-              {{ state.rebirth_stats.max_job_levels[index] }} Income
-              {{ state.works[index].effective_income.toFixed(1) }}/s
-              <ProgressBar :value="state.works[index].next_level_percentage" :decimalPoints="2" />
+              Level: {{ work_state.level }} Reached level: {{ max_job_levels }} Income
+              {{ work_state.effective_income.toFixed(1) }}/s
+              <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
             </p>
           </td>
         </tr>
@@ -28,11 +25,9 @@
         <br />
         <h4>Soldiering</h4>
         <tr
-          v-for="{ work, index } in world.works
-            .map((work, index) => ({ work, index }))
-            .filter(({ work, index }) => state.works[index].is_visible && work.main_stat === 'Str')"
-          v-on:click="state.works[index].is_unlocked && set_work(work.name)"
-          v-bind:class="{ disabled: !state.works[index].is_unlocked }"
+          v-for="[work, work_state, max_job_levels] in visible_solder_work"
+          v-on:click="work_state.is_unlocked && set_work(work.name)"
+          v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
         >
           <td>
@@ -40,10 +35,9 @@
           </td>
           <td>
             <p>
-              Level: {{ state.works[index].level }} Reached level:
-              {{ state.rebirth_stats.max_job_levels[index] }} Income
-              {{ state.works[index].effective_income.toFixed(1) }}/s
-              <ProgressBar :value="state.works[index].next_level_percentage" :decimalPoints="2" />
+              Level: {{ work_state.level }} Reached level: {{ max_job_levels }} Income
+              {{ work_state.effective_income.toFixed(1) }}/s
+              <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
             </p>
           </td>
         </tr>
@@ -59,6 +53,28 @@ import Section from "./Section.vue";
 export default {
   props: ["state", "world", "input", "wasm"],
   components: { ProgressBar, Section },
+  computed: {
+    visible_labour_work: function () {
+      let self = this;
+      return self.world.works
+        .map((w, i) => {
+          return [w, self.state.works[i], self.state.rebirth_stats.max_job_levels[i]];
+        })
+        .filter(([w, s, m]) => {
+          return s.is_visible && w.main_stat === "Con";
+        });
+    },
+    visible_solder_work: function () {
+      let self = this;
+      return self.world.works
+        .map((w, i) => {
+          return [w, self.state.works[i], self.state.rebirth_stats.max_job_levels[i]];
+        })
+        .filter(([w, s, m]) => {
+          return s.is_visible && w.main_stat === "Str";
+        });
+    },
+  },
   methods: {
     set_work: function (work_name) {
       this.wasm.set_work(work_name);

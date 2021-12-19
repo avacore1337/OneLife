@@ -117,55 +117,55 @@ pub const fn translate_work(work: WorkTypes) -> Work {
         },
         WorkTypes::Woodcutter => Work {
             name: work,
-            money: 40.0,
+            money: 60.0,
             description: "Hard labor for a free man",
             display_name: "Woodcutter",
             required_tier: 2,
             main_stat: StatTypes::Con,
-            xp_req_modifier: 128.0,
+            xp_req_modifier: 256.0,
         },
         WorkTypes::LeatherWorker => Work {
             name: work,
-            money: 40.0,
+            money: 80.0,
             description: "Hard labor for a free man",
             display_name: "LeatherWorker",
-            required_tier: 2,
+            required_tier: 3,
             main_stat: StatTypes::Con,
-            xp_req_modifier: 128.0,
+            xp_req_modifier: 512.0,
         },
         WorkTypes::Potter => Work {
             name: work,
-            money: 40.0,
+            money: 120.0,
             description: "Hard labor for a free man",
             display_name: "Potter",
-            required_tier: 2,
+            required_tier: 3,
             main_stat: StatTypes::Con,
-            xp_req_modifier: 128.0,
+            xp_req_modifier: 2.0e3,
         },
         WorkTypes::Carpenter => Work {
             name: work,
-            money: 40.0,
+            money: 240.0,
             description: "Hard labor for a free man",
             display_name: "Carpenter",
-            required_tier: 2,
+            required_tier: 4,
             main_stat: StatTypes::Con,
-            xp_req_modifier: 128.0,
+            xp_req_modifier: 8.0e3,
         },
         WorkTypes::BlacksmithApprentice => Work {
             name: work,
-            money: 60.0,
+            money: 400.0,
             description: "Hope to become muscular",
             display_name: "Blacksmith Apprentice",
-            required_tier: 2,
+            required_tier: 4,
             main_stat: StatTypes::Con,
-            xp_req_modifier: 512.0,
+            xp_req_modifier: 32.0e3,
         },
         WorkTypes::Blacksmith => Work {
             name: work,
             money: 90.0,
             description: "Hammer time",
             display_name: "Blacksmith",
-            required_tier: 2,
+            required_tier: 5,
             main_stat: StatTypes::Con,
             xp_req_modifier: 2048.0,
         },
@@ -174,7 +174,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             money: 90.0,
             description: "Hammer time",
             display_name: "Goldsmith",
-            required_tier: 2,
+            required_tier: 5,
             main_stat: StatTypes::Con,
             xp_req_modifier: 2048.0,
         },
@@ -183,7 +183,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             money: 90.0,
             description: "Hammer time",
             display_name: "Glassblower",
-            required_tier: 2,
+            required_tier: 6,
             main_stat: StatTypes::Con,
             xp_req_modifier: 2048.0,
         },
@@ -192,7 +192,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             money: 90.0,
             description: "Hammer time",
             display_name: "Weaponsmith",
-            required_tier: 2,
+            required_tier: 6,
             main_stat: StatTypes::Con,
             xp_req_modifier: 2048.0,
         },
@@ -297,10 +297,13 @@ pub fn should_unlock_work(work_type: WorkTypes, game: &Game) -> bool {
                 || game.state.rebirth_stats.class_tier >= 4
         }
         WorkTypes::Weaver => {
-            game.state.works[work_type as usize].level >= 10
+            game.state.works[work_type as usize - 1].level >= 10
                 || game.state.rebirth_stats.class_tier >= 5
         }
-        WorkTypes::Fisherman => game.state.works[work_type as usize - 1].level >= 10,
+        WorkTypes::Fisherman => {
+            game.state.works[work_type as usize - 1].level >= 10
+                || game.state.rebirth_stats.class_tier >= 6
+        }
         WorkTypes::Farmer => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::Woodcutter => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::LeatherWorker => game.state.works[work_type as usize - 1].level >= 10,

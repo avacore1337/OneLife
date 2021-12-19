@@ -2,7 +2,7 @@
   <Section title="Housing">
     <table>
       <tr
-        v-for="housing in world.housing.filter((_, index) => state.housing[index].is_visible)"
+        v-for="[housing, housing_state] in visible_housing"
         v-on:click="set_housing(housing.name)"
         :key="housing.name"
       >
@@ -27,6 +27,18 @@ export default {
   methods: {
     set_housing: function (housing_name) {
       this.wasm.set_housing(housing_name);
+    },
+  },
+  computed: {
+    visible_housing: function () {
+      let self = this;
+      return self.world.housing
+        .map((w, i) => {
+          return [w, self.state.housing[i]];
+        })
+        .filter(([w, s]) => {
+          return s.is_visible;
+        });
     },
   },
 };

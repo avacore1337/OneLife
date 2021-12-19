@@ -3,18 +3,11 @@
     <span v-if="state.items.boost_items.some((item) => item.is_purchased)">
       <h4>Bought Items</h4>
       <table>
-        <tr
-          v-for="{ item } in world.boost_items
-            .map((item, index) => ({ item, index }))
-            .filter(
-              ({ item, index }) =>
-                state.items.boost_items[index].is_purchased && state.items.boost_items[index].is_visible
-            )"
-          :key="item.name"
-          style="height: 2rem"
-        >
+        <tr v-for="[item, item_state] in bought_items" :key="item.name" style="height: 2rem">
           <td>
-            <p>{{ item.display_name }}</p>
+            <span>{{ item.display_name }}</span>
+            <br />
+            <span>{{ item.effect_description }} </span>
           </td>
         </tr>
       </table>
@@ -23,19 +16,15 @@
     <h4>Buyable Items</h4>
     <table>
       <tr
-        v-for="{ item, index } in world.boost_items
-          .map((item, index) => ({ item, index }))
-          .filter(
-            ({ item, index }) =>
-              !state.items.boost_items[index].is_purchased && state.items.boost_items[index].is_visible
-          )"
-        v-bind:class="{ disabled: !state.items.boost_items[index].is_unlocked }"
+        v-for="[item, item_state] in visible_unbought_items"
+        v-bind:class="{ disabled: !item_state.is_unlocked }"
         :key="item.name"
       >
         <td v-on:click="buyItem(item.name)">
           <span>{{ item.display_name }} </span>
+          <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
           <br />
-          Cost: {{ item.purchasing_cost }} money
+          <span>{{ item.effect_description }} </span>
         </td>
       </tr>
     </table>
@@ -48,6 +37,28 @@ import Section from "./Section.vue";
 export default {
   props: ["state", "world", "input", "wasm"],
   components: { Section },
+  computed: {
+    visible_unbought_items: function () {
+      let self = this;
+      return self.world.boost_items
+        .map((w, i) => {
+          return [w, self.state.items.boost_items[i]];
+        })
+        .filter(([w, s]) => {
+          return s.is_visible && !s.is_purchased;
+        });
+    },
+    bought_items: function () {
+      let self = this;
+      return self.world.boost_items
+        .map((w, i) => {
+          return [w, self.state.items.boost_items[i]];
+        })
+        .filter(([w, s]) => {
+          return s.is_purchased;
+        });
+    },
+  },
   methods: {
     buyItem: function (item_name) {
       this.wasm.buy_item(item_name);

@@ -91,7 +91,7 @@ pub fn init_tiers() -> Vec<Tier> {
             }),
             starting_work: WorkTypes::GalleyRower,
             starting_health: 0.0,
-            purchasing_cost: 40.0,
+            purchasing_cost: 60.0,
         },
         Tier {
             level: 3,
@@ -148,7 +148,7 @@ pub fn init_tiers() -> Vec<Tier> {
                 dex: 0.0,
                 faith: 10.0,
             }),
-            starting_work: WorkTypes::Fisherman,
+            starting_work: WorkTypes::Weaver,
             starting_health: 0.2,
             purchasing_cost: 80_000.0,
         },
