@@ -31,9 +31,15 @@ pub enum KeyValues {
     Weaver,
     Fisherman,
     Farmer,
+    Woodcutter,
+    LeatherWorker,
+    Potter,
+    Carpenter,
     BlacksmithApprentice,
     Blacksmith,
-    Trader,
+    Goldsmith,
+    GlassBlower,
+    Weaponsmith,
     //Soldiers
     BagageBoy,
     Slinger,
@@ -43,6 +49,8 @@ pub enum KeyValues {
     Hypaspists,
     LightCavalery,
     //
+    // Trader,
+    // Merchant,
 }
 
 impl From<SkillTypes> for KeyValues {
@@ -78,9 +86,16 @@ impl From<WorkTypes> for KeyValues {
             WorkTypes::Weaver => KeyValues::Weaver,
             WorkTypes::Fisherman => KeyValues::Fisherman,
             WorkTypes::Farmer => KeyValues::Farmer,
+            WorkTypes::Woodcutter => KeyValues::Woodcutter,
+            WorkTypes::LeatherWorker => KeyValues::LeatherWorker,
+            WorkTypes::Potter => KeyValues::Potter,
+            WorkTypes::Carpenter => KeyValues::Carpenter,
             WorkTypes::BlacksmithApprentice => KeyValues::BlacksmithApprentice,
             WorkTypes::Blacksmith => KeyValues::Blacksmith,
-            WorkTypes::Trader => KeyValues::Trader,
+            WorkTypes::Goldsmith => KeyValues::Goldsmith,
+            WorkTypes::GlassBlower => KeyValues::GlassBlower,
+            WorkTypes::Weaponsmith => KeyValues::Weaponsmith,
+            // WorkTypes::Trader => KeyValues::Trader,
             WorkTypes::BagageBoy => KeyValues::BagageBoy,
             WorkTypes::Slinger => KeyValues::Slinger,
             WorkTypes::Peltasts => KeyValues::Peltasts,
