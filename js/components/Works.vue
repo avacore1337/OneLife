@@ -4,7 +4,7 @@
       <h4>Labour</h4>
       <table>
         <tr
-          v-for="[work, work_state, max_job_levels] in visible_labour_work"
+          v-for="[work, work_state] in visible_labour_work"
           v-on:click="work_state.is_unlocked && set_work(work.name)"
           v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
@@ -14,7 +14,7 @@
           </td>
           <td>
             <p>
-              Level: {{ work_state.level }} Reached level: {{ max_job_levels }} Income
+              Level: {{ work_state.level }} Reached level: {{ work_state.max_job_levels }} Income
               {{ work_state.effective_income.toFixed(1) }}/s
               <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
             </p>
@@ -25,7 +25,7 @@
         <br />
         <h4>Soldiering</h4>
         <tr
-          v-for="[work, work_state, max_job_levels] in visible_solder_work"
+          v-for="[work, work_state] in visible_solder_work"
           v-on:click="work_state.is_unlocked && set_work(work.name)"
           v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
@@ -35,7 +35,7 @@
           </td>
           <td>
             <p>
-              Level: {{ work_state.level }} Reached level: {{ max_job_levels }} Income
+              Level: {{ work_state.level }} Reached level: {{ work_state.max_job_levels }} Income
               {{ work_state.effective_income.toFixed(1) }}/s
               <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
             </p>
@@ -58,9 +58,9 @@ export default {
       let self = this;
       return self.world.works
         .map((w, i) => {
-          return [w, self.state.works[i], self.state.rebirth_stats.max_job_levels[i]];
+          return [w, self.state.works[i]];
         })
-        .filter(([w, s, m]) => {
+        .filter(([w, s]) => {
           return s.is_visible && w.main_stat === "Con";
         });
     },
@@ -68,9 +68,9 @@ export default {
       let self = this;
       return self.world.works
         .map((w, i) => {
-          return [w, self.state.works[i], self.state.rebirth_stats.max_job_levels[i]];
+          return [w, self.state.works[i]];
         })
-        .filter(([w, s, m]) => {
+        .filter(([w, s]) => {
           return s.is_visible && w.main_stat === "Str";
         });
     },

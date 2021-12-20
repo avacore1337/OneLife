@@ -13,6 +13,7 @@ pub struct Work {
     pub effective_income: f64,
     pub is_unlocked: bool,
     pub is_visible: bool,
+    pub max_job_levels: u32,
 }
 
 impl Work {
@@ -26,6 +27,7 @@ impl Work {
             effective_income: 0.0,
             is_unlocked: false,
             is_visible: true,
+            max_job_levels: 0,
         }
     }
 }

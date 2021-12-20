@@ -76,6 +76,8 @@ fn make_t1(world: &World) -> (StateContainer, Input, MetaData) {
 
     set_lower_tier_jobs_to(r, 20);
 
+    state = rebirth(world, state.rebirth_stats.clone());
+
     let input = Input::new(&state, world);
     (state, input, meta_data)
 }
@@ -90,6 +92,8 @@ fn make_t2(world: &World) -> (StateContainer, Input, MetaData) {
     r.rebirth_count = 8;
 
     set_lower_tier_jobs_to(r, 30);
+
+    state = rebirth(world, state.rebirth_stats.clone());
 
     let input = Input::new(&state, world);
     (state, input, meta_data)

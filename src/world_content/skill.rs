@@ -24,7 +24,7 @@ pub fn get_skills_gains(skill_type: SkillTypes, game: &mut Game) {
         SkillTypes::Mindfull => {
             game.intermediate_state.add_multiplier(
                 KeyValues::Happiness,
-                0.05 * skill_state.level,
+                0.05 * skill_state.level + 1.0,
                 "Mindfull",
             );
         }

@@ -52,6 +52,8 @@
     <button v-on:click="set_gamespeed(1000)">Set GameSpeed 1000</button>
     <br />
     <br />
+    <button v-on:click="print_frontend_debug_state">Print Frontend Debug State</button>
+    <br />
     <button v-on:click="print_debug_state">Print Debug State</button>
     <br />
     <button v-on:click="print_debug_meta">Print Debug Meta</button>
@@ -93,6 +95,9 @@ export default {
     },
     toggle_auto_buy_tomb: function () {
       this.wasm.set_auto_buy_tomb(!this.metaData.options.auto_buy_tomb);
+    },
+    print_frontend_debug_state: function () {
+      console.log(this.state);
     },
     print_debug_state: function () {
       this.wasm.print_debug_state();

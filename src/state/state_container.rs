@@ -15,7 +15,7 @@ use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::skill::SKILL_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
-use crate::input::work::WORK_SIZE;
+use crate::input::work::{WorkTypes, WORK_SIZE};
 use crate::world_content::rebirth_upgrade::apply_starting_upgrade;
 use crate::world_content::world::World;
 use strum::IntoEnumIterator;
@@ -64,6 +64,10 @@ pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
         if state.rebirth_stats.rebirth_upgrades[upgrade_type as usize].is_purchased {
             apply_starting_upgrade(&mut state, upgrade_type);
         }
+    }
+    for work_type in WorkTypes::iter() {
+        state.works[work_type as usize].max_job_levels =
+            state.rebirth_stats.max_job_levels[work_type as usize];
     }
     state
 }
