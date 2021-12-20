@@ -13,6 +13,7 @@ use crate::input::skill::SkillTypes;
 use crate::input::stat::StatTypes;
 use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
+use crate::state::skill::Skill;
 use crate::state::stats::Stat;
 use crate::state::work::Work as StateWork;
 use crate::world_content::activity::{
@@ -26,7 +27,7 @@ use crate::world_content::housing::translate_housing;
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade, unlock,
 };
-use crate::world_content::skill::should_be_visible_skill;
+use crate::world_content::skill::{get_skills_gains, should_be_visible_skill};
 use crate::world_content::stat::{get_stats_gains, should_be_visible_stat};
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
 use crate::world_content::work::{
@@ -64,6 +65,7 @@ fn internal_run(game: &mut Game) {
     apply_activities(game);
     apply_tombs(game);
     apply_stats(game);
+    apply_skills(game);
 
     apply_active_work(game);
 
@@ -72,6 +74,7 @@ fn internal_run(game: &mut Game) {
     do_work(game.input.work, game);
     gain_work_xp(game);
     gain_stat_xp(game);
+    gain_skill_xp(game);
 
     // update frontend read values
     update_rebirth_unlocks(game);
@@ -249,6 +252,12 @@ fn apply_stats(game: &mut Game) {
     }
 }
 
+fn apply_skills(game: &mut Game) {
+    for skill in SkillTypes::iter() {
+        get_skills_gains(skill, game);
+    }
+}
+
 fn gain_work_xp(game: &mut Game) {
     let input_work = game.input.work as usize;
     let work: &mut StateWork = &mut game.state.works[input_work];
@@ -265,6 +274,29 @@ fn gain_work_xp(game: &mut Game) {
     }
     work.next_level_required = next_level_xp_needed;
     work.next_level_percentage = (work.next_level_progress * 100.0) / next_level_xp_needed;
+}
+
+fn gain_skill_xp(game: &mut Game) {
+    let int_level = game.state.stats[StatTypes::Int as usize].level;
+    let level_multiplier = 1.0 + (int_level as f64 / 10.0);
+    for skill_type in SkillTypes::iter() {
+        let skill_xp = game.intermediate_state.get_value(skill_type.into()) * level_multiplier;
+        let skill: &mut Skill = &mut game.state.skills[skill_type as usize];
+        skill.xp_rate = skill_xp;
+        skill.next_level_progress += skill_xp / TICK_RATE;
+        let mut next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill);
+        while skill.next_level_progress > next_level_xp_needed {
+            skill.level += 1.0;
+            skill.next_level_progress -= next_level_xp_needed;
+            next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill);
+        }
+        skill.next_level_required = next_level_xp_needed;
+        skill.next_level_percentage = (skill.next_level_progress * 100.0) / next_level_xp_needed;
+    }
+}
+
+fn calculate_skill_next_level_xp_neeeded(stat: &mut Skill) -> f64 {
+    (100.0 + (4.0 * stat.level * stat.level)) as f64
 }
 
 fn gain_stat_xp(game: &mut Game) {

@@ -63,13 +63,22 @@ impl Gain for BoostItem {
                 intermediate.add_base(KeyValues::Health, 2.0);
             }
             BoostItemTypes::Dumbell => {
-                intermediate.add_multiplier(KeyValues::Str, 1.5, "Dumbell");
+                intermediate.add_multiplier(KeyValues::Str, 1.5, "Dumbell1");
             }
             BoostItemTypes::Dumbell2 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
+                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell2");
             }
             BoostItemTypes::Dumbell3 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell");
+                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell3");
+            }
+            BoostItemTypes::Flower1 => {
+                intermediate.add_multiplier(KeyValues::Cha, 2.0, "Flower1");
+            }
+            BoostItemTypes::Flower2 => {
+                intermediate.add_multiplier(KeyValues::Cha, 2.0, "Flower2");
+            }
+            BoostItemTypes::Flower3 => {
+                intermediate.add_multiplier(KeyValues::Cha, 2.0, "Flower3");
             }
         }
     }
@@ -207,10 +216,34 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Dumbell3 => BoostItem {
             name: item_type,
-            purchasing_cost: 16_000_000.0,
+            purchasing_cost: 16.0e6,
             description: "Cowbell, Kettlebell, what's the difference anyway",
             effect_description: "2x Strength XP gain",
             display_name: "Kettlebell",
+            required_tier: 3,
+        },
+        BoostItemTypes::Flower1 => BoostItem {
+            name: item_type,
+            purchasing_cost: 16_000.0,
+            description: "Someone told you that flowers make great gifts",
+            effect_description: "2x Charisma XP gain",
+            display_name: "Roadside flower",
+            required_tier: 1,
+        },
+        BoostItemTypes::Flower2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 160_000.0,
+            description: "Some flowers are prettier than others",
+            effect_description: "2x Charisma XP gain",
+            display_name: "Daisy",
+            required_tier: 2,
+        },
+        BoostItemTypes::Flower3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 16_000_000.0,
+            description: "Ok, this flower is way better",
+            effect_description: "2x Charisma XP gain",
+            display_name: "Tulip",
             required_tier: 3,
         },
     }

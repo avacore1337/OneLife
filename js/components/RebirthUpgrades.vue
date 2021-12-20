@@ -2,34 +2,20 @@
   <div style="border: solid; margin: 2px">
     Bought Rebirth Upgrades
     <ul>
-      <li
-        v-for="(rebirth_upgrade, index) in world.rebirth_upgrades"
-        v-if="
-          state.rebirth_stats.rebirth_upgrades[index].is_visible &&
-          state.rebirth_stats.rebirth_upgrades[index].is_purchased
-        "
-        :key="rebirth_upgrade.name"
-      >
-        {{ rebirth_upgrade.display_name }}
+      <li v-for="[upgrade, upgrade_state] in bought_upgrades" :key="upgrade.name">
+        {{ upgrade.display_name }}
       </li>
     </ul>
     Rebirth Upgrades
     <ul>
-      <li
-        v-for="(rebirth_upgrade, index) in world.rebirth_upgrades"
-        v-if="
-          state.rebirth_stats.rebirth_upgrades[index].is_visible &&
-          !state.rebirth_stats.rebirth_upgrades[index].is_purchased
-        "
-        :key="rebirth_upgrade.name"
-      >
+      <li v-for="[upgrade, upgrade_state] in visible_unbought_upgrades" :key="upgrade.name">
         <button
-          v-on:click="buy_rebirth_upgrade(rebirth_upgrade.name)"
+          v-on:click="buy_rebirth_upgrade(upgrade.name)"
           style="margin: 2px"
-          :disabled="!state.rebirth_stats.rebirth_upgrades[index].is_unlocked"
+          :disabled="!upgrade_state.is_unlocked"
         >
-          {{ rebirth_upgrade.display_name }}
-          {{ rebirth_upgrade.purchasing_cost }}
+          {{ upgrade.display_name }}
+          {{ upgrade.purchasing_cost }}
         </button>
       </li>
     </ul>
@@ -42,6 +28,28 @@ export default {
   methods: {
     buy_rebirth_upgrade: function (rebirth_upgrade_name) {
       this.wasm.buy_rebirth_upgrade(rebirth_upgrade_name);
+    },
+  },
+  computed: {
+    visible_unbought_upgrades: function () {
+      let self = this;
+      return self.world.rebirth_upgrades
+        .map((w, i) => {
+          return [w, self.state.rebirth_stats.rebirth_upgrades[i]];
+        })
+        .filter(([w, s]) => {
+          return s.is_visible && !s.is_purchased;
+        });
+    },
+    bought_upgrades: function () {
+      let self = this;
+      return self.world.rebirth_upgrades
+        .map((w, i) => {
+          return [w, self.state.rebirth_stats.rebirth_upgrades[i]];
+        })
+        .filter(([w, s]) => {
+          return s.is_purchased;
+        });
     },
   },
 };

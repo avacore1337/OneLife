@@ -2,11 +2,9 @@
   <Section title="Activity" v-if="world.activities !== undefined">
     <table>
       <tr
-        v-for="{ activity, index } in world.activities
-          .map((activity, index) => ({ activity, index }))
-          .filter(({ activity, index }) => state.activities[index].is_visible)"
+        v-for="[activity, activity_state] in visible_activities"
         v-on:click="set_activity(activity.name)"
-        v-bind:class="{ disabled: !state.activities[index].is_unlocked }"
+        v-bind:class="{ disabled: !activity_state.is_unlocked }"
         :key="activity.name"
       >
         <td>
@@ -26,6 +24,18 @@ export default {
   methods: {
     set_activity: function (activity_name) {
       this.wasm.set_activity(activity_name);
+    },
+  },
+  computed: {
+    visible_activities: function () {
+      let self = this;
+      return self.world.activities
+        .map((w, i) => {
+          return [w, self.state.activities[i]];
+        })
+        .filter(([w, s]) => {
+          return s.is_visible;
+        });
     },
   },
 };

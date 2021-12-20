@@ -23,6 +23,9 @@ pub enum BoostItemTypes {
     Dumbell,
     Dumbell2,
     Dumbell3,
+    Flower1,
+    Flower2,
+    Flower3,
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();
