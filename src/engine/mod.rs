@@ -71,6 +71,7 @@ fn internal_run(game: &mut Game) {
 
     // Get the gains
     calculate_works_income(game);
+    calculate_tombs_income(game);
     do_work(game.input.work, game);
     gain_work_xp(game);
     gain_stat_xp(game);
@@ -201,6 +202,13 @@ fn apply_items(game: &mut Game) {
             let boost_item = translate_boost_item(item.name);
             game.intermediate_state.get_gains(&boost_item);
         }
+    }
+}
+fn calculate_tombs_income(game: &mut Game) {
+    for tomb_state in game.state.tombs.iter_mut() {
+        let tomb_world = &game.world.tombs[tomb_state.name as usize];
+        tomb_state.effective_income =
+            game.intermediate_state.get_multiplier(KeyValues::Coins) * tomb_world.coin_gain;
     }
 }
 

@@ -9,6 +9,7 @@ pub struct Tomb {
     pub is_purchased: bool,
     pub is_unlocked: bool,
     pub is_visible: bool,
+    pub effective_income: f64,
 }
 
 impl Tomb {
@@ -18,6 +19,7 @@ impl Tomb {
             is_purchased: false,
             is_unlocked: false,
             is_visible: true,
+            effective_income: 0.0,
         }
     }
 }

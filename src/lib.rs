@@ -389,7 +389,6 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
 pub fn die() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     info!("dying");
-    // engine_run(game);
-    update_unlocks(&mut *game);
+    engine_run(game);
     character_death_update(game);
 }

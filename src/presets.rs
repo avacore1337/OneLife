@@ -59,7 +59,13 @@ fn make_poor_death(world: &World) -> (StateContainer, Input, MetaData) {
 fn make_rich_death(world: &World) -> (StateContainer, Input, MetaData) {
     let mut state = new_game(world);
     let meta_data = MetaData::new();
-    state.items.money = 10000000.0;
+
+    let r = &mut state.rebirth_stats;
+    r.class_tier = 4;
+    get_all_upgrades_up_to_current_tier(r);
+    set_lower_tier_jobs_to(r, 70);
+    state = rebirth(world, state.rebirth_stats.clone());
+    state.items.money = 1.0e9;
     state.life_stats.age = 70.0 * 365.0;
 
     let input = Input::new(&state, world);

@@ -13,36 +13,12 @@ pub struct Tomb {
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
+    pub coin_gain: f64,
 }
 
 impl Gain for Tomb {
     fn gain(&self, intermediate: &mut IntermediateState) {
-        match self.name {
-            TombTypes::ShallowGrave => {
-                intermediate.set_base(KeyValues::Coins, 2.0);
-            }
-            TombTypes::BurialPit => {
-                intermediate.set_base(KeyValues::Coins, 16.0);
-            }
-            TombTypes::Grave => {
-                intermediate.set_base(KeyValues::Coins, 64.0);
-            }
-            TombTypes::FamilyGrave => {
-                intermediate.set_base(KeyValues::Coins, 320.0);
-            }
-            TombTypes::Tomb => {
-                intermediate.set_base(KeyValues::Coins, 1000.0);
-            }
-            TombTypes::Crypt => {
-                intermediate.set_base(KeyValues::Coins, 4.0e3);
-            }
-            TombTypes::Mausuleum => {
-                intermediate.set_base(KeyValues::Coins, 1.6e4);
-            }
-            TombTypes::Catacomb => {
-                intermediate.set_base(KeyValues::Coins, 6.4e4);
-            }
-        }
+        intermediate.set_base(KeyValues::Coins, self.coin_gain);
     }
 }
 
@@ -54,6 +30,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "It's not honorable, but it means something",
             display_name: "Shallow Grave",
             required_tier: 0,
+            coin_gain: 2.0,
         },
         TombTypes::BurialPit => Tomb {
             name: tomb,
@@ -61,6 +38,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "todo",
             display_name: "BurialPit ",
             required_tier: 1,
+            coin_gain: 16.0,
         },
         TombTypes::Grave => Tomb {
             name: tomb,
@@ -68,6 +46,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "You were someone",
             display_name: "Grave ",
             required_tier: 2,
+            coin_gain: 64.0,
         },
         TombTypes::FamilyGrave => Tomb {
             name: tomb,
@@ -75,6 +54,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "Wait, who's family is burried here?",
             display_name: "FamilyGrave ",
             required_tier: 3,
+            coin_gain: 320.0,
         },
         TombTypes::Tomb => Tomb {
             name: tomb,
@@ -82,6 +62,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "Hope you don't get raided",
             display_name: "Tomb ",
             required_tier: 4,
+            coin_gain: 1000.0,
         },
         TombTypes::Crypt => Tomb {
             name: tomb,
@@ -89,6 +70,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "A mysterious place",
             display_name: "Crypt ",
             required_tier: 5,
+            coin_gain: 4.0e3,
         },
         TombTypes::Mausuleum => Tomb {
             name: tomb,
@@ -96,6 +78,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "Why are there so many mice in here?",
             display_name: "Mausuleum ",
             required_tier: 6,
+            coin_gain: 16.0e3,
         },
         TombTypes::Catacomb => Tomb {
             name: tomb,
@@ -103,6 +86,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "This one has cats to take care of the mice",
             display_name: "Catacomb ",
             required_tier: 7,
+            coin_gain: 64.0e3,
         },
     }
 }
