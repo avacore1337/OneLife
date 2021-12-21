@@ -1,8 +1,7 @@
+use super::Recordable;
 use serde::{Deserialize, Serialize};
 use std::mem::variant_count;
 use strum::EnumIter;
-
-use super::Recordable;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum WorkTypes {
@@ -42,6 +41,14 @@ pub enum WorkTypes {
     // Intellectual Types
     // Servant,
     // Teacher,
+}
+
+#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+pub enum WorkCategoryTypes {
+    Labor,
+    Soldier,
+    Intellectual,
+    //
 }
 
 pub const WORK_SIZE: usize = variant_count::<WorkTypes>();

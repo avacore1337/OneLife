@@ -218,7 +218,7 @@ fn apply_work(game: &mut Game) {
     for work_state in game.state.works.iter_mut() {
         let work = translate_work(work_state.name);
 
-        let main_stat_level = game.state.stats[work.main_stat as usize].level;
+        let main_stat_level = game.state.stats[StatTypes::from(work.work_type) as usize].level;
         let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
         game.intermediate_state
             .add_multiplier(work.name.into(), stat_multiplier, "Stat");

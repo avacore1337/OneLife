@@ -10,7 +10,7 @@ pub fn auto_work(game: &mut Game) {
     let current_work = translate_work(game.input.work);
     for work in game.state.works.iter() {
         let work_world = translate_work(work.name);
-        let same_type = current_work.main_stat == work_world.main_stat;
+        let same_type = current_work.work_type == work_world.work_type;
         if work.name > current_work.name && same_type && work.is_unlocked && work.is_visible {
             game.input.work = work.name;
         }

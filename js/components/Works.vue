@@ -1,10 +1,10 @@
 <template>
   <div>
     <Section title="Works">
-      <h4>Labour</h4>
+      <h4>Labor</h4>
       <table>
         <tr
-          v-for="[work, work_state] in visible_labour_work"
+          v-for="[work, work_state] in visible_labor_work"
           v-on:click="work_state.is_unlocked && set_work(work.name)"
           v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
@@ -54,14 +54,14 @@ export default {
   props: ["state", "world", "input", "wasm"],
   components: { ProgressBar, Section },
   computed: {
-    visible_labour_work: function () {
+    visible_labor_work: function () {
       let self = this;
       return self.world.works
         .map((w, i) => {
           return [w, self.state.works[i]];
         })
         .filter(([w, s]) => {
-          return s.is_visible && w.main_stat === "Con";
+          return s.is_visible && w.work_type === "Labor";
         });
     },
     visible_solder_work: function () {
@@ -71,7 +71,7 @@ export default {
           return [w, self.state.works[i]];
         })
         .filter(([w, s]) => {
-          return s.is_visible && w.main_stat === "Str";
+          return s.is_visible && w.work_type === "Soldier";
         });
     },
   },

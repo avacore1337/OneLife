@@ -12,6 +12,8 @@ pub enum KeyValues {
     Money,
     Coins,
     Health,
+    LaborXp,
+    SolderXp,
     //Stats
     Str,
     Int,

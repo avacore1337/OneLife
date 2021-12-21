@@ -1,8 +1,8 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
-use crate::input::stat::StatTypes;
-use crate::input::work::{WorkTypes, WORK_SIZE};
+// use crate::input::stat::StatTypes;
+use crate::input::work::{WorkCategoryTypes, WorkTypes, WORK_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
@@ -14,7 +14,7 @@ pub struct Work {
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
-    pub main_stat: StatTypes,
+    pub work_type: WorkCategoryTypes,
     pub xp_req_modifier: f64,
 }
 
@@ -49,7 +49,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor that kills you",
             display_name: "The Mines",
             required_tier: 0,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 1.0,
         },
         WorkTypes::Latrine => Work {
@@ -58,7 +58,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "A shitty job",
             display_name: "Latrine Duty",
             required_tier: 0,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2.0,
         },
         WorkTypes::GalleyRower => Work {
@@ -67,7 +67,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Row row row your boat",
             display_name: "Gallery Rower",
             required_tier: 0,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 4.0,
         },
         WorkTypes::Fields => Work {
@@ -76,7 +76,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "You ain't picking flowers",
             display_name: "Field Work",
             required_tier: 0,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 8.0,
         },
         WorkTypes::Mill => Work {
@@ -85,7 +85,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor",
             display_name: "Mill Worker",
             required_tier: 0,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 16.0,
         },
         WorkTypes::Weaver => Work {
@@ -94,7 +94,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Real work",
             display_name: "Weaver",
             required_tier: 1,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 32.0,
         },
         WorkTypes::Fisherman => Work {
@@ -103,7 +103,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "A man of the sea",
             display_name: "Fisherman",
             required_tier: 1,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 64.0,
         },
         WorkTypes::Farmer => Work {
@@ -112,7 +112,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor for a free man",
             display_name: "Farmer",
             required_tier: 2,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 128.0,
         },
         WorkTypes::Woodcutter => Work {
@@ -121,7 +121,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor for a free man",
             display_name: "Woodcutter",
             required_tier: 2,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 256.0,
         },
         WorkTypes::LeatherWorker => Work {
@@ -130,7 +130,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor for a free man",
             display_name: "LeatherWorker",
             required_tier: 3,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 512.0,
         },
         WorkTypes::Potter => Work {
@@ -139,7 +139,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor for a free man",
             display_name: "Potter",
             required_tier: 3,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2.0e3,
         },
         WorkTypes::Carpenter => Work {
@@ -148,7 +148,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hard labor for a free man",
             display_name: "Carpenter",
             required_tier: 4,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 8.0e3,
         },
         WorkTypes::BlacksmithApprentice => Work {
@@ -157,7 +157,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hope to become muscular",
             display_name: "Blacksmith Apprentice",
             required_tier: 4,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 32.0e3,
         },
         WorkTypes::Blacksmith => Work {
@@ -166,7 +166,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hammer time",
             display_name: "Blacksmith",
             required_tier: 5,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2048.0,
         },
         WorkTypes::Goldsmith => Work {
@@ -175,7 +175,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hammer time",
             display_name: "Goldsmith",
             required_tier: 5,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2048.0,
         },
         WorkTypes::GlassBlower => Work {
@@ -184,7 +184,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hammer time",
             display_name: "Glassblower",
             required_tier: 6,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2048.0,
         },
         WorkTypes::Weaponsmith => Work {
@@ -193,7 +193,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "Hammer time",
             display_name: "Weaponsmith",
             required_tier: 6,
-            main_stat: StatTypes::Con,
+            work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2048.0,
         },
         // ------------------Soldiers ---------------------
@@ -203,7 +203,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "todo",
             display_name: "Bagage Boy",
             required_tier: 2,
-            main_stat: StatTypes::Str,
+            work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 32.0,
         },
         WorkTypes::Slinger => Work {
@@ -212,7 +212,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "todo",
             display_name: "Slinger",
             required_tier: 2,
-            main_stat: StatTypes::Str,
+            work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 64.0,
         },
         WorkTypes::Peltasts => Work {
@@ -221,7 +221,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "todo",
             display_name: "Peltasts",
             required_tier: 2,
-            main_stat: StatTypes::Str,
+            work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 128.0,
         },
         WorkTypes::Pikeman => Work {
@@ -230,7 +230,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "todo",
             display_name: "Pikeman",
             required_tier: 2,
-            main_stat: StatTypes::Str,
+            work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 256.0,
         },
         WorkTypes::FootCompanion => Work {
@@ -239,7 +239,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "todo",
             display_name: "FootCompanion",
             required_tier: 2,
-            main_stat: StatTypes::Str,
+            work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 512.0,
         },
         WorkTypes::Hypaspists => Work {
@@ -248,7 +248,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "todo",
             display_name: "Hypaspists",
             required_tier: 3,
-            main_stat: StatTypes::Str,
+            work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 1024.0,
         },
         WorkTypes::LightCavalery => Work {
@@ -257,7 +257,7 @@ pub const fn translate_work(work: WorkTypes) -> Work {
             description: "todo",
             display_name: "Light Cavalery",
             required_tier: 3,
-            main_stat: StatTypes::Str,
+            work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 2048.0,
         },
         // Int based work
@@ -266,8 +266,8 @@ pub const fn translate_work(work: WorkTypes) -> Work {
         //     money: 150.0,
         //     description: "Sell low, Buy when high",
         //     display_name: "Trader",
-        //     required_tier: 2,
-        //     main_stat: StatTypes::Int,
+        //     required_tier: 7,
+        //     work_type: StatTypes::Intellectual,
         //     xp_req_modifier: 4_000.0,
         // },
     }
