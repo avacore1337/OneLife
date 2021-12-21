@@ -16,9 +16,6 @@ pub struct Skill {
 pub fn get_skills_gains(skill_type: SkillTypes, game: &mut Game) {
     // let world_skill = &game.world.skills[skill_type as usize];
     let skill_state = &mut game.state.skills[skill_type as usize];
-    if !skill_state.is_visible {
-        return;
-    }
 
     match skill_type {
         SkillTypes::Mindfull => {
@@ -28,7 +25,13 @@ pub fn get_skills_gains(skill_type: SkillTypes, game: &mut Game) {
                 "Mindfull",
             );
         }
-        _ => {}
+        SkillTypes::Tactics => {
+            game.intermediate_state.add_multiplier(
+                KeyValues::SoldierXp,
+                0.05 * skill_state.level + 1.0,
+                "Tactics",
+            );
+        }
     }
 }
 

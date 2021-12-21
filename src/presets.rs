@@ -115,7 +115,7 @@ fn make_t3(world: &World) -> (StateContainer, Input, MetaData) {
     let input = Input::new(&state, world);
     (state, input, meta_data)
 }
-fn make_t4(world: &World) -> (StateContainer, Input, MetaData) {
+pub fn make_t4(world: &World) -> (StateContainer, Input, MetaData) {
     let mut state = new_game(world);
     let meta_data = MetaData::new();
     let r = &mut state.rebirth_stats;

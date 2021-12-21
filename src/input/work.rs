@@ -1,4 +1,4 @@
-use super::Recordable;
+use super::{stat::StatTypes, Recordable};
 use serde::{Deserialize, Serialize};
 use std::mem::variant_count;
 use strum::EnumIter;
@@ -48,7 +48,18 @@ pub enum WorkCategoryTypes {
     Labor,
     Soldier,
     Intellectual,
-    //
+}
+
+impl TryFrom<StatTypes> for WorkCategoryTypes {
+    type Error = ();
+    fn try_from(stat: StatTypes) -> Result<Self, Self::Error> {
+        match stat {
+            StatTypes::Str => Ok(WorkCategoryTypes::Soldier),
+            StatTypes::Con => Ok(WorkCategoryTypes::Labor),
+            StatTypes::Int => Ok(WorkCategoryTypes::Intellectual),
+            _ => Err(()),
+        }
+    }
 }
 
 pub const WORK_SIZE: usize = variant_count::<WorkTypes>();

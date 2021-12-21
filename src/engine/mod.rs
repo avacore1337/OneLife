@@ -268,6 +268,9 @@ fn gain_work_xp(game: &mut Game) {
     work.next_level_progress += 10.0
         * game.state.life_stats.happiness
         * (1.0 + f64::sqrt(game.state.rebirth_stats.max_job_levels[input_work] as f64))
+        * game
+            .intermediate_state
+            .get_multiplier(work_world.work_type.into())
         / TICK_RATE;
     let mut next_level_xp_needed = calculate_work_next_level_xp_neeeded(work, work_world);
     while work.next_level_progress > next_level_xp_needed {

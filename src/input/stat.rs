@@ -14,8 +14,8 @@ pub enum StatTypes {
 }
 
 impl From<WorkCategoryTypes> for StatTypes {
-    fn from(stat: WorkCategoryTypes) -> Self {
-        match stat {
+    fn from(category: WorkCategoryTypes) -> Self {
+        match category {
             WorkCategoryTypes::Soldier => StatTypes::Str,
             WorkCategoryTypes::Labor => StatTypes::Con,
             WorkCategoryTypes::Intellectual => StatTypes::Int,

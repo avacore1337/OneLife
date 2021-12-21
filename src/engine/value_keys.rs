@@ -1,6 +1,6 @@
-use crate::input::skill::SkillTypes;
 use crate::input::stat::StatTypes;
 use crate::input::work::WorkTypes;
+use crate::input::{skill::SkillTypes, work::WorkCategoryTypes};
 use serde::{Deserialize, Serialize};
 use strum::EnumIter;
 // use std::mem::variant_count;
@@ -13,7 +13,8 @@ pub enum KeyValues {
     Coins,
     Health,
     LaborXp,
-    SolderXp,
+    SoldierXp,
+    IntellectualXp,
     //Stats
     Str,
     Int,
@@ -73,6 +74,16 @@ impl From<StatTypes> for KeyValues {
             StatTypes::Int => KeyValues::Int,
             StatTypes::Dex => KeyValues::Dex,
             StatTypes::Faith => KeyValues::Faith,
+        }
+    }
+}
+
+impl From<WorkCategoryTypes> for KeyValues {
+    fn from(category: WorkCategoryTypes) -> Self {
+        match category {
+            WorkCategoryTypes::Labor => KeyValues::LaborXp,
+            WorkCategoryTypes::Soldier => KeyValues::SoldierXp,
+            WorkCategoryTypes::Intellectual => KeyValues::IntellectualXp,
         }
     }
 }
