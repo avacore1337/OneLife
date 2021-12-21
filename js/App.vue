@@ -114,6 +114,7 @@ export default {
         housing: [],
         tiers: [],
         stats: [],
+        tombs: [],
         boost_items: [],
         rebirth_upgrades: [],
         tutorial_texts: [],
