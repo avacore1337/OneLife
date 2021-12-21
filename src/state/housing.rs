@@ -13,7 +13,7 @@ impl Housing {
     pub fn new(housing: HousingTypes) -> Housing {
         Housing {
             name: housing,
-            is_visible: true,
+            is_visible: false,
         }
     }
 }
