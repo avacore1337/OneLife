@@ -32,15 +32,16 @@ fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
 
 pub fn get_presets(world: &World) -> BTreeMap<&'static str, (StateContainer, Input, MetaData)> {
     let mut presets = BTreeMap::new();
-    presets.insert("1: T1 expected", make_t1(world));
-    presets.insert("2: T2 expected", make_t2(world));
-    presets.insert("3: T3 expected", make_t3(world));
-    presets.insert("4: T4 expected", make_t4(world));
-    presets.insert("5: T5 expected", make_t5(world));
-    presets.insert("6: T5 Faith", make_t5_faith(world));
-    presets.insert("7: saved ticks", make_saved_ticks(world));
-    presets.insert("8: poor death", make_poor_death(world));
-    presets.insert("9: rich death", make_rich_death(world));
+    presets.insert("01: T1 expected", make_t1(world));
+    presets.insert("02: T2 expected", make_t2(world));
+    presets.insert("03: T3 expected", make_t3(world));
+    presets.insert("04: T4 expected", make_t4(world));
+    presets.insert("05: T5 expected", make_t5(world));
+    presets.insert("06: T5 Faith", make_t5_faith(world));
+    presets.insert("07: saved ticks", make_saved_ticks(world));
+    presets.insert("08: poor death", make_poor_death(world));
+    presets.insert("09: rich death", make_rich_death(world));
+    presets.insert("10: billion coins t0", make_only_coins(world));
 
     presets
 }
@@ -173,6 +174,15 @@ fn make_saved_ticks(world: &World) -> (StateContainer, Input, MetaData) {
     let state = new_game(world);
     let mut meta_data = MetaData::new();
     meta_data.saved_ticks = 100_000.0;
+
+    let input = Input::new(&state, world);
+    (state, input, meta_data)
+}
+
+fn make_only_coins(world: &World) -> (StateContainer, Input, MetaData) {
+    let mut state = new_game(world);
+    let meta_data = MetaData::new();
+    state.rebirth_stats.coins = 1.0e9;
 
     let input = Input::new(&state, world);
     (state, input, meta_data)

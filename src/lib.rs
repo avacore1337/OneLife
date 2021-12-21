@@ -21,7 +21,7 @@ pub mod wasm_api;
 pub mod world_content;
 
 use crate::world_content::tutorial::check_for_tutorial_step;
-use engine::{character_death_update, engine_run};
+use engine::{character_death_update, engine_run, update_unlocks};
 use game::Game;
 use input::activity::ActivityTypes;
 use input::boost_item::BoostItemTypes;
@@ -291,6 +291,7 @@ pub fn buy_tier(val: u32) {
         let tier: &Tier = &game.world.tiers[val as usize];
         game.state.rebirth_stats.coins -= tier.purchasing_cost;
         game.state.rebirth_stats.class_tier = val;
+        update_unlocks(&mut *game);
     }
 }
 
@@ -358,6 +359,7 @@ pub fn buy_item_internal(boost_item_type: BoostItemTypes, game: &mut Game) {
         let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
         game.state.items.money -= item.purchasing_cost;
         game.state.items.boost_items[boost_item_type as usize].is_purchased = true;
+        update_unlocks(game);
     }
 }
 
@@ -379,6 +381,7 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
         game.state.rebirth_stats.coins -= rebirth_upgrade.purchasing_cost;
         game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade_type as usize].is_purchased =
             true;
+        update_unlocks(&mut *game);
     }
 }
 
@@ -386,6 +389,7 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
 pub fn die() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     info!("dying");
-    engine_run(game);
+    // engine_run(game);
+    update_unlocks(&mut *game);
     character_death_update(game);
 }

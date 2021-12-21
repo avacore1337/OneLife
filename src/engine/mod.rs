@@ -77,7 +77,6 @@ fn internal_run(game: &mut Game) {
     gain_skill_xp(game);
 
     // update frontend read values
-    update_rebirth_unlocks(game);
     update_unlocks(game);
     update_life_stats(game);
 }
@@ -124,15 +123,12 @@ fn update_life_stats(game: &mut Game) {
     }
 }
 
-fn update_rebirth_unlocks(game: &mut Game) {
+pub fn update_unlocks(game: &mut Game) {
     for rebirth_upgrade in RebirthUpgradeTypes::iter() {
         if game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade as usize].is_purchased {
             unlock(rebirth_upgrade, &mut game.state.rebirth_stats.unlocks);
         }
     }
-}
-
-fn update_unlocks(game: &mut Game) {
     for work in WorkTypes::iter() {
         game.state.works[work as usize].is_unlocked = should_unlock_work(work, game);
         game.state.works[work as usize].is_visible = should_be_visible_work(work, game);
