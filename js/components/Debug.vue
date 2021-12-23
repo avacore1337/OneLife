@@ -54,9 +54,20 @@
     <br />
     <button v-on:click="print_frontend_debug_state">Print Frontend Debug State</button>
     <br />
+    <button v-on:click="print_debug_intermediate">Print Debug Intermediate</button>
+    <br />
     <button v-on:click="print_debug_state">Print Debug State</button>
     <br />
     <button v-on:click="print_debug_meta">Print Debug Meta</button>
+    <br />
+    <br />
+    <input v-model="money" size="10" />
+    <br />
+    <button v-on:click="give_money">Give Money</button>
+    <br />
+    <input v-model="coins" size="10" />
+    <br />
+    <button v-on:click="give_coins">Give Coins</button>
     <br />
     <br />
     Presets
@@ -72,6 +83,8 @@ export default {
   data() {
     return {
       presets: {},
+      money: 1000000000.0,
+      coins: 1000000.0,
     };
   },
   mounted: function () {
@@ -101,6 +114,9 @@ export default {
     },
     print_debug_state: function () {
       this.wasm.print_debug_state();
+    },
+    print_debug_intermediate: function () {
+      this.wasm.print_debug_intermediate();
     },
     print_debug_meta: function () {
       this.wasm.print_debug_meta();
@@ -142,6 +158,12 @@ export default {
         };
       })(f);
       reader.readAsText(f);
+    },
+    give_coins: function () {
+      this.wasm.give_coins(this.coins);
+    },
+    give_money: function () {
+      this.wasm.give_money(this.money);
     },
   },
 };

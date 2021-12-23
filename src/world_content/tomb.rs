@@ -34,7 +34,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
         },
         TombTypes::BurialPit => Tomb {
             name: tomb,
-            purchasing_cost: 1.0e6,
+            purchasing_cost: 2.0e5,
             description: "todo",
             display_name: "BurialPit ",
             required_tier: 1,

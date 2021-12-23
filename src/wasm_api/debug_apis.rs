@@ -10,9 +10,26 @@ use wasm_bindgen::prelude::*;
 use crate::GLOBAL_DATA;
 
 #[wasm_bindgen]
-pub fn print_debug_state() {
+pub fn give_money(money: f64) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.state.items.money = money;
+}
+
+#[wasm_bindgen]
+pub fn give_coins(coins: f64) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.state.rebirth_stats.coins = coins;
+}
+
+#[wasm_bindgen]
+pub fn print_debug_intermediate() {
     let game = GLOBAL_DATA.lock().unwrap();
     info!("intermediate: {:#?}", game.intermediate_state);
+}
+
+#[wasm_bindgen]
+pub fn print_debug_state() {
+    let game = GLOBAL_DATA.lock().unwrap();
     info!("state: {:#?}", game.state);
 }
 
