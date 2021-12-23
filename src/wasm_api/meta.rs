@@ -16,6 +16,17 @@ pub fn set_disable_tutorial(val: bool) {
 }
 
 #[wasm_bindgen]
+pub fn set_show_bought_items(show: bool) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.show_bought_items = show;
+}
+#[wasm_bindgen]
+pub fn set_show_bought_upgrades(show: bool) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.show_bought_upgrades = show;
+}
+
+#[wasm_bindgen]
 pub fn set_autosave(autosave: bool) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.autosave = autosave;

@@ -1,6 +1,15 @@
 <template>
   <Section title="Items">
-    <span v-if="state.items.boost_items.some((item) => item.is_purchased)">
+    <span>
+      Show bought Items
+      <input
+        type="checkbox"
+        id="show_bought"
+        v-on:click="toggle_show_bought"
+        :checked="metaData.options.show_bought_items"
+      />
+    </span>
+    <span v-if="metaData.options.show_bought_items && state.items.boost_items.some((item) => item.is_purchased)">
       <h4>Bought Items</h4>
       <table>
         <tr v-for="[item, item_state] in bought_items" :key="item.name" style="height: 2rem">
@@ -35,7 +44,7 @@
 import Section from "./Section.vue";
 
 export default {
-  props: ["state", "world", "input", "wasm"],
+  props: ["state", "world", "input", "wasm", "metaData"],
   components: { Section },
   computed: {
     visible_unbought_items: function () {
@@ -62,6 +71,9 @@ export default {
   methods: {
     buyItem: function (item_name) {
       this.wasm.buy_item(item_name);
+    },
+    toggle_show_bought: function () {
+      this.wasm.set_show_bought_items(!this.metaData.options.show_bought_items);
     },
   },
 };

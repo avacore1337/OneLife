@@ -35,7 +35,13 @@
       </div>
 
       <div style="margin-left: 2%; float: left; width: 30%">
-        <BoostItems v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <BoostItems
+          v-bind:state="state"
+          v-bind:input="input"
+          v-bind:world="world"
+          v-bind:wasm="wasm"
+          v-bind:metaData="metaData"
+        />
         <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <Blessings
@@ -56,6 +62,7 @@
             v-bind:input="input"
             v-bind:world="world"
             v-bind:wasm="wasm"
+            v-bind:metaData="metaData"
           />
         </div>
 
@@ -135,7 +142,7 @@ export default {
         },
       },
       input: {},
-      metaData: { info: {}, saved_ticks: 0.0 },
+      metaData: { info: {}, saved_ticks: 0.0, options: {} },
       paused: false,
       numberFormat: "DEFAULT",
       modalText: "",

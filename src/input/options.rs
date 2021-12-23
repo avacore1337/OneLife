@@ -37,4 +37,6 @@ pub struct Options {
     pub auto_living: bool,
     pub auto_buy_item: bool,
     pub auto_buy_tomb: bool,
+    pub show_bought_items: bool,
+    pub show_bought_upgrades: bool,
 }
