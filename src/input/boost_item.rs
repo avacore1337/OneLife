@@ -18,6 +18,7 @@ pub enum BoostItemTypes {
     FishingGear,
     Flower1,
     CityClothes,
+    MeditationMat,
     Leach,
     PitchFork,
     HealthKit,
@@ -26,6 +27,7 @@ pub enum BoostItemTypes {
     Dumbell3,
     Flower2,
     Flower3,
+    Incense,
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();

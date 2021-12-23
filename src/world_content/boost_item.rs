@@ -80,6 +80,12 @@ impl Gain for BoostItem {
             BoostItemTypes::Flower3 => {
                 intermediate.add_multiplier(KeyValues::Cha, 2.0, "Flower3");
             }
+            BoostItemTypes::MeditationMat => {
+                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, "MeditationMat");
+            }
+            BoostItemTypes::Incense => {
+                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, "Incense");
+            }
         }
     }
 }
@@ -245,6 +251,22 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
             required_tier: 3,
+        },
+        BoostItemTypes::MeditationMat => BoostItem {
+            name: item_type,
+            purchasing_cost: 8_000.0,
+            description: "Made by someone named Yoga, weird name",
+            effect_description: "2x Mindfullness XP gain",
+            display_name: "Meditation Mat",
+            required_tier: 1,
+        },
+        BoostItemTypes::Incense => BoostItem {
+            name: item_type,
+            purchasing_cost: 160_000.0,
+            description: "Smells like a hermit",
+            effect_description: "2x Mindfullness XP gain",
+            display_name: "Incense",
+            required_tier: 1,
         },
     }
 }
