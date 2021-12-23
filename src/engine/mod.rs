@@ -23,7 +23,9 @@ use crate::world_content::blessing::{should_be_visible_blessing, should_unlock_b
 use crate::world_content::boost_item::{
     should_be_visible_boost_item, should_unlock_boost_item, translate_boost_item,
 };
-use crate::world_content::housing::{should_be_visible_housing, translate_housing};
+use crate::world_content::housing::{
+    should_be_visible_housing, should_unlock_housing, translate_housing,
+};
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade, unlock,
 };
@@ -169,7 +171,9 @@ pub fn update_unlocks(game: &mut Game) {
             should_be_visible_blessing(blessing, game);
     }
     for housing in HousingTypes::iter() {
+        // Don't make invisible after once being made visible
         game.state.housing[housing as usize].is_visible = should_be_visible_housing(housing, game);
+        game.state.housing[housing as usize].is_unlocked = should_unlock_housing(housing, game);
     }
 }
 

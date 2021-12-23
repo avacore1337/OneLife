@@ -16,6 +16,7 @@ pub enum BoostItemTypes {
     Book3,
     Shoe3,
     FishingGear,
+    Flower1,
     CityClothes,
     Leach,
     PitchFork,
@@ -23,7 +24,6 @@ pub enum BoostItemTypes {
     Dumbell,
     Dumbell2,
     Dumbell3,
-    Flower1,
     Flower2,
     Flower3,
 }

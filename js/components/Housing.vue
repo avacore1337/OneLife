@@ -4,11 +4,15 @@
       <tr
         v-for="[housing, housing_state] in visible_housing"
         v-on:click="set_housing(housing.name)"
+        v-bind:class="{ disabled: !housing_state.is_unlocked }"
         :key="housing.name"
       >
         <td>
           <p>
             <span v-bind:class="{ selected: input.housing === housing.name }">{{ housing.display_name }} </span>
+            <span v-if="!housing_state.is_unlocked" style="float: right"
+              >Required Money: {{ housing.required_money }}
+            </span>
             <br />
             Cost: {{ housing.upkeep }}/s
           </p>

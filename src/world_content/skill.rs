@@ -41,7 +41,7 @@ pub const fn translate_skill(skill: SkillTypes) -> Skill {
             name: skill,
             description: "Be one with the world",
             display_name: "Mindefullness",
-            required_tier: 2,
+            required_tier: 1,
         },
         SkillTypes::Tactics => Skill {
             name: skill,

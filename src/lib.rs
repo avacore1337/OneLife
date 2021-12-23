@@ -391,4 +391,5 @@ pub fn die() {
     info!("dying");
     engine_run(game);
     character_death_update(game);
+    update_unlocks(&mut *game);
 }

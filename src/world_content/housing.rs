@@ -100,9 +100,16 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
     }
 }
 
+pub fn should_unlock_housing(input_housing: HousingTypes, game: &Game) -> bool {
+    let housing = &game.world.housing[input_housing as usize];
+    let housing_state = &game.state.housing[input_housing as usize];
+    housing.required_money <= game.state.items.money || housing_state.is_unlocked
+}
+
 pub fn should_be_visible_housing(input_housing: HousingTypes, game: &Game) -> bool {
     let housing = &game.world.housing[input_housing as usize];
-    housing.required_money <= game.state.items.money
+    let housing_state = &game.state.housing[input_housing as usize];
+    housing.required_money / 4.0 <= game.state.items.money || housing_state.is_visible
 }
 
 pub fn get_housings() -> [Housing; HOUSING_SIZE] {

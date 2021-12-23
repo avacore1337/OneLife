@@ -7,6 +7,7 @@ use strum::IntoEnumIterator;
 pub struct Housing {
     pub name: HousingTypes,
     pub is_visible: bool,
+    pub is_unlocked: bool,
 }
 
 impl Housing {
@@ -14,6 +15,7 @@ impl Housing {
         Housing {
             name: housing,
             is_visible: false,
+            is_unlocked: false,
         }
     }
 }

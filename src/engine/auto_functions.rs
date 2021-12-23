@@ -23,7 +23,7 @@ pub fn auto_living(game: &mut Game) {
         let housing_world = translate_housing(housing.name);
         let can_afford = housing_world.upkeep < game.state.items.income;
         let better_housing = housing.name > current_housing.name;
-        if better_housing && housing.is_visible && can_afford {
+        if better_housing && housing.is_unlocked && can_afford {
             game.input.housing = housing.name;
         }
     }
