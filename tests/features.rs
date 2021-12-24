@@ -1,3 +1,5 @@
+use std::collections::BTreeMap;
+
 use one_life::engine::engine_run;
 use one_life::game::Game;
 use one_life::input::skill::SkillTypes;
@@ -25,4 +27,14 @@ fn test_tactics() {
 
     assert!(xp2 > xp1 * 2.0);
     // game2.state.works[WorkTypes
+}
+
+#[wasm_bindgen_test]
+fn test_input_conversion() {
+    let data = r#" {"0":["Auto Work False","Auto Living False","Auto Buy Item False","Auto Buy Tomb False"]} "#;
+    let inputs: BTreeMap<u32, Vec<String>> = serde_json::from_str(data).unwrap();
+    let mut game = Game::new();
+    let (state, _, _) = make_t4(&game.world);
+    game.state = state;
+    game.inputs = inputs;
 }

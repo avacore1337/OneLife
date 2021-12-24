@@ -4,21 +4,11 @@ use crate::input::Input;
 use crate::meta::MetaData;
 use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::{new_game, rebirth, StateContainer};
-use crate::world_content::rebirth_upgrade::translate_rebirth_upgrade;
+use crate::util::get_all_upgrades_up_to_current_tier;
 use crate::world_content::work::translate_work;
 use crate::world_content::world::World;
 use std::collections::BTreeMap;
 use strum::IntoEnumIterator;
-
-fn get_all_upgrades_up_to_current_tier(rebirth_stats: &mut RebirthStats) {
-    let tier = rebirth_stats.class_tier;
-    for upgrade in rebirth_stats.rebirth_upgrades.iter_mut() {
-        let upgrade_world = translate_rebirth_upgrade(upgrade.name);
-        if upgrade_world.required_tier < tier {
-            upgrade.is_purchased = true;
-        }
-    }
-}
 
 fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
     let tier = rebirth_stats.class_tier;

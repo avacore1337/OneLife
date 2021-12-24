@@ -7,6 +7,7 @@ pub enum RebirthUpgradeTypes {
     AcceptingDeath,
     Skills,
     StartingItems1,
+    StartingItems2,
     StatMemory1,
     EndItEarly,
     // GemSense, // gives you a huge multiplier to mining

@@ -80,4 +80,7 @@ pub fn test() {
     // info!("Mapping: {:#?}", user_input_mapping.user_function.keys());
     let game = GLOBAL_DATA.lock().unwrap();
     info!("input: {:#?}", game.inputs);
+    // let val = serde::ser
+    let res = serde_json::to_string(&game.inputs).unwrap();
+    info!("{}", res);
 }

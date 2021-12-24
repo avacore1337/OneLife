@@ -25,6 +25,11 @@ pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: Rebir
             state.items.boost_items[BoostItemTypes::Shoe1 as usize].is_purchased = true;
             state.items.boost_items[BoostItemTypes::RaggedClothes as usize].is_purchased = true;
         }
+        RebirthUpgradeTypes::StartingItems2 => {
+            state.items.boost_items[BoostItemTypes::Book2 as usize].is_purchased = true;
+            state.items.boost_items[BoostItemTypes::Shoe2 as usize].is_purchased = true;
+            state.items.boost_items[BoostItemTypes::FarmersClothes as usize].is_purchased = true;
+        }
         _ => (),
     }
 }
@@ -105,6 +110,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description: "Anything is better than nothing",
             display_name: "Starting Items",
             required_tier: 3,
+        },
+        RebirthUpgradeTypes::StartingItems2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 9000.0,
+            description: "Anything is better than nothing",
+            display_name: "Starting Items",
+            required_tier: 4,
         },
         RebirthUpgradeTypes::AutoWork => RebirthUpgrade {
             name: rebirth_upgrade,
