@@ -10,6 +10,12 @@ use wasm_bindgen::prelude::*;
 use crate::GLOBAL_DATA;
 
 #[wasm_bindgen]
+pub fn grow_old() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.state.life_stats.age = game.state.life_stats.lifespan - 2.0;
+}
+
+#[wasm_bindgen]
 pub fn give_money(money: f64) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.items.money = money;

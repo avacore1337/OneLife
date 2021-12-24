@@ -61,6 +61,8 @@
     <button v-on:click="print_debug_meta">Print Debug Meta</button>
     <br />
     <br />
+    <button v-on:click="grow_old">Grow Old</button>
+    <br />
     <input v-model="money" size="10" />
     <br />
     <button v-on:click="give_money">Give Money</button>
@@ -164,6 +166,9 @@ export default {
     },
     give_money: function () {
       this.wasm.give_money(this.money);
+    },
+    grow_old: function () {
+      this.wasm.grow_old();
     },
   },
 };
