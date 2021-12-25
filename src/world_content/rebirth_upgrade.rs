@@ -74,15 +74,31 @@ impl Gain for RebirthUpgrade {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             RebirthUpgradeTypes::AcceptingDeath => {
-                intermediate.add_multiplier(KeyValues::Happiness, 2.0, "Accepting Death");
+                intermediate.add_multiplier(KeyValues::Happiness, 2.0, self.display_name);
             }
             RebirthUpgradeTypes::Privilege1 => {
-                intermediate.add_multiplier(KeyValues::Money, 1.3, "Tiny Privilege");
+                intermediate.add_multiplier(KeyValues::Money, 1.3, self.display_name);
+            }
+            RebirthUpgradeTypes::Privilege2 => {
+                intermediate.add_multiplier(KeyValues::Money, 1.3, self.display_name);
+            }
+            RebirthUpgradeTypes::LaborXp1 => {
+                intermediate.add_multiplier(KeyValues::LaborXp, 2.0, self.display_name);
+            }
+            RebirthUpgradeTypes::LaborXp2 => {
+                intermediate.add_multiplier(KeyValues::LaborXp, 2.0, self.display_name);
+            }
+            RebirthUpgradeTypes::SoldierXp1 => {
+                intermediate.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
+            }
+            RebirthUpgradeTypes::SoldierXp2 => {
+                intermediate.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
             }
             _ => (),
         }
     }
 }
+
 pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> RebirthUpgrade {
     match rebirth_upgrade {
         RebirthUpgradeTypes::AcceptingDeath => RebirthUpgrade {
@@ -160,6 +176,34 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 9000.0,
             description: "Anything is better than nothing",
             display_name: "Starting Items",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::LaborXp1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 20.0,
+            description: "TODO",
+            display_name: "Labor Experience",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::LaborXp2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 80.0,
+            description: "TODO",
+            display_name: "Labor Experience",
+            required_tier: 2,
+        },
+        RebirthUpgradeTypes::SoldierXp1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 100.0,
+            description: "TODO",
+            display_name: "Labor Experience",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 500.0,
+            description: "TODO",
+            display_name: "Labor Experience",
             required_tier: 4,
         },
         RebirthUpgradeTypes::AutoWork => RebirthUpgrade {

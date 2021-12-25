@@ -89,5 +89,7 @@ impl Game {
         self.input = save.input;
         self.state = save.state;
         self.meta_data = save.meta_data;
+        self.inputs = save.inputs;
+        self.previous_inputs = save.previous_inputs;
     }
 }

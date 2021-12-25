@@ -51,9 +51,10 @@ fn test_first_rebirth() {
 
     set_full_auto(&mut game);
     run_until_dead(&mut game);
-    assert_eq!(game.state.works[WorkTypes::Mill as usize].level, 10);
+    assert_eq!(game.state.works[WorkTypes::Mill as usize].level, 10); // too strict?
     do_rebirth(&mut game);
     assert_eq!(game.state.rebirth_stats.coins, 2.0);
+    // Won't work because all money is spent on items, stop spending at good tick?
     // assert_eq!(
     //     format!("{:#?}", game.state.rebirth_stats.max_job_levels),
     //     ""
