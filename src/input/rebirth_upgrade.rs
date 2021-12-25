@@ -8,6 +8,11 @@ pub enum RebirthUpgradeTypes {
     Skills,
     StartingItems1,
     StartingItems2,
+    StartingFunds1,
+    StartingFunds2,
+    Privilege1,
+    Privilege2,
+    Privilege3,
     StatMemory1,
     EndItEarly,
     // GemSense, // gives you a huge multiplier to mining

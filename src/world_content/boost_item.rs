@@ -182,7 +182,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Leach => BoostItem {
             name: item_type,
-            purchasing_cost: 40_000.0,
+            purchasing_cost: 10_000.0,
             description: "Blood sucking bug, how is this healthy?",
             effect_description: "Improving Health",
             display_name: "Blood Leach",

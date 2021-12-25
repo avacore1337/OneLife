@@ -22,6 +22,7 @@ fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
 
 pub fn get_presets(world: &World) -> BTreeMap<&'static str, (StateContainer, Input, MetaData)> {
     let mut presets = BTreeMap::new();
+    presets.insert("00: Current Testing", make_current(world));
     presets.insert("01: T1 expected", make_t1(world));
     presets.insert("02: T2 expected", make_t2(world));
     presets.insert("03: T3 expected", make_t3(world));
@@ -34,6 +35,33 @@ pub fn get_presets(world: &World) -> BTreeMap<&'static str, (StateContainer, Inp
     presets.insert("10: billion coins t0", make_only_coins(world));
 
     presets
+}
+
+fn make_current(world: &World) -> (StateContainer, Input, MetaData) {
+    let mut state = new_game(world);
+    let mut meta_data = MetaData::new();
+    let r = &mut state.rebirth_stats;
+    r.class_tier = 1;
+    get_all_upgrades_up_to_current_tier(r);
+    r.rebirth_upgrades[RebirthUpgradeTypes::Skills as usize].is_purchased = true;
+    r.rebirth_upgrades[RebirthUpgradeTypes::AcceptingDeath as usize].is_purchased = true;
+    r.rebirth_upgrades[RebirthUpgradeTypes::StartingFunds1 as usize].is_purchased = true;
+    r.rebirth_upgrades[RebirthUpgradeTypes::Privilege1 as usize].is_purchased = true;
+    r.coins = 12.0;
+    r.rebirth_count = 6;
+
+    meta_data.options.auto_work = true;
+    meta_data.options.auto_living = true;
+    meta_data.options.auto_buy_item = true;
+
+    set_lower_tier_jobs_to(r, 30);
+    r.max_job_levels[WorkTypes::Fisherman as usize] = 30;
+    r.max_job_levels[WorkTypes::Weaver as usize] = 30;
+
+    state = rebirth(world, state.rebirth_stats.clone());
+
+    let input = Input::new(&state, world);
+    (state, input, meta_data)
 }
 
 fn make_poor_death(world: &World) -> (StateContainer, Input, MetaData) {

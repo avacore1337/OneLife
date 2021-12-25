@@ -218,7 +218,8 @@ fn calculate_tombs_income(game: &mut Game) {
 
 fn calculate_works_income(game: &mut Game) {
     for work_state in game.state.works.iter_mut() {
-        work_state.effective_income = game.intermediate_state.get_value(work_state.name.into());
+        work_state.effective_income = game.intermediate_state.get_value(work_state.name.into())
+            * game.intermediate_state.get_multiplier(KeyValues::Money);
     }
 }
 

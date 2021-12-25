@@ -30,6 +30,12 @@ pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: Rebir
             state.items.boost_items[BoostItemTypes::Shoe2 as usize].is_purchased = true;
             state.items.boost_items[BoostItemTypes::FarmersClothes as usize].is_purchased = true;
         }
+        RebirthUpgradeTypes::StartingFunds1 => {
+            state.items.money += 2000.0;
+        }
+        RebirthUpgradeTypes::StartingFunds2 => {
+            state.items.money += 10000.0;
+        }
         _ => (),
     }
 }
@@ -68,7 +74,10 @@ impl Gain for RebirthUpgrade {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             RebirthUpgradeTypes::AcceptingDeath => {
-                intermediate.add_multiplier(KeyValues::Happiness, 2.0, "AcceptingDeath");
+                intermediate.add_multiplier(KeyValues::Happiness, 2.0, "Accepting Death");
+            }
+            RebirthUpgradeTypes::Privilege1 => {
+                intermediate.add_multiplier(KeyValues::Money, 1.3, "Tiny Privilege");
             }
             _ => (),
         }
@@ -103,6 +112,41 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description: "You can now commit a grave sin",
             display_name: "Ending It Early",
             required_tier: 3,
+        },
+        RebirthUpgradeTypes::StartingFunds1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 8.0,
+            description: "Pocket change for some, a fortune for others",
+            display_name: "Starting Money",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::StartingFunds2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 40.0,
+            description: "Pocket change for some, a fortune for others",
+            display_name: "Starting Money 2",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::Privilege1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 12.0,
+            description: "You have it easier than some at least",
+            display_name: "Tiny Privilege",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::Privilege2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 90.0,
+            description: "Not the worst in town at least",
+            display_name: "Minor Privilege",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::Privilege3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 600.0,
+            description: "TODO",
+            display_name: "Lesser Privilege",
+            required_tier: 2,
         },
         RebirthUpgradeTypes::StartingItems1 => RebirthUpgrade {
             name: rebirth_upgrade,
@@ -184,7 +228,20 @@ pub fn should_be_visible_rebirth_upgrade(
     game: &Game,
 ) -> bool {
     let rebirth_upgrade = &game.world.rebirth_upgrades[input_rebirth_upgrade as usize];
-    rebirth_upgrade.required_tier <= game.state.rebirth_stats.class_tier
+    if rebirth_upgrade.required_tier > game.state.rebirth_stats.class_tier {
+        return false;
+    }
+    match input_rebirth_upgrade {
+        RebirthUpgradeTypes::StartingFunds2 => {
+            game.state.rebirth_stats.rebirth_upgrades[RebirthUpgradeTypes::StartingFunds1 as usize]
+                .is_purchased
+        }
+        RebirthUpgradeTypes::StartingItems2 => {
+            game.state.rebirth_stats.rebirth_upgrades[RebirthUpgradeTypes::StartingItems1 as usize]
+                .is_purchased
+        }
+        _ => true,
+    }
 }
 
 pub fn get_rebirth_upgrades() -> [RebirthUpgrade; REBIRTH_UPGRADE_SIZE] {
