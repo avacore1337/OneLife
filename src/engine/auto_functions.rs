@@ -1,5 +1,6 @@
 use crate::{
     game::Game,
+    input::options::AutoSettingTypes,
     world_content::{
         boost_item::translate_boost_item, housing::translate_housing, tomb::translate_tomb,
         work::translate_work,
@@ -49,4 +50,27 @@ pub fn auto_buy_tomb(game: &mut Game) {
             game.state.items.money -= world_tomb.purchasing_cost;
         }
     }
+}
+
+pub fn register_auto_settings(game: &mut Game) {
+    if game.meta_data.options.auto_work {
+        game.register_input(AutoSettingTypes::AutoWorkTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoWorkFalse)
+    };
+    if game.meta_data.options.auto_living {
+        game.register_input(AutoSettingTypes::AutoLivingTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoLivingFalse)
+    };
+    if game.meta_data.options.auto_buy_item {
+        game.register_input(AutoSettingTypes::AutoBuyItemTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoBuyItemFalse)
+    };
+    if game.meta_data.options.auto_buy_tomb {
+        game.register_input(AutoSettingTypes::AutoBuyTombTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoBuyTombFalse)
+    };
 }

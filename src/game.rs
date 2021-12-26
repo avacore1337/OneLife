@@ -66,6 +66,13 @@ impl Game {
             .push(key.to_record_key());
     }
 
+    pub fn register_input_on_tick<T: Recordable>(&mut self, tick: u32, key: T) {
+        self.inputs
+            .entry(tick)
+            .or_default()
+            .push(key.to_record_key());
+    }
+
     pub fn replay_input(&mut self) {
         let tick = self.state.life_stats.current_tick;
         // log::info!("{:?}", tick);

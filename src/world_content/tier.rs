@@ -73,8 +73,7 @@ pub fn init_tiers() -> Vec<Tier> {
         Tier {
             level: 2,
             display_name: "Farmless Peasant",
-            description: "You own your own life, but nothing else."
-                ,
+            description: "You own your own life, but nothing else.",
             unlocks: vec![
                 "The farming job."
                     ,
@@ -82,10 +81,10 @@ pub fn init_tiers() -> Vec<Tier> {
                     ,
             ],
             starting_stats: get_stats_base(BaseStats {
-                str: 15.0,
-                int: 15.0,
-                cha: 15.0,
-                con: 15.0,
+                str: 12.0,
+                int: 12.0,
+                cha: 12.0,
+                con: 12.0,
                 dex: 0.0,
                 faith: 0.0,
             }),
@@ -99,10 +98,8 @@ pub fn init_tiers() -> Vec<Tier> {
             description: "You own your own piece of heaven"
                 ,
             unlocks: vec![
-                "Crafting of higher tier goods"
-                    ,
-                "Honorable military service is no longer out of your reach"
-                    ,
+                "Crafting of higher tier goods",
+                "Honorable military service is no longer out of your reach",
             ],
             starting_stats: get_stats_base(BaseStats {
                 str: 20.0,
@@ -155,8 +152,7 @@ pub fn init_tiers() -> Vec<Tier> {
         Tier {
             level: 6,
             display_name: "Estate Owner",
-            description: "todo"
-                ,
+            description: "todo",
             unlocks: vec![ ],
             starting_stats: get_stats_base(BaseStats {
                 str: 50.0,
@@ -173,8 +169,7 @@ pub fn init_tiers() -> Vec<Tier> {
         Tier {
             level: 7,
             display_name: "Grand Estate Owner",
-            description: "todo"
-                ,
+            description: "todo",
             unlocks: vec![ ],
             starting_stats: get_stats_base(BaseStats {
                 str: 70.0,

@@ -2,9 +2,10 @@
 
 use one_life::engine::{character_death_update, engine_run};
 use one_life::game::Game;
+use one_life::input::options::AutoSettingTypes;
 use one_life::input::tomb::TombTypes;
 use one_life::input::work::WorkTypes;
-use one_life::input::Input;
+use one_life::input::{Input, Recordable};
 
 use one_life::state::state_container::rebirth;
 use wasm_bindgen_test::wasm_bindgen_test;
@@ -40,21 +41,32 @@ fn test_auto_buy_tomb() {
     assert_eq!(game.state.rebirth_stats.coins, 2.0);
 }
 
+fn register_previous_input<T: Recordable>(game: &mut Game, tick: u32, key: T) {
+    game.previous_inputs
+        .entry(tick)
+        .or_default()
+        .push(key.to_record_key());
+}
+
 #[wasm_bindgen_test]
 fn test_first_rebirth() {
-    let mut game = Game::new();
-    set_full_auto(&mut game);
-    run_until_dead(&mut game);
+    let game = &mut Game::new();
+    set_full_auto(game);
+    run_until_dead(game);
     assert_eq!(game.state.works[WorkTypes::GalleyRower as usize].level, 10);
-    do_rebirth(&mut game);
+
+    do_rebirth(game);
     assert_eq!(game.state.rebirth_stats.coins, 0.0);
 
-    set_full_auto(&mut game);
-    run_until_dead(&mut game);
-    assert_eq!(game.state.works[WorkTypes::Mill as usize].level, 10); // too strict?
-    do_rebirth(&mut game);
+    set_full_auto(game);
+    game.state.life_stats.replaying = true;
+    register_previous_input(game, 12000, AutoSettingTypes::AutoBuyItemFalse); // Registering for next round
+    run_until_dead(game);
+    assert_eq!(game.state.works[WorkTypes::Fields as usize].level, 10); // too strict?
+    assert!(game.state.works[WorkTypes::Mill as usize].level >= 10); // too strict?
+
+    do_rebirth(game);
     assert_eq!(game.state.rebirth_stats.coins, 2.0);
-    // Won't work because all money is spent on items, stop spending at good tick?
     // assert_eq!(
     //     format!("{:#?}", game.state.rebirth_stats.max_job_levels),
     //     ""

@@ -1,4 +1,5 @@
 #![feature(variant_count)]
+use engine::auto_functions::register_auto_settings;
 use log::{info, Level};
 use once_cell::sync::Lazy;
 use std::collections::BTreeMap;
@@ -111,29 +112,6 @@ pub fn do_rebirth_internal(game: &mut Game) {
     game.input = Input::new(&game.state, &game.world);
     game.previous_inputs = game.inputs.clone();
     game.inputs = BTreeMap::new();
-}
-
-fn register_auto_settings(game: &mut Game) {
-    if game.meta_data.options.auto_work {
-        game.register_input(AutoSettingTypes::AutoWorkTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoWorkFalse)
-    };
-    if game.meta_data.options.auto_living {
-        game.register_input(AutoSettingTypes::AutoLivingTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoLivingFalse)
-    };
-    if game.meta_data.options.auto_buy_item {
-        game.register_input(AutoSettingTypes::AutoBuyItemTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoBuyItemFalse)
-    };
-    if game.meta_data.options.auto_buy_tomb {
-        game.register_input(AutoSettingTypes::AutoBuyTombTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoBuyTombFalse)
-    };
 }
 
 #[wasm_bindgen]
