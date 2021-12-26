@@ -7,14 +7,16 @@ use crate::world_content::world::World;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
+pub type Inputs = BTreeMap<u32, Vec<String>>;
+
 pub struct Game {
     pub input: Input,
     pub world: World,
     pub state: StateContainer,
     pub intermediate_state: IntermediateState,
     pub meta_data: MetaData,
-    pub inputs: BTreeMap<u32, Vec<String>>,
-    pub previous_inputs: BTreeMap<u32, Vec<String>>,
+    pub inputs: Inputs,
+    pub previous_inputs: Inputs,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -22,8 +24,14 @@ pub struct GameSave {
     pub input: Input,
     pub state: StateContainer,
     pub meta_data: MetaData,
-    pub inputs: BTreeMap<u32, Vec<String>>,
-    pub previous_inputs: BTreeMap<u32, Vec<String>>,
+    pub inputs: Inputs,
+    pub previous_inputs: Inputs,
+}
+
+impl Default for GameSave {
+    fn default() -> GameSave {
+        Game::new().into()
+    }
 }
 
 impl From<&Game> for GameSave {
@@ -33,8 +41,26 @@ impl From<&Game> for GameSave {
             state: game.state.clone(),
             meta_data: game.meta_data.clone(),
             inputs: game.inputs.clone(),
-            previous_inputs: game.inputs.clone(),
+            previous_inputs: game.previous_inputs.clone(),
         }
+    }
+}
+
+impl From<Game> for GameSave {
+    fn from(game: Game) -> Self {
+        GameSave {
+            input: game.input,
+            state: game.state,
+            meta_data: game.meta_data,
+            inputs: game.inputs,
+            previous_inputs: game.previous_inputs,
+        }
+    }
+}
+
+impl Default for Game {
+    fn default() -> Game {
+        Game::new()
     }
 }
 
@@ -93,10 +119,20 @@ impl Game {
     }
 
     pub fn load_game(&mut self, save: GameSave) {
-        self.input = save.input;
-        self.state = save.state;
-        self.meta_data = save.meta_data;
-        self.inputs = save.inputs;
-        self.previous_inputs = save.previous_inputs;
+        match save {
+            GameSave {
+                input,
+                state,
+                meta_data,
+                inputs,
+                previous_inputs,
+            } => {
+                self.input = input;
+                self.state = state;
+                self.meta_data = meta_data;
+                self.inputs = inputs;
+                self.previous_inputs = previous_inputs;
+            }
+        }
     }
 }

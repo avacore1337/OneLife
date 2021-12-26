@@ -67,10 +67,8 @@ pub fn get_preset_saves() -> JsValue {
 pub fn set_preset_saves(preset_name: &str) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     let mut presets = get_presets(&game.world);
-    if let Some((state, input, meta_data)) = presets.remove(preset_name) {
-        game.state = state;
-        game.input = input;
-        game.meta_data = meta_data
+    if let Some(game_save) = presets.remove(preset_name) {
+        game.load_game(game_save);
     }
 }
 

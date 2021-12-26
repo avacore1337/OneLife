@@ -1,10 +1,11 @@
+use crate::game::GameSave;
+use crate::input::options::AutoSettingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::work::WorkTypes;
 use crate::input::Input;
-use crate::meta::MetaData;
 use crate::state::rebirth_stats::RebirthStats;
-use crate::state::state_container::{new_game, rebirth, StateContainer};
-use crate::util::get_all_upgrades_up_to_current_tier;
+use crate::state::state_container::rebirth;
+use crate::util::{get_all_upgrades_up_to_current_tier, register_input, set_full_auto};
 use crate::world_content::work::translate_work;
 use crate::world_content::world::World;
 use std::collections::BTreeMap;
@@ -20,7 +21,7 @@ fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
     }
 }
 
-pub fn get_presets(world: &World) -> BTreeMap<&'static str, (StateContainer, Input, MetaData)> {
+pub fn get_presets(world: &World) -> BTreeMap<&'static str, GameSave> {
     let mut presets = BTreeMap::new();
     presets.insert("00: Current Testing", make_current(world));
     presets.insert("01: T1 expected", make_t1(world));
@@ -33,14 +34,15 @@ pub fn get_presets(world: &World) -> BTreeMap<&'static str, (StateContainer, Inp
     presets.insert("08: poor death", make_poor_death(world));
     presets.insert("09: rich death", make_rich_death(world));
     presets.insert("10: billion coins t0", make_only_coins(world));
+    presets.insert("Test_1: second rebirth", second_rebirth(world));
 
     presets
 }
 
-fn make_current(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let mut meta_data = MetaData::new();
-    let r = &mut state.rebirth_stats;
+fn make_current(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let meta_data = &mut game_save.meta_data;
+    let r = &mut game_save.state.rebirth_stats;
     r.class_tier = 1;
     get_all_upgrades_up_to_current_tier(r);
     r.rebirth_upgrades[RebirthUpgradeTypes::Skills as usize].is_purchased = true;
@@ -58,58 +60,53 @@ fn make_current(world: &World) -> (StateContainer, Input, MetaData) {
     r.max_job_levels[WorkTypes::Fisherman as usize] = 30;
     r.max_job_levels[WorkTypes::Weaver as usize] = 30;
 
-    state = rebirth(world, state.rebirth_stats.clone());
-
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.state = rebirth(world, r.clone());
+    game_save
 }
 
-fn make_poor_death(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
+fn make_poor_death(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
     state.items.money = 10.0;
     state.life_stats.age = 70.0 * 365.0;
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
 
-fn make_rich_death(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
-
+fn make_rich_death(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.class_tier = 4;
     get_all_upgrades_up_to_current_tier(r);
     set_lower_tier_jobs_to(r, 70);
-    state = rebirth(world, state.rebirth_stats.clone());
-    state.items.money = 1.0e9;
-    state.life_stats.age = 70.0 * 365.0;
+    game_save.state = rebirth(world, r.clone());
+    game_save.state.items.money = 1.0e9;
+    game_save.state.life_stats.age = 70.0 * 365.0;
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
 
-fn make_t1(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
-    let r = &mut state.rebirth_stats;
+fn make_t1(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
     r.class_tier = 1;
     get_all_upgrades_up_to_current_tier(r);
     r.coins = 0.0;
     r.rebirth_count = 2;
 
     set_lower_tier_jobs_to(r, 20);
+    game_save.state = rebirth(world, r.clone());
 
-    state = rebirth(world, state.rebirth_stats.clone());
-
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
 
-fn make_t2(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
+fn make_t2(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.class_tier = 2;
     get_all_upgrades_up_to_current_tier(r);
@@ -118,15 +115,15 @@ fn make_t2(world: &World) -> (StateContainer, Input, MetaData) {
 
     set_lower_tier_jobs_to(r, 30);
 
-    state = rebirth(world, state.rebirth_stats.clone());
+    game_save.state = rebirth(world, r.clone());
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
 
-fn make_t3(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
+fn make_t3(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.class_tier = 3;
     get_all_upgrades_up_to_current_tier(r);
@@ -135,14 +132,14 @@ fn make_t3(world: &World) -> (StateContainer, Input, MetaData) {
 
     set_lower_tier_jobs_to(r, 50);
 
-    state = rebirth(world, state.rebirth_stats.clone());
+    game_save.state = rebirth(world, r.clone());
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
-pub fn make_t4(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
+pub fn make_t4(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.class_tier = 4;
     get_all_upgrades_up_to_current_tier(r);
@@ -151,15 +148,15 @@ pub fn make_t4(world: &World) -> (StateContainer, Input, MetaData) {
 
     set_lower_tier_jobs_to(r, 70);
 
-    state = rebirth(world, state.rebirth_stats.clone());
+    game_save.state = rebirth(world, r.clone());
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
 
-fn make_t5(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
+fn make_t5(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.class_tier = 5;
     get_all_upgrades_up_to_current_tier(r);
@@ -168,15 +165,15 @@ fn make_t5(world: &World) -> (StateContainer, Input, MetaData) {
 
     set_lower_tier_jobs_to(r, 80);
 
-    state = rebirth(world, state.rebirth_stats.clone());
+    game_save.state = rebirth(world, r.clone());
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
 
-fn make_t5_faith(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
+fn make_t5_faith(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.class_tier = 5;
     get_all_upgrades_up_to_current_tier(r);
@@ -186,28 +183,50 @@ fn make_t5_faith(world: &World) -> (StateContainer, Input, MetaData) {
     set_lower_tier_jobs_to(r, 80);
     r.rebirth_upgrades[RebirthUpgradeTypes::TheDivine as usize].is_purchased = true;
 
-    state = rebirth(world, state.rebirth_stats.clone());
-    state.items.money = 1.0e9;
-    state.items.divine_favor = 50.0;
+    game_save.state = rebirth(world, r.clone());
+    game_save.state.items.money = 1.0e9;
+    game_save.state.items.divine_favor = 50.0;
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
 
-fn make_saved_ticks(world: &World) -> (StateContainer, Input, MetaData) {
-    let state = new_game(world);
-    let mut meta_data = MetaData::new();
+fn make_saved_ticks(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let meta_data = &mut game_save.meta_data;
     meta_data.saved_ticks = 100_000.0;
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }
 
-fn make_only_coins(world: &World) -> (StateContainer, Input, MetaData) {
-    let mut state = new_game(world);
-    let meta_data = MetaData::new();
+fn make_only_coins(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
     state.rebirth_stats.coins = 1.0e9;
 
-    let input = Input::new(&state, world);
-    (state, input, meta_data)
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
+}
+
+pub fn second_rebirth(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
+    let r = &mut state.rebirth_stats;
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    register_input(
+        &mut game_save.previous_inputs,
+        12000,
+        AutoSettingTypes::AutoBuyItemFalse,
+    ); // Registering for next round
+
+    for work in WorkTypes::iter() {
+        if work < WorkTypes::Mill {
+            r.max_job_levels[work as usize] = 10;
+        }
+    }
+
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
 }

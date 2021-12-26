@@ -11,8 +11,7 @@ use wasm_bindgen_test::wasm_bindgen_test;
 #[wasm_bindgen_test]
 fn test_tactics() {
     let mut game = Game::new();
-    let (state, _, _) = make_t4(&game.world);
-    game.state = state;
+    game.load_game(make_t4(&game.world));
     game.input.work = WorkTypes::BagageBoy;
 
     let state2 = game.state.clone();
@@ -34,7 +33,5 @@ fn test_input_conversion() {
     let data = r#" {"0":["Auto Work False","Auto Living False","Auto Buy Item False","Auto Buy Tomb False"]} "#;
     let inputs: BTreeMap<u32, Vec<String>> = serde_json::from_str(data).unwrap();
     let mut game = Game::new();
-    let (state, _, _) = make_t4(&game.world);
-    game.state = state;
     game.inputs = inputs;
 }
