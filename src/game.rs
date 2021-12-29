@@ -2,7 +2,7 @@ use crate::engine::intermediate_state::IntermediateState;
 use crate::input::{Input, Recordable};
 use crate::input_mapping::InputMapping;
 use crate::meta::MetaData;
-use crate::state::state_container::{new_game, StateContainer};
+use crate::state::state_container::StateContainer;
 use crate::world_content::world::World;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
@@ -67,8 +67,8 @@ impl Default for Game {
 impl Game {
     pub fn new() -> Game {
         let world = &crate::WORLD_CONTENT;
-        let state = new_game(&world);
-        let input = Input::new(&state, &world);
+        let state = StateContainer::default();
+        let input = Input::new(&state);
         let intermediate_state = IntermediateState::new();
         let meta_data = MetaData::new();
         let inputs = BTreeMap::new();
@@ -114,8 +114,8 @@ impl Game {
     }
 
     pub fn hard_reset(&mut self) {
-        self.state = new_game(&self.world);
-        self.input = Input::new(&self.state, &self.world);
+        self.state = StateContainer::default();
+        self.input = Input::new(&self.state);
     }
 
     pub fn load_game(&mut self, save: GameSave) {

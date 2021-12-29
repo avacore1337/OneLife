@@ -1,5 +1,4 @@
 use super::rebirth_stats::RebirthStats;
-use crate::world_content::world::World;
 use serde::{Deserialize, Serialize};
 
 use wasm_bindgen::prelude::*;
@@ -19,8 +18,8 @@ pub struct LifeStats {
 }
 
 impl LifeStats {
-    pub fn new(world: &World, rebirth_stats: &RebirthStats) -> LifeStats {
-        let health = world.tiers[rebirth_stats.class_tier as usize].starting_health;
+    pub fn new(rebirth_stats: &RebirthStats) -> LifeStats {
+        let health = crate::WORLD_CONTENT.tiers[rebirth_stats.class_tier as usize].starting_health;
         LifeStats {
             age: 15.0 * 365.0,
             lifespan: crate::BASE_LIFESPAN * (1.0 + health),

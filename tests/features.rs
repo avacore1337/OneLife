@@ -12,7 +12,7 @@ use wasm_bindgen_test::wasm_bindgen_test;
 #[wasm_bindgen_test]
 fn test_tactics() {
     let mut game = Game::new();
-    game.load_game(make_t4(&game.world));
+    game.load_game(make_t4());
     game.input.work = WorkTypes::BagageBoy;
 
     let state2 = game.state.clone();

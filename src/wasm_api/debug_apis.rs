@@ -59,14 +59,13 @@ pub fn set_gamespeed(speed: u32) {
 
 #[wasm_bindgen]
 pub fn get_preset_saves() -> JsValue {
-    let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&get_presets(&game.world)).unwrap()
+    JsValue::from_serde(&get_presets()).unwrap()
 }
 
 #[wasm_bindgen]
 pub fn set_preset_saves(preset_name: &str) {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    let mut presets = get_presets(&game.world);
+    let mut presets = get_presets();
     if let Some(game_save) = presets.remove(preset_name) {
         game.load_game(game_save);
     }

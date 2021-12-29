@@ -17,7 +17,6 @@ use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::{WorkTypes, WORK_SIZE};
 use crate::world_content::rebirth_upgrade::apply_starting_upgrade;
-use crate::world_content::world::World;
 use strum::IntoEnumIterator;
 
 use serde::{Deserialize, Serialize};
@@ -36,15 +35,17 @@ pub struct StateContainer {
     pub skills: [Skill; SKILL_SIZE],
 }
 
-pub fn new_game(world: &World) -> StateContainer {
-    let rebirth_stats = RebirthStats::default();
-    rebirth(world, rebirth_stats)
+impl Default for StateContainer {
+    fn default() -> StateContainer {
+        let rebirth_stats = RebirthStats::default();
+        rebirth(rebirth_stats)
+    }
 }
 
-pub fn rebirth(world: &World, rebirth_stats: RebirthStats) -> StateContainer {
-    let life_stats = LifeStats::new(world, &rebirth_stats);
+pub fn rebirth(rebirth_stats: RebirthStats) -> StateContainer {
+    let life_stats = LifeStats::new(&rebirth_stats);
     let mut state = StateContainer {
-        stats: world
+        stats: crate::WORLD_CONTENT
             .tiers
             .get(rebirth_stats.class_tier as usize)
             .expect("tier not implemented")

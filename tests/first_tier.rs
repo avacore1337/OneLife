@@ -22,7 +22,7 @@ fn test_first_rebirth() {
 #[wasm_bindgen_test]
 fn test_second_rebirth() {
     let game = &mut Game::new();
-    game.load_game(second_rebirth(&game.world));
+    game.load_game(second_rebirth());
     run_until_dead(game);
     assert_eq!(game.state.works[WorkTypes::Fields as usize].level, 10); // too strict?
     assert!(game.state.works[WorkTypes::Mill as usize].level >= 10); // too strict?

@@ -115,8 +115,8 @@ pub fn do_rebirth() {
 
 pub fn do_rebirth_internal(game: &mut Game) {
     game.state.rebirth_stats.rebirth_count += 1;
-    game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
-    game.input = Input::new(&game.state, &game.world);
+    game.state = rebirth(game.state.rebirth_stats.clone());
+    game.input = Input::new(&game.state);
     game.previous_inputs = game.inputs.clone();
     game.inputs = BTreeMap::new();
 }

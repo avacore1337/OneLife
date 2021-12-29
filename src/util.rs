@@ -21,8 +21,8 @@ pub fn run_until_dead(game: &mut Game) {
 
 pub fn do_test_rebirth(game: &mut Game) {
     game.state.rebirth_stats.rebirth_count += 1;
-    game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
-    game.input = Input::new(&game.state, &game.world);
+    game.state = rebirth(game.state.rebirth_stats.clone());
+    game.input = Input::new(&game.state);
 }
 
 pub fn get_all_upgrades_up_to_tier(rebirth_stats: &mut RebirthStats, tier: u32) {
