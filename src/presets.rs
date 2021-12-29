@@ -1,11 +1,14 @@
 use crate::game::GameSave;
+use crate::input::activity::ActivityTypes;
 use crate::input::options::AutoSettingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::work::WorkTypes;
 use crate::input::Input;
 use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
-use crate::util::{get_all_upgrades_up_to_current_tier, register_input, set_full_auto};
+use crate::util::{
+    balance_activities, get_all_upgrades_up_to_current_tier, register_input, set_full_auto,
+};
 use crate::world_content::work::translate_work;
 use crate::world_content::world::World;
 use std::collections::BTreeMap;
@@ -34,7 +37,9 @@ pub fn get_presets(world: &World) -> BTreeMap<&'static str, GameSave> {
     presets.insert("08: poor death", make_poor_death(world));
     presets.insert("09: rich death", make_rich_death(world));
     presets.insert("10: billion coins t0", make_only_coins(world));
+    // presets.insert("Test_0: first rebirth", first_rebirth(world));
     presets.insert("Test_1: second rebirth", second_rebirth(world));
+    presets.insert("Test_2: third rebirth", third_rebirth(world));
 
     presets
 }
@@ -226,6 +231,35 @@ pub fn second_rebirth(world: &World) -> GameSave {
             r.max_job_levels[work as usize] = 10;
         }
     }
+
+    game_save.input = Input::new(&game_save.state, world);
+    game_save
+}
+
+pub fn third_rebirth(world: &World) -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 8;
+    r.class_tier = 1;
+    set_lower_tier_jobs_to(r, 25);
+    game_save.state = rebirth(world, r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    register_input(
+        &mut game_save.previous_inputs,
+        30000,
+        AutoSettingTypes::AutoBuyItemFalse,
+    );
+    balance_activities(
+        &mut game_save.previous_inputs,
+        4000,
+        30_000,
+        &[ActivityTypes::Run, ActivityTypes::Studying],
+    );
+    register_input(&mut game_save.previous_inputs, 30000, ActivityTypes::Flirt);
 
     game_save.input = Input::new(&game_save.state, world);
     game_save

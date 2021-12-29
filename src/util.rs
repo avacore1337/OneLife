@@ -1,11 +1,28 @@
-use crate::game::Inputs;
+use crate::engine::{character_death_update, engine_run};
+use crate::game::{Game, Inputs};
+use crate::input::activity::ActivityTypes;
 use crate::input::options::Options;
-use crate::input::Recordable;
+use crate::input::{Input, Recordable};
 use crate::state::rebirth_stats::RebirthStats;
+use crate::state::state_container::rebirth;
 use crate::world_content::rebirth_upgrade::translate_rebirth_upgrade;
 
 pub fn get_all_upgrades_up_to_current_tier(rebirth_stats: &mut RebirthStats) {
     get_all_upgrades_up_to_tier(rebirth_stats, rebirth_stats.class_tier)
+}
+
+pub fn run_until_dead(game: &mut Game) {
+    while !game.state.life_stats.is_dying {
+        engine_run(game);
+    }
+    character_death_update(game);
+    assert!(game.state.life_stats.dead);
+}
+
+pub fn do_test_rebirth(game: &mut Game) {
+    game.state.rebirth_stats.rebirth_count += 1;
+    game.state = rebirth(&game.world, game.state.rebirth_stats.clone());
+    game.input = Input::new(&game.state, &game.world);
 }
 
 pub fn get_all_upgrades_up_to_tier(rebirth_stats: &mut RebirthStats, tier: u32) {
@@ -26,4 +43,20 @@ pub fn set_full_auto(options: &mut Options) {
 
 pub fn register_input<T: Recordable>(inputs: &mut Inputs, tick: u32, key: T) {
     inputs.entry(tick).or_default().push(key.to_record_key());
+}
+
+pub fn balance_activities(
+    inputs: &mut Inputs,
+    start_tick: u32,
+    end_tick: u32,
+    activities: &[ActivityTypes],
+) {
+    let increment = 200;
+    let mut tick = start_tick;
+    let mut i = 0usize;
+    while tick < end_tick - increment {
+        register_input(inputs, tick, activities[i % activities.len()]);
+        tick += increment;
+        i += 1;
+    }
 }
