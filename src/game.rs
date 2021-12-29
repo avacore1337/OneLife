@@ -11,7 +11,7 @@ pub type Inputs = BTreeMap<u32, Vec<String>>;
 
 pub struct Game {
     pub input: Input,
-    pub world: World,
+    pub world: &'static World,
     pub state: StateContainer,
     pub intermediate_state: IntermediateState,
     pub meta_data: MetaData,
@@ -66,7 +66,7 @@ impl Default for Game {
 
 impl Game {
     pub fn new() -> Game {
-        let world = World::default();
+        let world = &crate::WORLD_CONTENT;
         let state = new_game(&world);
         let input = Input::new(&state, &world);
         let intermediate_state = IntermediateState::new();

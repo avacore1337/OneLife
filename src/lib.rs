@@ -1,14 +1,13 @@
 #![feature(variant_count)]
-use engine::auto_functions::register_auto_settings;
 use log::{info, Level};
 use once_cell::sync::Lazy;
 use std::collections::BTreeMap;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
-use world_content::blessing::Blessing;
+use world_content::world::World;
 
-const BASE_LIFESPAN: f64 = 70.0 * 365.0;
-const TICK_RATE: f64 = 30.0;
+#[macro_use]
+extern crate lazy_static;
 
 pub mod engine;
 pub mod experiment;
@@ -23,7 +22,9 @@ pub mod util;
 pub mod wasm_api;
 pub mod world_content;
 
+use crate::input::blessing::BlessingTypes;
 use crate::world_content::tutorial::check_for_tutorial_step;
+use engine::auto_functions::register_auto_settings;
 use engine::{character_death_update, engine_run, update_unlocks};
 use game::Game;
 use input::activity::ActivityTypes;
@@ -36,12 +37,18 @@ use input::work::WorkTypes;
 use input::Input;
 use state::state_container::rebirth;
 use wasm_api::meta::do_save;
+use world_content::blessing::Blessing;
 use world_content::boost_item::BoostItem;
 use world_content::rebirth_upgrade::RebirthUpgrade;
 use world_content::tier::Tier;
 use world_content::tomb::Tomb;
 
-use crate::input::blessing::BlessingTypes;
+const BASE_LIFESPAN: f64 = 70.0 * 365.0;
+const TICK_RATE: f64 = 30.0;
+
+lazy_static! {
+    static ref WORLD_CONTENT: World = World::default();
+}
 
 static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| {
     let game = Mutex::new(Game::new());
