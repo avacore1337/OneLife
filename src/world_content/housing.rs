@@ -19,7 +19,11 @@ pub struct Housing {
 
 impl Gain for Housing {
     fn gain(&self, intermediate: &mut IntermediateState) {
-        intermediate.add_multiplier(KeyValues::Happiness, self.happiness_factor, "housing");
+        intermediate.add_multiplier(
+            KeyValues::Happiness,
+            self.happiness_factor,
+            self.display_name,
+        );
     }
 }
 

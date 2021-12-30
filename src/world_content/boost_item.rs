@@ -21,70 +21,70 @@ impl Gain for BoostItem {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             BoostItemTypes::Book => {
-                intermediate.add_multiplier(KeyValues::Int, 1.5, "Book");
+                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe1 => {
-                intermediate.add_multiplier(KeyValues::Con, 1.5, "Shoe");
+                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::RaggedClothes => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.5, "Ragged Clothes");
+                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::IronPickAxe => {
-                intermediate.add_multiplier(KeyValues::Mines, 2.0, "Mines");
+                intermediate.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
             }
             BoostItemTypes::Book2 => {
-                intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
+                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
             }
             BoostItemTypes::Shoe2 => {
-                intermediate.add_multiplier(KeyValues::Con, 2.0, "Shoe");
+                intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
             }
             BoostItemTypes::FarmersClothes => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.5, "Farmers Clothes");
+                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::Book3 => {
-                intermediate.add_multiplier(KeyValues::Int, 2.0, "Book");
+                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
             }
             BoostItemTypes::Shoe3 => {
-                intermediate.add_multiplier(KeyValues::Con, 2.0, "Shoe");
+                intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
             }
             BoostItemTypes::FishingGear => {
-                intermediate.add_multiplier(KeyValues::Fisherman, 2.0, "Fishing Gear");
+                intermediate.add_multiplier(KeyValues::Fisherman, 2.0, self.display_name);
             }
             BoostItemTypes::CityClothes => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.5, "City Clothes");
+                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::Leach => {
                 intermediate.add_base(KeyValues::Health, 1.0);
             }
             BoostItemTypes::PitchFork => {
-                intermediate.add_multiplier(KeyValues::Farmer, 2.0, "PitchFork");
+                intermediate.add_multiplier(KeyValues::Farmer, 2.0, self.display_name);
             }
             BoostItemTypes::HealthKit => {
                 intermediate.add_base(KeyValues::Health, 2.0);
             }
             BoostItemTypes::Dumbell => {
-                intermediate.add_multiplier(KeyValues::Str, 1.5, "Dumbell1");
+                intermediate.add_multiplier(KeyValues::Str, 1.5, self.display_name);
             }
             BoostItemTypes::Dumbell2 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell2");
+                intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
             }
             BoostItemTypes::Dumbell3 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, "Dumbell3");
+                intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
             }
             BoostItemTypes::Flower1 => {
-                intermediate.add_multiplier(KeyValues::Cha, 2.0, "Flower1");
+                intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
             BoostItemTypes::Flower2 => {
-                intermediate.add_multiplier(KeyValues::Cha, 2.0, "Flower2");
+                intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
             BoostItemTypes::Flower3 => {
-                intermediate.add_multiplier(KeyValues::Cha, 2.0, "Flower3");
+                intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
             BoostItemTypes::MeditationMat => {
-                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, "MeditationMat");
+                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
             BoostItemTypes::Incense => {
-                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, "Incense");
+                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
         }
     }

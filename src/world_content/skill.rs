@@ -13,24 +13,25 @@ pub struct Skill {
     pub required_tier: u32,
 }
 
-pub fn get_skills_gains(skill_type: SkillTypes, game: &mut Game) {
-    // let world_skill = &game.world.skills[skill_type as usize];
-    let skill_state = &mut game.state.skills[skill_type as usize];
+impl Skill {
+    pub fn get_skills_gains(&self, game: &mut Game) {
+        let skill_state = &mut game.state.skills[self.name as usize];
 
-    match skill_type {
-        SkillTypes::Mindfull => {
-            game.intermediate_state.add_multiplier(
-                KeyValues::Happiness,
-                0.05 * skill_state.level + 1.0,
-                "Mindfull",
-            );
-        }
-        SkillTypes::Tactics => {
-            game.intermediate_state.add_multiplier(
-                KeyValues::SoldierXp,
-                0.05 * skill_state.level + 1.0,
-                "Tactics",
-            );
+        match self.name {
+            SkillTypes::Mindfull => {
+                game.intermediate_state.add_multiplier(
+                    KeyValues::Happiness,
+                    0.05 * skill_state.level + 1.0,
+                    self.display_name,
+                );
+            }
+            SkillTypes::Tactics => {
+                game.intermediate_state.add_multiplier(
+                    KeyValues::SoldierXp,
+                    0.05 * skill_state.level + 1.0,
+                    self.display_name,
+                );
+            }
         }
     }
 }

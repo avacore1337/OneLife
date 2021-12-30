@@ -13,29 +13,30 @@ pub struct Stat {
     pub required_tier: u32,
 }
 
-pub fn get_stats_gains(stat_type: StatTypes, game: &mut Game) {
-    // let world_stat = &game.world.stats[stat_type as usize];
-    let stat_state = &mut game.state.stats[stat_type as usize];
-    if !stat_state.is_visible {
-        return;
-    }
+impl Stat {
+    pub fn get_stats_gains(&self, game: &mut Game) {
+        let stat_state = &mut game.state.stats[self.name as usize];
+        if !stat_state.is_visible {
+            return;
+        }
 
-    match stat_type {
-        StatTypes::Con => {
-            game.intermediate_state.add_multiplier(
-                KeyValues::Health,
-                0.05 * stat_state.level,
-                "Constitution",
-            );
+        match self.name {
+            StatTypes::Con => {
+                game.intermediate_state.add_multiplier(
+                    KeyValues::Health,
+                    0.05 * stat_state.level,
+                    self.display_name,
+                );
+            }
+            StatTypes::Cha => {
+                game.intermediate_state.add_multiplier(
+                    KeyValues::Coins,
+                    1.0 + 0.05 * stat_state.level,
+                    self.display_name,
+                );
+            }
+            _ => {}
         }
-        StatTypes::Cha => {
-            game.intermediate_state.add_multiplier(
-                KeyValues::Coins,
-                1.0 + 0.05 * stat_state.level,
-                "Charisma",
-            );
-        }
-        _ => {}
     }
 }
 

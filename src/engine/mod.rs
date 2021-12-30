@@ -29,8 +29,8 @@ use crate::world_content::housing::{
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade, unlock,
 };
-use crate::world_content::skill::{get_skills_gains, should_be_visible_skill};
-use crate::world_content::stat::{get_stats_gains, should_be_visible_stat};
+use crate::world_content::skill::should_be_visible_skill;
+use crate::world_content::stat::should_be_visible_stat;
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
 use crate::world_content::work::{
     should_be_visible_work, should_unlock_work, translate_work, Work as WorkWorld,
@@ -259,14 +259,14 @@ fn apply_tombs(game: &mut Game) {
 }
 
 fn apply_stats(game: &mut Game) {
-    for stat in StatTypes::iter() {
-        get_stats_gains(stat, game);
+    for stat in crate::WORLD_CONTENT.stats.iter() {
+        stat.get_stats_gains(game);
     }
 }
 
 fn apply_skills(game: &mut Game) {
-    for skill in SkillTypes::iter() {
-        get_skills_gains(skill, game);
+    for skill in crate::WORLD_CONTENT.skills.iter() {
+        skill.get_skills_gains(game);
     }
 }
 
