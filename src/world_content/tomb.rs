@@ -93,7 +93,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
 
 pub fn should_unlock_tomb(input_tomb: TombTypes, game: &Game) -> bool {
     let tomb = &game.world.tombs[input_tomb as usize];
-    if tomb.required_tier > game.state.rebirth_stats.class_tier {
+    if tomb.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
     if tomb.purchasing_cost > game.state.items.money {
@@ -108,7 +108,7 @@ pub fn should_unlock_tomb(input_tomb: TombTypes, game: &Game) -> bool {
 
 pub fn should_be_visible_tomb(input_tomb: TombTypes, game: &Game) -> bool {
     let tomb = &game.world.tombs[input_tomb as usize];
-    tomb.required_tier <= game.state.rebirth_stats.class_tier
+    tomb.required_tier <= game.state.rebirth_stats.tier
 }
 
 pub fn get_tombs() -> [Tomb; TOMB_SIZE] {

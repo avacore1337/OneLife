@@ -264,7 +264,7 @@ pub fn set_activity_internal(activity_type: ActivityTypes, game: &mut Game) {
 pub fn can_buy_tier(val: u32) -> bool {
     let game = GLOBAL_DATA.lock().unwrap();
     let tier: &Tier = &game.world.tiers[val as usize];
-    let next_tier: bool = game.state.rebirth_stats.class_tier + 1 == val;
+    let next_tier: bool = game.state.rebirth_stats.tier + 1 == val;
     let can_afford: bool = game.state.rebirth_stats.coins >= tier.purchasing_cost;
     can_afford && next_tier
 }
@@ -277,7 +277,7 @@ pub fn buy_tier(val: u32) {
         let mut game = GLOBAL_DATA.lock().unwrap();
         let tier: &Tier = &game.world.tiers[val as usize];
         game.state.rebirth_stats.coins -= tier.purchasing_cost;
-        game.state.rebirth_stats.class_tier = val;
+        game.state.rebirth_stats.tier = val;
         update_unlocks(&mut *game);
     }
 }

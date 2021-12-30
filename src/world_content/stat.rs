@@ -82,7 +82,7 @@ pub const fn translate_stat(stat: StatTypes) -> Stat {
 
 pub fn should_be_visible_stat(input_stat: StatTypes, game: &Game) -> bool {
     let stat = &game.world.stats[input_stat as usize];
-    game.state.rebirth_stats.class_tier >= stat.required_tier
+    game.state.rebirth_stats.tier >= stat.required_tier
 }
 
 pub fn get_stats() -> [Stat; STAT_SIZE] {

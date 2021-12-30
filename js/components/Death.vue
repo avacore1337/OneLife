@@ -16,7 +16,7 @@
     <button v-on:click="rebirth_replay" v-if="state.life_stats.dead" style="margin: 2px">Rebirth Replay</button>
     <div style="border: solid; margin: 2px">
       <ul>
-        <li v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.class_tier)" :key="tier.name">
+        <li v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.tier)" :key="tier.name">
           <button v-on:click="buy_tier(tier.level)" style="margin: 2px" :disabled="!can_buy_tier(tier)">
             T{{ tier.level }} {{ tier.display_name }}: Cost {{ tier.purchasing_cost }}
           </button>

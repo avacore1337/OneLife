@@ -49,7 +49,7 @@ pub const fn translate_blessing(blessing: BlessingTypes) -> Blessing {
 
 pub fn should_unlock_blessing(input_blessing: BlessingTypes, game: &Game) -> bool {
     let blessing = &game.world.blessings[input_blessing as usize];
-    if blessing.required_tier > game.state.rebirth_stats.class_tier {
+    if blessing.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
     if blessing.purchasing_cost > game.state.items.divine_favor {
@@ -60,7 +60,7 @@ pub fn should_unlock_blessing(input_blessing: BlessingTypes, game: &Game) -> boo
 
 pub fn should_be_visible_blessing(input_blessing: BlessingTypes, game: &Game) -> bool {
     let blessing = &game.world.blessings[input_blessing as usize];
-    blessing.required_tier <= game.state.rebirth_stats.class_tier
+    blessing.required_tier <= game.state.rebirth_stats.tier
 }
 
 pub fn get_blessings() -> [Blessing; BLESSING_SIZE] {

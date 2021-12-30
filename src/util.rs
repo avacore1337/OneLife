@@ -8,7 +8,7 @@ use crate::state::state_container::rebirth;
 use crate::world_content::rebirth_upgrade::translate_rebirth_upgrade;
 
 pub fn get_all_upgrades_up_to_current_tier(rebirth_stats: &mut RebirthStats) {
-    get_all_upgrades_up_to_tier(rebirth_stats, rebirth_stats.class_tier)
+    get_all_upgrades_up_to_tier(rebirth_stats, rebirth_stats.tier)
 }
 
 pub fn run_until_dead(game: &mut Game) {

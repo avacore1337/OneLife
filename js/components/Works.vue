@@ -21,7 +21,7 @@
           </td>
         </tr>
       </table>
-      <table v-if="state.rebirth_stats.class_tier >= 2">
+      <table v-if="state.rebirth_stats.tier >= 2">
         <br />
         <h4>Soldiering</h4>
         <tr

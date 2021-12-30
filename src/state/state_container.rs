@@ -47,7 +47,7 @@ pub fn rebirth(rebirth_stats: RebirthStats) -> StateContainer {
     let mut state = StateContainer {
         stats: crate::WORLD_CONTENT
             .tiers
-            .get(rebirth_stats.class_tier as usize)
+            .get(rebirth_stats.tier as usize)
             .expect("tier not implemented")
             .starting_stats
             .clone(),

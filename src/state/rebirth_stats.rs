@@ -18,7 +18,7 @@ pub struct Unlocks {
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct RebirthStats {
     pub rebirth_count: u32,
-    pub class_tier: u32,
+    pub tier: u32,
     pub coins: f64,
     pub karma: f64,
     pub time_factor: f64,
@@ -31,7 +31,7 @@ impl Default for RebirthStats {
     fn default() -> RebirthStats {
         RebirthStats {
             rebirth_count: 0,
-            class_tier: 0,
+            tier: 0,
             coins: 0.0,
             karma: 0.0,
             time_factor: 1.0,

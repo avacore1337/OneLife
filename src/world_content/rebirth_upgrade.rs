@@ -256,7 +256,7 @@ pub fn should_unlock_rebirth_upgrade(
     game: &Game,
 ) -> bool {
     let rebirth_upgrade = &game.world.rebirth_upgrades[input_rebirth_upgrade as usize];
-    let too_low_tier = rebirth_upgrade.required_tier > game.state.rebirth_stats.class_tier;
+    let too_low_tier = rebirth_upgrade.required_tier > game.state.rebirth_stats.tier;
     let cant_afford = rebirth_upgrade.purchasing_cost > game.state.rebirth_stats.coins;
     if too_low_tier || cant_afford {
         return false;
@@ -272,7 +272,7 @@ pub fn should_be_visible_rebirth_upgrade(
     game: &Game,
 ) -> bool {
     let rebirth_upgrade = &game.world.rebirth_upgrades[input_rebirth_upgrade as usize];
-    if rebirth_upgrade.required_tier > game.state.rebirth_stats.class_tier {
+    if rebirth_upgrade.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
     match input_rebirth_upgrade {

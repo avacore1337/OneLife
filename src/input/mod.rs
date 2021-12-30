@@ -27,7 +27,7 @@ pub struct Input {
 impl Input {
     pub fn new(state: &StateContainer) -> Input {
         Input {
-            work: crate::WORLD_CONTENT.tiers[state.rebirth_stats.class_tier as usize].starting_work,
+            work: crate::WORLD_CONTENT.tiers[state.rebirth_stats.tier as usize].starting_work,
             housing: HousingTypes::StoneFloor,
             activity: ActivityTypes::Run,
         }

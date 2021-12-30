@@ -33,7 +33,7 @@
     Rebirth Stats
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>Life number {{ state.rebirth_stats.rebirth_count + 1 }}</p>
-      <p>Class: {{ state.rebirth_stats.class_tier }}</p>
+      <p>Class: {{ state.rebirth_stats.tier }}</p>
       <p>Coins: {{ state.rebirth_stats.coins }}</p>
       <p>Karma: {{ state.rebirth_stats.karma }}</p>
       <p>Time multiplier: {{ state.rebirth_stats.time_factor }}</p>

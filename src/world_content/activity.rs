@@ -100,7 +100,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
 
 pub fn should_unlock_activity(input_activity: ActivityTypes, game: &Game) -> bool {
     let activity = &game.world.activities[input_activity as usize];
-    if activity.required_tier > game.state.rebirth_stats.class_tier {
+    if activity.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
     true
@@ -108,7 +108,7 @@ pub fn should_unlock_activity(input_activity: ActivityTypes, game: &Game) -> boo
 
 pub fn should_be_visible_activity(input_activity: ActivityTypes, game: &Game) -> bool {
     let activity = &game.world.activities[input_activity as usize];
-    if activity.required_tier > game.state.rebirth_stats.class_tier {
+    if activity.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
     match input_activity {

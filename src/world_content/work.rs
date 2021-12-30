@@ -275,34 +275,34 @@ pub const fn translate_work(work: WorkTypes) -> Work {
 
 pub fn should_unlock_work(work_type: WorkTypes, game: &Game) -> bool {
     let work = &game.world.works[work_type as usize];
-    if work.required_tier > game.state.rebirth_stats.class_tier {
+    if work.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
     match work_type {
         WorkTypes::Mines => true,
         WorkTypes::Latrine => {
             game.state.works[work_type as usize - 1].level >= 10
-                || game.state.rebirth_stats.class_tier >= 1
+                || game.state.rebirth_stats.tier >= 1
         }
         WorkTypes::GalleyRower => {
             game.state.works[work_type as usize - 1].level >= 10
-                || game.state.rebirth_stats.class_tier >= 2
+                || game.state.rebirth_stats.tier >= 2
         }
         WorkTypes::Fields => {
             game.state.works[work_type as usize - 1].level >= 10
-                || game.state.rebirth_stats.class_tier >= 3
+                || game.state.rebirth_stats.tier >= 3
         }
         WorkTypes::Mill => {
             game.state.works[work_type as usize - 1].level >= 10
-                || game.state.rebirth_stats.class_tier >= 4
+                || game.state.rebirth_stats.tier >= 4
         }
         WorkTypes::Weaver => {
             game.state.works[work_type as usize - 1].level >= 10
-                || game.state.rebirth_stats.class_tier >= 5
+                || game.state.rebirth_stats.tier >= 5
         }
         WorkTypes::Fisherman => {
             game.state.works[work_type as usize - 1].level >= 10
-                || game.state.rebirth_stats.class_tier >= 6
+                || game.state.rebirth_stats.tier >= 6
         }
         WorkTypes::Farmer => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::Woodcutter => game.state.works[work_type as usize - 1].level >= 10,
@@ -327,7 +327,7 @@ pub fn should_unlock_work(work_type: WorkTypes, game: &Game) -> bool {
 
 pub fn should_be_visible_work(input_work: WorkTypes, game: &Game) -> bool {
     let work = &game.world.works[input_work as usize];
-    work.required_tier <= game.state.rebirth_stats.class_tier
+    work.required_tier <= game.state.rebirth_stats.tier
 }
 
 pub fn get_works() -> [Work; WORK_SIZE] {

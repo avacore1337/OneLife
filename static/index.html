@@ -45,7 +45,7 @@
         Rebirth Stats
         <div style="border: solid; margin: 2px; padding: 10px">
           <p>Life number {{state.rebirth_stats.rebirth_count + 1}}</p>
-          <p>Class: {{state.rebirth_stats.class_tier}}</p>
+          <p>Class: {{state.rebirth_stats.tier}}</p>
           <p>Coins: {{state.rebirth_stats.coins}}</p>
           <p>Karma: {{state.rebirth_stats.karma}}</p>
           <p>Time multiplier: {{state.rebirth_stats.time_factor}}</p>
@@ -60,7 +60,7 @@
               <ul>
                 <li
                   v-for="(work, index) in world.works"
-                  v-if="work.required_tier <= state.rebirth_stats.class_tier && state.works[index].is_visible"
+                  v-if="work.required_tier <= state.rebirth_stats.tier && state.works[index].is_visible"
                 >
                   <button
                     v-on:click="!work.is_unlocked && set_work(work.name)"
@@ -99,7 +99,7 @@
             <button v-on:click="rebirth" style="margin: 2px">Rebirth</button>
             <div style="border: solid; margin: 2px">
               <ul>
-                <li v-for="tier in world.tiers" v-if="tier.level > state.rebirth_stats.class_tier">
+                <li v-for="tier in world.tiers" v-if="tier.level > state.rebirth_stats.tier">
                   <button v-on:click="buy_tier(tier.level)" style="margin: 2px" :disabled="!can_buy_tier(tier)">
                     T{{tier.level }} {{ tier.title }}: Cost {{tier.purchasing_cost}}
                   </button>

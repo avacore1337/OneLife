@@ -273,7 +273,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
 
 pub fn should_unlock_boost_item(input_boost_item: BoostItemTypes, game: &Game) -> bool {
     let boost_item = &game.world.boost_items[input_boost_item as usize];
-    if boost_item.required_tier > game.state.rebirth_stats.class_tier {
+    if boost_item.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
     if boost_item.purchasing_cost > game.state.items.money {
@@ -284,7 +284,7 @@ pub fn should_unlock_boost_item(input_boost_item: BoostItemTypes, game: &Game) -
 
 pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Game) -> bool {
     let boost_item = &game.world.boost_items[input_boost_item as usize];
-    if boost_item.required_tier > game.state.rebirth_stats.class_tier {
+    if boost_item.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
     match input_boost_item {

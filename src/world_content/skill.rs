@@ -54,7 +54,7 @@ pub const fn translate_skill(skill: SkillTypes) -> Skill {
 
 pub fn should_be_visible_skill(input_skill: SkillTypes, game: &Game) -> bool {
     let skill = &game.world.skills[input_skill as usize];
-    game.state.rebirth_stats.class_tier >= skill.required_tier
+    game.state.rebirth_stats.tier >= skill.required_tier
 }
 
 pub fn get_skills() -> [Skill; SKILL_SIZE] {
