@@ -22,26 +22,26 @@ impl Gain for Work {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             WorkTypes::Mines => {
-                intermediate.add_base(KeyValues::Health, -5.0);
+                intermediate.add_base(KeyValues::Health, -5.0, self.display_name);
             }
             WorkTypes::Latrine => {
-                intermediate.add_base(KeyValues::Health, -4.0);
+                intermediate.add_base(KeyValues::Health, -4.0, self.display_name);
             }
             WorkTypes::GalleyRower => {
-                intermediate.add_base(KeyValues::Health, -3.0);
+                intermediate.add_base(KeyValues::Health, -3.0, self.display_name);
             }
             WorkTypes::Fields => {
-                intermediate.add_base(KeyValues::Health, -2.0);
+                intermediate.add_base(KeyValues::Health, -2.0, self.display_name);
             }
             WorkTypes::Mill => {
-                intermediate.add_base(KeyValues::Health, -1.0);
+                intermediate.add_base(KeyValues::Health, -1.0, self.display_name);
             }
             _ => (),
         }
     }
 }
 
-pub const fn translate_work(work: WorkTypes) -> Work {
+const fn translate_work(work: WorkTypes) -> Work {
     match work {
         WorkTypes::Mines => Work {
             name: work,

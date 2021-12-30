@@ -18,7 +18,7 @@ pub struct Tomb {
 
 impl Gain for Tomb {
     fn gain(&self, intermediate: &mut IntermediateState) {
-        intermediate.set_base(KeyValues::Coins, self.coin_gain);
+        intermediate.set_base(KeyValues::Coins, self.coin_gain, self.display_name);
     }
 }
 

@@ -18,28 +18,28 @@ impl Gain for Activity {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             ActivityTypes::Training => {
-                intermediate.set_base(KeyValues::Str, 10.0);
+                intermediate.set_base(KeyValues::Str, 10.0, self.display_name);
             }
             ActivityTypes::Studying => {
-                intermediate.set_base(KeyValues::Int, 10.0);
+                intermediate.set_base(KeyValues::Int, 10.0, self.display_name);
             }
             ActivityTypes::Flirt => {
-                intermediate.set_base(KeyValues::Cha, 10.0);
+                intermediate.set_base(KeyValues::Cha, 10.0, self.display_name);
             }
             ActivityTypes::Run => {
-                intermediate.set_base(KeyValues::Con, 10.0);
+                intermediate.set_base(KeyValues::Con, 10.0, self.display_name);
             }
             ActivityTypes::Acrobatics => {
-                intermediate.set_base(KeyValues::Dex, 10.0);
+                intermediate.set_base(KeyValues::Dex, 10.0, self.display_name);
             }
             ActivityTypes::Praying => {
-                intermediate.set_base(KeyValues::Faith, 10.0);
+                intermediate.set_base(KeyValues::Faith, 10.0, self.display_name);
             }
             ActivityTypes::Meditate => {
-                intermediate.set_base(KeyValues::Mindfull, 10.0);
+                intermediate.set_base(KeyValues::Mindfull, 10.0, self.display_name);
             }
             ActivityTypes::WarGames => {
-                intermediate.set_base(KeyValues::Tactics, 10.0);
+                intermediate.set_base(KeyValues::Tactics, 10.0, self.display_name);
             }
         }
     }

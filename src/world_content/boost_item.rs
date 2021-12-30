@@ -54,13 +54,13 @@ impl Gain for BoostItem {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::Leach => {
-                intermediate.add_base(KeyValues::Health, 1.0);
+                intermediate.add_base(KeyValues::Health, 1.0, self.display_name);
             }
             BoostItemTypes::PitchFork => {
                 intermediate.add_multiplier(KeyValues::Farmer, 2.0, self.display_name);
             }
             BoostItemTypes::HealthKit => {
-                intermediate.add_base(KeyValues::Health, 2.0);
+                intermediate.add_base(KeyValues::Health, 2.0, self.display_name);
             }
             BoostItemTypes::Dumbell => {
                 intermediate.add_multiplier(KeyValues::Str, 1.5, self.display_name);

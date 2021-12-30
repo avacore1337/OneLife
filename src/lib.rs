@@ -47,7 +47,7 @@ const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 const TICK_RATE: f64 = 30.0;
 
 lazy_static! {
-    static ref WORLD_CONTENT: World = World::default();
+    static ref WORLD: World = World::default();
 }
 
 static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| {

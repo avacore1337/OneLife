@@ -5,7 +5,7 @@ use std::collections::HashMap;
 #[derive(Serialize, Debug)]
 pub struct ValueGains {
     pub key: KeyValues,
-    pub base_gain: f64,
+    pub bases: Vec<Base>,
     pub multipliers: Vec<Multiplier>,
 }
 
@@ -13,7 +13,7 @@ impl ValueGains {
     pub fn new(name: KeyValues) -> ValueGains {
         ValueGains {
             key: name,
-            base_gain: 0.0,
+            bases: Vec::new(),
             multipliers: Vec::new(),
         }
     }
@@ -23,7 +23,8 @@ impl ValueGains {
             .multipliers
             .iter()
             .fold(1.0, |acc: f64, elem: &Multiplier| acc * elem.factor);
-        self.base_gain * sum
+        let base: f64 = self.bases.iter().map(|b| b.base).sum();
+        base * sum
     }
 
     pub fn calculate_muliplier(&self) -> f64 {
@@ -31,6 +32,12 @@ impl ValueGains {
             .iter()
             .fold(1.0, |acc: f64, elem: &Multiplier| acc * elem.factor)
     }
+}
+
+#[derive(Serialize, Debug)]
+pub struct Base {
+    base: f64,
+    source_descriptor: &'static str,
 }
 
 #[derive(Serialize, Debug)]
@@ -69,31 +76,37 @@ impl IntermediateState {
         source.gain(self);
     }
 
-    pub fn add_multiplier(&mut self, key: KeyValues, value: f64, source: &'static str) {
+    pub fn add_multiplier(&mut self, key: KeyValues, factor: f64, source_descriptor: &'static str) {
         let values = self
             .value_gains
             .entry(key)
             .or_insert_with(|| ValueGains::new(key));
         values.multipliers.push(Multiplier {
-            factor: value,
-            source_descriptor: source,
+            factor,
+            source_descriptor,
         });
     }
 
-    pub fn set_base(&mut self, key: KeyValues, value: f64) {
+    pub fn set_base(&mut self, key: KeyValues, base: f64, source_descriptor: &'static str) {
         let values = self
             .value_gains
             .entry(key)
             .or_insert_with(|| ValueGains::new(key));
-        values.base_gain = value;
+        values.bases = vec![Base {
+            base,
+            source_descriptor,
+        }];
     }
 
-    pub fn add_base(&mut self, key: KeyValues, value: f64) {
+    pub fn add_base(&mut self, key: KeyValues, base: f64, source_descriptor: &'static str) {
         let values = self
             .value_gains
             .entry(key)
             .or_insert_with(|| ValueGains::new(key));
-        values.base_gain += value;
+        values.bases.push(Base {
+            base,
+            source_descriptor,
+        });
     }
 }
 

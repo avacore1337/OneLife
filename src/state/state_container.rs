@@ -17,6 +17,7 @@ use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::{WorkTypes, WORK_SIZE};
 use crate::world_content::rebirth_upgrade::apply_starting_upgrade;
+use crate::WORLD;
 use strum::IntoEnumIterator;
 
 use serde::{Deserialize, Serialize};
@@ -45,7 +46,7 @@ impl Default for StateContainer {
 pub fn rebirth(rebirth_stats: RebirthStats) -> StateContainer {
     let life_stats = LifeStats::new(&rebirth_stats);
     let mut state = StateContainer {
-        stats: crate::WORLD_CONTENT
+        stats: WORLD
             .tiers
             .get(rebirth_stats.tier as usize)
             .expect("tier not implemented")

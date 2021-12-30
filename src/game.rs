@@ -4,6 +4,7 @@ use crate::input_mapping::InputMapping;
 use crate::meta::MetaData;
 use crate::state::state_container::StateContainer;
 use crate::world_content::world::World;
+use crate::WORLD;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
@@ -66,7 +67,7 @@ impl Default for Game {
 
 impl Game {
     pub fn new() -> Game {
-        let world = &crate::WORLD_CONTENT;
+        let world = &WORLD;
         let state = StateContainer::default();
         let input = Input::new(&state);
         let intermediate_state = IntermediateState::new();

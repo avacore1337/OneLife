@@ -3,14 +3,14 @@ use crate::{
     input::options::AutoSettingTypes,
     world_content::{
         boost_item::translate_boost_item, housing::translate_housing, tomb::translate_tomb,
-        work::translate_work,
     },
+    WORLD,
 };
 
 pub fn auto_work(game: &mut Game) {
-    let current_work = translate_work(game.input.work);
+    let current_work = &WORLD.works[game.input.work as usize];
     for work in game.state.works.iter() {
-        let work_world = translate_work(work.name);
+        let work_world = &WORLD.works[work.name as usize];
         let same_type = current_work.work_type == work_world.work_type;
         if work.name > current_work.name && same_type && work.is_unlocked && work.is_visible {
             game.input.work = work.name;

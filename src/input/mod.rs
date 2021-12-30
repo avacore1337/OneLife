@@ -9,6 +9,7 @@ pub mod stat;
 pub mod tomb;
 pub mod work;
 
+use crate::WORLD;
 use activity::ActivityTypes;
 use housing::HousingTypes;
 use work::WorkTypes;
@@ -27,7 +28,7 @@ pub struct Input {
 impl Input {
     pub fn new(state: &StateContainer) -> Input {
         Input {
-            work: crate::WORLD_CONTENT.tiers[state.rebirth_stats.tier as usize].starting_work,
+            work: WORLD.tiers[state.rebirth_stats.tier as usize].starting_work,
             housing: HousingTypes::StoneFloor,
             activity: ActivityTypes::Run,
         }

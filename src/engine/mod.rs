@@ -32,10 +32,9 @@ use crate::world_content::rebirth_upgrade::{
 use crate::world_content::skill::should_be_visible_skill;
 use crate::world_content::stat::should_be_visible_stat;
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
-use crate::world_content::work::{
-    should_be_visible_work, should_unlock_work, translate_work, Work as WorkWorld,
-};
+use crate::world_content::work::{should_be_visible_work, should_unlock_work, Work as WorkWorld};
 use crate::TICK_RATE;
+use crate::WORLD;
 use intermediate_state::IntermediateState;
 use strum::IntoEnumIterator;
 
@@ -225,7 +224,10 @@ fn calculate_works_income(game: &mut Game) {
 
 fn apply_work(game: &mut Game) {
     for work_state in game.state.works.iter_mut() {
-        let work = translate_work(work_state.name);
+        if !work_state.is_visible {
+            continue;
+        }
+        let work = &WORLD.works[work_state.name as usize];
 
         let main_stat_level = game.state.stats[StatTypes::from(work.work_type) as usize].level;
         let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
@@ -236,12 +238,12 @@ fn apply_work(game: &mut Game) {
         game.intermediate_state
             .add_multiplier(work.name.into(), level_multiplier, "Level");
         game.intermediate_state
-            .set_base(work.name.into(), work.money);
+            .set_base(work.name.into(), work.money, work.display_name);
     }
 }
 fn apply_active_work(game: &mut Game) {
-    let work = translate_work(game.input.work);
-    game.intermediate_state.get_gains(&work);
+    let work = &WORLD.works[game.input.work as usize];
+    game.intermediate_state.get_gains(work);
 }
 
 fn apply_activities(game: &mut Game) {
@@ -259,13 +261,13 @@ fn apply_tombs(game: &mut Game) {
 }
 
 fn apply_stats(game: &mut Game) {
-    for stat in crate::WORLD_CONTENT.stats.iter() {
+    for stat in WORLD.stats.iter() {
         stat.get_stats_gains(game);
     }
 }
 
 fn apply_skills(game: &mut Game) {
-    for skill in crate::WORLD_CONTENT.skills.iter() {
+    for skill in WORLD.skills.iter() {
         skill.get_skills_gains(game);
     }
 }
