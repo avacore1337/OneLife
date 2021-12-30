@@ -120,20 +120,17 @@ impl Game {
     }
 
     pub fn load_game(&mut self, save: GameSave) {
-        match save {
-            GameSave {
-                input,
-                state,
-                meta_data,
-                inputs,
-                previous_inputs,
-            } => {
-                self.input = input;
-                self.state = state;
-                self.meta_data = meta_data;
-                self.inputs = inputs;
-                self.previous_inputs = previous_inputs;
-            }
-        }
+        let GameSave {
+            input,
+            state,
+            meta_data,
+            inputs,
+            previous_inputs,
+        } = save;
+        self.input = input;
+        self.state = state;
+        self.meta_data = meta_data;
+        self.inputs = inputs;
+        self.previous_inputs = previous_inputs;
     }
 }
