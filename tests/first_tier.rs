@@ -29,8 +29,4 @@ fn test_second_rebirth() {
 
     do_test_rebirth(game);
     assert_eq!(game.state.rebirth_stats.coins, 2.0);
-    // assert_eq!(
-    //     format!("{:#?}", game.state.rebirth_stats.max_job_levels),
-    //     ""
-    // );
 }

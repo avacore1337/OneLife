@@ -26,7 +26,6 @@ fn test_tactics() {
     let xp2 = game.state.works[WorkTypes::BagageBoy as usize].next_level_progress;
 
     assert!(xp2 > xp1 * 2.0);
-    // game2.state.works[WorkTypes
 }
 
 #[wasm_bindgen_test]

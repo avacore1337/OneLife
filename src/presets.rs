@@ -7,7 +7,8 @@ use crate::input::Input;
 use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
 use crate::util::{
-    balance_activities, get_all_upgrades_up_to_current_tier, register_input, set_full_auto,
+    balance_activities, get_all_upgrades_up_to_current_tier, get_upgrades_by_max_cost,
+    register_input, set_full_auto,
 };
 use crate::world_content::work::translate_work;
 use std::collections::BTreeMap;
@@ -18,6 +19,15 @@ fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
     for work in WorkTypes::iter() {
         let work_world = translate_work(work);
         if work_world.required_tier < tier {
+            rebirth_stats.max_job_levels[work as usize] = level;
+        }
+    }
+}
+
+fn set_jobs_at_tier_to(rebirth_stats: &mut RebirthStats, tier: u32, level: u32) {
+    for work in WorkTypes::iter() {
+        let work_world = translate_work(work);
+        if work_world.required_tier == tier {
             rebirth_stats.max_job_levels[work as usize] = level;
         }
     }
@@ -39,6 +49,7 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     // presets.insert("Test_0: first rebirth", first_rebirth());
     presets.insert("Test_1: second rebirth", second_rebirth());
     presets.insert("Test_2: third rebirth", third_rebirth());
+    presets.insert("Test_3: tenth rebirth", tenth_rebirth());
 
     presets
 }
@@ -259,6 +270,47 @@ pub fn third_rebirth() -> GameSave {
         &[ActivityTypes::Run, ActivityTypes::Studying],
     );
     register_input(&mut game_save.previous_inputs, 30000, ActivityTypes::Flirt);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+
+pub fn tenth_rebirth() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 8;
+    r.tier = 1;
+    set_lower_tier_jobs_to(r, 30);
+    get_upgrades_by_max_cost(r, 60.0);
+    set_jobs_at_tier_to(r, 1, 25);
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    let save_up_switch = 40_000;
+    register_input(
+        &mut game_save.previous_inputs,
+        save_up_switch,
+        AutoSettingTypes::AutoBuyItemFalse,
+    );
+    balance_activities(
+        &mut game_save.previous_inputs,
+        4000,
+        save_up_switch,
+        &[
+            ActivityTypes::Run,
+            ActivityTypes::Studying,
+            ActivityTypes::Meditate,
+            ActivityTypes::Run,
+        ],
+    );
+    register_input(
+        &mut game_save.previous_inputs,
+        save_up_switch,
+        ActivityTypes::Run,
+    );
 
     game_save.input = Input::new(&game_save.state);
     game_save
