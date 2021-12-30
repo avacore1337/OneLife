@@ -13,12 +13,12 @@ use super::work::{get_works, Work};
 use crate::input::activity::ACTIVITY_SIZE;
 use crate::input::blessing::BLESSING_SIZE;
 use crate::input::boost_item::BOOST_ITEM_SIZE;
-use crate::input::housing::HOUSING_SIZE;
+use crate::input::housing::{HousingTypes, HOUSING_SIZE};
 use crate::input::rebirth_upgrade::REBIRTH_UPGRADE_SIZE;
 use crate::input::skill::SKILL_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
-use crate::input::work::WORK_SIZE;
+use crate::input::work::{WorkTypes, WORK_SIZE};
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -35,6 +35,15 @@ pub struct World {
     pub settings: Settings,
     pub blessings: [Blessing; BLESSING_SIZE],
     pub skills: [Skill; SKILL_SIZE],
+}
+
+impl World {
+    pub fn get_work(&self, work: WorkTypes) -> &Work {
+        &self.works[work as usize]
+    }
+    pub fn get_housing(&self, housing: HousingTypes) -> &Housing {
+        &self.housing[housing as usize]
+    }
 }
 
 impl Default for World {

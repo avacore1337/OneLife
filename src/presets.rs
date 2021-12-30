@@ -17,7 +17,7 @@ use strum::IntoEnumIterator;
 fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
     let tier = rebirth_stats.tier;
     for work in WorkTypes::iter() {
-        let work_world = &WORLD.works[work as usize];
+        let work_world = WORLD.get_work(work);
         if work_world.required_tier < tier {
             rebirth_stats.max_job_levels[work as usize] = level;
         }

@@ -23,9 +23,7 @@ use crate::world_content::blessing::{should_be_visible_blessing, should_unlock_b
 use crate::world_content::boost_item::{
     should_be_visible_boost_item, should_unlock_boost_item, translate_boost_item,
 };
-use crate::world_content::housing::{
-    should_be_visible_housing, should_unlock_housing, translate_housing,
-};
+use crate::world_content::housing::{should_be_visible_housing, should_unlock_housing};
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade, unlock,
 };
@@ -190,13 +188,13 @@ pub fn character_death_update(game: &mut Game) {
 }
 
 fn apply_housing(game: &mut Game) {
-    let mut housing = translate_housing(game.input.housing);
+    let mut housing = WORLD.get_housing(game.input.housing);
     if housing.upkeep > game.state.items.money {
-        housing = translate_housing(HousingTypes::StoneFloor);
+        housing = WORLD.get_housing(HousingTypes::StoneFloor);
         // TODO signal to frontend that you are out of cash?
     }
     game.state.items.money -= housing.upkeep / TICK_RATE;
-    game.intermediate_state.get_gains(&housing);
+    game.intermediate_state.get_gains(housing);
 }
 
 fn apply_items(game: &mut Game) {
@@ -227,7 +225,7 @@ fn apply_work(game: &mut Game) {
         if !work_state.is_visible {
             continue;
         }
-        let work = &WORLD.works[work_state.name as usize];
+        let work = WORLD.get_work(work_state.name);
 
         let main_stat_level = game.state.stats[StatTypes::from(work.work_type) as usize].level;
         let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
@@ -242,7 +240,7 @@ fn apply_work(game: &mut Game) {
     }
 }
 fn apply_active_work(game: &mut Game) {
-    let work = &WORLD.works[game.input.work as usize];
+    let work = WORLD.get_work(game.input.work);
     game.intermediate_state.get_gains(work);
 }
 

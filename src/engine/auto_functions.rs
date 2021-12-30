@@ -1,16 +1,14 @@
 use crate::{
     game::Game,
     input::options::AutoSettingTypes,
-    world_content::{
-        boost_item::translate_boost_item, housing::translate_housing, tomb::translate_tomb,
-    },
+    world_content::{boost_item::translate_boost_item, tomb::translate_tomb},
     WORLD,
 };
 
 pub fn auto_work(game: &mut Game) {
-    let current_work = &WORLD.works[game.input.work as usize];
+    let current_work = WORLD.get_work(game.input.work);
     for work in game.state.works.iter() {
-        let work_world = &WORLD.works[work.name as usize];
+        let work_world = WORLD.get_work(work.name);
         let same_type = current_work.work_type == work_world.work_type;
         if work.name > current_work.name && same_type && work.is_unlocked && work.is_visible {
             game.input.work = work.name;
@@ -19,9 +17,9 @@ pub fn auto_work(game: &mut Game) {
 }
 
 pub fn auto_living(game: &mut Game) {
-    let current_housing = translate_housing(game.input.housing);
+    let current_housing = WORLD.get_housing(game.input.housing);
     for housing in game.state.housing.iter() {
-        let housing_world = translate_housing(housing.name);
+        let housing_world = WORLD.get_housing(housing.name);
         let can_afford = housing_world.upkeep < game.state.items.income;
         let better_housing = housing.name > current_housing.name;
         if better_housing && housing.is_unlocked && can_afford {
