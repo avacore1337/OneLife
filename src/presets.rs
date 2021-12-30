@@ -26,7 +26,7 @@ fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
 
 fn set_jobs_at_tier_to(rebirth_stats: &mut RebirthStats, tier: u32, level: u32) {
     for work in WorkTypes::iter() {
-        let work_world = &WORLD.works[work as usize];
+        let work_world = WORLD.get_work(work);
         if work_world.required_tier == tier {
             rebirth_stats.max_job_levels[work as usize] = level;
         }

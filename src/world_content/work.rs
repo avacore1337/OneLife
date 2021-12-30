@@ -274,7 +274,7 @@ const fn translate_work(work: WorkTypes) -> Work {
 }
 
 pub fn should_unlock_work(work_type: WorkTypes, game: &Game) -> bool {
-    let work = &game.world.works[work_type as usize];
+    let work = game.world.get_work(work_type);
     if work.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
@@ -326,7 +326,7 @@ pub fn should_unlock_work(work_type: WorkTypes, game: &Game) -> bool {
 }
 
 pub fn should_be_visible_work(input_work: WorkTypes, game: &Game) -> bool {
-    let work = &game.world.works[input_work as usize];
+    let work = game.world.get_work(input_work);
     work.required_tier <= game.state.rebirth_stats.tier
 }
 

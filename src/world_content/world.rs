@@ -10,7 +10,7 @@ use super::tier::{init_tiers, Tier};
 use super::tomb::{get_tombs, Tomb};
 use super::tutorial::get_tutorial_texts;
 use super::work::{get_works, Work};
-use crate::input::activity::ACTIVITY_SIZE;
+use crate::input::activity::{ActivityTypes, ACTIVITY_SIZE};
 use crate::input::blessing::BLESSING_SIZE;
 use crate::input::boost_item::BOOST_ITEM_SIZE;
 use crate::input::housing::{HousingTypes, HOUSING_SIZE};
@@ -24,9 +24,9 @@ use serde::Serialize;
 #[derive(Serialize)]
 pub struct World {
     pub tiers: Vec<Tier>,
-    pub works: [Work; WORK_SIZE],
-    pub activities: [Activity; ACTIVITY_SIZE],
-    pub housing: [Housing; HOUSING_SIZE],
+    works: [Work; WORK_SIZE],
+    activities: [Activity; ACTIVITY_SIZE],
+    housing: [Housing; HOUSING_SIZE],
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
     pub tombs: [Tomb; TOMB_SIZE],
     pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],
@@ -43,6 +43,9 @@ impl World {
     }
     pub fn get_housing(&self, housing: HousingTypes) -> &Housing {
         &self.housing[housing as usize]
+    }
+    pub fn get_activity(&self, activity: ActivityTypes) -> &Activity {
+        &self.activities[activity as usize]
     }
 }
 

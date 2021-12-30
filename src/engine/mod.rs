@@ -273,7 +273,7 @@ fn apply_skills(game: &mut Game) {
 fn gain_work_xp(game: &mut Game) {
     let input_work = game.input.work as usize;
     let work: &mut StateWork = &mut game.state.works[input_work];
-    let work_world = &game.world.works[input_work];
+    let work_world = game.world.get_work(game.input.work);
     work.next_level_progress += 10.0
         * game.state.life_stats.happiness
         * (1.0 + f64::sqrt(game.state.rebirth_stats.max_job_levels[input_work] as f64))
