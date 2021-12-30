@@ -14,7 +14,7 @@ use crate::input::activity::{ActivityTypes, ACTIVITY_SIZE};
 use crate::input::blessing::BLESSING_SIZE;
 use crate::input::boost_item::BOOST_ITEM_SIZE;
 use crate::input::housing::{HousingTypes, HOUSING_SIZE};
-use crate::input::rebirth_upgrade::REBIRTH_UPGRADE_SIZE;
+use crate::input::rebirth_upgrade::{RebirthUpgradeTypes, REBIRTH_UPGRADE_SIZE};
 use crate::input::skill::SKILL_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
@@ -23,29 +23,32 @@ use serde::Serialize;
 
 #[derive(Serialize)]
 pub struct World {
-    pub tiers: Vec<Tier>,
-    works: [Work; WORK_SIZE],
     activities: [Activity; ACTIVITY_SIZE],
-    housing: [Housing; HOUSING_SIZE],
-    pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
-    pub tombs: [Tomb; TOMB_SIZE],
-    pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],
-    pub tutorial_texts: Vec<&'static str>,
-    pub stats: [Stat; STAT_SIZE],
-    pub settings: Settings,
     pub blessings: [Blessing; BLESSING_SIZE],
+    pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
+    housing: [Housing; HOUSING_SIZE],
+    pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],
+    pub settings: Settings,
     pub skills: [Skill; SKILL_SIZE],
+    pub stats: [Stat; STAT_SIZE],
+    pub tiers: Vec<Tier>,
+    pub tombs: [Tomb; TOMB_SIZE],
+    pub tutorial_texts: Vec<&'static str>,
+    works: [Work; WORK_SIZE],
 }
 
 impl World {
-    pub fn get_work(&self, work: WorkTypes) -> &Work {
-        &self.works[work as usize]
+    pub fn get_activity(&self, activity: ActivityTypes) -> &Activity {
+        &self.activities[activity as usize]
     }
     pub fn get_housing(&self, housing: HousingTypes) -> &Housing {
         &self.housing[housing as usize]
     }
-    pub fn get_activity(&self, activity: ActivityTypes) -> &Activity {
-        &self.activities[activity as usize]
+    pub fn get_rebirth_upgrade(&self, rebirth_upgrade: RebirthUpgradeTypes) -> &RebirthUpgrade {
+        &self.rebirth_upgrades[rebirth_upgrade as usize]
+    }
+    pub fn get_work(&self, work: WorkTypes) -> &Work {
+        &self.works[work as usize]
     }
 }
 

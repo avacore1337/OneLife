@@ -5,7 +5,7 @@ use crate::input::options::Options;
 use crate::input::{Input, Recordable};
 use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
-use crate::world_content::rebirth_upgrade::translate_rebirth_upgrade;
+use crate::WORLD;
 
 pub fn get_all_upgrades_up_to_current_tier(rebirth_stats: &mut RebirthStats) {
     get_all_upgrades_up_to_tier(rebirth_stats, rebirth_stats.tier)
@@ -27,7 +27,7 @@ pub fn do_test_rebirth(game: &mut Game) {
 
 pub fn get_all_upgrades_up_to_tier(rebirth_stats: &mut RebirthStats, tier: u32) {
     for upgrade in rebirth_stats.rebirth_upgrades.iter_mut() {
-        let upgrade_world = translate_rebirth_upgrade(upgrade.name);
+        let upgrade_world = WORLD.get_rebirth_upgrade(upgrade.name);
         if upgrade_world.required_tier < tier {
             upgrade.is_purchased = true;
         }
@@ -36,7 +36,7 @@ pub fn get_all_upgrades_up_to_tier(rebirth_stats: &mut RebirthStats, tier: u32) 
 
 pub fn get_upgrades_by_max_cost(rebirth_stats: &mut RebirthStats, max_cost: f64) {
     for upgrade in rebirth_stats.rebirth_upgrades.iter_mut() {
-        let upgrade_world = translate_rebirth_upgrade(upgrade.name);
+        let upgrade_world = WORLD.get_rebirth_upgrade(upgrade.name);
         if upgrade_world.purchasing_cost <= max_cost {
             upgrade.is_purchased = true;
         }
