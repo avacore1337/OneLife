@@ -19,10 +19,10 @@ impl Gain for Blessing {
     fn gain(&self, intermediate: &mut IntermediateState) {
         match self.name {
             BlessingTypes::HeruclesStrength => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, "Herucles Strength");
+                intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
             }
             BlessingTypes::AthenasWisdom => {
-                intermediate.add_multiplier(KeyValues::Int, 2.0, "Athenas Wisdom");
+                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
             }
         }
     }
