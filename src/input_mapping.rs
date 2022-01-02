@@ -1,5 +1,8 @@
 #![allow(dead_code)]
 
+use std::collections::HashMap;
+use strum::IntoEnumIterator;
+
 use crate::game::Game;
 use crate::input::activity::ActivityTypes;
 use crate::input::blessing::BlessingTypes;
@@ -11,13 +14,10 @@ use crate::input::work::WorkTypes;
 use crate::input::Recordable;
 use crate::{
     buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
-    set_auto_buy_item_internal, set_auto_buy_tomb_internal, set_housing_internal,
-    set_work_internal,
+    set_auto_buy_item_internal, set_auto_buy_tomb_internal, set_auto_living_internal,
+    set_auto_work_internal, set_housing_internal, set_work_internal,
 };
-use crate::{set_auto_living_internal, set_auto_work_internal};
-// use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
-use strum::IntoEnumIterator;
+
 type Callback = Box<dyn Fn(&mut Game)>;
 
 pub struct InputMapping {

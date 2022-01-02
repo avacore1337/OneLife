@@ -10,7 +10,6 @@ use world_content::world::World;
 extern crate lazy_static;
 
 pub mod engine;
-pub mod experiment;
 pub mod game;
 pub mod info;
 pub mod input;

@@ -146,6 +146,8 @@ export default {
       paused: false,
       numberFormat: "DEFAULT",
       modalText: "",
+      updateCount: 0,
+      updateRate: 1,
     };
   },
   mounted: function () {
@@ -164,9 +166,12 @@ export default {
       }
 
       self.wasm.tick();
-      self.update_dynamic_data();
 
-      self.updateModal();
+      self.updateCount += 1;
+      if (self.updateCount % self.updateRate === 0) {
+        self.update_dynamic_data();
+        self.updateModal();
+      }
     }, 1000 / 30);
   },
   methods: {
@@ -184,11 +189,6 @@ export default {
       }
     },
     update_dynamic_data() {
-      // 20 fps
-      /* this.state= this.wasm.get_state(); */
-      /* this.input= this.wasm.get_input(); */
-      /* this.metaData= this.wasm.get_meta_data(); */
-      // 30 fps
       this.recurse_update(this.state, this.wasm.get_state());
       this.recurse_update(this.input, this.wasm.get_input());
       this.recurse_update(this.metaData, this.wasm.get_meta_data());
