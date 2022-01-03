@@ -8,7 +8,7 @@ use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
 use crate::util::{
     balance_activities, get_all_upgrades_up_to_current_tier, get_upgrades_by_max_cost,
-    register_input, set_full_auto,
+    set_full_auto,
 };
 use crate::WORLD;
 use std::collections::BTreeMap;
@@ -231,11 +231,9 @@ pub fn second_rebirth() -> GameSave {
     let r = &mut state.rebirth_stats;
     set_full_auto(&mut game_save.meta_data.options);
     state.life_stats.replaying = true;
-    register_input(
-        &mut game_save.previous_inputs,
-        12000,
-        AutoSettingTypes::AutoBuyItemFalse,
-    ); // Registering for next round
+    game_save
+        .previous_inputs
+        .register_input_on_tick(12000, AutoSettingTypes::AutoBuyItemFalse); // Registering for next round
 
     for work in WorkTypes::iter() {
         if work < WorkTypes::Mill {
@@ -259,18 +257,18 @@ pub fn third_rebirth() -> GameSave {
 
     set_full_auto(&mut game_save.meta_data.options);
     state.life_stats.replaying = true;
-    register_input(
-        &mut game_save.previous_inputs,
-        30000,
-        AutoSettingTypes::AutoBuyItemFalse,
-    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(30000, AutoSettingTypes::AutoBuyItemFalse);
     balance_activities(
         &mut game_save.previous_inputs,
         4000,
         30_000,
         &[ActivityTypes::Run, ActivityTypes::Studying],
     );
-    register_input(&mut game_save.previous_inputs, 30000, ActivityTypes::Flirt);
+    game_save
+        .previous_inputs
+        .register_input_on_tick(30000, ActivityTypes::Flirt);
 
     game_save.input = Input::new(&game_save.state);
     game_save
@@ -291,11 +289,9 @@ pub fn tenth_rebirth() -> GameSave {
     set_full_auto(&mut game_save.meta_data.options);
     state.life_stats.replaying = true;
     let save_up_switch = 40_000;
-    register_input(
-        &mut game_save.previous_inputs,
-        save_up_switch,
-        AutoSettingTypes::AutoBuyItemFalse,
-    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, AutoSettingTypes::AutoBuyItemFalse);
     balance_activities(
         &mut game_save.previous_inputs,
         4000,
@@ -307,11 +303,9 @@ pub fn tenth_rebirth() -> GameSave {
             ActivityTypes::Run,
         ],
     );
-    register_input(
-        &mut game_save.previous_inputs,
-        save_up_switch,
-        ActivityTypes::Run,
-    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, ActivityTypes::Run);
 
     game_save.input = Input::new(&game_save.state);
     game_save
@@ -331,11 +325,9 @@ pub fn elevent_rebirth() -> GameSave {
     set_full_auto(&mut game_save.meta_data.options);
     state.life_stats.replaying = true;
     let save_up_switch = 40_000;
-    register_input(
-        &mut game_save.previous_inputs,
-        save_up_switch,
-        AutoSettingTypes::AutoBuyItemFalse,
-    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, AutoSettingTypes::AutoBuyItemFalse);
     balance_activities(
         &mut game_save.previous_inputs,
         4000,
@@ -347,11 +339,9 @@ pub fn elevent_rebirth() -> GameSave {
             ActivityTypes::Run,
         ],
     );
-    register_input(
-        &mut game_save.previous_inputs,
-        save_up_switch,
-        ActivityTypes::Flirt,
-    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, ActivityTypes::Run);
 
     game_save.input = Input::new(&game_save.state);
     game_save

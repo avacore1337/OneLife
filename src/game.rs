@@ -1,23 +1,11 @@
 use crate::engine::intermediate_state::IntermediateState;
 use crate::input::{Input, Recordable};
+use crate::input_recording::Inputs;
 use crate::meta::MetaData;
 use crate::state::state_container::StateContainer;
 use crate::world_content::world::World;
 use crate::WORLD;
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeMap;
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct TimedInput {
-    pub id: u64, // Will have precision loss at higher numbers
-    pub name: String,
-}
-
-pub type Inputs = BTreeMap<u32, Vec<TimedInput>>;
-
-// pub struct Inputs {
-//     mapping:
-// }
 
 pub struct Game {
     pub input: Input,
@@ -81,8 +69,8 @@ impl Game {
         let input = Input::new(&state);
         let intermediate_state = IntermediateState::new();
         let meta_data = MetaData::new();
-        let inputs = BTreeMap::new();
-        let previous_inputs = BTreeMap::new();
+        let inputs = Inputs::default();
+        let previous_inputs = Inputs::default();
         Game {
             world,
             state,
@@ -96,32 +84,22 @@ impl Game {
 
     pub fn register_input<T: Recordable>(&mut self, key: T) {
         let tick = self.state.life_stats.current_tick;
-        self.inputs.entry(tick).or_default().push(TimedInput {
-            id: 0,
-            name: key.to_record_key(),
-        });
-    }
-
-    pub fn register_input_on_tick<T: Recordable>(&mut self, tick: u32, key: T) {
-        self.inputs.entry(tick).or_default().push(TimedInput {
-            id: 0,
-            name: key.to_record_key(),
-        });
+        self.inputs.register_input_on_tick(tick, key);
     }
 
     pub fn replay_input(&mut self) {
         let tick = self.state.life_stats.current_tick;
         // log::info!("{:?}", tick);
         if let Some(inputs) = self.previous_inputs.get(&tick) {
-            log::info!("{:?}", inputs);
-            for input in inputs.clone().iter() {
+            for input in inputs.iter() {
+                log::info!("tick: {}, action: {:?}", tick, inputs);
                 if let Some(function) = self
                     .world
                     .input_mapping
                     .lock()
                     .unwrap()
                     .user_function
-                    .get(&input.name)
+                    .get(input)
                 {
                     function(self);
                 }

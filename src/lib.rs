@@ -1,9 +1,8 @@
 #![feature(variant_count)]
+use input_recording::Inputs;
 use log::{info, Level};
-use std::collections::BTreeMap;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
-use world_content::world::World;
 
 #[macro_use]
 extern crate lazy_static;
@@ -13,6 +12,7 @@ pub mod game;
 pub mod info;
 pub mod input;
 pub mod input_mapping;
+pub mod input_recording;
 pub mod meta;
 pub mod presets;
 pub mod state;
@@ -40,6 +40,7 @@ use world_content::boost_item::BoostItem;
 use world_content::rebirth_upgrade::RebirthUpgrade;
 use world_content::tier::Tier;
 use world_content::tomb::Tomb;
+use world_content::world::World;
 
 const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 const TICK_RATE: f64 = 30.0;
@@ -111,7 +112,7 @@ pub fn do_rebirth_internal(game: &mut Game) {
     game.state = rebirth(game.state.rebirth_stats.clone());
     game.input = Input::new(&game.state);
     game.previous_inputs = game.inputs.clone();
-    game.inputs = BTreeMap::new();
+    game.inputs = Inputs::default();
 }
 
 #[wasm_bindgen]

@@ -1,8 +1,9 @@
 use crate::engine::{character_death_update, engine_run};
-use crate::game::{Game, Inputs, TimedInput};
+use crate::game::Game;
 use crate::input::activity::ActivityTypes;
 use crate::input::options::Options;
-use crate::input::{Input, Recordable};
+use crate::input::Input;
+use crate::input_recording::Inputs;
 use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
 use crate::WORLD;
@@ -50,13 +51,6 @@ pub fn set_full_auto(options: &mut Options) {
     options.auto_buy_tomb = true;
 }
 
-pub fn register_input<T: Recordable>(inputs: &mut Inputs, tick: u32, key: T) {
-    inputs.entry(tick).or_default().push(TimedInput {
-        id: 0,
-        name: key.to_record_key(),
-    });
-}
-
 pub fn balance_activities(
     inputs: &mut Inputs,
     start_tick: u32,
@@ -67,7 +61,7 @@ pub fn balance_activities(
     let mut tick = start_tick;
     let mut i = 0usize;
     while tick < end_tick - increment {
-        register_input(inputs, tick, activities[i % activities.len()]);
+        inputs.register_input_on_tick(tick, activities[i % activities.len()]);
         tick += increment;
         i += 1;
     }
