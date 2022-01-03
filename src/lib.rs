@@ -64,6 +64,17 @@ pub fn main_js() -> Result<(), JsValue> {
 
     Ok(())
 }
+#[wasm_bindgen]
+pub fn get_inputs() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    JsValue::from_serde(&game.inputs).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn get_previous_inputs() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    JsValue::from_serde(&game.previous_inputs).unwrap()
+}
 
 #[wasm_bindgen]
 pub fn get_world() -> JsValue {
@@ -131,6 +142,22 @@ pub fn paused() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     check_for_tutorial_step(game);
     game.meta_data.paused_tick_time();
+}
+
+#[wasm_bindgen]
+pub fn remove_recorded(val: u64) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    if let Err(err) = game.inputs.remove(val) {
+        log::info!("{:?}", err);
+    }
+}
+
+#[wasm_bindgen]
+pub fn remove_previous_recorded(val: u64) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    if let Err(err) = game.previous_inputs.remove(val) {
+        log::info!("{:?}", err);
+    }
 }
 
 #[wasm_bindgen]

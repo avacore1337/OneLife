@@ -1,4 +1,5 @@
 use crate::input::Recordable;
+use anyhow::{anyhow, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
@@ -45,6 +46,22 @@ impl Inputs {
                 .map(|input: &TimedInput| input.name.clone())
                 .collect()
         })
+    }
+
+    pub fn remove(&mut self, id: u64) -> Result<()> {
+        for inputs in self.mapping.values_mut() {
+            let mut found: Option<usize> = None;
+            for (i, val) in inputs.iter().enumerate() {
+                if val.id == id {
+                    found = Some(i);
+                }
+            }
+            if let Some(i) = found {
+                inputs.swap_remove(i);
+                return Ok(());
+            }
+        }
+        Err(anyhow!("No entry found"))
     }
 
     // pub fn get_iter(&self, tick: &u32) -> impl Iterator<Item = String> + '_ {

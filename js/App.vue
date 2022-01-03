@@ -51,6 +51,7 @@
           v-bind:world="world"
           v-bind:wasm="wasm"
         />
+        <RecordedInputs v-bind:recorded_inputs="recorded_inputs" v-bind:wasm="wasm" />
       </div>
 
       <div style="margin-left: 2%; float: left; width: 18%">
@@ -89,6 +90,7 @@ import Sidebar from "./components/Sidebar.vue";
 import Topbar from "./components/Topbar.vue";
 import BoostItems from "./components/BoostItems.vue";
 import RebirthUpgrades from "./components/RebirthUpgrades.vue";
+import RecordedInputs from "./components/RecordedInputs.vue";
 
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
@@ -113,6 +115,7 @@ export default {
     Blessings,
     Tombs,
     RebirthUpgrades,
+    RecordedInputs,
   },
   data() {
     return {
@@ -142,6 +145,7 @@ export default {
         },
       },
       input: {},
+      recorded_inputs: {},
       metaData: { info: {}, saved_ticks: 0.0, options: {} },
       paused: false,
       numberFormat: "DEFAULT",
