@@ -1,5 +1,5 @@
 use crate::engine::{character_death_update, engine_run};
-use crate::game::{Game, Inputs};
+use crate::game::{Game, Inputs, TimedInput};
 use crate::input::activity::ActivityTypes;
 use crate::input::options::Options;
 use crate::input::{Input, Recordable};
@@ -51,7 +51,10 @@ pub fn set_full_auto(options: &mut Options) {
 }
 
 pub fn register_input<T: Recordable>(inputs: &mut Inputs, tick: u32, key: T) {
-    inputs.entry(tick).or_default().push(key.to_record_key());
+    inputs.entry(tick).or_default().push(TimedInput {
+        id: 0,
+        name: key.to_record_key(),
+    });
 }
 
 pub fn balance_activities(

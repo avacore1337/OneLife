@@ -113,7 +113,7 @@ pub fn should_be_visible_activity(input_activity: ActivityTypes, game: &Game) ->
     }
     match input_activity {
         ActivityTypes::Meditate => game.state.rebirth_stats.unlocks.has_skills,
-        ActivityTypes::WarGames => game.state.rebirth_stats.unlocks.has_skills,
+        ActivityTypes::WarGames => game.state.rebirth_stats.unlocks.has_military_tactics,
         _ => true,
     }
 }

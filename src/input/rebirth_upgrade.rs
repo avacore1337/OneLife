@@ -20,6 +20,9 @@ pub enum RebirthUpgradeTypes {
     StatMemory1,
     EndItEarly,
     // GemSense, // gives you a huge multiplier to mining
+    UnlockTactics,
+    AcceptingDeath2,
+    AcceptingDeath3,
     AutoWork,
     AutoLive,
     AutoBuyItem,

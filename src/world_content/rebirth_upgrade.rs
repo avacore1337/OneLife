@@ -66,6 +66,9 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::TheDivine => {
             unlocks.has_faith = true;
         }
+        RebirthUpgradeTypes::UnlockTactics => {
+            unlocks.has_military_tactics = true;
+        }
         _ => (),
     }
 }
@@ -189,21 +192,42 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             name: rebirth_upgrade,
             purchasing_cost: 80.0,
             description: "TODO",
-            display_name: "Labor Experience",
+            display_name: "Labor Experience 2",
             required_tier: 2,
         },
         RebirthUpgradeTypes::SoldierXp1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 100.0,
             description: "TODO",
-            display_name: "Labor Experience",
+            display_name: "Soldier Experience",
             required_tier: 3,
         },
         RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 500.0,
             description: "TODO",
-            display_name: "Labor Experience",
+            display_name: "Soldier Experience 2",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 100.0,
+            description: "You feel happier now that you know that death isn't the end",
+            display_name: "Unlock Tactics",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::AcceptingDeath2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 400.0,
+            description: "You feel happier now that you know that death isn't the end",
+            display_name: "Accepting Death 2",
+            required_tier: 2,
+        },
+        RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 4000.0,
+            description: "You feel happier now that you know that death isn't the end",
+            display_name: "Accepting Death 3",
             required_tier: 4,
         },
         RebirthUpgradeTypes::AutoWork => RebirthUpgrade {

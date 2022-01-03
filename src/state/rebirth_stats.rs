@@ -13,6 +13,7 @@ pub struct Unlocks {
     pub can_replay: bool,
     pub has_faith: bool,
     pub has_skills: bool,
+    pub has_military_tactics: bool,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

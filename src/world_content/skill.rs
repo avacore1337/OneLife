@@ -48,14 +48,20 @@ pub const fn translate_skill(skill: SkillTypes) -> Skill {
             name: skill,
             description: "Flank them!",
             display_name: "Military Tactics",
-            required_tier: 4,
+            required_tier: 3,
         },
     }
 }
 
 pub fn should_be_visible_skill(input_skill: SkillTypes, game: &Game) -> bool {
     let skill = &game.world.skills[input_skill as usize];
-    game.state.rebirth_stats.tier >= skill.required_tier
+    if game.state.rebirth_stats.tier < skill.required_tier {
+        return false;
+    }
+    match input_skill {
+        SkillTypes::Tactics => game.state.rebirth_stats.unlocks.has_military_tactics,
+        _ => true,
+    }
 }
 
 pub fn get_skills() -> [Skill; SKILL_SIZE] {

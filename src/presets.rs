@@ -50,6 +50,7 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     presets.insert("Test_1: second rebirth", second_rebirth());
     presets.insert("Test_2: third rebirth", third_rebirth());
     presets.insert("Test_3: tenth rebirth", tenth_rebirth());
+    presets.insert("Test_4: eleventh rebirth", elevent_rebirth());
 
     presets
 }
@@ -278,7 +279,7 @@ pub fn third_rebirth() -> GameSave {
 pub fn tenth_rebirth() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
-    r.rebirth_count = 8;
+    r.rebirth_count = 10;
     r.tier = 1;
     set_lower_tier_jobs_to(r, 30);
     get_upgrades_by_max_cost(r, 60.0);
@@ -310,6 +311,46 @@ pub fn tenth_rebirth() -> GameSave {
         &mut game_save.previous_inputs,
         save_up_switch,
         ActivityTypes::Run,
+    );
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+
+pub fn elevent_rebirth() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 10;
+    r.tier = 2;
+    set_lower_tier_jobs_to(r, 30);
+    get_upgrades_by_max_cost(r, 40.0);
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    let save_up_switch = 40_000;
+    register_input(
+        &mut game_save.previous_inputs,
+        save_up_switch,
+        AutoSettingTypes::AutoBuyItemFalse,
+    );
+    balance_activities(
+        &mut game_save.previous_inputs,
+        4000,
+        save_up_switch,
+        &[
+            ActivityTypes::Run,
+            ActivityTypes::Studying,
+            ActivityTypes::Meditate,
+            ActivityTypes::Run,
+        ],
+    );
+    register_input(
+        &mut game_save.previous_inputs,
+        save_up_switch,
+        ActivityTypes::Flirt,
     );
 
     game_save.input = Input::new(&game_save.state);

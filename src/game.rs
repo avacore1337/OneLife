@@ -1,6 +1,5 @@
 use crate::engine::intermediate_state::IntermediateState;
 use crate::input::{Input, Recordable};
-use crate::input_mapping::InputMapping;
 use crate::meta::MetaData;
 use crate::state::state_container::StateContainer;
 use crate::world_content::world::World;
@@ -8,7 +7,17 @@ use crate::WORLD;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
-pub type Inputs = BTreeMap<u32, Vec<String>>;
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct TimedInput {
+    pub id: u64, // Will have precision loss at higher numbers
+    pub name: String,
+}
+
+pub type Inputs = BTreeMap<u32, Vec<TimedInput>>;
+
+// pub struct Inputs {
+//     mapping:
+// }
 
 pub struct Game {
     pub input: Input,
@@ -87,27 +96,33 @@ impl Game {
 
     pub fn register_input<T: Recordable>(&mut self, key: T) {
         let tick = self.state.life_stats.current_tick;
-        self.inputs
-            .entry(tick)
-            .or_default()
-            .push(key.to_record_key());
+        self.inputs.entry(tick).or_default().push(TimedInput {
+            id: 0,
+            name: key.to_record_key(),
+        });
     }
 
     pub fn register_input_on_tick<T: Recordable>(&mut self, tick: u32, key: T) {
-        self.inputs
-            .entry(tick)
-            .or_default()
-            .push(key.to_record_key());
+        self.inputs.entry(tick).or_default().push(TimedInput {
+            id: 0,
+            name: key.to_record_key(),
+        });
     }
 
     pub fn replay_input(&mut self) {
         let tick = self.state.life_stats.current_tick;
         // log::info!("{:?}", tick);
-        if let Some(names) = self.previous_inputs.get(&tick) {
-            log::info!("{:?}", names);
-            for name in names.clone().iter() {
-                let input_mapping = InputMapping::default();
-                if let Some(function) = input_mapping.user_function.get(name) {
+        if let Some(inputs) = self.previous_inputs.get(&tick) {
+            log::info!("{:?}", inputs);
+            for input in inputs.clone().iter() {
+                if let Some(function) = self
+                    .world
+                    .input_mapping
+                    .lock()
+                    .unwrap()
+                    .user_function
+                    .get(&input.name)
+                {
                     function(self);
                 }
             }

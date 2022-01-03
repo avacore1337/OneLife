@@ -23,7 +23,7 @@ impl Activity {
             next_level_required: 100.0,
             next_level_percentage: 0.0,
             is_unlocked: false,
-            is_visible: true,
+            is_visible: false,
         }
     }
 }

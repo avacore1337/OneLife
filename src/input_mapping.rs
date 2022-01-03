@@ -18,7 +18,7 @@ use crate::{
     set_auto_work_internal, set_housing_internal, set_work_internal,
 };
 
-type Callback = Box<dyn Fn(&mut Game)>;
+type Callback = Box<dyn Fn(&mut Game) + Send>;
 
 pub struct InputMapping {
     pub user_function: HashMap<String, Callback>,

@@ -1,3 +1,5 @@
+use std::sync::Mutex;
+
 use super::activity::{get_activities, Activity};
 use super::blessing::{get_blessings, Blessing};
 use super::boost_item::{get_boost_items, BoostItem};
@@ -19,6 +21,7 @@ use crate::input::skill::SKILL_SIZE;
 use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::{WorkTypes, WORK_SIZE};
+use crate::input_mapping::InputMapping;
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -35,6 +38,8 @@ pub struct World {
     pub tombs: [Tomb; TOMB_SIZE],
     pub tutorial_texts: Vec<&'static str>,
     works: [Work; WORK_SIZE],
+    #[serde(skip_serializing)]
+    pub input_mapping: Mutex<InputMapping>,
 }
 
 impl World {
@@ -67,6 +72,7 @@ impl Default for World {
             settings: Settings::default(),
             blessings: get_blessings(),
             skills: get_skills(),
+            input_mapping: Mutex::new(InputMapping::default()),
         }
     }
 }

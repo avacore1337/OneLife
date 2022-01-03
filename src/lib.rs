@@ -1,6 +1,5 @@
 #![feature(variant_count)]
 use log::{info, Level};
-use once_cell::sync::Lazy;
 use std::collections::BTreeMap;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
@@ -47,13 +46,8 @@ const TICK_RATE: f64 = 30.0;
 
 lazy_static! {
     static ref WORLD: World = World::default();
+    static ref GLOBAL_DATA: Mutex<Game> = Mutex::new(Game::new());
 }
-
-static GLOBAL_DATA: Lazy<Mutex<Game>> = Lazy::new(|| {
-    let game = Mutex::new(Game::new());
-    register_auto_settings(&mut *game.lock().unwrap());
-    game
-});
 
 // This is like the `main` function, except for JavaScript.
 #[wasm_bindgen(start)]
