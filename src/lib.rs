@@ -1,5 +1,5 @@
 #![feature(variant_count)]
-use input_recording::Inputs;
+use input_recording::{Inputs, RecordedInputEntry};
 use log::{info, Level};
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
@@ -65,15 +65,18 @@ pub fn main_js() -> Result<(), JsValue> {
     Ok(())
 }
 #[wasm_bindgen]
-pub fn get_inputs() -> JsValue {
+pub fn get_recorded_inputs() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&game.inputs).unwrap()
+    JsValue::from_serde(&Into::<Vec<RecordedInputEntry>>::into(&game.inputs)).unwrap()
 }
 
 #[wasm_bindgen]
-pub fn get_previous_inputs() -> JsValue {
+pub fn get_previous_recorded_inputs() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&game.previous_inputs).unwrap()
+    JsValue::from_serde(&Into::<Vec<RecordedInputEntry>>::into(
+        &game.previous_inputs,
+    ))
+    .unwrap()
 }
 
 #[wasm_bindgen]
@@ -145,7 +148,7 @@ pub fn paused() {
 }
 
 #[wasm_bindgen]
-pub fn remove_recorded(val: u64) {
+pub fn remove_recorded(val: u32) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     if let Err(err) = game.inputs.remove(val) {
         log::info!("{:?}", err);
@@ -153,7 +156,7 @@ pub fn remove_recorded(val: u64) {
 }
 
 #[wasm_bindgen]
-pub fn remove_previous_recorded(val: u64) {
+pub fn remove_previous_recorded(val: u32) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     if let Err(err) = game.previous_inputs.remove(val) {
         log::info!("{:?}", err);

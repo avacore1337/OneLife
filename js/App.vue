@@ -51,7 +51,18 @@
           v-bind:world="world"
           v-bind:wasm="wasm"
         />
-        <RecordedInputs v-bind:recorded_inputs="recorded_inputs" v-bind:wasm="wasm" />
+        <div v-if="show_recorded">
+          <RecordedInputs
+            v-bind:recorded_inputs="recorded_inputs"
+            v-bind:wasm="wasm"
+            v-bind:remove_recorded="remove_recorded"
+          />
+          <RecordedInputs
+            v-bind:recorded_inputs="previous_recorded_inputs"
+            v-bind:wasm="wasm"
+            v-bind:remove_recorded="remove_previous_recorded"
+          />
+        </div>
       </div>
 
       <div style="margin-left: 2%; float: left; width: 18%">
@@ -146,8 +157,10 @@ export default {
       },
       input: {},
       recorded_inputs: {},
+      previous_recorded_inputs: {},
       metaData: { info: {}, saved_ticks: 0.0, options: {} },
       paused: false,
+      show_recorded: false,
       numberFormat: "DEFAULT",
       modalText: "",
       updateCount: 0,
@@ -158,6 +171,8 @@ export default {
     this.world = Object.freeze(this.wasm.get_world());
     this.state = this.wasm.get_state();
     this.input = this.wasm.get_input();
+    this.recorded_inputs = this.wasm.get_recorded_inputs();
+    this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs();
     this.metaData = this.wasm.get_meta_data();
 
     let self = this;
@@ -196,6 +211,8 @@ export default {
       this.recurse_update(this.state, this.wasm.get_state());
       this.recurse_update(this.input, this.wasm.get_input());
       this.recurse_update(this.metaData, this.wasm.get_meta_data());
+      this.recorded_inputs = this.wasm.get_recorded_inputs();
+      this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs();
     },
     updateModal() {
       let modal = this.$refs["the-modal"];
@@ -216,6 +233,12 @@ export default {
       this.wasm.set_disable_tutorial(true);
       this.wasm.next_info_step();
       this.$refs["the-modal"].hide();
+    },
+    remove_recorded: function (id) {
+      this.wasm.remove_recorded(id);
+    },
+    remove_previous_recorded: function (id) {
+      this.wasm.remove_previous_recorded(id);
     },
   },
 };

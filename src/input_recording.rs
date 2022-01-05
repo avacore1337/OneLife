@@ -3,18 +3,39 @@ use anyhow::{anyhow, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct TimedInput {
-    pub id: u64, // Will have precision loss at higher numbers
+#[derive(Serialize, Clone, Debug)]
+pub struct RecordedInputEntry {
+    pub id: u32,
+    pub tick: u32,
     pub name: String,
 }
 
-type InputData = BTreeMap<u32, Vec<TimedInput>>;
+impl From<&Inputs> for Vec<RecordedInputEntry> {
+    fn from(inputs: &Inputs) -> Self {
+        let mut ret = vec![];
+        for (key, entries) in inputs.mapping.iter() {
+            for entry in entries.iter() {
+                ret.push(RecordedInputEntry {
+                    tick: *key,
+                    id: entry.id,
+                    name: entry.name.clone(),
+                });
+            }
+        }
+        ret
+    }
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct TimedInput {
+    pub id: u32,
+    pub name: String,
+}
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Inputs {
-    mapping: InputData,
-    current_id: u64,
+    pub mapping: BTreeMap<u32, Vec<TimedInput>>,
+    current_id: u32,
 }
 
 impl Default for Inputs {
@@ -48,7 +69,7 @@ impl Inputs {
         })
     }
 
-    pub fn remove(&mut self, id: u64) -> Result<()> {
+    pub fn remove(&mut self, id: u32) -> Result<()> {
         for inputs in self.mapping.values_mut() {
             let mut found: Option<usize> = None;
             for (i, val) in inputs.iter().enumerate() {

@@ -27,6 +27,9 @@
     <br />
     <button v-on:click="enable_tutorial">Enable Tutorial</button>
     <br />
+    <button v-on:click="toggle_show_recorded" style="margin: 2px">
+      {{ !$parent.show_recorded ? "Show Recorded" : "Don't Show Recorded" }}
+    </button>
     <button v-on:click="toggle_pause" style="margin: 2px">
       {{ $parent.paused ? "Resume the game" : "Pause the game" }}
     </button>
@@ -134,6 +137,9 @@ export default {
     },
     load_preset: function (preset) {
       this.wasm.set_preset_saves(preset);
+    },
+    toggle_show_recorded: function () {
+      this.$parent.show_recorded = !this.$parent.show_recorded;
     },
     toggle_pause: function () {
       this.$parent.paused = !this.$parent.paused;

@@ -89,10 +89,9 @@ impl Game {
 
     pub fn replay_input(&mut self) {
         let tick = self.state.life_stats.current_tick;
-        // log::info!("{:?}", tick);
         if let Some(inputs) = self.previous_inputs.get(&tick) {
             for input in inputs.iter() {
-                log::info!("tick: {}, action: {:?}", tick, inputs);
+                // log::info!("tick: {}, action: {:?}", tick, inputs);
                 if let Some(function) = self
                     .world
                     .input_mapping
