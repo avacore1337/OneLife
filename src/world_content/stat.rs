@@ -28,6 +28,13 @@ impl Stat {
                     self.display_name,
                 );
             }
+            StatTypes::Str => {
+                game.intermediate_state.add_multiplier(
+                    KeyValues::SoldierXp,
+                    0.05 * stat_state.level,
+                    self.display_name,
+                );
+            }
             StatTypes::Cha => {
                 game.intermediate_state.add_multiplier(
                     KeyValues::Coins,

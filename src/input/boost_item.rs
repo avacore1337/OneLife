@@ -20,7 +20,7 @@ pub enum BoostItemTypes {
     Shoe3,
     FishingGear,
     CityClothes,
-    PitchFork,
+    // PitchFork,
     HealthKit,
     Dumbell,
     Dumbell2,

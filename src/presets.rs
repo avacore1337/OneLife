@@ -324,14 +324,10 @@ pub fn elevent_rebirth() -> GameSave {
 
     set_full_auto(&mut game_save.meta_data.options);
     state.life_stats.replaying = true;
-    let save_up_switch = 40_000;
-    game_save
-        .previous_inputs
-        .register_input_on_tick(save_up_switch, AutoSettingTypes::AutoBuyItemFalse);
     balance_activities(
         &mut game_save.previous_inputs,
         4000,
-        save_up_switch,
+        10000,
         &[
             ActivityTypes::Run,
             ActivityTypes::Studying,
@@ -339,9 +335,17 @@ pub fn elevent_rebirth() -> GameSave {
             ActivityTypes::Run,
         ],
     );
-    game_save
-        .previous_inputs
-        .register_input_on_tick(save_up_switch, ActivityTypes::Run);
+    balance_activities(
+        &mut game_save.previous_inputs,
+        10000,
+        40000,
+        &[
+            ActivityTypes::Training,
+            ActivityTypes::Studying,
+            ActivityTypes::Meditate,
+            ActivityTypes::Training,
+        ],
+    );
 
     game_save.input = Input::new(&game_save.state);
     game_save

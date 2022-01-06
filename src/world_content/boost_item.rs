@@ -56,14 +56,14 @@ impl Gain for BoostItem {
             BoostItemTypes::Leach => {
                 intermediate.add_base(KeyValues::Health, 1.0, self.display_name);
             }
-            BoostItemTypes::PitchFork => {
-                intermediate.add_multiplier(KeyValues::Farmer, 2.0, self.display_name);
-            }
+            // BoostItemTypes::PitchFork => {
+            //     intermediate.add_multiplier(KeyValues::Farmer, 2.0, self.display_name);
+            // }
             BoostItemTypes::HealthKit => {
                 intermediate.add_base(KeyValues::Health, 2.0, self.display_name);
             }
             BoostItemTypes::Dumbell => {
-                intermediate.add_multiplier(KeyValues::Str, 1.5, self.display_name);
+                intermediate.add_multiplier(KeyValues::Str, 4.0, self.display_name);
             }
             BoostItemTypes::Dumbell2 => {
                 intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
@@ -188,17 +188,17 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Blood Leach",
             required_tier: 1,
         },
-        BoostItemTypes::PitchFork => BoostItem {
-            name: item_type,
-            purchasing_cost: 800_000.0,
-            description: "Grab one",
-            effect_description: "2x Farmer income",
-            display_name: "Pitchfork",
-            required_tier: 2,
-        },
+        // BoostItemTypes::PitchFork => BoostItem {
+        //     name: item_type,
+        //     purchasing_cost: 800_000.0,
+        //     description: "Grab one",
+        //     effect_description: "2x Farmer income",
+        //     display_name: "Pitchfork",
+        //     required_tier: 2,
+        // },
         BoostItemTypes::Dumbell => BoostItem {
             name: item_type,
-            purchasing_cost: 1_000_000.0,
+            purchasing_cost: 10_000.0,
             description: "It's just a stick",
             effect_description: "2x Strength XP gain",
             display_name: "Wooden Dumbell",
@@ -206,7 +206,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Dumbell2 => BoostItem {
             name: item_type,
-            purchasing_cost: 3_000_000.0,
+            purchasing_cost: 50_000.0,
             description: "Couldn't I just use a normal stone?",
             effect_description: "2x Strength XP gain",
             display_name: "Stone dumbell",
@@ -214,7 +214,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::HealthKit => BoostItem {
             name: item_type,
-            purchasing_cost: 4_000_000.0,
+            purchasing_cost: 600_000.0,
             description: "What is this fancy box of cloth",
             effect_description: "Improving Health",
             display_name: "Healthkit",
@@ -296,7 +296,7 @@ pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Gam
             game.state.items.boost_items[BoostItemTypes::FarmersClothes as usize].is_purchased
         }
         BoostItemTypes::FishingGear => game.state.works[WorkTypes::Fisherman as usize].level > 25,
-        BoostItemTypes::PitchFork => game.state.works[WorkTypes::Farmer as usize].level > 25,
+        // BoostItemTypes::PitchFork => game.state.works[WorkTypes::Farmer as usize].level > 25,
         _ => true,
     }
 }
