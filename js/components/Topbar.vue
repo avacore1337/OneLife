@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button v-on:click="save">Save</button>
-    <button v-on:click="load">Load</button>
-    <button v-on:click="hard_reset">Hard Reset</button>
+    <button v-on:click="wasm.save">Save</button>
+    <button v-on:click="wasm.load">Load</button>
+    <button v-on:click="wasm.hard_reset">Hard Reset</button>
     <input type="checkbox" id="autosave" v-on:click="toggleAutoSave" :checked="metaData.autosave" />
     <label for="autosave">Autosave</label>
     <button v-on:click="setNumberFormat">{{ nextNumberFormat($parent.numberFormat) }}</button>
@@ -29,15 +29,6 @@ export default {
         DEFAULT: "SCIENTIFIC",
         SCIENTIFIC: "DEFAULT",
       }[this.$parent.numberFormat];
-    },
-    save: function () {
-      this.wasm.save();
-    },
-    load: function () {
-      this.wasm.load();
-    },
-    hard_reset: function () {
-      this.wasm.hard_reset();
     },
   },
 };

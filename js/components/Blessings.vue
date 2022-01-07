@@ -9,7 +9,7 @@
     Blessings
     <ul>
       <li v-for="[blessing, blessing_state] in visible_unbought_blessings" :key="blessing.name">
-        <button v-on:click="buyBlessing(blessing.name)" :disabled="!blessing_state.is_unlocked">
+        <button v-on:click="wasm.buy_blessing(blessing.name)" :disabled="!blessing_state.is_unlocked">
           {{ blessing.display_name }}
         </button>
         {{ blessing.purchasing_cost }}
@@ -21,11 +21,7 @@
 <script>
 export default {
   props: ["state", "world", "input", "wasm"],
-  methods: {
-    buyBlessing: function (blessing_name) {
-      this.wasm.buy_blessing(blessing_name);
-    },
-  },
+  methods: {},
   computed: {
     bought_blessings: function () {
       let self = this;

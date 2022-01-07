@@ -29,7 +29,7 @@
         v-bind:class="{ disabled: !item_state.is_unlocked }"
         :key="item.name"
       >
-        <td v-on:click="buyItem(item.name)">
+        <td v-on:click="wasm.buy_item(item.name)">
           <span>{{ item.display_name }} </span>
           <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
           <br />
@@ -69,9 +69,6 @@ export default {
     },
   },
   methods: {
-    buyItem: function (item_name) {
-      this.wasm.buy_item(item_name);
-    },
     toggle_show_bought: function () {
       this.wasm.set_show_bought_items(!this.metaData.options.show_bought_items);
     },

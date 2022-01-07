@@ -3,7 +3,7 @@
     <table>
       <tr
         v-for="[activity, activity_state] in visible_activities"
-        v-on:click="set_activity(activity.name)"
+        v-on:click="wasm.set_activity(activity.name)"
         v-bind:class="{ disabled: !activity_state.is_unlocked }"
         :key="activity.name"
       >
@@ -21,11 +21,7 @@ import Section from "./Section.vue";
 export default {
   props: ["state", "world", "input", "wasm"],
   components: { Section },
-  methods: {
-    set_activity: function (activity_name) {
-      this.wasm.set_activity(activity_name);
-    },
-  },
+  methods: {},
   computed: {
     visible_activities: function () {
       let self = this;

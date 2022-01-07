@@ -25,7 +25,7 @@
       {{ !metaData.options.auto_buy_tomb ? "Auto Buy Tomb" : "Don't Auto Buy Tomb" }}
     </button>
     <br />
-    <button v-on:click="enable_tutorial">Enable Tutorial</button>
+    <button v-on:click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
     <br />
     <button v-on:click="toggle_show_recorded" style="margin: 2px">
       {{ !$parent.show_recorded ? "Show Recorded" : "Don't Show Recorded" }}
@@ -36,7 +36,7 @@
     <br />
     <button v-on:click="tick">Tick</button>
     <br />
-    <button v-on:click="test">Test</button>
+    <button v-on:click="wasm.test">Test</button>
     <br />
     <br />
     <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>
@@ -46,38 +46,38 @@
 
     <br /><br />
     <h3>Debug</h3>
-    <button v-on:click="set_gamespeed(1)">Set GameSpeed 1</button>
+    <button v-on:click="wasm.set_gamespeed(1)">Set GameSpeed 1</button>
     <br />
-    <button v-on:click="set_gamespeed(10)">Set GameSpeed 10</button>
+    <button v-on:click="wasm.set_gamespeed(10)">Set GameSpeed 10</button>
     <br />
-    <button v-on:click="set_gamespeed(100)">Set GameSpeed 100</button>
+    <button v-on:click="wasm.set_gamespeed(100)">Set GameSpeed 100</button>
     <br />
-    <button v-on:click="set_gamespeed(1000)">Set GameSpeed 1000</button>
+    <button v-on:click="wasm.set_gamespeed(1000)">Set GameSpeed 1000</button>
     <br />
     <br />
     <button v-on:click="print_frontend_debug_state">Print Frontend Debug State</button>
     <br />
-    <button v-on:click="print_debug_intermediate">Print Debug Intermediate</button>
+    <button v-on:click="wasm.print_debug_intermediate">Print Debug Intermediate</button>
     <br />
-    <button v-on:click="print_debug_state">Print Debug State</button>
+    <button v-on:click="wasm.print_debug_state">Print Debug State</button>
     <br />
-    <button v-on:click="print_debug_meta">Print Debug Meta</button>
+    <button v-on:click="wasm.print_debug_meta">Print Debug Meta</button>
     <br />
     <br />
-    <button v-on:click="grow_old">Grow Old</button>
+    <button v-on:click="wasm.grow_old">Grow Old</button>
     <br />
     <input v-model="money" size="10" />
     <br />
-    <button v-on:click="give_money">Give Money</button>
+    <button v-on:click="wasm.give_money(money)">Give Money</button>
     <br />
     <input v-model="coins" size="10" />
     <br />
-    <button v-on:click="give_coins">Give Coins</button>
+    <button v-on:click="wasm.give_coins(coins)">Give Coins</button>
     <br />
     <br />
     Presets
     <div v-for="(value, name) in presets" :key="name">
-      <button v-on:click="load_preset(name)" style="margin: 2px">{{ name }}</button>
+      <button v-on:click="wasm.set_preset_saves(name)" style="margin: 2px">{{ name }}</button>
     </div>
   </div>
 </template>
@@ -96,9 +96,6 @@ export default {
     this.presets = this.wasm.get_preset_saves();
   },
   methods: {
-    test: function () {
-      this.wasm.test();
-    },
     toggle_use_saved_ticks: function () {
       this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks);
     },
@@ -117,35 +114,17 @@ export default {
     print_frontend_debug_state: function () {
       console.log(this.state);
     },
-    print_debug_state: function () {
-      this.wasm.print_debug_state();
-    },
-    print_debug_intermediate: function () {
-      this.wasm.print_debug_intermediate();
-    },
-    print_debug_meta: function () {
-      this.wasm.print_debug_meta();
-    },
-    set_gamespeed: function (game_speed) {
-      this.wasm.set_gamespeed(game_speed);
-    },
     tick: function (work_name) {
       this.wasm.single_tick();
 
       this.$parent.state = this.wasm.get_state();
       this.$parent.input = this.wasm.get_input();
     },
-    load_preset: function (preset) {
-      this.wasm.set_preset_saves(preset);
-    },
     toggle_show_recorded: function () {
       this.$parent.show_recorded = !this.$parent.show_recorded;
     },
     toggle_pause: function () {
       this.$parent.paused = !this.$parent.paused;
-    },
-    enable_tutorial: function () {
-      this.wasm.set_disable_tutorial(false);
     },
     export_save: function () {
       // TODO: This should be exported by the backend
@@ -166,15 +145,6 @@ export default {
         };
       })(f);
       reader.readAsText(f);
-    },
-    give_coins: function () {
-      this.wasm.give_coins(this.coins);
-    },
-    give_money: function () {
-      this.wasm.give_money(this.money);
-    },
-    grow_old: function () {
-      this.wasm.grow_old();
     },
   },
 };

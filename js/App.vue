@@ -55,14 +55,14 @@
           <RecordedInputs
             v-bind:recorded_inputs="previous_recorded_inputs"
             v-bind:wasm="wasm"
-            v-bind:remove_recorded="remove_previous_recorded"
+            v-bind:remove_recorded="wasm.remove_previous_recorded"
             v-bind:clear_recorded="wasm.clear_previous_recorded"
           />
           <RecordedInputs
             v-bind:recorded_inputs="recorded_inputs"
             v-bind:wasm="wasm"
             v-bind:clear_recorded="wasm.clear_recorded"
-            v-bind:remove_recorded="remove_recorded"
+            v-bind:remove_recorded="wasm.remove_recorded"
           />
         </div>
       </div>
@@ -235,12 +235,6 @@ export default {
       this.wasm.set_disable_tutorial(true);
       this.wasm.next_info_step();
       this.$refs["the-modal"].hide();
-    },
-    remove_recorded: function (id) {
-      this.wasm.remove_recorded(id);
-    },
-    remove_previous_recorded: function (id) {
-      this.wasm.remove_previous_recorded(id);
     },
   },
 };

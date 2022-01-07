@@ -5,7 +5,7 @@
       <table>
         <tr
           v-for="[work, work_state] in visible_labor_work"
-          v-on:click="work_state.is_unlocked && set_work(work.name)"
+          v-on:click="work_state.is_unlocked && wasm.set_work(work.name)"
           v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
         >
@@ -75,11 +75,7 @@ export default {
         });
     },
   },
-  methods: {
-    set_work: function (work_name) {
-      this.wasm.set_work(work_name);
-    },
-  },
+  methods: {},
 };
 </script>
 
