@@ -3,8 +3,20 @@ use serde::{Deserialize, Serialize};
 
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
+big_array! { BigArray; BOOST_ITEM_SIZE, }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+impl Default for BoostItem {
+    fn default() -> BoostItem {
+        BoostItem {
+            name: BoostItemTypes::Book,
+            is_purchased: false,
+            is_unlocked: false,
+            is_visible: false,
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Copy, Clone, Debug)]
 pub struct BoostItem {
     pub name: BoostItemTypes,
     pub is_purchased: bool,
@@ -29,6 +41,7 @@ pub struct Items {
     pub income: f64,
     pub divine_favor: f64,
     pub divine_favor_rate: f64,
+    #[serde(with = "BigArray")]
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
 }
 

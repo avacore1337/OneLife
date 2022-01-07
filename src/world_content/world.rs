@@ -28,6 +28,7 @@ use serde::Serialize;
 pub struct World {
     activities: [Activity; ACTIVITY_SIZE],
     pub blessings: [Blessing; BLESSING_SIZE],
+    #[serde(serialize_with = "<[_]>::serialize")]
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
     housing: [Housing; HOUSING_SIZE],
     pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],

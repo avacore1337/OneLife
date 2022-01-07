@@ -50,10 +50,16 @@ impl Gain for BoostItem {
             BoostItemTypes::Book4 => {
                 intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
             }
+            BoostItemTypes::Book5 => {
+                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
+            }
             BoostItemTypes::Shoe3 => {
                 intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
             }
             BoostItemTypes::Shoe4 => {
+                intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
+            }
+            BoostItemTypes::Shoe5 => {
                 intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
             }
             BoostItemTypes::FishingGear => {
@@ -63,6 +69,9 @@ impl Gain for BoostItem {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::Clothes4 => {
+                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+            }
+            BoostItemTypes::Clothes5 => {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::Leach => {
@@ -83,6 +92,9 @@ impl Gain for BoostItem {
             BoostItemTypes::Dumbell3 => {
                 intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
             }
+            BoostItemTypes::Dumbell4 => {
+                intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
+            }
             BoostItemTypes::Flower1 => {
                 intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
@@ -92,6 +104,9 @@ impl Gain for BoostItem {
             BoostItemTypes::Flower3 => {
                 intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
+            BoostItemTypes::Flower4 => {
+                intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
+            }
             BoostItemTypes::Meditation1 => {
                 intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
@@ -99,6 +114,9 @@ impl Gain for BoostItem {
                 intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation3 => {
+                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+            }
+            BoostItemTypes::Meditation4 => {
                 intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
         }
@@ -285,11 +303,19 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Flower3 => BoostItem {
             name: item_type,
-            purchasing_cost: 16_000_000.0,
+            purchasing_cost: 1_600_000.0,
             description: "Ok, this flower is way better",
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
             required_tier: 3,
+        },
+        BoostItemTypes::Flower4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 16_000_000.0,
+            description: "todo",
+            effect_description: "2x Charisma XP gain",
+            display_name: "Tulip",
+            required_tier: 4,
         },
         BoostItemTypes::Meditation1 => BoostItem {
             name: item_type,
@@ -315,6 +341,14 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Meditation Pillow",
             required_tier: 2,
         },
+        BoostItemTypes::Meditation4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 8000_000.0,
+            description: "todo",
+            effect_description: "2x Mindfullness XP gain",
+            display_name: "Meditation Pillow",
+            required_tier: 3,
+        },
         BoostItemTypes::Clothes4 => BoostItem {
             name: item_type,
             purchasing_cost: 400_000.0,
@@ -322,6 +356,38 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Happiness",
             display_name: "City Clothes",
             required_tier: 2,
+        },
+        BoostItemTypes::Clothes5 => BoostItem {
+            name: item_type,
+            purchasing_cost: 4_000_000.0,
+            description: "todo",
+            effect_description: "1.5x Happiness",
+            display_name: "City Clothes",
+            required_tier: 3,
+        },
+        BoostItemTypes::Book5 => BoostItem {
+            name: item_type,
+            purchasing_cost: 160_000.0,
+            description: "todo",
+            effect_description: "2x Intelligence XP gain",
+            display_name: "Book: Elementary Education",
+            required_tier: 3,
+        },
+        BoostItemTypes::Shoe5 => BoostItem {
+            name: item_type,
+            purchasing_cost: 160_000.0,
+            description: "todo",
+            effect_description: "2x Constitution XP gain",
+            display_name: "Leather Sandals",
+            required_tier: 3,
+        },
+        BoostItemTypes::Dumbell4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 16.0e6,
+            description: "Cowbell, Kettlebell, what's the difference anyway",
+            effect_description: "2x Strength XP gain",
+            display_name: "Kettlebell",
+            required_tier: 3,
         },
     }
 }

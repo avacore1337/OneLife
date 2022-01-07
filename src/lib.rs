@@ -1,4 +1,6 @@
 #![feature(variant_count)]
+// #![feature(generic_const_exprs)]
+
 use input_recording::{Inputs, RecordedInputEntry};
 use log::{info, Level};
 use std::sync::Mutex;
@@ -6,6 +8,9 @@ use wasm_bindgen::prelude::*;
 
 #[macro_use]
 extern crate lazy_static;
+
+#[macro_use]
+extern crate serde_big_array;
 
 pub mod engine;
 pub mod game;
