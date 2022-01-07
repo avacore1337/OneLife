@@ -346,6 +346,9 @@ pub fn elevent_rebirth() -> GameSave {
             ActivityTypes::Training,
         ],
     );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(40000, ActivityTypes::Training);
 
     game_save.input = Input::new(&game_save.state);
     game_save

@@ -85,6 +85,10 @@ impl Inputs {
         Err(anyhow!("No entry found"))
     }
 
+    pub fn clear(&mut self) {
+        self.mapping.clear()
+    }
+
     // pub fn get_iter(&self, tick: &u32) -> impl Iterator<Item = String> + '_ {
     //     // self.mapping
     //     //     .get(tick)

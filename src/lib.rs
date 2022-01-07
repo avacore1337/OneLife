@@ -148,6 +148,18 @@ pub fn paused() {
 }
 
 #[wasm_bindgen]
+pub fn clear_recorded() {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.inputs.clear()
+}
+
+#[wasm_bindgen]
+pub fn clear_previous_recorded() {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.previous_inputs.clear()
+}
+
+#[wasm_bindgen]
 pub fn remove_recorded(val: u32) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     if let Err(err) = game.inputs.remove(val) {
@@ -326,9 +338,10 @@ pub fn buy_tomb_internal(tomb_type: TombTypes, game: &mut Game) {
 }
 
 pub fn can_buy_tomb(tomb_type: TombTypes, game: &mut Game) -> bool {
-    let tomb: &Tomb = &game.world.tombs[tomb_type as usize];
+    let tomb = &game.world.tombs[tomb_type as usize];
+    let tomb_state = &game.state.tombs[tomb_type as usize];
     let can_afford: bool = game.state.items.money >= tomb.purchasing_cost;
-    can_afford
+    can_afford && !tomb_state.is_purchased
 }
 
 #[wasm_bindgen]
@@ -375,9 +388,10 @@ pub fn buy_item_internal(boost_item_type: BoostItemTypes, game: &mut Game) {
 }
 
 pub fn can_buy_item(boost_item_type: BoostItemTypes, game: &mut Game) -> bool {
-    let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
+    let item = &game.world.boost_items[boost_item_type as usize];
+    let item_state = &game.state.items.boost_items[boost_item_type as usize];
     let can_afford: bool = game.state.items.money >= item.purchasing_cost;
-    can_afford
+    can_afford && !item_state.is_purchased
 }
 
 #[wasm_bindgen]

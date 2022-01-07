@@ -120,7 +120,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             money: 60.0,
             description: "Hard labor for a free man",
             display_name: "Woodcutter",
-            required_tier: 2,
+            required_tier: 3,
             work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 256.0,
         },

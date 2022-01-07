@@ -26,11 +26,14 @@ impl Gain for BoostItem {
             BoostItemTypes::Shoe1 => {
                 intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
-            BoostItemTypes::RaggedClothes => {
+            BoostItemTypes::Clothes1 => {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::IronPickAxe => {
                 intermediate.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
+            }
+            BoostItemTypes::IronAxe => {
+                intermediate.add_multiplier(KeyValues::Woodcutter, 2.0, self.display_name);
             }
             BoostItemTypes::Book2 => {
                 intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
@@ -38,27 +41,36 @@ impl Gain for BoostItem {
             BoostItemTypes::Shoe2 => {
                 intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
             }
-            BoostItemTypes::FarmersClothes => {
+            BoostItemTypes::Clothes2 => {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::Book3 => {
                 intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
             }
+            BoostItemTypes::Book4 => {
+                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
+            }
             BoostItemTypes::Shoe3 => {
+                intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
+            }
+            BoostItemTypes::Shoe4 => {
                 intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
             }
             BoostItemTypes::FishingGear => {
                 intermediate.add_multiplier(KeyValues::Fisherman, 2.0, self.display_name);
             }
-            BoostItemTypes::CityClothes => {
+            BoostItemTypes::Clothes3 => {
+                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+            }
+            BoostItemTypes::Clothes4 => {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             BoostItemTypes::Leach => {
                 intermediate.add_base(KeyValues::Health, 1.0, self.display_name);
             }
-            // BoostItemTypes::PitchFork => {
-            //     intermediate.add_multiplier(KeyValues::Farmer, 2.0, self.display_name);
-            // }
+            BoostItemTypes::PitchFork => {
+                intermediate.add_multiplier(KeyValues::Farmer, 2.0, self.display_name);
+            }
             BoostItemTypes::HealthKit => {
                 intermediate.add_base(KeyValues::Health, 2.0, self.display_name);
             }
@@ -80,10 +92,13 @@ impl Gain for BoostItem {
             BoostItemTypes::Flower3 => {
                 intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
-            BoostItemTypes::MeditationMat => {
+            BoostItemTypes::Meditation1 => {
                 intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
-            BoostItemTypes::Incense => {
+            BoostItemTypes::Meditation2 => {
+                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+            }
+            BoostItemTypes::Meditation3 => {
                 intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
         }
@@ -108,7 +123,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Raggs Shoes",
             required_tier: 0,
         },
-        BoostItemTypes::RaggedClothes => BoostItem {
+        BoostItemTypes::Clothes1 => BoostItem {
             name: item_type,
             purchasing_cost: 1_000.0,
             description: "You now actually have something to wear",
@@ -140,7 +155,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Wooden Shoe",
             required_tier: 0,
         },
-        BoostItemTypes::FarmersClothes => BoostItem {
+        BoostItemTypes::Clothes2 => BoostItem {
             name: item_type,
             purchasing_cost: 15_000.0,
             description: "Ragged but sturdy",
@@ -164,6 +179,22 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Sandals",
             required_tier: 1,
         },
+        BoostItemTypes::Book4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 160_000.0,
+            description: "Back to the basics",
+            effect_description: "2x Intelligence XP gain",
+            display_name: "Book: Elementary Education",
+            required_tier: 2,
+        },
+        BoostItemTypes::Shoe4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 160_000.0,
+            description: "Hey, these kind of actually fits your feet",
+            effect_description: "2x Constitution XP gain",
+            display_name: "Leather Sandals",
+            required_tier: 2,
+        },
         BoostItemTypes::FishingGear => BoostItem {
             name: item_type,
             purchasing_cost: 16_000.0,
@@ -172,7 +203,15 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Fishing Gear",
             required_tier: 1,
         },
-        BoostItemTypes::CityClothes => BoostItem {
+        BoostItemTypes::IronAxe => BoostItem {
+            name: item_type,
+            purchasing_cost: 64_000.0,
+            description: "I sleep all night and I work all day",
+            effect_description: "2x Woodcutter income",
+            display_name: "Iron Axe",
+            required_tier: 2,
+        },
+        BoostItemTypes::Clothes3 => BoostItem {
             name: item_type,
             purchasing_cost: 40_000.0,
             description: "You fit into the city the less nice parts that is",
@@ -188,14 +227,14 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Blood Leach",
             required_tier: 1,
         },
-        // BoostItemTypes::PitchFork => BoostItem {
-        //     name: item_type,
-        //     purchasing_cost: 800_000.0,
-        //     description: "Grab one",
-        //     effect_description: "2x Farmer income",
-        //     display_name: "Pitchfork",
-        //     required_tier: 2,
-        // },
+        BoostItemTypes::PitchFork => BoostItem {
+            name: item_type,
+            purchasing_cost: 800_000.0,
+            description: "Grab one",
+            effect_description: "2x Farmer income",
+            display_name: "Pitchfork",
+            required_tier: 2,
+        },
         BoostItemTypes::Dumbell => BoostItem {
             name: item_type,
             purchasing_cost: 10_000.0,
@@ -252,7 +291,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Tulip",
             required_tier: 3,
         },
-        BoostItemTypes::MeditationMat => BoostItem {
+        BoostItemTypes::Meditation1 => BoostItem {
             name: item_type,
             purchasing_cost: 8_000.0,
             description: "Made by someone named Yoga, weird name",
@@ -260,13 +299,29 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Meditation Mat",
             required_tier: 1,
         },
-        BoostItemTypes::Incense => BoostItem {
+        BoostItemTypes::Meditation2 => BoostItem {
             name: item_type,
             purchasing_cost: 160_000.0,
             description: "Smells like a hermit",
             effect_description: "2x Mindfullness XP gain",
             display_name: "Incense",
             required_tier: 1,
+        },
+        BoostItemTypes::Meditation3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 800_000.0,
+            description: "It's soft to sit on",
+            effect_description: "2x Mindfullness XP gain",
+            display_name: "Meditation Pillow",
+            required_tier: 2,
+        },
+        BoostItemTypes::Clothes4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 400_000.0,
+            description: "You fit into the city the less nice parts that is",
+            effect_description: "1.5x Happiness",
+            display_name: "City Clothes",
+            required_tier: 2,
         },
     }
 }
@@ -284,19 +339,29 @@ pub fn should_unlock_boost_item(input_boost_item: BoostItemTypes, game: &Game) -
 
 pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Game) -> bool {
     let boost_item = &game.world.boost_items[input_boost_item as usize];
+    let boost_item_state = &game.state.items.boost_items[input_boost_item as usize];
     if boost_item.required_tier > game.state.rebirth_stats.tier {
+        return false;
+    }
+    if boost_item_state.is_visible {
+        return true;
+    }
+    if boost_item.purchasing_cost / 20.0 > game.state.items.money {
         return false;
     }
     match input_boost_item {
         BoostItemTypes::IronPickAxe => game.state.works[WorkTypes::Mines as usize].level > 25,
-        BoostItemTypes::FarmersClothes => {
-            game.state.items.boost_items[BoostItemTypes::RaggedClothes as usize].is_purchased
+        BoostItemTypes::Clothes2 => {
+            game.state.items.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased
         }
-        BoostItemTypes::CityClothes => {
-            game.state.items.boost_items[BoostItemTypes::FarmersClothes as usize].is_purchased
+        BoostItemTypes::Clothes3 => {
+            game.state.items.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased
+        }
+        BoostItemTypes::Clothes4 => {
+            game.state.items.boost_items[BoostItemTypes::Clothes3 as usize].is_purchased
         }
         BoostItemTypes::FishingGear => game.state.works[WorkTypes::Fisherman as usize].level > 25,
-        // BoostItemTypes::PitchFork => game.state.works[WorkTypes::Farmer as usize].level > 25,
+        BoostItemTypes::PitchFork => game.state.works[WorkTypes::Farmer as usize].level > 25,
         _ => true,
     }
 }

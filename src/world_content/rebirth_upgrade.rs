@@ -23,12 +23,12 @@ pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: Rebir
         RebirthUpgradeTypes::StartingItems1 => {
             state.items.boost_items[BoostItemTypes::Book as usize].is_purchased = true;
             state.items.boost_items[BoostItemTypes::Shoe1 as usize].is_purchased = true;
-            state.items.boost_items[BoostItemTypes::RaggedClothes as usize].is_purchased = true;
+            state.items.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased = true;
         }
         RebirthUpgradeTypes::StartingItems2 => {
             state.items.boost_items[BoostItemTypes::Book2 as usize].is_purchased = true;
             state.items.boost_items[BoostItemTypes::Shoe2 as usize].is_purchased = true;
-            state.items.boost_items[BoostItemTypes::FarmersClothes as usize].is_purchased = true;
+            state.items.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased = true;
         }
         RebirthUpgradeTypes::StartingFunds1 => {
             state.items.money += 2000.0;

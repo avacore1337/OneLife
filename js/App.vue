@@ -53,14 +53,16 @@
         />
         <div v-if="show_recorded">
           <RecordedInputs
-            v-bind:recorded_inputs="recorded_inputs"
-            v-bind:wasm="wasm"
-            v-bind:remove_recorded="remove_recorded"
-          />
-          <RecordedInputs
             v-bind:recorded_inputs="previous_recorded_inputs"
             v-bind:wasm="wasm"
             v-bind:remove_recorded="remove_previous_recorded"
+            v-bind:clear_recorded="wasm.clear_previous_recorded"
+          />
+          <RecordedInputs
+            v-bind:recorded_inputs="recorded_inputs"
+            v-bind:wasm="wasm"
+            v-bind:clear_recorded="wasm.clear_recorded"
+            v-bind:remove_recorded="remove_recorded"
           />
         </div>
       </div>
