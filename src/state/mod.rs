@@ -1,5 +1,6 @@
 pub mod activity;
 pub mod blessing;
+pub mod boost_item;
 pub mod housing;
 pub mod items;
 pub mod life_stats;

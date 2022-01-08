@@ -387,14 +387,14 @@ pub fn buy_item_internal(boost_item_type: BoostItemTypes, game: &mut Game) {
         game.register_input(boost_item_type);
         let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
         game.state.items.money -= item.purchasing_cost;
-        game.state.items.boost_items[boost_item_type as usize].is_purchased = true;
+        game.state.boost_items[boost_item_type as usize].is_purchased = true;
         update_unlocks(game);
     }
 }
 
 pub fn can_buy_item(boost_item_type: BoostItemTypes, game: &mut Game) -> bool {
     let item = &game.world.boost_items[boost_item_type as usize];
-    let item_state = &game.state.items.boost_items[boost_item_type as usize];
+    let item_state = &game.state.boost_items[boost_item_type as usize];
     let can_afford: bool = game.state.items.money >= item.purchasing_cost;
     can_afford && !item_state.is_purchased
 }

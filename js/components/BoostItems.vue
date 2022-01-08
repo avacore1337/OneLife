@@ -9,7 +9,7 @@
         :checked="metaData.options.show_bought_items"
       />
     </span>
-    <span v-if="metaData.options.show_bought_items && state.items.boost_items.some((item) => item.is_purchased)">
+    <span v-if="metaData.options.show_bought_items && state.boost_items.some((item) => item.is_purchased)">
       <h4>Bought Items</h4>
       <table>
         <tr v-for="[item, item_state] in bought_items" :key="item.name" style="height: 2rem">
@@ -51,7 +51,7 @@ export default {
       let self = this;
       return self.world.boost_items
         .map((w, i) => {
-          return [w, self.state.items.boost_items[i]];
+          return [w, self.state.boost_items[i]];
         })
         .filter(([w, s]) => {
           return s.is_visible && !s.is_purchased;
@@ -61,7 +61,7 @@ export default {
       let self = this;
       return self.world.boost_items
         .map((w, i) => {
-          return [w, self.state.items.boost_items[i]];
+          return [w, self.state.boost_items[i]];
         })
         .filter(([w, s]) => {
           return s.is_purchased;

@@ -29,7 +29,7 @@ pub fn auto_living(game: &mut Game) {
 }
 
 pub fn auto_buy_item(game: &mut Game) {
-    for item in game.state.items.boost_items.iter_mut() {
+    for item in game.state.boost_items.iter_mut() {
         let world_item = translate_boost_item(item.name);
         let can_afford = game.state.items.money >= world_item.purchasing_cost;
         if !item.is_purchased && can_afford && item.is_visible {

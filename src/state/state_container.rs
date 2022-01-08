@@ -2,6 +2,7 @@
 
 use super::activity::{get_activities, Activity};
 use super::blessing::{get_blessings, Blessing};
+use super::boost_item::{get_boost_items, BoostItem};
 use super::housing::{get_housings, Housing};
 use super::items::Items;
 use super::life_stats::LifeStats;
@@ -12,6 +13,7 @@ use super::tomb::{get_tombs, Tomb};
 use super::work::{get_works, Work};
 use crate::input::activity::ACTIVITY_SIZE;
 use crate::input::blessing::BLESSING_SIZE;
+use crate::input::boost_item::BOOST_ITEM_SIZE;
 use crate::input::housing::HOUSING_SIZE;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::skill::SKILL_SIZE;
@@ -38,6 +40,7 @@ pub struct StateContainer {
     pub tombs: [Tomb; TOMB_SIZE],
     pub blessings: [Blessing; BLESSING_SIZE],
     pub skills: [Skill; SKILL_SIZE],
+    pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
 }
 
 impl Default for StateContainer {
@@ -65,6 +68,7 @@ pub fn rebirth(rebirth_stats: RebirthStats) -> StateContainer {
         tombs: get_tombs(),
         blessings: get_blessings(),
         skills: get_skills(),
+        boost_items: get_boost_items(),
     };
     for upgrade_type in RebirthUpgradeTypes::iter() {
         if state.rebirth_stats.rebirth_upgrades[upgrade_type as usize].is_purchased {

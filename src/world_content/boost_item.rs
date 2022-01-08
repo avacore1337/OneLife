@@ -405,7 +405,7 @@ pub fn should_unlock_boost_item(input_boost_item: BoostItemTypes, game: &Game) -
 
 pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Game) -> bool {
     let boost_item = &game.world.boost_items[input_boost_item as usize];
-    let boost_item_state = &game.state.items.boost_items[input_boost_item as usize];
+    let boost_item_state = &game.state.boost_items[input_boost_item as usize];
     if boost_item.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
@@ -418,13 +418,13 @@ pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Gam
     match input_boost_item {
         BoostItemTypes::IronPickAxe => game.state.works[WorkTypes::Mines as usize].level > 25,
         BoostItemTypes::Clothes2 => {
-            game.state.items.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased
+            game.state.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased
         }
         BoostItemTypes::Clothes3 => {
-            game.state.items.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased
+            game.state.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased
         }
         BoostItemTypes::Clothes4 => {
-            game.state.items.boost_items[BoostItemTypes::Clothes3 as usize].is_purchased
+            game.state.boost_items[BoostItemTypes::Clothes3 as usize].is_purchased
         }
         BoostItemTypes::FishingGear => game.state.works[WorkTypes::Fisherman as usize].level > 25,
         BoostItemTypes::PitchFork => game.state.works[WorkTypes::Farmer as usize].level > 25,

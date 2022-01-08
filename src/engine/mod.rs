@@ -156,9 +156,9 @@ pub fn update_unlocks(game: &mut Game) {
         game.state.tombs[tomb as usize].is_visible = should_be_visible_tomb(tomb, game);
     }
     for boost_item in BoostItemTypes::iter() {
-        game.state.items.boost_items[boost_item as usize].is_unlocked =
+        game.state.boost_items[boost_item as usize].is_unlocked =
             should_unlock_boost_item(boost_item, game);
-        game.state.items.boost_items[boost_item as usize].is_visible =
+        game.state.boost_items[boost_item as usize].is_visible =
             should_be_visible_boost_item(boost_item, game);
     }
     for blessing in BlessingTypes::iter() {
@@ -198,7 +198,7 @@ fn apply_housing(game: &mut Game) {
 }
 
 fn apply_items(game: &mut Game) {
-    for item in game.state.items.boost_items.clone() {
+    for item in game.state.boost_items.clone() {
         if item.is_purchased {
             let boost_item = translate_boost_item(item.name);
             game.intermediate_state.get_gains(&boost_item);

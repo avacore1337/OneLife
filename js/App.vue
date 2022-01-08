@@ -148,9 +148,8 @@ export default {
         skills: {},
         tombs: [],
         housing: [],
-        items: {
-          boost_items: [],
-        },
+        boost_items: [],
+        items: {},
         life_stats: { health: 0.0, health_rate: 0.0 },
         rebirth_stats: {
           rebirth_upgrades: [],
