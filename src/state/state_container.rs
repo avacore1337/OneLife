@@ -1,3 +1,5 @@
+#![allow(non_snake_case)]
+
 use super::activity::{get_activities, Activity};
 use super::blessing::{get_blessings, Blessing};
 use super::housing::{get_housings, Housing};
@@ -18,10 +20,12 @@ use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::{WorkTypes, WORK_SIZE};
 use crate::world_content::rebirth_upgrade::apply_starting_upgrade;
 use crate::WORLD;
+
+use serbia::serbia;
+use serde::{Deserialize, Serialize};
 use strum::IntoEnumIterator;
 
-use serde::{Deserialize, Serialize};
-
+#[serbia]
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct StateContainer {
     pub stats: [Stat; STAT_SIZE],

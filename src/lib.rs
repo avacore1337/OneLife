@@ -9,8 +9,8 @@ use wasm_bindgen::prelude::*;
 #[macro_use]
 extern crate lazy_static;
 
-#[macro_use]
-extern crate serde_big_array;
+// #[macro_use]
+// extern crate serde_big_array;
 
 pub mod engine;
 pub mod game;

@@ -1,10 +1,9 @@
-use std::collections::BTreeMap;
-
 use one_life::engine::{character_death_update, engine_run};
 use one_life::game::Game;
 use one_life::input::skill::SkillTypes;
 use one_life::input::tomb::TombTypes;
 use one_life::input::work::WorkTypes;
+use one_life::input_recording::Inputs;
 use one_life::presets::make_t4;
 
 use wasm_bindgen_test::wasm_bindgen_test;
@@ -40,8 +39,8 @@ fn test_auto_buy_tomb() {
 
 #[wasm_bindgen_test]
 fn test_input_conversion() {
-    let data = r#" {"0":["Auto Work False","Auto Living False","Auto Buy Item False","Auto Buy Tomb False"]} "#;
-    let inputs: BTreeMap<u32, Vec<String>> = serde_json::from_str(data).unwrap();
+    let data = r#" {"mapping":{"4540":[{"id":0,"name":"Set Housing FilthyBarracks"}],"5170":[{"id":1,"name":"Set Activity Studying"}]},"current_id":2} "#;
+    let inputs: Inputs = serde_json::from_str(data).unwrap();
     let mut game = Game::new();
     game.inputs = inputs;
 }

@@ -15,6 +15,12 @@ pub struct MetaData {
     pub options: Options,
 }
 
+impl Default for MetaData {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl MetaData {
     pub fn new() -> MetaData {
         MetaData {

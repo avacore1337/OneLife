@@ -32,7 +32,8 @@ log = "0.4"
 console_log = "0.2.0"
 lazy_static = "1.4.0"
 anyhow = "1.0.52"
-serde-big-array = "0.3.2"
+# serde-big-array = "0.3.2"
+serbia = "0.4.3"
 
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
 # compared to the default allocator's ~10K. However, it is slower than the default

@@ -7,6 +7,12 @@ pub struct Info {
     pub disable_tutorial: bool,
 }
 
+impl Default for Info {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Info {
     pub fn new() -> Info {
         Info {

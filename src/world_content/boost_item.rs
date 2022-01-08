@@ -343,7 +343,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Meditation4 => BoostItem {
             name: item_type,
-            purchasing_cost: 8000_000.0,
+            purchasing_cost: 8_000_000.0,
             description: "todo",
             effect_description: "2x Mindfullness XP gain",
             display_name: "Meditation Pillow",

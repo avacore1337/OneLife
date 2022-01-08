@@ -1,22 +1,13 @@
-use crate::input::boost_item::{BoostItemTypes, BOOST_ITEM_SIZE};
-use serde::{Deserialize, Serialize};
+#![allow(non_snake_case)]
 
+use serbia::serbia;
+use serde::{Deserialize, Serialize};
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
-big_array! { BigArray; BOOST_ITEM_SIZE, }
 
-impl Default for BoostItem {
-    fn default() -> BoostItem {
-        BoostItem {
-            name: BoostItemTypes::Book,
-            is_purchased: false,
-            is_unlocked: false,
-            is_visible: false,
-        }
-    }
-}
+use crate::input::boost_item::{BoostItemTypes, BOOST_ITEM_SIZE};
 
-#[derive(Serialize, Deserialize, Copy, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct BoostItem {
     pub name: BoostItemTypes,
     pub is_purchased: bool,
@@ -35,13 +26,13 @@ impl BoostItem {
     }
 }
 
+#[serbia]
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Items {
     pub money: f64,
     pub income: f64,
     pub divine_favor: f64,
     pub divine_favor_rate: f64,
-    #[serde(with = "BigArray")]
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
 }
 

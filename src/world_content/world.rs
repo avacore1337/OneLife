@@ -1,3 +1,6 @@
+#![allow(non_snake_case)]
+use serbia::serbia;
+use serde::Serialize;
 use std::sync::Mutex;
 
 use super::activity::{get_activities, Activity};
@@ -22,13 +25,13 @@ use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::{WorkTypes, WORK_SIZE};
 use crate::input_mapping::InputMapping;
-use serde::Serialize;
 
+#[serbia]
 #[derive(Serialize)]
 pub struct World {
     activities: [Activity; ACTIVITY_SIZE],
     pub blessings: [Blessing; BLESSING_SIZE],
-    #[serde(serialize_with = "<[_]>::serialize")]
+    // #[serde(serialize_with = "<[_]>::serialize")]
     pub boost_items: [BoostItem; BOOST_ITEM_SIZE],
     housing: [Housing; HOUSING_SIZE],
     pub rebirth_upgrades: [RebirthUpgrade; REBIRTH_UPGRADE_SIZE],

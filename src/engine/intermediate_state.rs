@@ -51,6 +51,12 @@ pub struct IntermediateState {
     pub value_gains: HashMap<KeyValues, ValueGains>,
 }
 
+impl Default for IntermediateState {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl IntermediateState {
     pub fn new() -> IntermediateState {
         IntermediateState {
