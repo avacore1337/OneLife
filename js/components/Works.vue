@@ -26,7 +26,7 @@
         <h4>Soldiering</h4>
         <tr
           v-for="[work, work_state] in visible_solder_work"
-          v-on:click="work_state.is_unlocked && set_work(work.name)"
+          v-on:click="work_state.is_unlocked && wasm.set_work(work.name)"
           v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
         >

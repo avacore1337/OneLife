@@ -21,6 +21,7 @@ pub enum RebirthUpgradeTypes {
     EndItEarly,
     // GemSense, // gives you a huge multiplier to mining
     UnlockTactics,
+    UnlockFaith,
     AcceptingDeath2,
     AcceptingDeath3,
     AutoWork,

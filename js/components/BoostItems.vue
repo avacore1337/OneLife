@@ -21,6 +21,7 @@
         </tr>
       </table>
     </span>
+    <br />
 
     <h4>Buyable Items</h4>
     <table>

@@ -69,6 +69,9 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::UnlockTactics => {
             unlocks.has_military_tactics = true;
         }
+        RebirthUpgradeTypes::UnlockFaith => {
+            unlocks.has_faith = true;
+        }
         _ => (),
     }
 }
@@ -79,10 +82,19 @@ impl Gain for RebirthUpgrade {
             RebirthUpgradeTypes::AcceptingDeath => {
                 intermediate.add_multiplier(KeyValues::Happiness, 2.0, self.display_name);
             }
+            RebirthUpgradeTypes::AcceptingDeath2 => {
+                intermediate.add_multiplier(KeyValues::Happiness, 2.0, self.display_name);
+            }
+            RebirthUpgradeTypes::AcceptingDeath3 => {
+                intermediate.add_multiplier(KeyValues::Happiness, 2.0, self.display_name);
+            }
             RebirthUpgradeTypes::Privilege1 => {
                 intermediate.add_multiplier(KeyValues::Money, 1.3, self.display_name);
             }
             RebirthUpgradeTypes::Privilege2 => {
+                intermediate.add_multiplier(KeyValues::Money, 1.3, self.display_name);
+            }
+            RebirthUpgradeTypes::Privilege3 => {
                 intermediate.add_multiplier(KeyValues::Money, 1.3, self.display_name);
             }
             RebirthUpgradeTypes::LaborXp1 => {
@@ -212,8 +224,15 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 100.0,
-            description: "You feel happier now that you know that death isn't the end",
+            description: "A military genious in the making",
             display_name: "Unlock Tactics",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::UnlockFaith => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 10000.0,
+            description: "Believing in gods is not that hard when they actualy exists",
+            display_name: "Unlock Faith",
             required_tier: 3,
         },
         RebirthUpgradeTypes::AcceptingDeath2 => RebirthUpgrade {
