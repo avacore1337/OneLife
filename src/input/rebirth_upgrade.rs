@@ -17,7 +17,7 @@ pub enum RebirthUpgradeTypes {
     Privilege1,
     Privilege2,
     Privilege3,
-    StatMemory1,
+    // StatMemory1,
     EndItEarly,
     // GemSense, // gives you a huge multiplier to mining
     UnlockTactics,

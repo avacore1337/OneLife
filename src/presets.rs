@@ -7,8 +7,8 @@ use crate::input::Input;
 use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
 use crate::util::{
-    balance_activities, get_all_upgrades_up_to_current_tier, get_upgrades_by_max_cost,
-    set_full_auto,
+    balance_activities, get_upgrades_by_max_cost, get_upgrades_up_to_current_tier,
+    get_upgrades_up_to_tier_max_cost, set_full_auto,
 };
 use crate::WORLD;
 use std::collections::BTreeMap;
@@ -60,7 +60,7 @@ fn make_current() -> GameSave {
     let meta_data = &mut game_save.meta_data;
     let r = &mut game_save.state.rebirth_stats;
     r.tier = 1;
-    get_all_upgrades_up_to_current_tier(r);
+    get_upgrades_up_to_current_tier(r);
     r.rebirth_upgrades[RebirthUpgradeTypes::Skills as usize].is_purchased = true;
     r.rebirth_upgrades[RebirthUpgradeTypes::AcceptingDeath as usize].is_purchased = true;
     r.rebirth_upgrades[RebirthUpgradeTypes::StartingFunds1 as usize].is_purchased = true;
@@ -95,7 +95,7 @@ fn make_rich_death() -> GameSave {
     let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.tier = 4;
-    get_all_upgrades_up_to_current_tier(r);
+    get_upgrades_up_to_current_tier(r);
     set_lower_tier_jobs_to(r, 70);
     game_save.state = rebirth(r.clone());
     game_save.state.items.money = 1.0e9;
@@ -109,7 +109,7 @@ fn make_t1() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     r.tier = 1;
-    get_all_upgrades_up_to_current_tier(r);
+    get_upgrades_up_to_current_tier(r);
     r.coins = 0.0;
     r.rebirth_count = 2;
 
@@ -125,7 +125,7 @@ fn make_t2() -> GameSave {
     let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.tier = 2;
-    get_all_upgrades_up_to_current_tier(r);
+    get_upgrades_up_to_current_tier(r);
     r.coins = 8.0;
     r.rebirth_count = 8;
 
@@ -142,7 +142,7 @@ fn make_t3() -> GameSave {
     let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.tier = 3;
-    get_all_upgrades_up_to_current_tier(r);
+    get_upgrades_up_to_current_tier(r);
     r.coins = 100.0;
     r.rebirth_count = 16;
 
@@ -158,7 +158,7 @@ pub fn make_t4() -> GameSave {
     let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.tier = 4;
-    get_all_upgrades_up_to_current_tier(r);
+    get_upgrades_up_to_current_tier(r);
     r.coins = 1000.0;
     r.rebirth_count = 16;
 
@@ -175,7 +175,7 @@ fn make_t5() -> GameSave {
     let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.tier = 5;
-    get_all_upgrades_up_to_current_tier(r);
+    get_upgrades_up_to_current_tier(r);
     r.coins = 10000.0;
     r.rebirth_count = 32;
 
@@ -192,7 +192,7 @@ fn make_t5_faith() -> GameSave {
     let state = &mut game_save.state;
     let r = &mut state.rebirth_stats;
     r.tier = 5;
-    get_all_upgrades_up_to_current_tier(r);
+    get_upgrades_up_to_current_tier(r);
     r.coins = 8000.0;
     r.rebirth_count = 32;
 
@@ -280,7 +280,7 @@ pub fn tenth_rebirth() -> GameSave {
     r.rebirth_count = 10;
     r.tier = 1;
     set_lower_tier_jobs_to(r, 30);
-    get_upgrades_by_max_cost(r, 60.0);
+    get_upgrades_up_to_tier_max_cost(r, r.tier, 60.0);
     set_jobs_at_tier_to(r, 1, 25);
     game_save.state = rebirth(r.clone());
 
