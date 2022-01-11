@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import { downloadFile } from "../utility.js";
 export default {
   props: ["metaData", "state", "input", "wasm"],
   data() {

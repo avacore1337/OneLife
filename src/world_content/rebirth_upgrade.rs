@@ -221,6 +221,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Soldier Experience 2",
             required_tier: 3,
         },
+        RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 90.0,
+            description: "TODO",
+            display_name: "Soldier Experience 2",
+            required_tier: 3,
+        },
         RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 100.0,

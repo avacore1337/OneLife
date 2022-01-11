@@ -119,6 +119,15 @@ impl Gain for BoostItem {
             BoostItemTypes::Meditation4 => {
                 intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
+            BoostItemTypes::Burial1 => {
+                intermediate.add_multiplier(KeyValues::Coins, 1.3, self.display_name);
+            }
+            BoostItemTypes::Burial2 => {
+                intermediate.add_multiplier(KeyValues::Coins, 1.3, self.display_name);
+            }
+            BoostItemTypes::Burial3 => {
+                intermediate.add_multiplier(KeyValues::Coins, 1.3, self.display_name);
+            }
         }
     }
 }
@@ -388,6 +397,30 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Strength XP gain",
             display_name: "Kettlebell",
             required_tier: 3,
+        },
+        BoostItemTypes::Burial1 => BoostItem {
+            name: item_type,
+            purchasing_cost: 4.0e5,
+            description: "todo",
+            effect_description: "1.3x Coin gain",
+            display_name: "Burial1",
+            required_tier: 1,
+        },
+        BoostItemTypes::Burial2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 4.0e6,
+            description: "todo",
+            effect_description: "1.3x Coin gain",
+            display_name: "Burial2",
+            required_tier: 2,
+        },
+        BoostItemTypes::Burial3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 4.0e7,
+            description: "todo",
+            effect_description: "1.3x Coin gain",
+            display_name: "Burial3",
+            required_tier: 2,
         },
     }
 }

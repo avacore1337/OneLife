@@ -5,7 +5,8 @@ use strum::EnumIter;
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum RebirthUpgradeTypes {
     AcceptingDeath,
-    Skills,
+    AcceptingDeath2,
+    AcceptingDeath3,
     StartingItems1,
     StartingItems2,
     StartingFunds1,
@@ -20,10 +21,9 @@ pub enum RebirthUpgradeTypes {
     // StatMemory1,
     EndItEarly,
     // GemSense, // gives you a huge multiplier to mining
+    Skills,
     UnlockTactics,
     UnlockFaith,
-    AcceptingDeath2,
-    AcceptingDeath3,
     AutoWork,
     AutoLive,
     AutoBuyItem,

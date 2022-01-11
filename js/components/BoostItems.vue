@@ -43,6 +43,7 @@
 
 <script>
 import Section from "./Section.vue";
+import { compare } from "../utility.js";
 
 export default {
   props: ["state", "world", "input", "wasm", "metaData"],
@@ -56,7 +57,8 @@ export default {
         })
         .filter(([w, s]) => {
           return s.is_visible && !s.is_purchased;
-        });
+        })
+        .sort(compare);
     },
     bought_items: function () {
       let self = this;
@@ -66,7 +68,8 @@ export default {
         })
         .filter(([w, s]) => {
           return s.is_purchased;
-        });
+        })
+        .sort(compare);
     },
   },
   methods: {

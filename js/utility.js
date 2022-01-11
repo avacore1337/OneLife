@@ -25,3 +25,10 @@ export function downloadFile(fileName, fileContent) {
   }
   exportRaw(fileName, fileContent);
 }
+
+export function compare(x, y) {
+  let a = x[0];
+  let b = y[0];
+  let ans = a.purchasing_cost > b.purchasing_cost ? 1 : b.purchasing_cost > a.purchasing_cost ? -1 : 0;
+  return ans;
+}
