@@ -90,7 +90,7 @@ pub fn init_tiers() -> Vec<Tier> {
             }),
             starting_work: WorkTypes::GalleyRower,
             starting_health: 0.0,
-            purchasing_cost: 60.0,
+            purchasing_cost: 50.0,
         },
         Tier {
             level: 3,
@@ -111,7 +111,7 @@ pub fn init_tiers() -> Vec<Tier> {
             }),
             starting_work: WorkTypes::Fields,
             starting_health: 0.1,
-            purchasing_cost: 800.0,
+            purchasing_cost: 500.0,
         },
         Tier {
             level: 4,
@@ -129,7 +129,7 @@ pub fn init_tiers() -> Vec<Tier> {
             }),
             starting_work: WorkTypes::Mill,
             starting_health: 0.2,
-            purchasing_cost: 8_000.0,
+            purchasing_cost: 5_000.0,
         },
         Tier {
             level: 5,
@@ -147,7 +147,7 @@ pub fn init_tiers() -> Vec<Tier> {
             }),
             starting_work: WorkTypes::Weaver,
             starting_health: 0.2,
-            purchasing_cost: 80_000.0,
+            purchasing_cost: 50_000.0,
         },
         Tier {
             level: 6,
@@ -164,7 +164,7 @@ pub fn init_tiers() -> Vec<Tier> {
             }),
             starting_work: WorkTypes::Farmer,
             starting_health: 0.3,
-            purchasing_cost: 800_000.0,
+            purchasing_cost: 500_000.0,
         },
         Tier {
             level: 7,
@@ -181,7 +181,7 @@ pub fn init_tiers() -> Vec<Tier> {
             }),
             starting_work: WorkTypes::Farmer,
             starting_health: 0.4,
-            purchasing_cost: 8_000_000.0,
+            purchasing_cost: 5_000_000.0,
         },
 
     ];

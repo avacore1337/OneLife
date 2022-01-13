@@ -192,7 +192,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Book3 => BoostItem {
             name: item_type,
-            purchasing_cost: 16_000.0,
+            purchasing_cost: 32_000.0,
             description: "The book makes you feel really really smart",
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Dunner Kruger's peak",
@@ -208,7 +208,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Book4 => BoostItem {
             name: item_type,
-            purchasing_cost: 160_000.0,
+            purchasing_cost: 320_000.0,
             description: "Back to the basics",
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Elementary Education",
@@ -248,7 +248,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Leach => BoostItem {
             name: item_type,
-            purchasing_cost: 10_000.0,
+            purchasing_cost: 12_000.0,
             description: "Blood sucking bug, how is this healthy?",
             effect_description: "Improving Health",
             display_name: "Blood Leach",
@@ -264,7 +264,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Dumbell => BoostItem {
             name: item_type,
-            purchasing_cost: 10_000.0,
+            purchasing_cost: 2_500.0,
             description: "It's just a stick",
             effect_description: "2x Strength XP gain",
             display_name: "Wooden Dumbell",
@@ -272,7 +272,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Dumbell2 => BoostItem {
             name: item_type,
-            purchasing_cost: 50_000.0,
+            purchasing_cost: 25_000.0,
             description: "Couldn't I just use a normal stone?",
             effect_description: "2x Strength XP gain",
             display_name: "Stone dumbell",
@@ -280,7 +280,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::HealthKit => BoostItem {
             name: item_type,
-            purchasing_cost: 600_000.0,
+            purchasing_cost: 1_200_000.0,
             description: "What is this fancy box of cloth",
             effect_description: "Improving Health",
             display_name: "Healthkit",
@@ -288,7 +288,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Dumbell3 => BoostItem {
             name: item_type,
-            purchasing_cost: 16.0e6,
+            purchasing_cost: 250_000.0,
             description: "Cowbell, Kettlebell, what's the difference anyway",
             effect_description: "2x Strength XP gain",
             display_name: "Kettlebell",
@@ -296,7 +296,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Flower1 => BoostItem {
             name: item_type,
-            purchasing_cost: 16_000.0,
+            purchasing_cost: 50_000.0,
             description: "Someone told you that flowers make great gifts",
             effect_description: "2x Charisma XP gain",
             display_name: "Roadside flower",
@@ -304,7 +304,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Flower2 => BoostItem {
             name: item_type,
-            purchasing_cost: 160_000.0,
+            purchasing_cost: 500_000.0,
             description: "Some flowers are prettier than others",
             effect_description: "2x Charisma XP gain",
             display_name: "Daisy",
@@ -312,7 +312,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Flower3 => BoostItem {
             name: item_type,
-            purchasing_cost: 1_600_000.0,
+            purchasing_cost: 5_000_000.0,
             description: "Ok, this flower is way better",
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
@@ -320,7 +320,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Flower4 => BoostItem {
             name: item_type,
-            purchasing_cost: 16_000_000.0,
+            purchasing_cost: 50_000_000.0,
             description: "todo",
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
@@ -376,7 +376,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Book5 => BoostItem {
             name: item_type,
-            purchasing_cost: 160_000.0,
+            purchasing_cost: 3_200_000.0,
             description: "todo",
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Elementary Education",
@@ -384,7 +384,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Shoe5 => BoostItem {
             name: item_type,
-            purchasing_cost: 160_000.0,
+            purchasing_cost: 1_600_000.0,
             description: "todo",
             effect_description: "2x Constitution XP gain",
             display_name: "Leather Sandals",
@@ -392,7 +392,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Dumbell4 => BoostItem {
             name: item_type,
-            purchasing_cost: 16.0e6,
+            purchasing_cost: 2_500_000.0,
             description: "Cowbell, Kettlebell, what's the difference anyway",
             effect_description: "2x Strength XP gain",
             display_name: "Kettlebell",

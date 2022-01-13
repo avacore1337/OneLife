@@ -34,7 +34,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
         },
         TombTypes::BurialPit => Tomb {
             name: tomb,
-            purchasing_cost: 2.0e5,
+            purchasing_cost: 1.0e5,
             description: "todo",
             display_name: "BurialPit ",
             required_tier: 1,
@@ -42,7 +42,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
         },
         TombTypes::Grave => Tomb {
             name: tomb,
-            purchasing_cost: 1.0e8,
+            purchasing_cost: 1.0e6,
             description: "You were someone",
             display_name: "Grave ",
             required_tier: 2,
@@ -50,15 +50,15 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
         },
         TombTypes::FamilyGrave => Tomb {
             name: tomb,
-            purchasing_cost: 1.0e10,
+            purchasing_cost: 1.0e7,
             description: "Wait, who's family is burried here?",
             display_name: "FamilyGrave ",
             required_tier: 3,
-            coin_gain: 320.0,
+            coin_gain: 256.0,
         },
         TombTypes::Tomb => Tomb {
             name: tomb,
-            purchasing_cost: 1.0e12,
+            purchasing_cost: 1.0e8,
             description: "Hope you don't get raided",
             display_name: "Tomb ",
             required_tier: 4,
@@ -66,7 +66,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
         },
         TombTypes::Crypt => Tomb {
             name: tomb,
-            purchasing_cost: 1.0e14,
+            purchasing_cost: 1.0e9,
             description: "A mysterious place",
             display_name: "Crypt ",
             required_tier: 5,
@@ -74,7 +74,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
         },
         TombTypes::Mausuleum => Tomb {
             name: tomb,
-            purchasing_cost: 1.0e16,
+            purchasing_cost: 1.0e10,
             description: "Why are there so many mice in here?",
             display_name: "Mausuleum ",
             required_tier: 6,
@@ -82,7 +82,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
         },
         TombTypes::Catacomb => Tomb {
             name: tomb,
-            purchasing_cost: 1.0e18,
+            purchasing_cost: 1.0e11,
             description: "This one has cats to take care of the mice",
             display_name: "Catacomb ",
             required_tier: 7,
