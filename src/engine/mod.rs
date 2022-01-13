@@ -65,6 +65,7 @@ fn internal_run(game: &mut Game) {
     apply_tombs(game);
     apply_stats(game);
     apply_skills(game);
+    apply_rebirth_upgrades(game);
 
     apply_active_work(game);
 
@@ -267,6 +268,12 @@ fn apply_stats(game: &mut Game) {
 fn apply_skills(game: &mut Game) {
     for skill in WORLD.skills.iter() {
         skill.get_skills_gains(game);
+    }
+}
+
+fn apply_rebirth_upgrades(game: &mut Game) {
+    for upgrade in WORLD.rebirth_upgrades.iter() {
+        upgrade.get_upgrade_gains(game);
     }
 }
 

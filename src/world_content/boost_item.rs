@@ -232,11 +232,11 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::IronAxe => BoostItem {
             name: item_type,
-            purchasing_cost: 64_000.0,
+            purchasing_cost: 800_000.0,
             description: "I sleep all night and I work all day",
             effect_description: "2x Woodcutter income",
             display_name: "Iron Axe",
-            required_tier: 2,
+            required_tier: 3,
         },
         BoostItemTypes::Clothes3 => BoostItem {
             name: item_type,
@@ -256,7 +256,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::PitchFork => BoostItem {
             name: item_type,
-            purchasing_cost: 800_000.0,
+            purchasing_cost: 64_000.0,
             description: "Grab one",
             effect_description: "2x Farmer income",
             display_name: "Pitchfork",
@@ -336,7 +336,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Meditation2 => BoostItem {
             name: item_type,
-            purchasing_cost: 160_000.0,
+            purchasing_cost: 80_000.0,
             description: "Smells like a hermit",
             effect_description: "2x Mindfullness XP gain",
             display_name: "Incense",

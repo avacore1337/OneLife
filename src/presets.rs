@@ -7,8 +7,8 @@ use crate::input::Input;
 use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
 use crate::util::{
-    balance_activities, get_upgrades_by_max_cost, get_upgrades_up_to_current_tier,
-    get_upgrades_up_to_tier_max_cost, set_full_auto,
+    balance_activities, get_upgrades_up_to_current_tier, get_upgrades_up_to_tier_max_cost,
+    set_full_auto,
 };
 use crate::WORLD;
 use std::collections::BTreeMap;
@@ -51,6 +51,7 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     presets.insert("Test_2: third rebirth", third_rebirth());
     presets.insert("Test_3: tenth rebirth", tenth_rebirth());
     presets.insert("Test_4: eleventh rebirth", elevent_rebirth());
+    presets.insert("Test_5: twelfth rebirth", twelfth_rebirth());
 
     presets
 }
@@ -280,7 +281,7 @@ pub fn tenth_rebirth() -> GameSave {
     r.rebirth_count = 10;
     r.tier = 1;
     set_lower_tier_jobs_to(r, 30);
-    get_upgrades_up_to_tier_max_cost(r, r.tier, 60.0);
+    get_upgrades_up_to_tier_max_cost(r, 2, 60.0);
     set_jobs_at_tier_to(r, 1, 25);
     game_save.state = rebirth(r.clone());
 
@@ -317,7 +318,7 @@ pub fn elevent_rebirth() -> GameSave {
     r.rebirth_count = 10;
     r.tier = 2;
     set_lower_tier_jobs_to(r, 30);
-    get_upgrades_by_max_cost(r, 40.0);
+    get_upgrades_up_to_tier_max_cost(r, 2, 40.0);
     game_save.state = rebirth(r.clone());
 
     let state = &mut game_save.state;
@@ -335,6 +336,58 @@ pub fn elevent_rebirth() -> GameSave {
             ActivityTypes::Run,
         ],
     );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(25000, WorkTypes::BagageBoy);
+    balance_activities(
+        &mut game_save.previous_inputs,
+        10000,
+        40000,
+        &[
+            ActivityTypes::Training,
+            ActivityTypes::Studying,
+            ActivityTypes::Meditate,
+            ActivityTypes::Training,
+        ],
+    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(40000, ActivityTypes::Training);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+
+pub fn twelfth_rebirth() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 11;
+    r.tier = 2;
+    set_lower_tier_jobs_to(r, 30);
+    r.max_job_levels[WorkTypes::BagageBoy as usize] = 10;
+    r.max_job_levels[WorkTypes::Slinger as usize] = 10;
+    r.max_job_levels[WorkTypes::Peltasts as usize] = 10;
+    get_upgrades_up_to_tier_max_cost(r, 2, 40.0);
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    balance_activities(
+        &mut game_save.previous_inputs,
+        4000,
+        10000,
+        &[
+            ActivityTypes::Run,
+            ActivityTypes::Studying,
+            ActivityTypes::Meditate,
+            ActivityTypes::Run,
+        ],
+    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(25000, WorkTypes::BagageBoy);
     balance_activities(
         &mut game_save.previous_inputs,
         10000,

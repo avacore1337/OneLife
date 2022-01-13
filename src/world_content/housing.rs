@@ -71,7 +71,7 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
             description: "Most of your room mates are sane. Most of them.",
             display_name: "Shared Room",
             required_money: 5_000.0,
-            happiness_factor: 8.0,
+            happiness_factor: 6.0,
             health_effect: 0.0,
         },
         HousingTypes::LargeCloset => Housing {
@@ -80,7 +80,7 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
             description: "It sure ain't big, but it's your own space",
             display_name: "Large Closet",
             required_money: 30_000.0,
-            happiness_factor: 16.0,
+            happiness_factor: 9.0,
             health_effect: 0.0,
         },
         HousingTypes::PrivateRoom => Housing {
@@ -89,7 +89,7 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
             description: "It almost feel weird not having people around you 24/7",
             display_name: "Private Room",
             required_money: 2.0e5,
-            happiness_factor: 32.0,
+            happiness_factor: 16.0,
             health_effect: 1.0,
         },
         HousingTypes::TinyAppartment => Housing {
@@ -98,7 +98,7 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
             description: "It even includes your own \"kitchen\"",
             display_name: "Tiny Appartment",
             required_money: 1.0e7,
-            happiness_factor: 64.0,
+            happiness_factor: 32.0,
             health_effect: 3.0,
         },
     }

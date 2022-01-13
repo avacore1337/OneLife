@@ -1,4 +1,3 @@
-use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::boost_item::BoostItemTypes;
@@ -76,38 +75,68 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
     }
 }
 
-impl Gain for RebirthUpgrade {
-    fn gain(&self, intermediate: &mut IntermediateState) {
+impl RebirthUpgrade {
+    pub fn get_upgrade_gains(&self, game: &mut Game) {
+        let upgrade_state = &mut game.state.rebirth_stats.rebirth_upgrades[self.name as usize];
+        if !upgrade_state.is_purchased {
+            return;
+        }
+
         match self.name {
             RebirthUpgradeTypes::AcceptingDeath => {
-                intermediate.add_multiplier(KeyValues::Happiness, 2.0, self.display_name);
+                game.intermediate_state.add_multiplier(
+                    KeyValues::Happiness,
+                    1.5,
+                    self.display_name,
+                );
             }
             RebirthUpgradeTypes::AcceptingDeath2 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 2.0, self.display_name);
+                game.intermediate_state.add_multiplier(
+                    KeyValues::Happiness,
+                    1.5,
+                    self.display_name,
+                );
             }
             RebirthUpgradeTypes::AcceptingDeath3 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 2.0, self.display_name);
+                game.intermediate_state.add_multiplier(
+                    KeyValues::Happiness,
+                    1.5,
+                    self.display_name,
+                );
             }
             RebirthUpgradeTypes::Privilege1 => {
-                intermediate.add_multiplier(KeyValues::Money, 1.3, self.display_name);
+                game.intermediate_state
+                    .add_multiplier(KeyValues::Money, 1.2, self.display_name);
             }
             RebirthUpgradeTypes::Privilege2 => {
-                intermediate.add_multiplier(KeyValues::Money, 1.3, self.display_name);
+                game.intermediate_state
+                    .add_multiplier(KeyValues::Money, 1.2, self.display_name);
             }
             RebirthUpgradeTypes::Privilege3 => {
-                intermediate.add_multiplier(KeyValues::Money, 1.3, self.display_name);
+                game.intermediate_state
+                    .add_multiplier(KeyValues::Money, 1.2, self.display_name);
             }
             RebirthUpgradeTypes::LaborXp1 => {
-                intermediate.add_multiplier(KeyValues::LaborXp, 2.0, self.display_name);
+                game.intermediate_state
+                    .add_multiplier(KeyValues::LaborXp, 1.5, self.display_name);
             }
             RebirthUpgradeTypes::LaborXp2 => {
-                intermediate.add_multiplier(KeyValues::LaborXp, 2.0, self.display_name);
+                game.intermediate_state
+                    .add_multiplier(KeyValues::LaborXp, 1.5, self.display_name);
             }
             RebirthUpgradeTypes::SoldierXp1 => {
-                intermediate.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
+                game.intermediate_state.add_multiplier(
+                    KeyValues::SoldierXp,
+                    2.0,
+                    self.display_name,
+                );
             }
             RebirthUpgradeTypes::SoldierXp2 => {
-                intermediate.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
+                game.intermediate_state.add_multiplier(
+                    KeyValues::SoldierXp,
+                    2.0,
+                    self.display_name,
+                );
             }
             _ => (),
         }
