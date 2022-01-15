@@ -51,8 +51,9 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     presets.insert("Test_1: second rebirth", second_rebirth());
     presets.insert("Test_2: third rebirth", third_rebirth());
     presets.insert("Test_3: tenth rebirth", tenth_rebirth());
-    presets.insert("Test_4: eleventh rebirth", elevent_rebirth());
-    presets.insert("Test_5: twelfth rebirth", twelfth_rebirth());
+    presets.insert("Test_4: eleventh rebirth", twelfth_rebirth());
+    presets.insert("Test_5: fifteenth rebirth", fifteenth_rebirth());
+    presets.insert("Test_6: eigteenth rebirth", eigteenth_rebirth());
 
     presets
 }
@@ -355,7 +356,51 @@ pub fn tenth_rebirth() -> GameSave {
     game_save
 }
 
-pub fn elevent_rebirth() -> GameSave {
+pub fn twelfth_rebirth() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 10;
+    r.tier = 2;
+    set_lower_tier_jobs_to(r, 30);
+    get_upgrades_up_to_tier_max_cost(r, 2, 60.0);
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    let save_up_switch = 40_000;
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, AutoSettingTypes::AutoBuyItemFalse);
+    balance_activities(
+        &mut game_save.previous_inputs,
+        4000,
+        save_up_switch,
+        &[
+            ActivityTypes::Run,
+            ActivityTypes::Studying,
+            // ActivityTypes::Meditate,
+            ActivityTypes::Run,
+        ],
+    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, ActivityTypes::Run);
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, HousingTypes::SharedRoom);
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, AutoSettingTypes::AutoLivingFalse);
+    game_save
+        .previous_inputs
+        .register_input_on_tick(50000, ActivityTypes::Flirt);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+pub fn fifteenth_rebirth() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     r.rebirth_count = 10;
@@ -401,15 +446,18 @@ pub fn elevent_rebirth() -> GameSave {
     game_save
 }
 
-pub fn twelfth_rebirth() -> GameSave {
+pub fn eigteenth_rebirth() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     r.rebirth_count = 11;
     r.tier = 2;
+    r.rebirth_upgrades[RebirthUpgradeTypes::SoldierXp1 as usize].is_purchased = true;
     set_lower_tier_jobs_to(r, 30);
-    r.max_job_levels[WorkTypes::BagageBoy as usize] = 10;
-    r.max_job_levels[WorkTypes::Slinger as usize] = 10;
+    r.max_job_levels[WorkTypes::Fisherman as usize] = 30;
+    r.max_job_levels[WorkTypes::BagageBoy as usize] = 30;
+    r.max_job_levels[WorkTypes::Slinger as usize] = 20;
     r.max_job_levels[WorkTypes::Peltasts as usize] = 10;
+    r.max_job_levels[WorkTypes::FootCompanion as usize] = 10;
     get_upgrades_up_to_tier_max_cost(r, 2, 40.0);
     game_save.state = rebirth(r.clone());
 

@@ -186,15 +186,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             required_tier: 0,
         },
 
-        // TOMB 1
-        BoostItemTypes::Meditation1 => BoostItem {
-            name: item_type,
-            purchasing_cost: 8_000.0,
-            description: "Made by someone named Yoga, weird name",
-            effect_description: "2x Mindfullness XP gain",
-            display_name: "Meditation Mat",
-            required_tier: 2,
-        },
+        // TOMB 1 - 10 000
         BoostItemTypes::Leach => BoostItem {
             name: item_type,
             purchasing_cost: 12_000.0,
@@ -258,14 +250,6 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Charisma XP gain",
             display_name: "Roadside flower",
             required_tier: 1,
-        },
-        BoostItemTypes::Meditation2 => BoostItem {
-            name: item_type,
-            purchasing_cost: 80_000.0,
-            description: "Smells like a hermit",
-            effect_description: "2x Mindfullness XP gain",
-            display_name: "Incense",
-            required_tier: 2,
         },
 
         // TOMB 2 - 100 000
@@ -341,14 +325,6 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Daisy",
             required_tier: 2,
         },
-        BoostItemTypes::Meditation3 => BoostItem {
-            name: item_type,
-            purchasing_cost: 800_000.0,
-            description: "It's soft to sit on",
-            effect_description: "2x Mindfullness XP gain",
-            display_name: "Meditation Pillow",
-            required_tier: 2,
-        },
 
         // TOMB 3 - 1 000 000
         BoostItemTypes::IronAxe => BoostItem {
@@ -415,14 +391,6 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Tulip",
             required_tier: 3,
         },
-        BoostItemTypes::Meditation4 => BoostItem {
-            name: item_type,
-            purchasing_cost: 8.0e6,
-            description: "todo",
-            effect_description: "2x Mindfullness XP gain",
-            display_name: "Meditation Pillow",
-            required_tier: 3,
-        },
 
         // TOMB 4 - 10 000 000
         BoostItemTypes::Burial4 => BoostItem {
@@ -440,6 +408,40 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
             required_tier: 4,
+        },
+
+        // TBD
+        BoostItemTypes::Meditation1 => BoostItem {
+            name: item_type,
+            purchasing_cost: 8_000.0,
+            description: "Made by someone named Yoga, weird name",
+            effect_description: "2x Mindfullness XP gain",
+            display_name: "Meditation Mat",
+            required_tier: 5,
+        },
+        BoostItemTypes::Meditation2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 80_000.0,
+            description: "Smells like a hermit",
+            effect_description: "2x Mindfullness XP gain",
+            display_name: "Incense",
+            required_tier: 5,
+        },
+        BoostItemTypes::Meditation3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 800_000.0,
+            description: "It's soft to sit on",
+            effect_description: "2x Mindfullness XP gain",
+            display_name: "Meditation Pillow",
+            required_tier: 5,
+        },
+        BoostItemTypes::Meditation4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 8.0e6,
+            description: "todo",
+            effect_description: "2x Mindfullness XP gain",
+            display_name: "Meditation Pillow",
+            required_tier: 5,
         },
     }
 }
