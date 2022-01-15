@@ -38,7 +38,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "todo",
             display_name: "BurialPit ",
             required_tier: 1,
-            coin_gain: 16.0,
+            coin_gain: 8.0,
         },
         TombTypes::Grave => Tomb {
             name: tomb,
@@ -46,7 +46,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "You were someone",
             display_name: "Grave ",
             required_tier: 2,
-            coin_gain: 64.0,
+            coin_gain: 16.0,
         },
         TombTypes::FamilyGrave => Tomb {
             name: tomb,
@@ -54,7 +54,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "Wait, who's family is burried here?",
             display_name: "FamilyGrave ",
             required_tier: 3,
-            coin_gain: 256.0,
+            coin_gain: 32.0,
         },
         TombTypes::Tomb => Tomb {
             name: tomb,
@@ -62,7 +62,7 @@ pub const fn translate_tomb(tomb: TombTypes) -> Tomb {
             description: "Hope you don't get raided",
             display_name: "Tomb ",
             required_tier: 4,
-            coin_gain: 1000.0,
+            coin_gain: 64.0,
         },
         TombTypes::Crypt => Tomb {
             name: tomb,

@@ -29,50 +29,50 @@ impl Gain for BoostItem {
             BoostItemTypes::Clothes1 => {
                 intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
-            BoostItemTypes::IronPickAxe => {
-                intermediate.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
-            }
+            // BoostItemTypes::IronPickAxe => {
+            //     intermediate.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
+            // }
             BoostItemTypes::IronAxe => {
                 intermediate.add_multiplier(KeyValues::Woodcutter, 2.0, self.display_name);
             }
             BoostItemTypes::Book2 => {
-                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe2 => {
-                intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::Clothes2 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+                intermediate.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             BoostItemTypes::Book3 => {
-                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Book4 => {
-                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Book5 => {
-                intermediate.add_multiplier(KeyValues::Int, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe3 => {
-                intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe4 => {
-                intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe5 => {
-                intermediate.add_multiplier(KeyValues::Con, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::FishingGear => {
-                intermediate.add_multiplier(KeyValues::Fisherman, 2.0, self.display_name);
+                intermediate.add_multiplier(KeyValues::Fisherman, 1.5, self.display_name);
             }
             BoostItemTypes::Clothes3 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+                intermediate.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             BoostItemTypes::Clothes4 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+                intermediate.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             BoostItemTypes::Clothes5 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+                intermediate.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             BoostItemTypes::Leach => {
                 intermediate.add_base(KeyValues::Health, 1.0, self.display_name);
@@ -120,13 +120,16 @@ impl Gain for BoostItem {
                 intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
             BoostItemTypes::Burial1 => {
-                intermediate.add_multiplier(KeyValues::Coins, 1.3, self.display_name);
+                intermediate.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
             BoostItemTypes::Burial2 => {
-                intermediate.add_multiplier(KeyValues::Coins, 1.3, self.display_name);
+                intermediate.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
             BoostItemTypes::Burial3 => {
-                intermediate.add_multiplier(KeyValues::Coins, 1.3, self.display_name);
+                intermediate.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
+            }
+            BoostItemTypes::Burial4 => {
+                intermediate.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
         }
     }
@@ -158,14 +161,14 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Ragged Clothes",
             required_tier: 0,
         },
-        BoostItemTypes::IronPickAxe => BoostItem {
-            name: item_type,
-            purchasing_cost: 1_000.0,
-            description: "Mining now goes faster",
-            effect_description: "2x Mining income",
-            display_name: "Iron Pickaxe",
-            required_tier: 0,
-        },
+        // BoostItemTypes::IronPickAxe => BoostItem {
+        //     name: item_type,
+        //     purchasing_cost: 1_000.0,
+        //     description: "Mining now goes faster",
+        //     effect_description: "2x Mining income",
+        //     display_name: "Iron Pickaxe",
+        //     required_tier: 0,
+        // },
         BoostItemTypes::Book2 => BoostItem {
             name: item_type,
             purchasing_cost: 4_000.0,
@@ -190,7 +193,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             description: "Made by someone named Yoga, weird name",
             effect_description: "2x Mindfullness XP gain",
             display_name: "Meditation Mat",
-            required_tier: 1,
+            required_tier: 2,
         },
         BoostItemTypes::Leach => BoostItem {
             name: item_type,
@@ -224,6 +227,14 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Fishing Gear",
             required_tier: 1,
         },
+        BoostItemTypes::Burial1 => BoostItem {
+            name: item_type,
+            purchasing_cost: 30_000.0,
+            description: "todo",
+            effect_description: "1.3x Coin gain",
+            display_name: "Burial1",
+            required_tier: 1,
+        },
         BoostItemTypes::Book3 => BoostItem {
             name: item_type,
             purchasing_cost: 32_000.0,
@@ -254,7 +265,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             description: "Smells like a hermit",
             effect_description: "2x Mindfullness XP gain",
             display_name: "Incense",
-            required_tier: 1,
+            required_tier: 2,
         },
 
         // TOMB 2 - 100 000
@@ -306,20 +317,20 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Kettlebell",
             required_tier: 2,
         },
+        BoostItemTypes::Burial2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 300_000.0,
+            description: "todo",
+            effect_description: "1.3x Coin gain",
+            display_name: "Burial2",
+            required_tier: 2,
+        },
         BoostItemTypes::Clothes4 => BoostItem {
             name: item_type,
             purchasing_cost: 400_000.0,
             description: "You fit into the city the less nice parts that is",
             effect_description: "1.5x Happiness",
             display_name: "City Clothes",
-            required_tier: 2,
-        },
-        BoostItemTypes::Burial1 => BoostItem {
-            name: item_type,
-            purchasing_cost: 400_000.0,
-            description: "todo",
-            effect_description: "1.3x Coin gain",
-            display_name: "Burial1",
             required_tier: 2,
         },
         BoostItemTypes::Flower2 => BoostItem {
@@ -356,17 +367,49 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Healthkit",
             required_tier: 3,
         },
-        BoostItemTypes::Burial2 => BoostItem {
+        BoostItemTypes::Shoe5 => BoostItem {
             name: item_type,
-            purchasing_cost: 4_000_000.0,
+            purchasing_cost: 1.6e6,
+            description: "todo",
+            effect_description: "2x Constitution XP gain",
+            display_name: "Leather Sandals",
+            required_tier: 3,
+        },
+        BoostItemTypes::Dumbell4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 2.5e6,
+            description: "Cowbell, Kettlebell, what's the difference anyway",
+            effect_description: "2x Strength XP gain",
+            display_name: "Kettlebell",
+            required_tier: 3,
+        },
+        BoostItemTypes::Burial3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 3.0e6,
             description: "todo",
             effect_description: "1.3x Coin gain",
-            display_name: "Burial2",
+            display_name: "Burial3",
+            required_tier: 3,
+        },
+        BoostItemTypes::Book5 => BoostItem {
+            name: item_type,
+            purchasing_cost: 3.2e6,
+            description: "todo",
+            effect_description: "2x Intelligence XP gain",
+            display_name: "Book: Elementary Education",
+            required_tier: 3,
+        },
+        BoostItemTypes::Clothes5 => BoostItem {
+            name: item_type,
+            purchasing_cost: 4.0e6,
+            description: "todo",
+            effect_description: "1.5x Happiness",
+            display_name: "City Clothes",
             required_tier: 3,
         },
         BoostItemTypes::Flower3 => BoostItem {
             name: item_type,
-            purchasing_cost: 5_000_000.0,
+            purchasing_cost: 5.0e6,
             description: "Ok, this flower is way better",
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
@@ -380,48 +423,16 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Meditation Pillow",
             required_tier: 3,
         },
-        BoostItemTypes::Clothes5 => BoostItem {
-            name: item_type,
-            purchasing_cost: 4.0e6,
-            description: "todo",
-            effect_description: "1.5x Happiness",
-            display_name: "City Clothes",
-            required_tier: 3,
-        },
-        BoostItemTypes::Book5 => BoostItem {
-            name: item_type,
-            purchasing_cost: 3.2e6,
-            description: "todo",
-            effect_description: "2x Intelligence XP gain",
-            display_name: "Book: Elementary Education",
-            required_tier: 3,
-        },
-        BoostItemTypes::Shoe5 => BoostItem {
-            name: item_type,
-            purchasing_cost: 1.6e6,
-            description: "todo",
-            effect_description: "2x Constitution XP gain",
-            display_name: "Leather Sandals",
-            required_tier: 3,
-        },
-        BoostItemTypes::Dumbell4 => BoostItem {
-            name: item_type,
-            purchasing_cost: 2_500_000.0,
-            description: "Cowbell, Kettlebell, what's the difference anyway",
-            effect_description: "2x Strength XP gain",
-            display_name: "Kettlebell",
-            required_tier: 3,
-        },
-        BoostItemTypes::Burial3 => BoostItem {
-            name: item_type,
-            purchasing_cost: 4.0e7,
-            description: "todo",
-            effect_description: "1.3x Coin gain",
-            display_name: "Burial3",
-            required_tier: 3,
-        },
 
         // TOMB 4 - 10 000 000
+        BoostItemTypes::Burial4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 30.0e6,
+            description: "todo",
+            effect_description: "1.3x Coin gain",
+            display_name: "Burial4",
+            required_tier: 3,
+        },
         BoostItemTypes::Flower4 => BoostItem {
             name: item_type,
             purchasing_cost: 50.0e6,
@@ -457,7 +468,7 @@ pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Gam
         return false;
     }
     match input_boost_item {
-        BoostItemTypes::IronPickAxe => game.state.works[WorkTypes::Mines as usize].level > 25,
+        // BoostItemTypes::IronPickAxe => game.state.works[WorkTypes::Mines as usize].level > 25,
         BoostItemTypes::Clothes2 => {
             game.state.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased
         }

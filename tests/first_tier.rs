@@ -14,6 +14,7 @@ fn test_first_rebirth() {
     set_full_auto(&mut game.meta_data.options);
     run_until_dead(game);
     assert_eq!(game.state.works[WorkTypes::GalleyRower as usize].level, 10);
+    assert_eq!(game.state.works[WorkTypes::Mill as usize].level, 0); // too strict?
 
     do_test_rebirth(game);
     assert_eq!(game.state.rebirth_stats.coins, 0.0);
@@ -25,7 +26,7 @@ fn test_second_rebirth() {
     game.load_game(second_rebirth());
     run_until_dead(game);
     assert_eq!(game.state.works[WorkTypes::Fields as usize].level, 10); // too strict?
-    assert!(game.state.works[WorkTypes::Mill as usize].level >= 10); // too strict?
+    assert!(game.state.works[WorkTypes::Mill as usize].level >= 5); // too strict?
 
     do_test_rebirth(game);
     assert_eq!(game.state.rebirth_stats.coins, 2.0);

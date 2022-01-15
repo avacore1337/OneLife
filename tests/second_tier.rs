@@ -18,7 +18,11 @@ fn test_third_rebirth() {
     assert!(game.state.works[WorkTypes::Mill as usize].level >= 10); // too strict?
 
     do_test_rebirth(game);
-    assert!(game.state.rebirth_stats.coins > 4.0);
+    assert!(
+        game.state.rebirth_stats.coins >= 3.0,
+        "coins = {:#?}",
+        game.state.rebirth_stats.coins
+    );
 }
 
 #[wasm_bindgen_test]

@@ -20,16 +20,16 @@ pub struct RebirthUpgrade {
 pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: RebirthUpgradeTypes) {
     match rebirth_upgrade {
         RebirthUpgradeTypes::StartingWealth1 => {
-            state.items.money += 2000.0;
+            state.items.money += 4000.0;
         }
         RebirthUpgradeTypes::StartingWealth2 => {
-            state.items.money += 10000.0;
+            state.items.money += 30000.0;
         }
         RebirthUpgradeTypes::StartingWealth3 => {
             state.boost_items[BoostItemTypes::Book as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Shoe1 as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased = true;
-            state.items.money += 50000.0;
+            state.items.money += 200000.0;
         }
         // RebirthUpgradeTypes::StartingWealth4 => {
         //     state.boost_items[BoostItemTypes::Book2 as usize].is_purchased = true;
@@ -150,16 +150,9 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         // TIER 1
         RebirthUpgradeTypes::AcceptingDeath => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 4.0,
+            purchasing_cost: 3.0,
             description: "You feel happier now that you know that death isn't the end",
             display_name: "Accepting Death",
-            required_tier: 1,
-        },
-        RebirthUpgradeTypes::Skills => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 4.0,
-            description: "You can be good at things now",
-            display_name: "Skills",
             required_tier: 1,
         },
         RebirthUpgradeTypes::StartingWealth1 => RebirthUpgrade {
@@ -252,6 +245,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         },
 
         // TIER 3 - 500
+        RebirthUpgradeTypes::Skills => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 400.0,
+            description: "You can be good at things now",
+            display_name: "Skills",
+            required_tier: 3,
+        },
         RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 90.0,

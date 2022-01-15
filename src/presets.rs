@@ -1,5 +1,6 @@
 use crate::game::GameSave;
 use crate::input::activity::ActivityTypes;
+use crate::input::housing::HousingTypes;
 use crate::input::options::AutoSettingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::work::WorkTypes;
@@ -58,27 +59,55 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
 
 fn make_current() -> GameSave {
     let mut game_save = GameSave::default();
-    let meta_data = &mut game_save.meta_data;
     let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 8;
     r.tier = 1;
-    get_upgrades_up_to_current_tier(r);
-    // r.rebirth_upgrades[RebirthUpgradeTypes::Skills as usize].is_purchased = true;
-    // r.rebirth_upgrades[RebirthUpgradeTypes::AcceptingDeath as usize].is_purchased = true;
-    // r.rebirth_upgrades[RebirthUpgradeTypes::StartingFunds1 as usize].is_purchased = true;
-    // r.rebirth_upgrades[RebirthUpgradeTypes::Privilege1 as usize].is_purchased = true;
-    r.coins = 12.0;
-    r.rebirth_count = 6;
-
-    meta_data.options.auto_work = true;
-    meta_data.options.auto_living = true;
-    meta_data.options.auto_buy_item = true;
-
-    set_lower_tier_jobs_to(r, 30);
-    r.max_job_levels[WorkTypes::Fisherman as usize] = 30;
-    r.max_job_levels[WorkTypes::Weaver as usize] = 30;
-
+    set_lower_tier_jobs_to(r, 15);
+    r.max_job_levels[WorkTypes::Weaver as usize] = 15;
+    r.rebirth_upgrades[RebirthUpgradeTypes::AcceptingDeath as usize].is_purchased = true;
     game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
     game_save
+        .previous_inputs
+        .register_input_on_tick(30000, AutoSettingTypes::AutoBuyItemFalse);
+    balance_activities(
+        &mut game_save.previous_inputs,
+        4000,
+        30_000,
+        &[ActivityTypes::Run, ActivityTypes::Studying],
+    );
+    game_save
+        .previous_inputs
+        .register_input_on_tick(30000, ActivityTypes::Flirt);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+    // let mut game_save = GameSave::default();
+    // let meta_data = &mut game_save.meta_data;
+    // let r = &mut game_save.state.rebirth_stats;
+    // r.tier = 1;
+    // get_upgrades_up_to_current_tier(r);
+    // // r.rebirth_upgrades[RebirthUpgradeTypes::Skills as usize].is_purchased = true;
+    // // r.rebirth_upgrades[RebirthUpgradeTypes::AcceptingDeath as usize].is_purchased = true;
+    // // r.rebirth_upgrades[RebirthUpgradeTypes::StartingFunds1 as usize].is_purchased = true;
+    // // r.rebirth_upgrades[RebirthUpgradeTypes::Privilege1 as usize].is_purchased = true;
+    // r.coins = 12.0;
+    // r.rebirth_count = 6;
+
+    // meta_data.options.auto_work = true;
+    // meta_data.options.auto_living = true;
+    // meta_data.options.auto_buy_item = true;
+
+    // set_lower_tier_jobs_to(r, 30);
+    // r.max_job_levels[WorkTypes::Fisherman as usize] = 30;
+    // r.max_job_levels[WorkTypes::Weaver as usize] = 30;
+
+    // game_save.state = rebirth(r.clone());
+    // game_save
 }
 
 fn make_poor_death() -> GameSave {
@@ -252,7 +281,7 @@ pub fn third_rebirth() -> GameSave {
     let r = &mut game_save.state.rebirth_stats;
     r.rebirth_count = 8;
     r.tier = 1;
-    set_lower_tier_jobs_to(r, 25);
+    set_lower_tier_jobs_to(r, 15);
     game_save.state = rebirth(r.clone());
 
     let state = &mut game_save.state;
@@ -266,7 +295,11 @@ pub fn third_rebirth() -> GameSave {
         &mut game_save.previous_inputs,
         4000,
         30_000,
-        &[ActivityTypes::Run, ActivityTypes::Studying],
+        &[
+            ActivityTypes::Run,
+            ActivityTypes::Run,
+            ActivityTypes::Studying,
+        ],
     );
     game_save
         .previous_inputs
@@ -301,13 +334,22 @@ pub fn tenth_rebirth() -> GameSave {
         &[
             ActivityTypes::Run,
             ActivityTypes::Studying,
-            ActivityTypes::Meditate,
+            // ActivityTypes::Meditate,
             ActivityTypes::Run,
         ],
     );
     game_save
         .previous_inputs
         .register_input_on_tick(save_up_switch, ActivityTypes::Run);
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, HousingTypes::SharedRoom);
+    game_save
+        .previous_inputs
+        .register_input_on_tick(save_up_switch, AutoSettingTypes::AutoLivingFalse);
+    game_save
+        .previous_inputs
+        .register_input_on_tick(50000, ActivityTypes::Flirt);
 
     game_save.input = Input::new(&game_save.state);
     game_save
@@ -333,7 +375,7 @@ pub fn elevent_rebirth() -> GameSave {
         &[
             ActivityTypes::Run,
             ActivityTypes::Studying,
-            ActivityTypes::Meditate,
+            // ActivityTypes::Meditate,
             ActivityTypes::Run,
         ],
     );
@@ -347,7 +389,7 @@ pub fn elevent_rebirth() -> GameSave {
         &[
             ActivityTypes::Training,
             ActivityTypes::Studying,
-            ActivityTypes::Meditate,
+            // ActivityTypes::Meditate,
             ActivityTypes::Training,
         ],
     );
@@ -382,7 +424,7 @@ pub fn twelfth_rebirth() -> GameSave {
         &[
             ActivityTypes::Run,
             ActivityTypes::Studying,
-            ActivityTypes::Meditate,
+            // ActivityTypes::Meditate,
             ActivityTypes::Run,
         ],
     );
@@ -396,7 +438,7 @@ pub fn twelfth_rebirth() -> GameSave {
         &[
             ActivityTypes::Training,
             ActivityTypes::Studying,
-            ActivityTypes::Meditate,
+            // ActivityTypes::Meditate,
             ActivityTypes::Training,
         ],
     );

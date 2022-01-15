@@ -9,7 +9,7 @@ pub enum BoostItemTypes {
     Book,
     Shoe1,
     Clothes1,
-    IronPickAxe,
+    // IronPickAxe,
     Book2,
     Shoe2,
     Clothes2,
@@ -42,6 +42,7 @@ pub enum BoostItemTypes {
     Burial1,
     Burial2,
     Burial3,
+    Burial4,
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();
