@@ -228,19 +228,20 @@ fn make_only_coins() -> GameSave {
 
 pub fn second_rebirth() -> GameSave {
     let mut game_save = GameSave::default();
-    let state = &mut game_save.state;
-    let r = &mut state.rebirth_stats;
-    set_full_auto(&mut game_save.meta_data.options);
-    state.life_stats.replaying = true;
-    game_save
-        .previous_inputs
-        .register_input_on_tick(12000, AutoSettingTypes::AutoBuyItemFalse); // Registering for next round
-
+    let r = &mut game_save.state.rebirth_stats;
     for work in WorkTypes::iter() {
         if work < WorkTypes::Mill {
             r.max_job_levels[work as usize] = 10;
         }
     }
+    game_save.state = rebirth(r.clone());
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    game_save
+        .previous_inputs
+        .register_input_on_tick(12000, AutoSettingTypes::AutoBuyItemFalse); // Registering for next round
 
     game_save.input = Input::new(&game_save.state);
     game_save

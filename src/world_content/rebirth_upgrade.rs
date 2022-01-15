@@ -145,6 +145,8 @@ impl RebirthUpgrade {
 
 pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> RebirthUpgrade {
     match rebirth_upgrade {
+        // -------------------------------------------------------
+        // TIER 1
         RebirthUpgradeTypes::AcceptingDeath => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 4.0,
@@ -159,18 +161,25 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Skills",
             required_tier: 1,
         },
-        RebirthUpgradeTypes::EndItEarly => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 600.0,
-            description: "You can now commit a grave sin",
-            display_name: "Ending It Early",
-            required_tier: 3,
-        },
         RebirthUpgradeTypes::StartingFunds1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 8.0,
             description: "Pocket change for some, a fortune for others",
             display_name: "Starting Money",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::Privilege1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 12.0,
+            description: "You have it easier than some at least",
+            display_name: "Tiny Privilege",
+            required_tier: 1,
+        },
+        RebirthUpgradeTypes::LaborXp1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 20.0,
+            description: "TODO",
+            display_name: "Labor Experience",
             required_tier: 1,
         },
         RebirthUpgradeTypes::StartingFunds2 => RebirthUpgrade {
@@ -180,54 +189,22 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Starting Money 2",
             required_tier: 1,
         },
-        // RebirthUpgradeTypes::StatMemory1 => RebirthUpgrade {
-        //     name: rebirth_upgrade,
-        //     purchasing_cost: 60.0,
-        //     description: "Somehow your body remembers",
-        //     display_name: "A feeling of the past",
-        //     required_tier: 2,
-        // },
-        RebirthUpgradeTypes::Privilege1 => RebirthUpgrade {
+        RebirthUpgradeTypes::AutoWork => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 12.0,
-            description: "You have it easier than some at least",
-            display_name: "Tiny Privilege",
+            description: "You start making decisions out of habit",
+            display_name: "Automate Work Progression",
             required_tier: 1,
         },
+
+        // -------------------------------------------------------
+        // TIER 2
         RebirthUpgradeTypes::Privilege2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 90.0,
             description: "Not the worst in town at least",
             display_name: "Minor Privilege",
-            required_tier: 1,
-        },
-        RebirthUpgradeTypes::Privilege3 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 600.0,
-            description: "TODO",
-            display_name: "Lesser Privilege",
             required_tier: 2,
-        },
-        RebirthUpgradeTypes::StartingItems1 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 900.0,
-            description: "Anything is better than nothing",
-            display_name: "Starting Items",
-            required_tier: 3,
-        },
-        RebirthUpgradeTypes::StartingItems2 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 9000.0,
-            description: "Anything is better than nothing",
-            display_name: "Starting Items",
-            required_tier: 4,
-        },
-        RebirthUpgradeTypes::LaborXp1 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 20.0,
-            description: "TODO",
-            display_name: "Labor Experience",
-            required_tier: 1,
         },
         RebirthUpgradeTypes::LaborXp2 => RebirthUpgrade {
             name: rebirth_upgrade,
@@ -236,55 +213,20 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Labor Experience 2",
             required_tier: 2,
         },
-        RebirthUpgradeTypes::SoldierXp1 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 30.0,
-            description: "TODO",
-            display_name: "Soldier Experience",
-            required_tier: 2,
-        },
-        RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 90.0,
-            description: "TODO",
-            display_name: "Soldier Experience 2",
-            required_tier: 3,
-        },
-        RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 100.0,
-            description: "A military genious in the making",
-            display_name: "Unlock Tactics",
-            required_tier: 3,
-        },
-        RebirthUpgradeTypes::UnlockFaith => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 10000.0,
-            description: "Believing in gods is not that hard when they actualy exists",
-            display_name: "Unlock Faith",
-            required_tier: 3,
-        },
         RebirthUpgradeTypes::AcceptingDeath2 => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 400.0,
+            purchasing_cost: 200.0,
             description:
                 "You now have a goal, to improve your life and have the best life possible",
             display_name: "Finding A Goal",
             required_tier: 2,
         },
-        RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
+        RebirthUpgradeTypes::EndItEarly => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 4000.0,
-            description: "You know who you are. And that someone is going to be important one day",
-            display_name: "Finding yourself",
-            required_tier: 4,
-        },
-        RebirthUpgradeTypes::AutoWork => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 12.0,
-            description: "You start making decisions out of habit",
-            display_name: "Automate Work Progression",
-            required_tier: 1,
+            purchasing_cost: 300.0,
+            description: "You can now commit a grave sin",
+            display_name: "Ending It Early",
+            required_tier: 2,
         },
         RebirthUpgradeTypes::AutoLive => RebirthUpgrade {
             name: rebirth_upgrade,
@@ -298,21 +240,81 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 60.0,
             description: "Consumerism!",
             display_name: "Automate Buying of Items",
+            required_tier: 2,
+        },
+        RebirthUpgradeTypes::SoldierXp1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 30.0,
+            description: "TODO",
+            display_name: "Soldier Experience",
+            required_tier: 2,
+        },
+
+        // TIER 3 - 500
+        RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 90.0,
+            description: "TODO",
+            display_name: "Soldier Experience 2",
             required_tier: 3,
+        },
+        RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 200.0,
+            description: "A military genious in the making",
+            display_name: "Unlock Tactics",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::Privilege3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 600.0,
+            description: "TODO",
+            display_name: "Lesser Privilege",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::UnlockFaith => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 10000.0,
+            description: "Believing in gods is not that hard when they actualy exists",
+            display_name: "Unlock Faith",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::StartingItems1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 900.0,
+            description: "Anything is better than nothing",
+            display_name: "Starting Items",
+            required_tier: 3,
+        },
+
+        // TIER 4 - 5000
+        RebirthUpgradeTypes::StartingItems2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 9000.0,
+            description: "Anything is better than nothing",
+            display_name: "Starting Items",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 4000.0,
+            description: "You know who you are. And that someone is going to be important one day",
+            display_name: "Finding yourself",
+            required_tier: 4,
         },
         RebirthUpgradeTypes::AutoBuyTomb => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 160.0,
             description: "Put some more thought into it!",
             display_name: "Automate Buying of Tombs",
-            required_tier: 4,
+            required_tier: 3,
         },
         RebirthUpgradeTypes::Replay => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 6000.0,
             description: "Are you still playing?",
             display_name: "Replay",
-            required_tier: 5,
+            required_tier: 4,
         },
         RebirthUpgradeTypes::TheDivine => RebirthUpgrade {
             name: rebirth_upgrade,
@@ -321,6 +323,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Connect With The Gods",
             required_tier: 6,
         },
+        // RebirthUpgradeTypes::StatMemory1 => RebirthUpgrade {
+        //     name: rebirth_upgrade,
+        //     purchasing_cost: 60.0,
+        //     description: "Somehow your body remembers",
+        //     display_name: "A feeling of the past",
+        //     required_tier: 2,
+        // },
     }
 }
 

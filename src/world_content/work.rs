@@ -59,7 +59,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Latrine Duty",
             required_tier: 0,
             work_type: WorkCategoryTypes::Labor,
-            xp_req_modifier: 2.0,
+            xp_req_modifier: 1.5,
         },
         WorkTypes::GalleyRower => Work {
             name: work,
@@ -68,7 +68,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Gallery Rower",
             required_tier: 0,
             work_type: WorkCategoryTypes::Labor,
-            xp_req_modifier: 4.0,
+            xp_req_modifier: 3.0,
         },
         WorkTypes::Fields => Work {
             name: work,
@@ -77,7 +77,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Field Work",
             required_tier: 0,
             work_type: WorkCategoryTypes::Labor,
-            xp_req_modifier: 8.0,
+            xp_req_modifier: 6.0,
         },
         WorkTypes::Mill => Work {
             name: work,
@@ -86,7 +86,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Mill Worker",
             required_tier: 0,
             work_type: WorkCategoryTypes::Labor,
-            xp_req_modifier: 16.0,
+            xp_req_modifier: 12.0,
         },
         WorkTypes::Weaver => Work {
             name: work,

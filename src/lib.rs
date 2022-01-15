@@ -123,6 +123,7 @@ pub fn do_rebirth() {
     }
     do_rebirth_internal(game);
     register_auto_settings(game);
+    engine_run(game);
     info!("Rust did rebirth");
 }
 
