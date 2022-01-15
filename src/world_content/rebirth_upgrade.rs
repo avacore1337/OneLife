@@ -19,22 +19,23 @@ pub struct RebirthUpgrade {
 
 pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: RebirthUpgradeTypes) {
     match rebirth_upgrade {
-        RebirthUpgradeTypes::StartingItems1 => {
+        RebirthUpgradeTypes::StartingWealth1 => {
+            state.items.money += 2000.0;
+        }
+        RebirthUpgradeTypes::StartingWealth2 => {
+            state.items.money += 10000.0;
+        }
+        RebirthUpgradeTypes::StartingWealth3 => {
             state.boost_items[BoostItemTypes::Book as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Shoe1 as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased = true;
+            state.items.money += 50000.0;
         }
-        RebirthUpgradeTypes::StartingItems2 => {
-            state.boost_items[BoostItemTypes::Book2 as usize].is_purchased = true;
-            state.boost_items[BoostItemTypes::Shoe2 as usize].is_purchased = true;
-            state.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased = true;
-        }
-        RebirthUpgradeTypes::StartingFunds1 => {
-            state.items.money += 2000.0;
-        }
-        RebirthUpgradeTypes::StartingFunds2 => {
-            state.items.money += 10000.0;
-        }
+        // RebirthUpgradeTypes::StartingWealth4 => {
+        //     state.boost_items[BoostItemTypes::Book2 as usize].is_purchased = true;
+        //     state.boost_items[BoostItemTypes::Shoe2 as usize].is_purchased = true;
+        //     state.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased = true;
+        // }
         _ => (),
     }
 }
@@ -161,7 +162,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Skills",
             required_tier: 1,
         },
-        RebirthUpgradeTypes::StartingFunds1 => RebirthUpgrade {
+        RebirthUpgradeTypes::StartingWealth1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 8.0,
             description: "Pocket change for some, a fortune for others",
@@ -182,7 +183,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Labor Experience",
             required_tier: 1,
         },
-        RebirthUpgradeTypes::StartingFunds2 => RebirthUpgrade {
+        RebirthUpgradeTypes::StartingWealth2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 40.0,
             description: "Pocket change for some, a fortune for others",
@@ -258,6 +259,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Soldier Experience 2",
             required_tier: 3,
         },
+        RebirthUpgradeTypes::AutoBuyTomb => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 160.0,
+            description: "Put some more thought into it!",
+            display_name: "Automate Buying of Tombs",
+            required_tier: 3,
+        },
         RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 200.0,
@@ -279,7 +287,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Unlock Faith",
             required_tier: 3,
         },
-        RebirthUpgradeTypes::StartingItems1 => RebirthUpgrade {
+        RebirthUpgradeTypes::StartingWealth3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 900.0,
             description: "Anything is better than nothing",
@@ -288,26 +296,12 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         },
 
         // TIER 4 - 5000
-        RebirthUpgradeTypes::StartingItems2 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 9000.0,
-            description: "Anything is better than nothing",
-            display_name: "Starting Items",
-            required_tier: 4,
-        },
         RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 4000.0,
             description: "You know who you are. And that someone is going to be important one day",
             display_name: "Finding yourself",
             required_tier: 4,
-        },
-        RebirthUpgradeTypes::AutoBuyTomb => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 160.0,
-            description: "Put some more thought into it!",
-            display_name: "Automate Buying of Tombs",
-            required_tier: 3,
         },
         RebirthUpgradeTypes::Replay => RebirthUpgrade {
             name: rebirth_upgrade,
@@ -358,12 +352,12 @@ pub fn should_be_visible_rebirth_upgrade(
         return false;
     }
     match input_rebirth_upgrade {
-        RebirthUpgradeTypes::StartingFunds2 => {
-            game.state.rebirth_stats.rebirth_upgrades[RebirthUpgradeTypes::StartingFunds1 as usize]
+        RebirthUpgradeTypes::StartingWealth2 => {
+            game.state.rebirth_stats.rebirth_upgrades[RebirthUpgradeTypes::StartingWealth1 as usize]
                 .is_purchased
         }
-        RebirthUpgradeTypes::StartingItems2 => {
-            game.state.rebirth_stats.rebirth_upgrades[RebirthUpgradeTypes::StartingItems1 as usize]
+        RebirthUpgradeTypes::StartingWealth3 => {
+            game.state.rebirth_stats.rebirth_upgrades[RebirthUpgradeTypes::StartingWealth2 as usize]
                 .is_purchased
         }
         _ => true,

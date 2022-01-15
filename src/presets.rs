@@ -62,10 +62,10 @@ fn make_current() -> GameSave {
     let r = &mut game_save.state.rebirth_stats;
     r.tier = 1;
     get_upgrades_up_to_current_tier(r);
-    r.rebirth_upgrades[RebirthUpgradeTypes::Skills as usize].is_purchased = true;
-    r.rebirth_upgrades[RebirthUpgradeTypes::AcceptingDeath as usize].is_purchased = true;
-    r.rebirth_upgrades[RebirthUpgradeTypes::StartingFunds1 as usize].is_purchased = true;
-    r.rebirth_upgrades[RebirthUpgradeTypes::Privilege1 as usize].is_purchased = true;
+    // r.rebirth_upgrades[RebirthUpgradeTypes::Skills as usize].is_purchased = true;
+    // r.rebirth_upgrades[RebirthUpgradeTypes::AcceptingDeath as usize].is_purchased = true;
+    // r.rebirth_upgrades[RebirthUpgradeTypes::StartingFunds1 as usize].is_purchased = true;
+    // r.rebirth_upgrades[RebirthUpgradeTypes::Privilege1 as usize].is_purchased = true;
     r.coins = 12.0;
     r.rebirth_count = 6;
 
