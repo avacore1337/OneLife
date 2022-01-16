@@ -17,6 +17,7 @@
               Level: {{ work_state.level }} Reached level: {{ work_state.max_job_levels }} Income
               {{ work_state.effective_income.toFixed(1) }}/s
               <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
+              <!--- XP required for next level: {{ work_state.next_level_required }} --->
             </p>
           </td>
         </tr>

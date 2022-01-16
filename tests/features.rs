@@ -32,6 +32,7 @@ fn test_auto_buy_tomb() {
     let mut game = Game::new();
     game.state.items.money = game.world.tombs[TombTypes::ShallowGrave as usize].purchasing_cost;
     game.meta_data.options.auto_buy_tomb = true;
+    engine_run(&mut game); // Need to run once before for unlock calculation
     engine_run(&mut game);
     character_death_update(&mut game);
     assert_eq!(game.state.rebirth_stats.coins, 2.0);
