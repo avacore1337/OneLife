@@ -65,12 +65,12 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     presets.insert("09: rich death", make_rich_death());
     presets.insert("10: billion coins t0", make_only_coins());
     // presets.insert("Test_0: first rebirth", first_rebirth());
-    presets.insert("Test_1: second rebirth", second_rebirth());
-    presets.insert("Test_2: third rebirth", third_rebirth());
-    presets.insert("Test_3: tenth rebirth", tenth_rebirth());
-    presets.insert("Test_4: eleventh rebirth", twelfth_rebirth());
-    presets.insert("Test_5: fifteenth rebirth", fifteenth_rebirth());
-    presets.insert("Test_6: eigteenth rebirth", eigteenth_rebirth());
+    presets.insert("Test_1: Rebirth 2", rebirth_2());
+    presets.insert("Test_2: Rebirth 3", rebirth_3());
+    presets.insert("Test_3: Rebirth 10", rebirth_10());
+    presets.insert("Test_4: Rebirth 12", rebirth_12());
+    presets.insert("Test_5: Rebirth 15", rebirth_15());
+    presets.insert("Test_6: Rebirth 18", rebirth_18());
     presets.insert("Test_7: Rebirth 22", rebirth_22());
 
     presets
@@ -274,7 +274,7 @@ fn make_only_coins() -> GameSave {
     game_save
 }
 
-pub fn second_rebirth() -> GameSave {
+pub fn rebirth_2() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     for work in WorkTypes::iter() {
@@ -294,7 +294,7 @@ pub fn second_rebirth() -> GameSave {
     game_save
 }
 
-pub fn third_rebirth() -> GameSave {
+pub fn rebirth_3() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     r.rebirth_count = 8;
@@ -315,7 +315,7 @@ pub fn third_rebirth() -> GameSave {
     game_save
 }
 
-pub fn tenth_rebirth() -> GameSave {
+pub fn rebirth_10() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     r.rebirth_count = 10;
@@ -342,7 +342,7 @@ pub fn tenth_rebirth() -> GameSave {
     game_save
 }
 
-pub fn twelfth_rebirth() -> GameSave {
+pub fn rebirth_12() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     r.rebirth_count = 10;
@@ -367,7 +367,7 @@ pub fn twelfth_rebirth() -> GameSave {
     game_save.input = Input::new(&game_save.state);
     game_save
 }
-pub fn fifteenth_rebirth() -> GameSave {
+pub fn rebirth_15() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     r.rebirth_count = 10;
@@ -391,7 +391,7 @@ pub fn fifteenth_rebirth() -> GameSave {
     game_save
 }
 
-pub fn eigteenth_rebirth() -> GameSave {
+pub fn rebirth_18() -> GameSave {
     let mut game_save = GameSave::default();
     let r = &mut game_save.state.rebirth_stats;
     r.rebirth_count = 11;
