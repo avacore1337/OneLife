@@ -2,11 +2,13 @@ use crate::engine::{character_death_update, engine_run};
 use crate::game::Game;
 use crate::input::activity::ActivityTypes;
 use crate::input::options::Options;
+use crate::input::work::WorkTypes;
 use crate::input::Input;
 use crate::input_recording::Inputs;
 use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
 use crate::WORLD;
+use strum::IntoEnumIterator;
 
 pub fn get_upgrades_up_to_current_tier(rebirth_stats: &mut RebirthStats) {
     get_upgrades_up_to_tier(rebirth_stats, rebirth_stats.tier)
@@ -67,5 +69,40 @@ pub fn balance_activities(
         inputs.register_input_on_tick(tick, activities[i % activities.len()]);
         tick += increment;
         i += 1;
+    }
+}
+
+pub fn get_training_study_array() -> [ActivityTypes; 3] {
+    [
+        ActivityTypes::Training,
+        ActivityTypes::Studying,
+        ActivityTypes::Training,
+    ]
+}
+
+pub fn get_run_study_array() -> [ActivityTypes; 3] {
+    [
+        ActivityTypes::Run,
+        ActivityTypes::Studying,
+        ActivityTypes::Run,
+    ]
+}
+
+pub fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
+    let tier = rebirth_stats.tier;
+    for work in WorkTypes::iter() {
+        let work_world = WORLD.get_work(work);
+        if work_world.required_tier < tier {
+            rebirth_stats.max_job_levels[work as usize] = level;
+        }
+    }
+}
+
+pub fn set_jobs_at_tier_to(rebirth_stats: &mut RebirthStats, tier: u32, level: u32) {
+    for work in WorkTypes::iter() {
+        let work_world = WORLD.get_work(work);
+        if work_world.required_tier == tier {
+            rebirth_stats.max_job_levels[work as usize] = level;
+        }
     }
 }

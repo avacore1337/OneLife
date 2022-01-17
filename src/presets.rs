@@ -6,50 +6,14 @@ use crate::input::options::AutoSettingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
 use crate::input::work::WorkTypes;
 use crate::input::Input;
-use crate::state::rebirth_stats::RebirthStats;
 use crate::state::state_container::rebirth;
 use crate::util::{
-    balance_activities, get_upgrades_up_to_current_tier, get_upgrades_up_to_tier_max_cost,
-    set_full_auto,
+    balance_activities, get_run_study_array, get_training_study_array,
+    get_upgrades_up_to_current_tier, get_upgrades_up_to_tier_max_cost, set_full_auto,
+    set_jobs_at_tier_to, set_lower_tier_jobs_to,
 };
-use crate::WORLD;
 use std::collections::BTreeMap;
 use strum::IntoEnumIterator;
-
-fn get_training_study_array() -> [ActivityTypes; 3] {
-    [
-        ActivityTypes::Training,
-        ActivityTypes::Studying,
-        ActivityTypes::Training,
-    ]
-}
-
-fn get_run_study_array() -> [ActivityTypes; 3] {
-    [
-        ActivityTypes::Run,
-        ActivityTypes::Studying,
-        ActivityTypes::Run,
-    ]
-}
-
-fn set_lower_tier_jobs_to(rebirth_stats: &mut RebirthStats, level: u32) {
-    let tier = rebirth_stats.tier;
-    for work in WorkTypes::iter() {
-        let work_world = WORLD.get_work(work);
-        if work_world.required_tier < tier {
-            rebirth_stats.max_job_levels[work as usize] = level;
-        }
-    }
-}
-
-fn set_jobs_at_tier_to(rebirth_stats: &mut RebirthStats, tier: u32, level: u32) {
-    for work in WorkTypes::iter() {
-        let work_world = WORLD.get_work(work);
-        if work_world.required_tier == tier {
-            rebirth_stats.max_job_levels[work as usize] = level;
-        }
-    }
-}
 
 pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     let mut presets = BTreeMap::new();
