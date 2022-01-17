@@ -1,5 +1,6 @@
 use crate::game::GameSave;
 use crate::input::activity::ActivityTypes;
+use crate::input::boost_item::BoostItemTypes;
 use crate::input::housing::HousingTypes;
 use crate::input::options::AutoSettingTypes;
 use crate::input::rebirth_upgrade::RebirthUpgradeTypes;
@@ -452,6 +453,7 @@ pub fn rebirth_22() -> GameSave {
     pi.register_input_on_tick(40000, HousingTypes::LargeCloset);
     pi.register_input_on_tick(40000, AutoSettingTypes::AutoLivingFalse);
     pi.register_input_on_tick(40000, AutoSettingTypes::AutoBuyItemFalse);
+    pi.register_input_on_tick(50000, BoostItemTypes::Burial2);
 
     game_save.input = Input::new(&game_save.state);
     game_save
