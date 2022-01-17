@@ -182,6 +182,21 @@ pub fn remove_previous_recorded(val: u32) {
 }
 
 #[wasm_bindgen]
+pub fn set_auto_rebirth(val: bool) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_auto_rebirth_internal(val, game);
+}
+
+pub fn set_auto_rebirth_internal(val: bool, game: &mut Game) {
+    if val {
+        game.register_input(AutoSettingTypes::AutoRebirthTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoRebirthFalse)
+    };
+    game.meta_data.options.auto_rebirth = val;
+}
+
+#[wasm_bindgen]
 pub fn set_auto_work(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     set_auto_work_internal(val, game);

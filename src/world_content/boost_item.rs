@@ -18,118 +18,118 @@ pub struct BoostItem {
 }
 
 impl Gain for BoostItem {
-    fn gain(&self, intermediate: &mut IntermediateState) {
+    fn gain(&self, inter: &mut IntermediateState) {
         match self.name {
             BoostItemTypes::Book => {
-                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe1 => {
-                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::Clothes1 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             // BoostItemTypes::IronPickAxe => {
-            //     intermediate.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
+            //     inter.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
             // }
             BoostItemTypes::IronAxe => {
-                intermediate.add_multiplier(KeyValues::Woodcutter, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Woodcutter, 2.0, self.display_name);
             }
             BoostItemTypes::Book2 => {
-                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe2 => {
-                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::Clothes2 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
+                inter.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             BoostItemTypes::Book3 => {
-                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Book4 => {
-                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Book5 => {
-                intermediate.add_multiplier(KeyValues::Int, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe3 => {
-                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe4 => {
-                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe5 => {
-                intermediate.add_multiplier(KeyValues::Con, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::FishingGear => {
-                intermediate.add_multiplier(KeyValues::Fisherman, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Fisherman, 1.5, self.display_name);
             }
             BoostItemTypes::Clothes3 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
+                inter.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             BoostItemTypes::Clothes4 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
+                inter.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             BoostItemTypes::Clothes5 => {
-                intermediate.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
+                inter.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             BoostItemTypes::Leach => {
-                intermediate.add_base(KeyValues::Health, 1.0, self.display_name);
+                inter.add_base(KeyValues::Health, 1.0, self.display_name);
             }
             BoostItemTypes::PitchFork => {
-                intermediate.add_multiplier(KeyValues::Farmer, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Farmer, 2.0, self.display_name);
             }
             BoostItemTypes::HealthKit => {
-                intermediate.add_base(KeyValues::Health, 2.0, self.display_name);
+                inter.add_base(KeyValues::Health, 2.0, self.display_name);
             }
             BoostItemTypes::Dumbell => {
-                intermediate.add_multiplier(KeyValues::Str, 4.0, self.display_name);
+                inter.add_multiplier(KeyValues::Str, 4.0, self.display_name);
             }
             BoostItemTypes::Dumbell2 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Str, 2.0, self.display_name);
             }
             BoostItemTypes::Dumbell3 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Str, 2.0, self.display_name);
             }
             BoostItemTypes::Dumbell4 => {
-                intermediate.add_multiplier(KeyValues::Str, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Str, 2.0, self.display_name);
             }
             BoostItemTypes::Flower1 => {
-                intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
             BoostItemTypes::Flower2 => {
-                intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
             BoostItemTypes::Flower3 => {
-                intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
             BoostItemTypes::Flower4 => {
-                intermediate.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation1 => {
-                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation2 => {
-                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation3 => {
-                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation4 => {
-                intermediate.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
             }
             BoostItemTypes::Burial1 => {
-                intermediate.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
             BoostItemTypes::Burial2 => {
-                intermediate.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
             BoostItemTypes::Burial3 => {
-                intermediate.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
             BoostItemTypes::Burial4 => {
-                intermediate.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
         }
     }

@@ -72,6 +72,8 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     presets.insert("Test_5: Rebirth 15", rebirth_15());
     presets.insert("Test_6: Rebirth 18", rebirth_18());
     presets.insert("Test_7: Rebirth 22", rebirth_22());
+    presets.insert("Test_8: Rebirth 23", rebirth_23());
+    presets.insert("Test_9: Rebirth 24", rebirth_24());
 
     presets
 }
@@ -195,13 +197,14 @@ fn make_t3() -> GameSave {
     r.coins = 100.0;
     r.rebirth_count = 16;
 
-    set_lower_tier_jobs_to(r, 50);
+    set_lower_tier_jobs_to(r, 25);
 
     game_save.state = rebirth(r.clone());
 
     game_save.input = Input::new(&game_save.state);
     game_save
 }
+
 pub fn make_t4() -> GameSave {
     let mut game_save = GameSave::default();
     let state = &mut game_save.state;
@@ -438,6 +441,65 @@ pub fn rebirth_22() -> GameSave {
     r.max_job_levels[WorkTypes::Pikeman as usize] = 20;
     r.max_job_levels[WorkTypes::FootCompanion as usize] = 20;
     get_upgrades_up_to_tier_max_cost(r, 2, 40.0);
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    let pi = &mut game_save.previous_inputs;
+    balance_activities(pi, 4000, 7000, &get_run_study_array());
+    pi.register_input_on_tick(15000, WorkTypes::BagageBoy);
+    balance_activities(pi, 7000, 40000, &get_training_study_array());
+    pi.register_input_on_tick(40000, ActivityTypes::Training);
+    pi.register_input_on_tick(40000, ActivityTypes::Flirt);
+    pi.register_input_on_tick(40000, HousingTypes::LargeCloset);
+    pi.register_input_on_tick(40000, AutoSettingTypes::AutoLivingFalse);
+    pi.register_input_on_tick(40000, AutoSettingTypes::AutoBuyItemFalse);
+    pi.register_input_on_tick(50000, BoostItemTypes::Burial2);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+
+pub fn rebirth_23() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 11;
+    r.tier = 3;
+    get_upgrades_up_to_tier_max_cost(r, 3, 300.0);
+    set_lower_tier_jobs_to(r, 30);
+    // r.max_job_levels[WorkTypes::FootCompanion as usize] = 20;
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    let pi = &mut game_save.previous_inputs;
+    balance_activities(pi, 4000, 7000, &get_run_study_array());
+    pi.register_input_on_tick(15000, WorkTypes::BagageBoy);
+    balance_activities(pi, 7000, 40000, &get_training_study_array());
+    pi.register_input_on_tick(40000, ActivityTypes::Training);
+    pi.register_input_on_tick(40000, ActivityTypes::Flirt);
+    pi.register_input_on_tick(40000, HousingTypes::LargeCloset);
+    pi.register_input_on_tick(40000, AutoSettingTypes::AutoLivingFalse);
+    pi.register_input_on_tick(40000, AutoSettingTypes::AutoBuyItemFalse);
+    pi.register_input_on_tick(50000, BoostItemTypes::Burial2);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+
+pub fn rebirth_24() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 11;
+    r.tier = 3;
+    get_upgrades_up_to_tier_max_cost(r, 3, 300.0);
+    set_lower_tier_jobs_to(r, 30);
+    r.max_job_levels[WorkTypes::Hypaspists as usize] = 20;
+    r.max_job_levels[WorkTypes::Farmer as usize] = 25;
     game_save.state = rebirth(r.clone());
 
     let state = &mut game_save.state;

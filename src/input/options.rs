@@ -13,6 +13,8 @@ pub enum AutoSettingTypes {
     AutoBuyItemFalse,
     AutoBuyTombTrue,
     AutoBuyTombFalse,
+    AutoRebirthTrue,
+    AutoRebirthFalse,
 }
 
 impl Recordable for AutoSettingTypes {
@@ -26,6 +28,8 @@ impl Recordable for AutoSettingTypes {
             AutoSettingTypes::AutoBuyItemFalse => "Auto Buy Item False",
             AutoSettingTypes::AutoBuyTombTrue => "Auto Buy Tomb True",
             AutoSettingTypes::AutoBuyTombFalse => "Auto Buy Tomb False",
+            AutoSettingTypes::AutoRebirthTrue => "Auto Rebirth True",
+            AutoSettingTypes::AutoRebirthFalse => "Auto Rebirth False",
         }
         .into()
     }
@@ -37,6 +41,7 @@ pub struct Options {
     pub auto_living: bool,
     pub auto_buy_item: bool,
     pub auto_buy_tomb: bool,
+    pub auto_rebirth: bool,
     pub show_bought_items: bool,
     pub show_bought_upgrades: bool,
 }

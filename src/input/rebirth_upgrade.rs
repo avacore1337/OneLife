@@ -27,8 +27,12 @@ pub enum RebirthUpgradeTypes {
     AutoLive,
     AutoBuyItem,
     AutoBuyTomb,
+    AutoRebirth,
     Replay,
     TheDivine,
+    BribeCharon1,
+    BribeCharon2,
+    BribeCharon3,
 }
 
 pub const REBIRTH_UPGRADE_SIZE: usize = variant_count::<RebirthUpgradeTypes>();

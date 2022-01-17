@@ -25,6 +25,10 @@
       {{ !metaData.options.auto_buy_tomb ? "Auto Buy Tomb" : "Don't Auto Buy Tomb" }}
     </button>
     <br />
+    <button v-on:click="toggle_auto_rebirth" style="margin: 2px">
+      {{ !metaData.options.auto_rebirth ? "Auto Rebirth" : "Don't Auto Rebirth" }}
+    </button>
+    <br />
     <button v-on:click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
     <br />
     <button v-on:click="toggle_show_recorded" style="margin: 2px">
@@ -111,6 +115,9 @@ export default {
     },
     toggle_auto_buy_tomb: function () {
       this.wasm.set_auto_buy_tomb(!this.metaData.options.auto_buy_tomb);
+    },
+    toggle_auto_rebirth: function () {
+      this.wasm.set_auto_rebirth(!this.metaData.options.auto_rebirth);
     },
     print_frontend_debug_state: function () {
       console.log(this.state);

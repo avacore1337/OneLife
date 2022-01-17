@@ -60,6 +60,9 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::AutoBuyTomb => {
             unlocks.can_auto_buy_tomb = true;
         }
+        RebirthUpgradeTypes::AutoRebirth => {
+            unlocks.can_auto_rebirth = true;
+        }
         RebirthUpgradeTypes::Replay => {
             unlocks.can_replay = true;
         }
@@ -83,61 +86,46 @@ impl RebirthUpgrade {
             return;
         }
 
+        let inter = &mut game.intermediate_state;
         match self.name {
             RebirthUpgradeTypes::AcceptingDeath => {
-                game.intermediate_state.add_multiplier(
-                    KeyValues::Happiness,
-                    1.5,
-                    self.display_name,
-                );
+                inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             RebirthUpgradeTypes::AcceptingDeath2 => {
-                game.intermediate_state.add_multiplier(
-                    KeyValues::Happiness,
-                    1.5,
-                    self.display_name,
-                );
+                inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             RebirthUpgradeTypes::AcceptingDeath3 => {
-                game.intermediate_state.add_multiplier(
-                    KeyValues::Happiness,
-                    1.5,
-                    self.display_name,
-                );
+                inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             RebirthUpgradeTypes::Privilege1 => {
-                game.intermediate_state
-                    .add_multiplier(KeyValues::Money, 1.2, self.display_name);
+                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
             }
             RebirthUpgradeTypes::Privilege2 => {
-                game.intermediate_state
-                    .add_multiplier(KeyValues::Money, 1.2, self.display_name);
+                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
             }
             RebirthUpgradeTypes::Privilege3 => {
-                game.intermediate_state
-                    .add_multiplier(KeyValues::Money, 1.2, self.display_name);
+                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
             }
             RebirthUpgradeTypes::LaborXp1 => {
-                game.intermediate_state
-                    .add_multiplier(KeyValues::LaborXp, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::LaborXp, 1.5, self.display_name);
             }
             RebirthUpgradeTypes::LaborXp2 => {
-                game.intermediate_state
-                    .add_multiplier(KeyValues::LaborXp, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::LaborXp, 1.5, self.display_name);
             }
             RebirthUpgradeTypes::SoldierXp1 => {
-                game.intermediate_state.add_multiplier(
-                    KeyValues::SoldierXp,
-                    2.0,
-                    self.display_name,
-                );
+                inter.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
             }
             RebirthUpgradeTypes::SoldierXp2 => {
-                game.intermediate_state.add_multiplier(
-                    KeyValues::SoldierXp,
-                    2.0,
-                    self.display_name,
-                );
+                inter.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
+            }
+            RebirthUpgradeTypes::BribeCharon1 => {
+                inter.add_multiplier(KeyValues::Coins, 1.2, self.display_name);
+            }
+            RebirthUpgradeTypes::BribeCharon2 => {
+                inter.add_multiplier(KeyValues::Coins, 1.2, self.display_name);
+            }
+            RebirthUpgradeTypes::BribeCharon3 => {
+                inter.add_multiplier(KeyValues::Coins, 1.2, self.display_name);
             }
             _ => (),
         }
@@ -193,6 +181,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
 
         // -------------------------------------------------------
         // TIER 2
+        RebirthUpgradeTypes::BribeCharon1 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 30.0,
+            description: "Sometimes they ferry payment is more expensive than it should be",
+            display_name: "Bribe Charon 1",
+            required_tier: 2,
+        },
         RebirthUpgradeTypes::Privilege2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 90.0,
@@ -245,32 +240,32 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         },
 
         // TIER 3 - 500
-        RebirthUpgradeTypes::Skills => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 400.0,
-            description: "You can be good at things now",
-            display_name: "Skills",
-            required_tier: 3,
-        },
-        RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 90.0,
-            description: "TODO",
-            display_name: "Soldier Experience 2",
-            required_tier: 3,
-        },
         RebirthUpgradeTypes::AutoBuyTomb => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 160.0,
+            purchasing_cost: 250.0,
             description: "Put some more thought into it!",
             display_name: "Automate Buying of Tombs",
             required_tier: 3,
         },
+        RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 500.0,
+            description: "TODO",
+            display_name: "Soldier Experience 2",
+            required_tier: 3,
+        },
         RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 200.0,
+            purchasing_cost: 1000.0,
             description: "A military genious in the making",
             display_name: "Unlock Tactics",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::BribeCharon2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 300.0,
+            description: "Sometimes they ferry payment is more expensive than it should be",
+            display_name: "Bribe Charon 2",
             required_tier: 3,
         },
         RebirthUpgradeTypes::Privilege3 => RebirthUpgrade {
@@ -278,13 +273,6 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 600.0,
             description: "TODO",
             display_name: "Lesser Privilege",
-            required_tier: 3,
-        },
-        RebirthUpgradeTypes::UnlockFaith => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 10000.0,
-            description: "Believing in gods is not that hard when they actualy exists",
-            display_name: "Unlock Faith",
             required_tier: 3,
         },
         RebirthUpgradeTypes::StartingWealth3 => RebirthUpgrade {
@@ -296,6 +284,34 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         },
 
         // TIER 4 - 5000
+        RebirthUpgradeTypes::AutoRebirth => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 3_000.0,
+            description: "Sometimes they ferry payment is more expensive than it should be",
+            display_name: "Bribe Charon 3",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::BribeCharon3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 3_000.0,
+            description: "Sometimes they ferry payment is more expensive than it should be",
+            display_name: "Bribe Charon 3",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::UnlockFaith => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 10000.0,
+            description: "Believing in gods is not that hard when they actualy exists",
+            display_name: "Unlock Faith",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::Skills => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 8000.0,
+            description: "You can be good at things now",
+            display_name: "Skills",
+            required_tier: 4,
+        },
         RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 4000.0,
