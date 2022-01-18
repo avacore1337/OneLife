@@ -15,6 +15,8 @@ pub enum KeyValues {
     LaborXp,
     SoldierXp,
     IntellectualXp,
+    Skills,
+    Stats,
     //Stats
     Str,
     Int,

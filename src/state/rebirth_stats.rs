@@ -15,6 +15,7 @@ pub struct Unlocks {
     pub has_faith: bool,
     pub has_skills: bool,
     pub has_military_tactics: bool,
+    pub has_meditation: bool,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

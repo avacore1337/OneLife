@@ -43,6 +43,9 @@ pub enum BoostItemTypes {
     Burial2,
     Burial3,
     Burial4,
+    BribeOfficial1,
+    BribeOfficial2,
+    BribeOfficial3,
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();

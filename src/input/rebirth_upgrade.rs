@@ -21,7 +21,7 @@ pub enum RebirthUpgradeTypes {
     // StatMemory1,
     EndItEarly,
     // GemSense, // gives you a huge multiplier to mining
-    Skills,
+    UnlockMeditation,
     UnlockTactics,
     UnlockFaith,
     AutoWork,

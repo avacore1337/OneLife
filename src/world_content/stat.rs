@@ -16,31 +16,25 @@ pub struct Stat {
 impl Stat {
     pub fn get_stats_gains(&self, game: &mut Game) {
         let stat_state = &mut game.state.stats[self.name as usize];
+        let level = stat_state.level;
         if !stat_state.is_visible {
             return;
         }
 
+        let inter = &mut game.intermediate_state;
         match self.name {
             StatTypes::Con => {
-                game.intermediate_state.add_multiplier(
-                    KeyValues::Health,
-                    0.05 * stat_state.level,
-                    self.display_name,
-                );
+                inter.add_multiplier(KeyValues::Health, 0.05 * level, self.display_name);
+            }
+            StatTypes::Int => {
+                inter.add_multiplier(KeyValues::Stats, 1.0 + (0.1 * level), self.display_name);
+                inter.add_multiplier(KeyValues::Skills, 1.0 + (0.1 * level), self.display_name);
             }
             StatTypes::Str => {
-                game.intermediate_state.add_multiplier(
-                    KeyValues::SoldierXp,
-                    0.05 * stat_state.level,
-                    self.display_name,
-                );
+                inter.add_multiplier(KeyValues::SoldierXp, 0.05 * level, self.display_name);
             }
             StatTypes::Cha => {
-                game.intermediate_state.add_multiplier(
-                    KeyValues::Coins,
-                    1.0 + 0.05 * stat_state.level,
-                    self.display_name,
-                );
+                inter.add_multiplier(KeyValues::Coins, 1.0 + (0.05 * level), self.display_name);
             }
             _ => {}
         }

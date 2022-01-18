@@ -42,8 +42,8 @@ pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: Rebir
 
 pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
     match rebirth_upgrade {
-        RebirthUpgradeTypes::Skills => {
-            unlocks.has_skills = true;
+        RebirthUpgradeTypes::UnlockMeditation => {
+            unlocks.has_meditation = true;
         }
         RebirthUpgradeTypes::EndItEarly => {
             unlocks.can_end_early = true;
@@ -70,6 +70,7 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
             unlocks.has_faith = true;
         }
         RebirthUpgradeTypes::UnlockTactics => {
+            unlocks.has_skills = true;
             unlocks.has_military_tactics = true;
         }
         RebirthUpgradeTypes::UnlockFaith => {
@@ -95,7 +96,7 @@ impl RebirthUpgrade {
                 inter.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             RebirthUpgradeTypes::AcceptingDeath3 => {
-                inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             RebirthUpgradeTypes::AcceptingDeath4 => {
                 inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
@@ -315,11 +316,11 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Unlock Faith",
             required_tier: 4,
         },
-        RebirthUpgradeTypes::Skills => RebirthUpgrade {
+        RebirthUpgradeTypes::UnlockMeditation => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 8_000.0,
             description: "You can be good at things now",
-            display_name: "Skills",
+            display_name: "Meditation",
             required_tier: 4,
         },
         RebirthUpgradeTypes::AcceptingDeath4 => RebirthUpgrade {

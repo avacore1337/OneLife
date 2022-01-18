@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 #![cfg(debug_assertions)]
 
-use crate::engine::engine_run;
+use crate::engine::{engine_run, update_unlocks};
 // use crate::input_mapping::InputMapping;
 use crate::presets::get_presets;
 use log::info;
@@ -13,18 +13,21 @@ use crate::GLOBAL_DATA;
 pub fn grow_old() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.life_stats.age = game.state.life_stats.lifespan - 2.0;
+    update_unlocks(&mut *game);
 }
 
 #[wasm_bindgen]
 pub fn give_money(money: f64) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.items.money = money;
+    update_unlocks(&mut *game);
 }
 
 #[wasm_bindgen]
 pub fn give_coins(coins: f64) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.rebirth_stats.coins = coins;
+    update_unlocks(&mut *game);
 }
 
 #[wasm_bindgen]

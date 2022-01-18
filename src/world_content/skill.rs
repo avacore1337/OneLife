@@ -63,7 +63,8 @@ pub fn should_be_visible_skill(input_skill: SkillTypes, game: &Game) -> bool {
     }
     match input_skill {
         SkillTypes::Tactics => game.state.rebirth_stats.unlocks.has_military_tactics,
-        _ => true,
+        SkillTypes::Mindfull => game.state.rebirth_stats.unlocks.has_meditation,
+        // _ => true,
     }
 }
 

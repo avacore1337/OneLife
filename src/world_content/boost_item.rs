@@ -131,6 +131,15 @@ impl Gain for BoostItem {
             BoostItemTypes::Burial4 => {
                 inter.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
+            BoostItemTypes::BribeOfficial1 => {
+                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
+            }
+            BoostItemTypes::BribeOfficial2 => {
+                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
+            }
+            BoostItemTypes::BribeOfficial3 => {
+                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
+            }
         }
     }
 }
@@ -325,6 +334,14 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Daisy",
             required_tier: 2,
         },
+        BoostItemTypes::BribeOfficial1 => BoostItem {
+            name: item_type,
+            purchasing_cost: 800_000.0,
+            description: "Some flowers are prettier than others",
+            effect_description: "1.3x Money gain",
+            display_name: "Bribe Official 1",
+            required_tier: 2,
+        },
 
         // TOMB 3 - 1 000 000
         BoostItemTypes::IronAxe => BoostItem {
@@ -391,6 +408,14 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Tulip",
             required_tier: 3,
         },
+        BoostItemTypes::BribeOfficial2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 8.0e6,
+            description: "Some flowers are prettier than others",
+            effect_description: "1.3x Money gain",
+            display_name: "Bribe Official 2",
+            required_tier: 3,
+        },
 
         // TOMB 4 - 10 000 000
         BoostItemTypes::Burial4 => BoostItem {
@@ -407,6 +432,14 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             description: "todo",
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
+            required_tier: 4,
+        },
+        BoostItemTypes::BribeOfficial3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 80.0e6,
+            description: "Some flowers are prettier than others",
+            effect_description: "1.3x Money gain",
+            display_name: "Bribe Official 3",
             required_tier: 4,
         },
 

@@ -72,6 +72,18 @@ pub fn balance_activities(
     }
 }
 
+pub fn get_training_study_wargames_array() -> [ActivityTypes; 7] {
+    [
+        ActivityTypes::Training,
+        ActivityTypes::Studying,
+        ActivityTypes::Training,
+        ActivityTypes::WarGames,
+        ActivityTypes::Training,
+        ActivityTypes::Studying,
+        ActivityTypes::Training,
+    ]
+}
+
 pub fn get_training_study_array() -> [ActivityTypes; 3] {
     [
         ActivityTypes::Training,
