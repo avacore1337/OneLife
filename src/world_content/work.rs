@@ -90,7 +90,7 @@ const fn translate_work(work: WorkTypes) -> Work {
         },
         WorkTypes::Weaver => Work {
             name: work,
-            money: 12.0,
+            money: 14.0,
             description: "Real work",
             display_name: "Weaver",
             required_tier: 1,
@@ -99,7 +99,7 @@ const fn translate_work(work: WorkTypes) -> Work {
         },
         WorkTypes::Fisherman => Work {
             name: work,
-            money: 16.0,
+            money: 17.0,
             description: "A man of the sea",
             display_name: "Fisherman",
             required_tier: 2,
@@ -113,7 +113,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             display_name: "Farmer",
             required_tier: 3,
             work_type: WorkCategoryTypes::Labor,
-            xp_req_modifier: 256.0,
+            xp_req_modifier: 128.0,
         },
         WorkTypes::Woodcutter => Work {
             name: work,
@@ -244,12 +244,12 @@ const fn translate_work(work: WorkTypes) -> Work {
         },
         WorkTypes::Hypaspists => Work {
             name: work,
-            money: 180.0,
+            money: 240.0,
             description: "todo",
             display_name: "Hypaspists",
             required_tier: 3,
             work_type: WorkCategoryTypes::Soldier,
-            xp_req_modifier: 2.0e4,
+            xp_req_modifier: 2_000.0,
         },
         WorkTypes::LightCavalery => Work {
             name: work,

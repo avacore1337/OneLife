@@ -48,7 +48,7 @@ impl Gain for BoostItem {
                 inter.add_multiplier(KeyValues::Int, 1.5, self.display_name);
             }
             BoostItemTypes::Book4 => {
-                inter.add_multiplier(KeyValues::Int, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Int, 2.0, self.display_name);
             }
             BoostItemTypes::Book5 => {
                 inter.add_multiplier(KeyValues::Int, 1.5, self.display_name);
@@ -57,7 +57,7 @@ impl Gain for BoostItem {
                 inter.add_multiplier(KeyValues::Con, 1.5, self.display_name);
             }
             BoostItemTypes::Shoe4 => {
-                inter.add_multiplier(KeyValues::Con, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Con, 2.0, self.display_name);
             }
             BoostItemTypes::Shoe5 => {
                 inter.add_multiplier(KeyValues::Con, 1.5, self.display_name);
@@ -482,6 +482,7 @@ pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Gam
         }
         BoostItemTypes::FishingGear => game.state.works[WorkTypes::Fisherman as usize].level > 25,
         BoostItemTypes::PitchFork => game.state.works[WorkTypes::Farmer as usize].level > 25,
+        BoostItemTypes::IronAxe => game.state.works[WorkTypes::Woodcutter as usize].level > 25,
         _ => true,
     }
 }

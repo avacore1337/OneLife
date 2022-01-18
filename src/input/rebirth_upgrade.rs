@@ -7,6 +7,7 @@ pub enum RebirthUpgradeTypes {
     AcceptingDeath,
     AcceptingDeath2,
     AcceptingDeath3,
+    AcceptingDeath4,
     StartingWealth1,
     StartingWealth2,
     StartingWealth3,

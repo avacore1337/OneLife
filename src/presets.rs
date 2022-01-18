@@ -29,15 +29,15 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     presets.insert("09: rich death", make_rich_death());
     presets.insert("10: billion coins t0", make_only_coins());
     // presets.insert("Test_0: first rebirth", first_rebirth());
-    presets.insert("Test_1: Rebirth 2", rebirth_2());
-    presets.insert("Test_2: Rebirth 3", rebirth_3());
-    presets.insert("Test_3: Rebirth 10", rebirth_10());
-    presets.insert("Test_4: Rebirth 12", rebirth_12());
-    presets.insert("Test_5: Rebirth 15", rebirth_15());
-    presets.insert("Test_6: Rebirth 18", rebirth_18());
-    presets.insert("Test_7: Rebirth 22", rebirth_22());
-    presets.insert("Test_8: Rebirth 23", rebirth_23());
-    presets.insert("Test_9: Rebirth 24", rebirth_24());
+    presets.insert("T0 Test_1: Re 2", rebirth_2());
+    presets.insert("T1 Test_2: Re 3", rebirth_3());
+    presets.insert("T1 Test_3: Re 10", rebirth_10());
+    presets.insert("T2 Test_4: Re 12", rebirth_12());
+    presets.insert("T2 Test_5: Re 15", rebirth_15());
+    presets.insert("T2 Test_6: Re 18", rebirth_18());
+    presets.insert("T2 Test_7: Re 22", rebirth_22());
+    presets.insert("T3 Test_8: Re 23", rebirth_23());
+    presets.insert("T3 Test_9: Re 24", rebirth_24());
 
     presets
 }

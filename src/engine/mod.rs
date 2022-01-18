@@ -27,7 +27,7 @@ use crate::world_content::housing::{should_be_visible_housing, should_unlock_hou
 use crate::world_content::rebirth_upgrade::{
     should_be_visible_rebirth_upgrade, should_unlock_rebirth_upgrade, unlock,
 };
-use crate::world_content::skill::should_be_visible_skill;
+use crate::world_content::skill::{should_be_visible_skill, Skill as WorldSkill};
 use crate::world_content::stat::should_be_visible_stat;
 use crate::world_content::tomb::{should_be_visible_tomb, should_unlock_tomb};
 use crate::world_content::work::{should_be_visible_work, should_unlock_work, Work as WorkWorld};
@@ -304,21 +304,22 @@ fn gain_skill_xp(game: &mut Game) {
     for skill_type in SkillTypes::iter() {
         let skill_xp = game.intermediate_state.get_value(skill_type.into()) * level_multiplier;
         let skill: &mut Skill = &mut game.state.skills[skill_type as usize];
+        let world_skill = &game.world.skills[skill_type as usize];
         skill.xp_rate = skill_xp;
         skill.next_level_progress += skill_xp / TICK_RATE;
-        let mut next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill);
+        let mut next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill, world_skill);
         while skill.next_level_progress > next_level_xp_needed {
             skill.level += 1.0;
             skill.next_level_progress -= next_level_xp_needed;
-            next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill);
+            next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill, world_skill);
         }
         skill.next_level_required = next_level_xp_needed;
         skill.next_level_percentage = (skill.next_level_progress * 100.0) / next_level_xp_needed;
     }
 }
 
-fn calculate_skill_next_level_xp_neeeded(stat: &mut Skill) -> f64 {
-    (100.0 + (4.0 * stat.level * stat.level)) as f64
+fn calculate_skill_next_level_xp_neeeded(skill: &mut Skill, world_skill: &WorldSkill) -> f64 {
+    (100.0 + (4.0 * skill.level * skill.level)) as f64 * world_skill.xp_req_modifier
 }
 
 fn gain_stat_xp(game: &mut Game) {

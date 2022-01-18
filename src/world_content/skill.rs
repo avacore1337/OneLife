@@ -11,6 +11,7 @@ pub struct Skill {
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
+    pub xp_req_modifier: f64,
 }
 
 impl Skill {
@@ -43,12 +44,14 @@ pub const fn translate_skill(skill: SkillTypes) -> Skill {
             description: "Be one with the world",
             display_name: "Mindefullness",
             required_tier: 1,
+            xp_req_modifier: 4.0,
         },
         SkillTypes::Tactics => Skill {
             name: skill,
             description: "Flank them!",
             display_name: "Military Tactics",
             required_tier: 3,
+            xp_req_modifier: 4.0,
         },
     }
 }

@@ -89,12 +89,15 @@ impl RebirthUpgrade {
         let inter = &mut game.intermediate_state;
         match self.name {
             RebirthUpgradeTypes::AcceptingDeath => {
-                inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Happiness, 1.7, self.display_name);
             }
             RebirthUpgradeTypes::AcceptingDeath2 => {
-                inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+                inter.add_multiplier(KeyValues::Happiness, 1.3, self.display_name);
             }
             RebirthUpgradeTypes::AcceptingDeath3 => {
+                inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
+            }
+            RebirthUpgradeTypes::AcceptingDeath4 => {
                 inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
             RebirthUpgradeTypes::Privilege1 => {
@@ -164,13 +167,6 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Labor Experience",
             required_tier: 1,
         },
-        RebirthUpgradeTypes::StartingWealth2 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 40.0,
-            description: "Pocket change for some, a fortune for others",
-            display_name: "Starting Money 2",
-            required_tier: 1,
-        },
         RebirthUpgradeTypes::AutoWork => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 12.0,
@@ -187,6 +183,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 1",
             required_tier: 2,
+        },
+        RebirthUpgradeTypes::StartingWealth2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 80.0,
+            description: "Pocket change for some, a fortune for others",
+            display_name: "Starting Wealth 2",
+            required_tier: 1,
         },
         RebirthUpgradeTypes::Privilege2 => RebirthUpgrade {
             name: rebirth_upgrade,
@@ -247,6 +250,13 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Automate Buying of Tombs",
             required_tier: 3,
         },
+        RebirthUpgradeTypes::BribeCharon2 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 300.0,
+            description: "Sometimes they ferry payment is more expensive than it should be",
+            display_name: "Bribe Charon 2",
+            required_tier: 3,
+        },
         RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 500.0,
@@ -261,26 +271,26 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             display_name: "Unlock Tactics",
             required_tier: 3,
         },
-        RebirthUpgradeTypes::BribeCharon2 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 300.0,
-            description: "Sometimes they ferry payment is more expensive than it should be",
-            display_name: "Bribe Charon 2",
-            required_tier: 3,
-        },
         RebirthUpgradeTypes::Privilege3 => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 600.0,
+            purchasing_cost: 1500.0,
             description: "TODO",
             display_name: "Lesser Privilege",
             required_tier: 3,
         },
         RebirthUpgradeTypes::StartingWealth3 => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 900.0,
+            purchasing_cost: 800.0,
             description: "Anything is better than nothing",
             display_name: "Starting Items",
             required_tier: 3,
+        },
+        RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 2000.0,
+            description: "You know who you are. And that someone is going to be important one day",
+            display_name: "Finding yourself",
+            required_tier: 4,
         },
 
         // TIER 4 - 5000
@@ -300,28 +310,28 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         },
         RebirthUpgradeTypes::UnlockFaith => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 10000.0,
+            purchasing_cost: 10_000.0,
             description: "Believing in gods is not that hard when they actualy exists",
             display_name: "Unlock Faith",
             required_tier: 4,
         },
         RebirthUpgradeTypes::Skills => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 8000.0,
+            purchasing_cost: 8_000.0,
             description: "You can be good at things now",
             display_name: "Skills",
             required_tier: 4,
         },
-        RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
+        RebirthUpgradeTypes::AcceptingDeath4 => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 4000.0,
+            purchasing_cost: 20_000.0,
             description: "You know who you are. And that someone is going to be important one day",
             display_name: "Finding yourself",
             required_tier: 4,
         },
         RebirthUpgradeTypes::Replay => RebirthUpgrade {
             name: rebirth_upgrade,
-            purchasing_cost: 6000.0,
+            purchasing_cost: 6_000.0,
             description: "Are you still playing?",
             display_name: "Replay",
             required_tier: 4,
