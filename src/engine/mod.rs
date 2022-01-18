@@ -299,8 +299,7 @@ fn gain_work_xp(game: &mut Game) {
 }
 
 fn gain_skill_xp(game: &mut Game) {
-    let int_level = game.state.stats[StatTypes::Int as usize].level;
-    let level_multiplier = 1.0 + (int_level as f64 / 10.0);
+    let level_multiplier = game.intermediate_state.get_multiplier(KeyValues::Skills);
     for skill_type in SkillTypes::iter() {
         let skill_xp = game.intermediate_state.get_value(skill_type.into()) * level_multiplier;
         let skill: &mut Skill = &mut game.state.skills[skill_type as usize];
@@ -323,8 +322,7 @@ fn calculate_skill_next_level_xp_neeeded(skill: &mut Skill, world_skill: &WorldS
 }
 
 fn gain_stat_xp(game: &mut Game) {
-    let int_level = game.state.stats[StatTypes::Int as usize].level;
-    let level_multiplier = 1.0 + (int_level as f64 / 10.0);
+    let level_multiplier = game.intermediate_state.get_multiplier(KeyValues::Stats);
     for stat_type in StatTypes::iter() {
         let stat_xp = game.intermediate_state.get_value(stat_type.into()) * level_multiplier;
         let stat: &mut Stat = &mut game.state.stats[stat_type as usize];
