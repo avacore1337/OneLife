@@ -571,6 +571,15 @@ pub fn should_be_visible_boost_item(input_boost_item: BoostItemTypes, game: &Gam
         BoostItemTypes::FishingGear => game.state.works[WorkTypes::Fisherman as usize].level > 25,
         BoostItemTypes::PitchFork => game.state.works[WorkTypes::Farmer as usize].level > 25,
         BoostItemTypes::IronAxe => game.state.works[WorkTypes::Woodcutter as usize].level > 25,
+        BoostItemTypes::Meditation1 => game.state.rebirth_stats.unlocks.has_meditation,
+        BoostItemTypes::Meditation2 => game.state.rebirth_stats.unlocks.has_meditation,
+        BoostItemTypes::Meditation3 => game.state.rebirth_stats.unlocks.has_meditation,
+        BoostItemTypes::Meditation4 => game.state.rebirth_stats.unlocks.has_meditation,
+        BoostItemTypes::Tactics1 => game.state.rebirth_stats.unlocks.has_military_tactics,
+        BoostItemTypes::Tactics2 => game.state.rebirth_stats.unlocks.has_military_tactics,
+        BoostItemTypes::Tactics3 => game.state.rebirth_stats.unlocks.has_military_tactics,
+        BoostItemTypes::Tactics4 => game.state.rebirth_stats.unlocks.has_military_tactics,
+        BoostItemTypes::Tactics5 => game.state.rebirth_stats.unlocks.has_military_tactics,
         _ => true,
     }
 }

@@ -10,7 +10,7 @@ use one_life::presets::{rebirth_24, rebirth_35};
 use one_life::util::run_until_dead;
 use wasm_bindgen_test::wasm_bindgen_test;
 
-// #[wasm_bindgen_test]
+#[wasm_bindgen_test]
 fn test_rebirth_24() {
     let game = &mut Game::new();
     game.load_game(rebirth_24());
@@ -45,7 +45,7 @@ fn test_rebirth_35() {
     );
     assert!(
         game.state.tombs[TombTypes::FamilyGrave as usize].is_purchased,
-        "money: {}",
+        "No FamilyGrave purchased. Money: {}",
         money
     );
     assert!(money < 10.0e6, "Too much money money: {}", money);

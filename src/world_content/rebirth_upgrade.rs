@@ -15,6 +15,7 @@ pub struct RebirthUpgrade {
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
+    pub effect_description: &'static str,
 }
 
 pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: RebirthUpgradeTypes) {
@@ -29,13 +30,14 @@ pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: Rebir
             state.boost_items[BoostItemTypes::Book as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Shoe1 as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased = true;
-            state.items.money += 200000.0;
+            state.items.money += 200_000.0;
         }
-        // RebirthUpgradeTypes::StartingWealth4 => {
-        //     state.boost_items[BoostItemTypes::Book2 as usize].is_purchased = true;
-        //     state.boost_items[BoostItemTypes::Shoe2 as usize].is_purchased = true;
-        //     state.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased = true;
-        // }
+        RebirthUpgradeTypes::StartingWealth4 => {
+            state.boost_items[BoostItemTypes::Book2 as usize].is_purchased = true;
+            state.boost_items[BoostItemTypes::Shoe2 as usize].is_purchased = true;
+            state.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased = true;
+            state.items.money += 1_000_000.0;
+        }
         _ => (),
     }
 }
@@ -116,10 +118,16 @@ impl RebirthUpgrade {
             RebirthUpgradeTypes::LaborXp2 => {
                 inter.add_multiplier(KeyValues::LaborXp, 1.5, self.display_name);
             }
+            RebirthUpgradeTypes::LaborXp3 => {
+                inter.add_multiplier(KeyValues::LaborXp, 1.5, self.display_name);
+            }
             RebirthUpgradeTypes::SoldierXp1 => {
                 inter.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
             }
             RebirthUpgradeTypes::SoldierXp2 => {
+                inter.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
+            }
+            RebirthUpgradeTypes::SoldierXp3 => {
                 inter.add_multiplier(KeyValues::SoldierXp, 2.0, self.display_name);
             }
             RebirthUpgradeTypes::BribeCharon1 => {
@@ -145,6 +153,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 3.0,
             description: "You feel happier now that you know that death isn't the end",
             display_name: "Accepting Death",
+            effect_description: "todo",
             required_tier: 1,
         },
         RebirthUpgradeTypes::StartingWealth1 => RebirthUpgrade {
@@ -152,6 +161,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 8.0,
             description: "Pocket change for some, a fortune for others",
             display_name: "Starting Money",
+            effect_description: "todo",
             required_tier: 1,
         },
         RebirthUpgradeTypes::Privilege1 => RebirthUpgrade {
@@ -159,6 +169,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 12.0,
             description: "You have it easier than some at least",
             display_name: "Tiny Privilege",
+            effect_description: "todo",
             required_tier: 1,
         },
         RebirthUpgradeTypes::LaborXp1 => RebirthUpgrade {
@@ -166,6 +177,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 20.0,
             description: "TODO",
             display_name: "Labor Experience",
+            effect_description: "todo",
             required_tier: 1,
         },
         RebirthUpgradeTypes::AutoWork => RebirthUpgrade {
@@ -173,6 +185,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 12.0,
             description: "You start making decisions out of habit",
             display_name: "Automate Work Progression",
+            effect_description: "todo",
             required_tier: 1,
         },
 
@@ -183,6 +196,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 30.0,
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 1",
+            effect_description: "todo",
             required_tier: 2,
         },
         RebirthUpgradeTypes::StartingWealth2 => RebirthUpgrade {
@@ -190,6 +204,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 80.0,
             description: "Pocket change for some, a fortune for others",
             display_name: "Starting Wealth 2",
+            effect_description: "todo",
             required_tier: 1,
         },
         RebirthUpgradeTypes::Privilege2 => RebirthUpgrade {
@@ -197,6 +212,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 90.0,
             description: "Not the worst in town at least",
             display_name: "Minor Privilege",
+            effect_description: "todo",
             required_tier: 2,
         },
         RebirthUpgradeTypes::LaborXp2 => RebirthUpgrade {
@@ -204,6 +220,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 80.0,
             description: "TODO",
             display_name: "Labor Experience 2",
+            effect_description: "todo",
             required_tier: 2,
         },
         RebirthUpgradeTypes::AcceptingDeath2 => RebirthUpgrade {
@@ -212,6 +229,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description:
                 "You now have a goal, to improve your life and have the best life possible",
             display_name: "Finding A Goal",
+            effect_description: "todo",
             required_tier: 2,
         },
         RebirthUpgradeTypes::EndItEarly => RebirthUpgrade {
@@ -219,6 +237,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 300.0,
             description: "You can now commit a grave sin",
             display_name: "Ending It Early",
+            effect_description: "todo",
             required_tier: 2,
         },
         RebirthUpgradeTypes::AutoLive => RebirthUpgrade {
@@ -226,6 +245,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 12.0,
             description: "If you can affort it, why not?",
             display_name: "Automate Housing Progression",
+            effect_description: "todo",
             required_tier: 2,
         },
         RebirthUpgradeTypes::AutoBuyItem => RebirthUpgrade {
@@ -233,6 +253,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 60.0,
             description: "Consumerism!",
             display_name: "Automate Buying of Items",
+            effect_description: "todo",
             required_tier: 2,
         },
         RebirthUpgradeTypes::SoldierXp1 => RebirthUpgrade {
@@ -240,6 +261,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 30.0,
             description: "TODO",
             display_name: "Soldier Experience",
+            effect_description: "todo",
             required_tier: 2,
         },
 
@@ -249,6 +271,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 250.0,
             description: "Put some more thought into it!",
             display_name: "Automate Buying of Tombs",
+            effect_description: "todo",
             required_tier: 3,
         },
         RebirthUpgradeTypes::BribeCharon2 => RebirthUpgrade {
@@ -256,6 +279,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 300.0,
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 2",
+            effect_description: "todo",
             required_tier: 3,
         },
         RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
@@ -263,6 +287,15 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 500.0,
             description: "TODO",
             display_name: "Soldier Experience 2",
+            effect_description: "todo",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::StartingWealth3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 800.0,
+            description: "Anything is better than nothing",
+            display_name: "Starting Wealth 3",
+            effect_description: "todo",
             required_tier: 3,
         },
         RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
@@ -270,6 +303,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 1000.0,
             description: "A military genious in the making",
             display_name: "Unlock Tactics",
+            effect_description: "todo",
             required_tier: 3,
         },
         RebirthUpgradeTypes::Privilege3 => RebirthUpgrade {
@@ -277,13 +311,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 1500.0,
             description: "TODO",
             display_name: "Lesser Privilege",
-            required_tier: 3,
-        },
-        RebirthUpgradeTypes::StartingWealth3 => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 800.0,
-            description: "Anything is better than nothing",
-            display_name: "Starting Items",
+            effect_description: "todo",
             required_tier: 3,
         },
         RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
@@ -291,6 +319,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 2000.0,
             description: "You know who you are. And that someone is going to be important one day",
             display_name: "Finding yourself",
+            effect_description: "todo",
             required_tier: 3,
         },
 
@@ -300,6 +329,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 3_000.0,
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 3",
+            effect_description: "todo",
             required_tier: 4,
         },
         RebirthUpgradeTypes::BribeCharon3 => RebirthUpgrade {
@@ -307,6 +337,39 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 3_000.0,
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 3",
+            effect_description: "todo",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::UnlockMeditation => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 4_000.0,
+            description: "You can be good at things now",
+            display_name: "Meditation",
+            effect_description: "todo",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::SoldierXp3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 5000.0,
+            description: "TODO",
+            display_name: "Soldier Experience 3",
+            effect_description: "todo",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::LaborXp3 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 8000.0,
+            description: "TODO",
+            display_name: "Labor Experience 3",
+            effect_description: "todo",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::StartingWealth4 => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 8000.0,
+            description: "Anything is better than nothing",
+            display_name: "Starting Items",
+            effect_description: "todo",
             required_tier: 4,
         },
         RebirthUpgradeTypes::UnlockFaith => RebirthUpgrade {
@@ -314,13 +377,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 10_000.0,
             description: "Believing in gods is not that hard when they actualy exists",
             display_name: "Unlock Faith",
-            required_tier: 4,
-        },
-        RebirthUpgradeTypes::UnlockMeditation => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 8_000.0,
-            description: "You can be good at things now",
-            display_name: "Meditation",
+            effect_description: "todo",
             required_tier: 4,
         },
         RebirthUpgradeTypes::AcceptingDeath4 => RebirthUpgrade {
@@ -328,20 +385,26 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 20_000.0,
             description: "You know who you are. And that someone is going to be important one day",
             display_name: "Finding yourself",
+            effect_description: "todo",
             required_tier: 4,
         },
+
+        // TIER 5 - 50 000
         RebirthUpgradeTypes::Replay => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 6_000.0,
             description: "Are you still playing?",
             display_name: "Replay",
-            required_tier: 4,
+            effect_description: "todo",
+            required_tier: 5,
         },
+        // TIER 6 - 500 000
         RebirthUpgradeTypes::TheDivine => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 600_000.0,
             description: "Have a little faith",
             display_name: "Connect With The Gods",
+            effect_description: "todo",
             required_tier: 6,
         },
         // RebirthUpgradeTypes::StatMemory1 => RebirthUpgrade {
@@ -349,6 +412,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         //     purchasing_cost: 60.0,
         //     description: "Somehow your body remembers",
         //     display_name: "A feeling of the past",
+        //     effect_description: "todo",
         //     required_tier: 2,
         // },
     }

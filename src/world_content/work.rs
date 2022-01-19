@@ -117,12 +117,12 @@ const fn translate_work(work: WorkTypes) -> Work {
         },
         WorkTypes::Woodcutter => Work {
             name: work,
-            money: 64.0,
+            money: 128.0,
             description: "Hard labor for a free man",
             display_name: "Woodcutter",
             required_tier: 4,
             work_type: WorkCategoryTypes::Labor,
-            xp_req_modifier: 1_000.0,
+            xp_req_modifier: 2_000.0,
         },
         WorkTypes::LeatherWorker => Work {
             name: work,
@@ -253,12 +253,12 @@ const fn translate_work(work: WorkTypes) -> Work {
         },
         WorkTypes::LightCavalery => Work {
             name: work,
-            money: 300.0,
+            money: 800.0,
             description: "todo",
             display_name: "Light Cavalery",
             required_tier: 4,
             work_type: WorkCategoryTypes::Soldier,
-            xp_req_modifier: 4.0e4,
+            xp_req_modifier: 32_000.0,
         },
         // Int based work
         // WorkTypes::Trader => Work {
