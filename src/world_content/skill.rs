@@ -51,7 +51,7 @@ pub const fn translate_skill(skill: SkillTypes) -> Skill {
             description: "Flank them!",
             display_name: "Military Tactics",
             required_tier: 3,
-            xp_req_modifier: 4.0,
+            xp_req_modifier: 1.0,
         },
     }
 }

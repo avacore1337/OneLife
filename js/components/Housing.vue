@@ -13,8 +13,10 @@
             <span v-if="!housing_state.is_unlocked" style="float: right"
               >Required Money: {{ housing.required_money }}
             </span>
+            <span style="float: right">Cost: {{ housing.upkeep }}/s </span>
             <br />
-            Cost: {{ housing.upkeep }}/s
+            Happiness boost: {{ housing.happiness_factor }},
+            <span v-if="housing.health_effect != 0.0"> Health Effect: {{ housing.health_effect }} </span>
           </p>
         </td>
       </tr>

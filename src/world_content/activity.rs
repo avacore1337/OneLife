@@ -87,13 +87,13 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Introspect on your being",
             display_name: "Meditate",
-            required_tier: 1,
+            required_tier: 5,
         },
         ActivityTypes::WarGames => Activity {
             name: activity,
             description: "Train tactics",
             display_name: "War Games",
-            required_tier: 2,
+            required_tier: 3,
         },
     }
 }
@@ -112,7 +112,7 @@ pub fn should_be_visible_activity(input_activity: ActivityTypes, game: &Game) ->
         return false;
     }
     match input_activity {
-        ActivityTypes::Meditate => game.state.rebirth_stats.unlocks.has_skills,
+        ActivityTypes::Meditate => game.state.rebirth_stats.unlocks.has_meditation,
         ActivityTypes::WarGames => game.state.rebirth_stats.unlocks.has_military_tactics,
         ActivityTypes::Praying => game.state.rebirth_stats.unlocks.has_faith,
         _ => true,
