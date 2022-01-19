@@ -13,7 +13,8 @@ pub enum HousingTypes {
     LargeCloset,
     PrivateRoom,
     TinyAppartment,
-    // Appartment,
+    SmallAppartment,
+    Appartment,
 }
 
 pub const HOUSING_SIZE: usize = variant_count::<HousingTypes>();

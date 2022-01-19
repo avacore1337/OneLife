@@ -99,7 +99,25 @@ pub fn translate_housing(housing: HousingTypes) -> Housing {
             display_name: "Tiny Appartment",
             required_money: 256_000.0,
             happiness_factor: 20.0,
+            health_effect: 2.0,
+        },
+        HousingTypes::SmallAppartment => Housing {
+            name: housing,
+            upkeep: 16_000.0,
+            description: "It even includes your own \"kitchen\"",
+            display_name: "Tiny Appartment",
+            required_money: 1.0e6,
+            happiness_factor: 30.0,
             health_effect: 3.0,
+        },
+        HousingTypes::Appartment => Housing {
+            name: housing,
+            upkeep: 64_000.0,
+            description: "It even includes your own \"kitchen\"",
+            display_name: "Tiny Appartment",
+            required_money: 4.0e6,
+            happiness_factor: 45.0,
+            health_effect: 4.0,
         },
     }
 }

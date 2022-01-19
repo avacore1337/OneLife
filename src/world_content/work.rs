@@ -244,12 +244,12 @@ const fn translate_work(work: WorkTypes) -> Work {
         },
         WorkTypes::Hypaspists => Work {
             name: work,
-            money: 240.0,
+            money: 360.0,
             description: "todo",
             display_name: "Hypaspists",
             required_tier: 3,
             work_type: WorkCategoryTypes::Soldier,
-            xp_req_modifier: 2_000.0,
+            xp_req_modifier: 4_000.0,
         },
         WorkTypes::LightCavalery => Work {
             name: work,

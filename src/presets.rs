@@ -463,7 +463,7 @@ pub fn rebirth_24() -> GameSave {
     r.tier = 3;
     get_upgrades_up_to_tier_max_cost(r, 3, 300.0);
     set_lower_tier_jobs_to(r, 30);
-    r.max_job_levels[WorkTypes::Hypaspists as usize] = 20;
+    r.max_job_levels[WorkTypes::Hypaspists as usize] = 10;
     r.max_job_levels[WorkTypes::Farmer as usize] = 25;
     game_save.state = rebirth(r.clone());
 
@@ -476,11 +476,11 @@ pub fn rebirth_24() -> GameSave {
     balance_activities(pi, 7000, 40000, &get_training_study_array());
     pi.register_input_on_tick(10000, WorkTypes::BagageBoy);
     pi.register_input_on_tick(40000, ActivityTypes::Training);
-    pi.register_input_on_tick(40000, ActivityTypes::Flirt);
+    pi.register_input_on_tick(45000, ActivityTypes::Flirt);
     pi.register_input_on_tick(40000, HousingTypes::LargeCloset);
     pi.register_input_on_tick(40000, AutoSettingTypes::AutoLivingFalse);
-    pi.register_input_on_tick(40000, AutoSettingTypes::AutoBuyItemFalse);
-    pi.register_input_on_tick(50000, BoostItemTypes::Burial2);
+    pi.register_input_on_tick(45000, AutoSettingTypes::AutoBuyItemFalse);
+    // pi.register_input_on_tick(72000, BoostItemTypes::Burial3);
 
     game_save.input = Input::new(&game_save.state);
     game_save
@@ -492,9 +492,9 @@ pub fn rebirth_35() -> GameSave {
     r.rebirth_count = 11;
     r.tier = 3;
     get_upgrades_up_to_tier_max_cost(r, 4, 2000.0);
-    set_lower_tier_jobs_to(r, 30);
-    r.max_job_levels[WorkTypes::Hypaspists as usize] = 20;
-    r.max_job_levels[WorkTypes::Farmer as usize] = 25;
+    set_lower_tier_jobs_to(r, 50);
+    r.max_job_levels[WorkTypes::Hypaspists as usize] = 40;
+    r.max_job_levels[WorkTypes::Farmer as usize] = 40;
     game_save.state = rebirth(r.clone());
 
     let state = &mut game_save.state;
@@ -502,15 +502,17 @@ pub fn rebirth_35() -> GameSave {
     set_full_auto(&mut game_save.meta_data.options);
     state.life_stats.replaying = true;
     let pi = &mut game_save.previous_inputs;
-    balance_activities(pi, 4000, 7000, &get_run_study_array());
-    balance_activities(pi, 7000, 40000, &get_training_study_wargames_array());
+    balance_activities(pi, 4000, 5000, &get_run_study_array());
+    balance_activities(pi, 5000, 40000, &get_training_study_wargames_array());
+    pi.register_input_on_tick(40000, ActivityTypes::Run);
+    balance_activities(pi, 45000, 60000, &get_training_study_wargames_array());
     pi.register_input_on_tick(10000, WorkTypes::BagageBoy);
-    pi.register_input_on_tick(40000, ActivityTypes::Training);
-    pi.register_input_on_tick(40000, ActivityTypes::Flirt);
-    pi.register_input_on_tick(40000, HousingTypes::LargeCloset);
-    pi.register_input_on_tick(40000, AutoSettingTypes::AutoLivingFalse);
-    pi.register_input_on_tick(45000, AutoSettingTypes::AutoBuyItemFalse);
-    pi.register_input_on_tick(50000, BoostItemTypes::Burial2);
+    pi.register_input_on_tick(60000, ActivityTypes::Flirt);
+    pi.register_input_on_tick(60000, AutoSettingTypes::AutoLivingFalse);
+    pi.register_input_on_tick(60000, HousingTypes::TinyAppartment);
+    pi.register_input_on_tick(55000, AutoSettingTypes::AutoBuyItemFalse);
+    pi.register_input_on_tick(72000, BoostItemTypes::Burial3);
+    pi.register_input_on_tick(80000, BoostItemTypes::Burial3);
 
     game_save.input = Input::new(&game_save.state);
     game_save

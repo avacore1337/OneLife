@@ -132,13 +132,28 @@ impl Gain for BoostItem {
                 inter.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
             }
             BoostItemTypes::BribeOfficial1 => {
-                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
+                inter.add_multiplier(KeyValues::Money, 1.3, self.display_name);
             }
             BoostItemTypes::BribeOfficial2 => {
-                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
+                inter.add_multiplier(KeyValues::Money, 1.3, self.display_name);
             }
             BoostItemTypes::BribeOfficial3 => {
-                inter.add_multiplier(KeyValues::Money, 1.2, self.display_name);
+                inter.add_multiplier(KeyValues::Money, 1.3, self.display_name);
+            }
+            BoostItemTypes::Tactics1 => {
+                inter.add_multiplier(KeyValues::Tactics, 2.0, self.display_name);
+            }
+            BoostItemTypes::Tactics2 => {
+                inter.add_multiplier(KeyValues::Tactics, 1.5, self.display_name);
+            }
+            BoostItemTypes::Tactics3 => {
+                inter.add_multiplier(KeyValues::Tactics, 1.5, self.display_name);
+            }
+            BoostItemTypes::Tactics4 => {
+                inter.add_multiplier(KeyValues::Tactics, 1.5, self.display_name);
+            }
+            BoostItemTypes::Tactics5 => {
+                inter.add_multiplier(KeyValues::Tactics, 1.5, self.display_name);
             }
         }
     }
@@ -337,7 +352,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         BoostItemTypes::BribeOfficial1 => BoostItem {
             name: item_type,
             purchasing_cost: 800_000.0,
-            description: "Some flowers are prettier than others",
+            description: "todo",
             effect_description: "1.3x Money gain",
             display_name: "Bribe Official 1",
             required_tier: 2,
@@ -411,9 +426,41 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         BoostItemTypes::BribeOfficial2 => BoostItem {
             name: item_type,
             purchasing_cost: 8.0e6,
-            description: "Some flowers are prettier than others",
+            description: "Just a little gift",
             effect_description: "1.3x Money gain",
             display_name: "Bribe Official 2",
+            required_tier: 3,
+        },
+        BoostItemTypes::Tactics1 => BoostItem {
+            name: item_type,
+            purchasing_cost: 6_000.0,
+            description: "todo",
+            effect_description: "2.0x Tactics XP gain",
+            display_name: "Battle Map",
+            required_tier: 3,
+        },
+        BoostItemTypes::Tactics2 => BoostItem {
+            name: item_type,
+            purchasing_cost: 60_000.0,
+            description: "todo",
+            effect_description: "2.0x Tactics XP gain",
+            display_name: "Battle Map 2",
+            required_tier: 3,
+        },
+        BoostItemTypes::Tactics3 => BoostItem {
+            name: item_type,
+            purchasing_cost: 600_000.0,
+            description: "todo",
+            effect_description: "1.5x Tactics XP gain",
+            display_name: "Battle Map 3",
+            required_tier: 3,
+        },
+        BoostItemTypes::Tactics4 => BoostItem {
+            name: item_type,
+            purchasing_cost: 6.0e6,
+            description: "todo",
+            effect_description: "1.5x Tactics XP gain",
+            display_name: "Battle Map 4",
             required_tier: 3,
         },
 
@@ -440,6 +487,14 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             description: "Some flowers are prettier than others",
             effect_description: "1.3x Money gain",
             display_name: "Bribe Official 3",
+            required_tier: 4,
+        },
+        BoostItemTypes::Tactics5 => BoostItem {
+            name: item_type,
+            purchasing_cost: 60.0e6,
+            description: "todo",
+            effect_description: "1.5x Tactics XP gain",
+            display_name: "Battle Map 5",
             required_tier: 4,
         },
 

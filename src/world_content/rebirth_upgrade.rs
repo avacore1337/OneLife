@@ -291,7 +291,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 2000.0,
             description: "You know who you are. And that someone is going to be important one day",
             display_name: "Finding yourself",
-            required_tier: 4,
+            required_tier: 3,
         },
 
         // TIER 4 - 5000
