@@ -77,7 +77,7 @@ pub const fn translate_stat(stat: StatTypes) -> Stat {
             name: stat,
             description: "Have some",
             display_name: "Faith",
-            required_tier: 5,
+            required_tier: 4,
         },
     }
 }

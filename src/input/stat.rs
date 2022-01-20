@@ -19,6 +19,7 @@ impl From<WorkCategoryTypes> for StatTypes {
             WorkCategoryTypes::Soldier => StatTypes::Str,
             WorkCategoryTypes::Labor => StatTypes::Con,
             WorkCategoryTypes::Intellectual => StatTypes::Int,
+            WorkCategoryTypes::Priest => StatTypes::Faith,
         }
     }
 }

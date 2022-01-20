@@ -11,12 +11,15 @@ pub enum KeyValues {
     Happiness,
     Money,
     Coins,
+    DivineFavor,
     Health,
+    Skills,
+    Stats,
+    //WorkTypes
     LaborXp,
     SoldierXp,
     IntellectualXp,
-    Skills,
-    Stats,
+    PriestXp,
     //Stats
     Str,
     Int,
@@ -56,6 +59,9 @@ pub enum KeyValues {
     //
     // Trader,
     // Merchant,
+    // Priest/Faith
+    Priest,
+    Bishop,
 }
 
 impl From<SkillTypes> for KeyValues {
@@ -86,6 +92,7 @@ impl From<WorkCategoryTypes> for KeyValues {
             WorkCategoryTypes::Labor => KeyValues::LaborXp,
             WorkCategoryTypes::Soldier => KeyValues::SoldierXp,
             WorkCategoryTypes::Intellectual => KeyValues::IntellectualXp,
+            WorkCategoryTypes::Priest => KeyValues::PriestXp,
         }
     }
 }
@@ -118,8 +125,8 @@ impl From<WorkTypes> for KeyValues {
             WorkTypes::FootCompanion => KeyValues::FootCompanion,
             WorkTypes::Hypaspists => KeyValues::Hypaspists,
             WorkTypes::LightCavalery => KeyValues::LightCavalery,
+            WorkTypes::Priest => KeyValues::Priest,
+            WorkTypes::Bishop => KeyValues::Bishop,
         }
     }
 }
-
-// pub const HOUSING_SIZE: usize = variant_count::<KeyValues>();

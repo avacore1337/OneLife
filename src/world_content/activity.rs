@@ -81,13 +81,13 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Getting more pieus",
             display_name: "Praying",
-            required_tier: 5,
+            required_tier: 3,
         },
         ActivityTypes::Meditate => Activity {
             name: activity,
             description: "Introspect on your being",
             display_name: "Meditate",
-            required_tier: 5,
+            required_tier: 3,
         },
         ActivityTypes::WarGames => Activity {
             name: activity,

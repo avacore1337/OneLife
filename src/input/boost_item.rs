@@ -38,6 +38,7 @@ pub enum BoostItemTypes {
     Book5,
     Shoe5,
     Clothes5,
+    Dumbell5,
     Meditation4,
     Burial1,
     Burial2,
@@ -51,6 +52,9 @@ pub enum BoostItemTypes {
     Tactics3,
     Tactics4,
     Tactics5,
+    Book6,
+    Shoe6,
+    Clothes6,
 }
 
 pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();

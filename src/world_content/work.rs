@@ -36,6 +36,13 @@ impl Gain for Work {
             WorkTypes::Mill => {
                 intermediate.add_base(KeyValues::Health, -1.0, self.display_name);
             }
+            WorkTypes::Priest => {
+                intermediate.add_base(KeyValues::DivineFavor, 1.0, self.display_name);
+            }
+            WorkTypes::Bishop => {
+                intermediate.add_base(KeyValues::DivineFavor, 1.5, self.display_name);
+            }
+
             _ => (),
         }
     }
@@ -147,7 +154,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             money: 240.0,
             description: "Hard labor for a free man",
             display_name: "Carpenter",
-            required_tier: 4,
+            required_tier: 7,
             work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 8.0e3,
         },
@@ -156,7 +163,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             money: 400.0,
             description: "Hope to become muscular",
             display_name: "Blacksmith Apprentice",
-            required_tier: 4,
+            required_tier: 7,
             work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 32.0e3,
         },
@@ -165,7 +172,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             money: 90.0,
             description: "Hammer time",
             display_name: "Blacksmith",
-            required_tier: 5,
+            required_tier: 8,
             work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2048.0,
         },
@@ -174,7 +181,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             money: 90.0,
             description: "Hammer time",
             display_name: "Goldsmith",
-            required_tier: 5,
+            required_tier: 8,
             work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2048.0,
         },
@@ -183,7 +190,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             money: 90.0,
             description: "Hammer time",
             display_name: "Glassblower",
-            required_tier: 6,
+            required_tier: 8,
             work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2048.0,
         },
@@ -192,7 +199,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             money: 90.0,
             description: "Hammer time",
             display_name: "Weaponsmith",
-            required_tier: 6,
+            required_tier: 9,
             work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 2048.0,
         },
@@ -260,6 +267,24 @@ const fn translate_work(work: WorkTypes) -> Work {
             work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 32_000.0,
         },
+        WorkTypes::Priest => Work {
+            name: work,
+            money: 800.0,
+            description: "todo",
+            display_name: "Light Cavalery",
+            required_tier: 4,
+            work_type: WorkCategoryTypes::Priest,
+            xp_req_modifier: 1_000.0,
+        },
+        WorkTypes::Bishop => Work {
+            name: work,
+            money: 800.0,
+            description: "todo",
+            display_name: "Bishop",
+            required_tier: 4,
+            work_type: WorkCategoryTypes::Priest,
+            xp_req_modifier: 4_000.0,
+        },
         // Int based work
         // WorkTypes::Trader => Work {
         //     name: work,
@@ -315,6 +340,8 @@ pub fn should_unlock_work(work_type: WorkTypes, game: &Game) -> bool {
         WorkTypes::GlassBlower => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::Weaponsmith => game.state.works[work_type as usize - 1].level >= 10,
         // WorkTypes::Trader => game.state.works[work_type as usize - 1].level >= 10,
+
+        // Soldier
         WorkTypes::BagageBoy => true,
         WorkTypes::Slinger => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::Peltasts => game.state.works[work_type as usize - 1].level >= 10,
@@ -322,6 +349,10 @@ pub fn should_unlock_work(work_type: WorkTypes, game: &Game) -> bool {
         WorkTypes::FootCompanion => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::Hypaspists => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::LightCavalery => game.state.works[work_type as usize - 1].level >= 10,
+
+        //Priest/Faith
+        WorkTypes::Priest => true,
+        WorkTypes::Bishop => game.state.works[work_type as usize - 1].level >= 10,
     }
 }
 

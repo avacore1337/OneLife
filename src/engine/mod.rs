@@ -71,6 +71,7 @@ fn internal_run(game: &mut Game) {
 
     // Get the gains
     calculate_works_income(game);
+    calculate_divine_favor(game);
     calculate_tombs_income(game);
     do_work(game.input.work, game);
     gain_work_xp(game);
@@ -219,6 +220,12 @@ fn calculate_works_income(game: &mut Game) {
         work_state.effective_income = game.intermediate_state.get_value(work_state.name.into())
             * game.intermediate_state.get_multiplier(KeyValues::Money);
     }
+}
+
+fn calculate_divine_favor(game: &mut Game) {
+    let divine_favor_rate = game.intermediate_state.get_value(KeyValues::DivineFavor);
+    game.state.items.divine_favor_rate = divine_favor_rate;
+    game.state.items.divine_favor += divine_favor_rate / TICK_RATE;
 }
 
 fn apply_work(game: &mut Game) {

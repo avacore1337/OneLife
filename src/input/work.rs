@@ -41,6 +41,9 @@ pub enum WorkTypes {
     // Intellectual Types
     // Servant,
     // Teacher,
+    // Priest/Faith
+    Priest,
+    Bishop,
 }
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
@@ -48,6 +51,7 @@ pub enum WorkCategoryTypes {
     Labor,
     Soldier,
     Intellectual,
+    Priest,
 }
 
 impl TryFrom<StatTypes> for WorkCategoryTypes {
@@ -57,6 +61,7 @@ impl TryFrom<StatTypes> for WorkCategoryTypes {
             StatTypes::Str => Ok(WorkCategoryTypes::Soldier),
             StatTypes::Con => Ok(WorkCategoryTypes::Labor),
             StatTypes::Int => Ok(WorkCategoryTypes::Intellectual),
+            StatTypes::Faith => Ok(WorkCategoryTypes::Priest),
             _ => Err(()),
         }
     }

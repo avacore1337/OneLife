@@ -39,7 +39,9 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     presets.insert("T3 Test_1: Re 23", rebirth_23());
     presets.insert("T3 Test_2: Re 24", rebirth_24());
     presets.insert("T3 Test_3: Re 35", rebirth_35());
-    presets.insert("T3 Test_3: Re 36", rebirth_36());
+    presets.insert("T4 Test_3: Re 36", rebirth_36());
+    presets.insert("T4 Test_3: Re 39", rebirth_39());
+    presets.insert("T4 Test_3: Re 55", rebirth_55());
 
     presets
 }
@@ -544,6 +546,72 @@ pub fn rebirth_36() -> GameSave {
     pi.register_input_on_tick(55000, AutoSettingTypes::AutoBuyItemFalse);
     pi.register_input_on_tick(72000, BoostItemTypes::Burial3);
     pi.register_input_on_tick(85000, BoostItemTypes::Burial3);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+
+pub fn rebirth_39() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 39;
+    r.tier = 4;
+    get_upgrades_up_to_tier_max_cost(r, 5, 4000.0);
+    set_lower_tier_jobs_to(r, 50);
+    r.max_job_levels[WorkTypes::LightCavalery as usize] = 40;
+    r.max_job_levels[WorkTypes::Woodcutter as usize] = 30;
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    let pi = &mut game_save.previous_inputs;
+    balance_activities(pi, 4000, 5000, &get_run_study_array());
+    balance_activities(pi, 5000, 40000, &get_training_study_wargames_array());
+    pi.register_input_on_tick(40000, ActivityTypes::Run);
+    balance_activities(pi, 45000, 60000, &get_training_study_wargames_array());
+    pi.register_input_on_tick(10000, WorkTypes::BagageBoy);
+    pi.register_input_on_tick(60000, ActivityTypes::Flirt);
+    pi.register_input_on_tick(60000, AutoSettingTypes::AutoLivingFalse);
+    pi.register_input_on_tick(60000, HousingTypes::TinyAppartment);
+    pi.register_input_on_tick(55000, AutoSettingTypes::AutoBuyItemFalse);
+    pi.register_input_on_tick(72000, BoostItemTypes::Burial3);
+    pi.register_input_on_tick(85000, BoostItemTypes::Burial3);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+
+pub fn rebirth_55() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 39;
+    r.tier = 4;
+    get_upgrades_up_to_tier_max_cost(r, 5, 40000.0);
+    set_lower_tier_jobs_to(r, 50);
+    r.max_job_levels[WorkTypes::LightCavalery as usize] = 40;
+    r.max_job_levels[WorkTypes::Woodcutter as usize] = 30;
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    let pi = &mut game_save.previous_inputs;
+    balance_activities(pi, 4000, 5000, &get_run_study_array());
+    balance_activities(pi, 5000, 20000, &get_training_study_wargames_array());
+    pi.register_input_on_tick(10000, WorkTypes::BagageBoy);
+    // balance_activities(pi, 5000, 40000, &get_training_study_wargames_array());
+    // pi.register_input_on_tick(40000, ActivityTypes::Run);
+    // balance_activities(pi, 45000, 60000, &get_training_study_wargames_array());
+    // pi.register_input_on_tick(10000, WorkTypes::BagageBoy);
+    // pi.register_input_on_tick(60000, ActivityTypes::Flirt);
+    // pi.register_input_on_tick(60000, AutoSettingTypes::AutoLivingFalse);
+    // pi.register_input_on_tick(60000, HousingTypes::TinyAppartment);
+    // pi.register_input_on_tick(55000, AutoSettingTypes::AutoBuyItemFalse);
+    // pi.register_input_on_tick(72000, BoostItemTypes::Burial3);
+    // pi.register_input_on_tick(85000, BoostItemTypes::Burial3);
 
     game_save.input = Input::new(&game_save.state);
     game_save
