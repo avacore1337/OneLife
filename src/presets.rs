@@ -8,7 +8,7 @@ use crate::input::work::WorkTypes;
 use crate::input::Input;
 use crate::state::state_container::rebirth;
 use crate::util::{
-    balance_activities, get_run_study_array, get_training_study_array,
+    balance_activities, get_run_study_array, get_training_meditate_array, get_training_study_array,
     get_training_study_wargames_array, get_upgrades_up_to_current_tier,
     get_upgrades_up_to_tier_max_cost, set_full_auto, set_jobs_at_tier_to, set_lower_tier_jobs_to,
 };
@@ -600,18 +600,14 @@ pub fn rebirth_55() -> GameSave {
     state.life_stats.replaying = true;
     let pi = &mut game_save.previous_inputs;
     balance_activities(pi, 4000, 5000, &get_run_study_array());
-    balance_activities(pi, 5000, 20000, &get_training_study_wargames_array());
     pi.register_input_on_tick(10000, WorkTypes::BagageBoy);
-    // balance_activities(pi, 5000, 40000, &get_training_study_wargames_array());
-    // pi.register_input_on_tick(40000, ActivityTypes::Run);
-    // balance_activities(pi, 45000, 60000, &get_training_study_wargames_array());
-    // pi.register_input_on_tick(10000, WorkTypes::BagageBoy);
-    // pi.register_input_on_tick(60000, ActivityTypes::Flirt);
-    // pi.register_input_on_tick(60000, AutoSettingTypes::AutoLivingFalse);
-    // pi.register_input_on_tick(60000, HousingTypes::TinyAppartment);
-    // pi.register_input_on_tick(55000, AutoSettingTypes::AutoBuyItemFalse);
-    // pi.register_input_on_tick(72000, BoostItemTypes::Burial3);
-    // pi.register_input_on_tick(85000, BoostItemTypes::Burial3);
+    balance_activities(pi, 5000, 40000, &get_training_meditate_array());
+    pi.register_input_on_tick(40000, ActivityTypes::Run);
+    balance_activities(pi, 45000, 60000, &get_training_meditate_array());
+    pi.register_input_on_tick(60000, ActivityTypes::Flirt);
+    pi.register_input_on_tick(60000, AutoSettingTypes::AutoLivingFalse);
+    pi.register_input_on_tick(60000, HousingTypes::SmallAppartment);
+    pi.register_input_on_tick(70000, AutoSettingTypes::AutoBuyItemFalse);
 
     game_save.input = Input::new(&game_save.state);
     game_save

@@ -479,7 +479,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         // TOMB 4 - 10 000 000
         BoostItemTypes::Shoe6 => BoostItem {
             name: item_type,
-            purchasing_cost: 1.6e6,
+            purchasing_cost: 16.0e6,
             description: "todo",
             effect_description: "2x Constitution XP gain",
             display_name: "Leather Sandals",
@@ -487,7 +487,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Dumbell5 => BoostItem {
             name: item_type,
-            purchasing_cost: 2.5e6,
+            purchasing_cost: 25.0e6,
             description: "Cowbell, Kettlebell, what's the difference anyway",
             effect_description: "2x Strength XP gain",
             display_name: "Kettlebell",
@@ -495,7 +495,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Book6 => BoostItem {
             name: item_type,
-            purchasing_cost: 3.2e6,
+            purchasing_cost: 30.2e6,
             description: "todo",
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Elementary Education",
@@ -503,7 +503,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
         BoostItemTypes::Clothes6 => BoostItem {
             name: item_type,
-            purchasing_cost: 4.0e6,
+            purchasing_cost: 40.0e6,
             description: "todo",
             effect_description: "1.5x Happiness",
             display_name: "City Clothes",

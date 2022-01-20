@@ -84,7 +84,13 @@ pub const fn translate_stat(stat: StatTypes) -> Stat {
 
 pub fn should_be_visible_stat(input_stat: StatTypes, game: &Game) -> bool {
     let stat = &game.world.stats[input_stat as usize];
-    game.state.rebirth_stats.tier >= stat.required_tier
+    if stat.required_tier > game.state.rebirth_stats.tier {
+        return false;
+    }
+    match input_stat {
+        StatTypes::Faith => game.state.rebirth_stats.unlocks.has_faith,
+        _ => true,
+    }
 }
 
 pub fn get_stats() -> [Stat; STAT_SIZE] {

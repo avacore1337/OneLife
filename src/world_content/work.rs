@@ -271,7 +271,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             name: work,
             money: 800.0,
             description: "todo",
-            display_name: "Light Cavalery",
+            display_name: "Priest",
             required_tier: 4,
             work_type: WorkCategoryTypes::Priest,
             xp_req_modifier: 1_000.0,

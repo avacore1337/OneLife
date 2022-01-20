@@ -71,6 +71,18 @@ pub fn balance_activities(
         i += 1;
     }
 }
+pub fn get_training_meditate_array() -> [ActivityTypes; 8] {
+    [
+        ActivityTypes::Training,
+        ActivityTypes::Studying,
+        ActivityTypes::Meditate,
+        ActivityTypes::Training,
+        ActivityTypes::WarGames,
+        ActivityTypes::Training,
+        ActivityTypes::Studying,
+        ActivityTypes::Training,
+    ]
+}
 
 pub fn get_training_study_wargames_array() -> [ActivityTypes; 7] {
     [
