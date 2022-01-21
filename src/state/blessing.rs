@@ -10,6 +10,7 @@ pub struct Blessing {
     pub is_visible: bool,
     pub level: u32,
     pub next_level_cost: f64,
+    pub effect_description: String,
 }
 
 impl Blessing {
@@ -20,6 +21,7 @@ impl Blessing {
             is_visible: false,
             level: 0,
             next_level_cost: 0.0,
+            effect_description: "".to_string(),
         }
     }
 }

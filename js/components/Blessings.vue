@@ -10,7 +10,7 @@
         <span style="float: right">Cost: {{ blessing_state.next_level_cost }} Divine Favor </span>
 
         <br />
-        Level: {{ blessing_state.level }}
+        Level: {{ blessing_state.level }}, Effect: {{ blessing_state.effect_description }}
       </li>
     </ul>
   </div>

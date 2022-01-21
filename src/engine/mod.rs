@@ -20,7 +20,8 @@ use crate::world_content::activity::{
     should_be_visible_activity, should_unlock_activity, translate_activity,
 };
 use crate::world_content::blessing::{
-    calculate_blessing_next_level_cost, should_be_visible_blessing, should_unlock_blessing,
+    calculate_blessing_next_level_cost, calculate_effect_description, should_be_visible_blessing,
+    should_unlock_blessing,
 };
 use crate::world_content::boost_item::{
     should_be_visible_boost_item, should_unlock_boost_item, translate_boost_item,
@@ -66,6 +67,7 @@ fn internal_run(game: &mut Game) {
     apply_activities(game);
     apply_tombs(game);
     apply_stats(game);
+    apply_blessings(game);
     apply_skills(game);
     apply_rebirth_upgrades(game);
 
@@ -168,6 +170,8 @@ pub fn update_unlocks(game: &mut Game) {
     for blessing in BlessingTypes::iter() {
         game.state.blessings[blessing as usize].next_level_cost =
             calculate_blessing_next_level_cost(blessing, game);
+        game.state.blessings[blessing as usize].effect_description =
+            calculate_effect_description(blessing, game);
         game.state.blessings[blessing as usize].is_unlocked =
             should_unlock_blessing(blessing, game);
         game.state.blessings[blessing as usize].is_visible =
@@ -273,6 +277,12 @@ fn apply_tombs(game: &mut Game) {
 fn apply_stats(game: &mut Game) {
     for stat in WORLD.stats.iter() {
         stat.get_stats_gains(game);
+    }
+}
+
+fn apply_blessings(game: &mut Game) {
+    for skill in WORLD.blessings.iter() {
+        skill.get_blessings_gains(game);
     }
 }
 

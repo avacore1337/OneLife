@@ -8,6 +8,8 @@ use super::Recordable;
 pub enum BlessingTypes {
     HeruclesStrength,
     AthenasWisdom,
+    AfroditesCharm,
+    PoseidonsSturdiness,
 }
 
 pub const BLESSING_SIZE: usize = variant_count::<BlessingTypes>();
