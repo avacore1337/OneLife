@@ -19,7 +19,9 @@ use crate::state::work::Work as StateWork;
 use crate::world_content::activity::{
     should_be_visible_activity, should_unlock_activity, translate_activity,
 };
-use crate::world_content::blessing::{should_be_visible_blessing, should_unlock_blessing};
+use crate::world_content::blessing::{
+    calculate_blessing_next_level_cost, should_be_visible_blessing, should_unlock_blessing,
+};
 use crate::world_content::boost_item::{
     should_be_visible_boost_item, should_unlock_boost_item, translate_boost_item,
 };
@@ -164,6 +166,8 @@ pub fn update_unlocks(game: &mut Game) {
             should_be_visible_boost_item(boost_item, game);
     }
     for blessing in BlessingTypes::iter() {
+        game.state.blessings[blessing as usize].next_level_cost =
+            calculate_blessing_next_level_cost(blessing, game);
         game.state.blessings[blessing as usize].is_unlocked =
             should_unlock_blessing(blessing, game);
         game.state.blessings[blessing as usize].is_visible =

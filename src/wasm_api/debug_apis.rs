@@ -17,6 +17,13 @@ pub fn grow_old() {
 }
 
 #[wasm_bindgen]
+pub fn give_divine_favor(divine_favor: f64) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.state.items.divine_favor = divine_favor;
+    update_unlocks(&mut *game);
+}
+
+#[wasm_bindgen]
 pub fn give_money(money: f64) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.items.money = money;

@@ -40,7 +40,6 @@ use input::work::WorkTypes;
 use input::Input;
 use state::state_container::rebirth;
 use wasm_api::meta::do_save;
-use world_content::blessing::Blessing;
 use world_content::boost_item::BoostItem;
 use world_content::rebirth_upgrade::RebirthUpgrade;
 use world_content::tier::Tier;
@@ -377,15 +376,15 @@ pub fn buy_blessing_internal(blessing_type: BlessingTypes, game: &mut Game) {
     if can_buy_blessing(blessing_type, game) {
         info!("Can buy blessing");
         game.register_input(blessing_type);
-        let blessing: &Blessing = &game.world.blessings[blessing_type as usize];
-        game.state.items.divine_favor -= blessing.purchasing_cost;
-        game.state.blessings[blessing_type as usize].is_purchased = true;
+        let blessing = &game.state.blessings[blessing_type as usize];
+        game.state.items.divine_favor -= blessing.next_level_cost;
+        game.state.blessings[blessing_type as usize].level += 1;
     }
 }
 
 pub fn can_buy_blessing(blessing: BlessingTypes, game: &mut Game) -> bool {
-    let blessing: &Blessing = &game.world.blessings[blessing as usize];
-    let can_afford: bool = game.state.items.divine_favor >= blessing.purchasing_cost;
+    let blessing = &game.state.blessings[blessing as usize];
+    let can_afford: bool = game.state.items.divine_favor >= blessing.next_level_cost;
     can_afford
 }
 

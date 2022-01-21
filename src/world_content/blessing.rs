@@ -9,7 +9,7 @@ use strum::IntoEnumIterator;
 #[derive(Serialize)]
 pub struct Blessing {
     pub name: BlessingTypes,
-    pub purchasing_cost: f64,
+    pub base_purchasing_cost: f64,
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
@@ -32,14 +32,14 @@ pub const fn translate_blessing(blessing: BlessingTypes) -> Blessing {
     match blessing {
         BlessingTypes::HeruclesStrength => Blessing {
             name: blessing,
-            purchasing_cost: 5.0,
+            base_purchasing_cost: 5.0,
             description: "He's a Hero!",
             display_name: "Herucles Strength",
             required_tier: 0,
         },
         BlessingTypes::AthenasWisdom => Blessing {
             name: blessing,
-            purchasing_cost: 500.0,
+            base_purchasing_cost: 500.0,
             description: "The Wit!",
             display_name: "Athenas Wisdom",
             required_tier: 0,
@@ -47,12 +47,19 @@ pub const fn translate_blessing(blessing: BlessingTypes) -> Blessing {
     }
 }
 
+pub fn calculate_blessing_next_level_cost(input_blessing: BlessingTypes, game: &Game) -> f64 {
+    let blessing = &game.state.blessings[input_blessing as usize];
+    let blessing_world = &game.world.blessings[input_blessing as usize];
+    blessing_world.base_purchasing_cost * 1.1f64.powi(blessing.level as i32)
+}
+
 pub fn should_unlock_blessing(input_blessing: BlessingTypes, game: &Game) -> bool {
-    let blessing = &game.world.blessings[input_blessing as usize];
-    if blessing.required_tier > game.state.rebirth_stats.tier {
+    let blessing = &game.state.blessings[input_blessing as usize];
+    let blessing_world = &game.world.blessings[input_blessing as usize];
+    if blessing_world.required_tier > game.state.rebirth_stats.tier {
         return false;
     }
-    if blessing.purchasing_cost > game.state.items.divine_favor {
+    if blessing.next_level_cost > game.state.items.divine_favor {
         return false;
     }
     true

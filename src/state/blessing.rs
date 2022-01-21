@@ -8,7 +8,8 @@ pub struct Blessing {
     pub name: BlessingTypes,
     pub is_unlocked: bool,
     pub is_visible: bool,
-    pub is_purchased: bool,
+    pub level: u32,
+    pub next_level_cost: f64,
 }
 
 impl Blessing {
@@ -17,7 +18,8 @@ impl Blessing {
             name: blessing,
             is_unlocked: false,
             is_visible: false,
-            is_purchased: false,
+            level: 0,
+            next_level_cost: 0.0,
         }
     }
 }

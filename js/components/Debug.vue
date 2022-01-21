@@ -78,6 +78,10 @@
     <br />
     <button v-on:click="wasm.give_coins(coins)">Give Coins</button>
     <br />
+    <input v-model="divine_favor" size="10" />
+    <br />
+    <button v-on:click="wasm.give_divine_favor(divine_favor)">Give Divine Favor</button>
+    <br />
     <br />
     Presets
     <div v-for="(value, name) in presets" :key="name">
@@ -95,6 +99,7 @@ export default {
       presets: {},
       money: 1000000000.0,
       coins: 1000000.0,
+      divine_favor: 10000.0,
     };
   },
   mounted: function () {
