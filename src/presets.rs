@@ -38,7 +38,8 @@ pub fn get_presets() -> BTreeMap<&'static str, GameSave> {
     presets.insert("T2 Test_7: Re 22", rebirth_22());
     presets.insert("T3 Test_1: Re 23", rebirth_23());
     presets.insert("T3 Test_2: Re 24", rebirth_24());
-    presets.insert("T3 Test_3: Re 35", rebirth_35());
+    presets.insert("T3 Test_3: Re 28", rebirth_28());
+    presets.insert("T3 Test_4: Re 35", rebirth_35());
     presets.insert("T4 Test_3: Re 36", rebirth_36());
     presets.insert("T4 Test_3: Re 39", rebirth_39());
     presets.insert("T4 Test_3: Re 55", rebirth_55());
@@ -479,6 +480,35 @@ pub fn rebirth_24() -> GameSave {
     balance_activities(pi, 7000, 40000, &get_training_study_array());
     pi.register_input_on_tick(10000, WorkTypes::BagageBoy);
     pi.register_input_on_tick(40000, ActivityTypes::Training);
+    pi.register_input_on_tick(45000, ActivityTypes::Flirt);
+    pi.register_input_on_tick(40000, HousingTypes::LargeCloset);
+    pi.register_input_on_tick(40000, AutoSettingTypes::AutoLivingFalse);
+    pi.register_input_on_tick(45000, AutoSettingTypes::AutoBuyItemFalse);
+    // pi.register_input_on_tick(72000, BoostItemTypes::Burial3);
+
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
+
+pub fn rebirth_28() -> GameSave {
+    let mut game_save = GameSave::default();
+    let r = &mut game_save.state.rebirth_stats;
+    r.rebirth_count = 11;
+    r.tier = 3;
+    get_upgrades_up_to_tier_max_cost(r, 3, 300.0);
+    set_lower_tier_jobs_to(r, 30);
+    r.max_job_levels[WorkTypes::Hypaspists as usize] = 10;
+    r.max_job_levels[WorkTypes::Farmer as usize] = 25;
+    game_save.state = rebirth(r.clone());
+
+    let state = &mut game_save.state;
+
+    set_full_auto(&mut game_save.meta_data.options);
+    state.life_stats.replaying = true;
+    let pi = &mut game_save.previous_inputs;
+    balance_activities(pi, 4000, 50000, &get_run_study_array());
+    pi.register_input_on_tick(40000, AutoSettingTypes::AutoWorkFalse);
+    pi.register_input_on_tick(10000, WorkTypes::Mines);
     pi.register_input_on_tick(45000, ActivityTypes::Flirt);
     pi.register_input_on_tick(40000, HousingTypes::LargeCloset);
     pi.register_input_on_tick(40000, AutoSettingTypes::AutoLivingFalse);

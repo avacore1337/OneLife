@@ -23,7 +23,6 @@ pub enum RebirthUpgradeTypes {
     Privilege3,
     // StatMemory1,
     EndItEarly,
-    // GemSense, // gives you a huge multiplier to mining
     UnlockMeditation,
     UnlockTactics,
     UnlockFaith,
@@ -32,11 +31,14 @@ pub enum RebirthUpgradeTypes {
     AutoBuyItem,
     AutoBuyTomb,
     AutoRebirth,
+    //AutoEndEarly, // based on coin requirement
+    //QueuePurchase,
     Replay,
     TheDivine,
     BribeCharon1,
     BribeCharon2,
     BribeCharon3,
+    GemKnowledge,
 }
 
 pub const REBIRTH_UPGRADE_SIZE: usize = variant_count::<RebirthUpgradeTypes>();

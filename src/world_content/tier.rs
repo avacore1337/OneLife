@@ -143,7 +143,7 @@ pub fn init_tiers() -> Vec<Tier> {
                 cha: 40.0,
                 con: 40.0,
                 dex: 0.0,
-                faith: 10.0,
+                faith: 20.0,
             }),
             starting_work: WorkTypes::Weaver,
             starting_health: 0.2,

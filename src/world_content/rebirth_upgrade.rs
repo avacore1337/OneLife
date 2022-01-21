@@ -91,6 +91,9 @@ impl RebirthUpgrade {
 
         let inter = &mut game.intermediate_state;
         match self.name {
+            RebirthUpgradeTypes::GemKnowledge => {
+                inter.add_multiplier(KeyValues::Mines, 100.0, self.display_name);
+            }
             RebirthUpgradeTypes::AcceptingDeath => {
                 inter.add_multiplier(KeyValues::Happiness, 1.7, self.display_name);
             }
@@ -279,6 +282,15 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 300.0,
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 2",
+            effect_description: "todo",
+            required_tier: 3,
+        },
+        RebirthUpgradeTypes::GemKnowledge => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 500.0,
+            description:
+                "You are told where all the miners found their big treasures during their lives",
+            display_name: "Gem Knowledge",
             effect_description: "todo",
             required_tier: 3,
         },

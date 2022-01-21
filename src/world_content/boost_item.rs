@@ -29,9 +29,15 @@ impl Gain for BoostItem {
             BoostItemTypes::Clothes1 => {
                 inter.add_multiplier(KeyValues::Happiness, 1.5, self.display_name);
             }
-            // BoostItemTypes::IronPickAxe => {
-            //     inter.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
-            // }
+            BoostItemTypes::IronPickAxe => {
+                inter.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
+            }
+            BoostItemTypes::MiningGear => {
+                inter.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
+            }
+            BoostItemTypes::ExpertMiningGear => {
+                inter.add_multiplier(KeyValues::Mines, 2.0, self.display_name);
+            }
             BoostItemTypes::IronAxe => {
                 inter.add_multiplier(KeyValues::Woodcutter, 2.0, self.display_name);
             }
@@ -197,14 +203,6 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             display_name: "Ragged Clothes",
             required_tier: 0,
         },
-        // BoostItemTypes::IronPickAxe => BoostItem {
-        //     name: item_type,
-        //     purchasing_cost: 1_000.0,
-        //     description: "Mining now goes faster",
-        //     effect_description: "2x Mining income",
-        //     display_name: "Iron Pickaxe",
-        //     required_tier: 0,
-        // },
         BoostItemTypes::Book2 => BoostItem {
             name: item_type,
             purchasing_cost: 4_000.0,
@@ -371,6 +369,30 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         },
 
         // TOMB 3 - 1 000 000
+        BoostItemTypes::IronPickAxe => BoostItem {
+            name: item_type,
+            purchasing_cost: 10_000.0,
+            description: "Mining now goes faster",
+            effect_description: "2x Mining income",
+            display_name: "Iron Pickaxe",
+            required_tier: 3,
+        },
+        BoostItemTypes::MiningGear => BoostItem {
+            name: item_type,
+            purchasing_cost: 100_000.0,
+            description: "Mining now goes faster",
+            effect_description: "2x Mining income",
+            display_name: "Mining Gear",
+            required_tier: 3,
+        },
+        BoostItemTypes::ExpertMiningGear => BoostItem {
+            name: item_type,
+            purchasing_cost: 10_000.0,
+            description: "Mining now goes faster",
+            effect_description: "2x Mining income",
+            display_name: "Expert Mining Gear",
+            required_tier: 4,
+        },
         BoostItemTypes::IronAxe => BoostItem {
             name: item_type,
             purchasing_cost: 800_000.0,

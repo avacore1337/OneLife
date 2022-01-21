@@ -24,6 +24,7 @@ impl Stat {
         let inter = &mut game.intermediate_state;
         match self.name {
             StatTypes::Con => {
+                // TODO rebalance after fixing this to 1 + 0.05*level...
                 inter.add_multiplier(KeyValues::Health, 0.05 * level, self.display_name);
             }
             StatTypes::Int => {
@@ -35,6 +36,13 @@ impl Stat {
             }
             StatTypes::Cha => {
                 inter.add_multiplier(KeyValues::Coins, 1.0 + (0.05 * level), self.display_name);
+            }
+            StatTypes::Faith => {
+                inter.add_multiplier(
+                    KeyValues::DivineFavor,
+                    1.0 + (0.05 * level),
+                    self.display_name,
+                );
             }
             _ => {}
         }
