@@ -4,7 +4,12 @@
     <br />
     <button
       v-on:click="wasm.die"
-      v-if="state.rebirth_stats.unlocks.can_end_early && !state.life_stats.is_dying && !state.life_stats.dead"
+      v-if="
+        state.rebirth_stats.unlocks.can_end_early &&
+        !state.life_stats.is_dying &&
+        !state.life_stats.dead &&
+        state.life_stats.current_tick >= 5000
+      "
       style="margin: 2px"
     >
       End It Early

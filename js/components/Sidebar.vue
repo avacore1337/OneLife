@@ -27,6 +27,7 @@
       <p>Health: {{ state.life_stats.health.toFixed(2) }} Rate: {{ state.life_stats.health_rate.toPrecision(2) }}/s</p>
       <p>Happiness: {{ state.life_stats.happiness }}</p>
       <p>Alive: {{ life_status() }}</p>
+      <p>Tick: {{ state.life_stats.current_tick }}</p>
     </div>
 
     <br />
@@ -35,6 +36,7 @@
       <p>Life number {{ state.rebirth_stats.rebirth_count + 1 }}</p>
       <p>Class: {{ state.rebirth_stats.tier }}</p>
       <p>Coins: {{ state.rebirth_stats.coins }}</p>
+      <p>Coins Gain: {{ state.rebirth_stats.coins_gain }}</p>
       <p>Karma: {{ state.rebirth_stats.karma }}</p>
       <p>Time multiplier: {{ state.rebirth_stats.time_factor }}</p>
     </div>

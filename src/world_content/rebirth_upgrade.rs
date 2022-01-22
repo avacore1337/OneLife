@@ -65,6 +65,9 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::AutoRebirth => {
             unlocks.can_auto_rebirth = true;
         }
+        RebirthUpgradeTypes::AutoEndEarly => {
+            unlocks.can_auto_end_early = true;
+        }
         RebirthUpgradeTypes::Replay => {
             unlocks.can_replay = true;
         }
@@ -397,6 +400,14 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 20_000.0,
             description: "You know who you are. And that someone is going to be important one day",
             display_name: "Finding yourself",
+            effect_description: "todo",
+            required_tier: 4,
+        },
+        RebirthUpgradeTypes::AutoEndEarly => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 30_000.0,
+            description: "todo",
+            display_name: "AutoEndEarly",
             effect_description: "todo",
             required_tier: 4,
         },

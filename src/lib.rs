@@ -12,6 +12,7 @@ extern crate lazy_static;
 // #[macro_use]
 // extern crate serde_big_array;
 
+pub mod action_queue;
 pub mod engine;
 pub mod game;
 pub mod info;
@@ -121,8 +122,6 @@ pub fn do_rebirth() {
         return;
     }
     do_rebirth_internal(game);
-    register_auto_settings(game);
-    engine_run(game);
     info!("Rust did rebirth");
 }
 
@@ -132,6 +131,8 @@ pub fn do_rebirth_internal(game: &mut Game) {
     game.input = Input::new(&game.state);
     game.previous_inputs = game.inputs.clone();
     game.inputs = Inputs::default();
+    register_auto_settings(game);
+    engine_run(game);
 }
 
 #[wasm_bindgen]
@@ -150,6 +151,10 @@ pub fn paused() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     check_for_tutorial_step(game);
     game.meta_data.paused_tick_time();
+    if game.meta_data.options.auto_rebirth {
+        die_internal(game);
+        do_rebirth_internal(game);
+    }
 }
 
 #[wasm_bindgen]
@@ -177,6 +182,22 @@ pub fn remove_previous_recorded(val: u32) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     if let Err(err) = game.previous_inputs.remove(val) {
         log::info!("{:?}", err);
+    }
+}
+#[wasm_bindgen]
+pub fn set_auto_end_early(val: f64) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_auto_end_early_internal(val, game);
+}
+
+pub fn set_auto_end_early_internal(val: f64, game: &mut Game) {
+    game.meta_data.options.auto_end_early_criteria = val;
+    if val == 0.0 {
+        //     game.register_input(AutoSettingTypes::AutoRebirthTrue)
+        game.meta_data.options.auto_end_early = false;
+    } else {
+        game.meta_data.options.auto_end_early = true;
+        //     game.register_input(AutoSettingTypes::AutoRebirthFalse)
     }
 }
 
@@ -264,6 +285,10 @@ pub fn use_saved_ticks(val: bool) {
 #[wasm_bindgen]
 pub fn tick() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    tick_internal(game);
+}
+
+pub fn tick_internal(game: &mut Game) {
     check_for_tutorial_step(game);
     if game.meta_data.should_autosave() {
         do_save(game);
@@ -275,6 +300,25 @@ pub fn tick() {
     for _ in 0..game.meta_data.game_speed {
         engine_run(game);
     }
+    if should_auto_end_early(game) {
+        info!("Auto ending early");
+        die_internal(game);
+        do_rebirth_internal(game);
+    }
+}
+
+fn should_auto_end_early(game: &Game) -> bool {
+    let options = &game.meta_data.options;
+    let enough_coins = options.auto_end_early_criteria < game.state.rebirth_stats.coins_gain;
+    let old_enough = game.state.life_stats.current_tick >= 5000;
+    // info!(
+    //     "Auto ending early {}, enough_coins {}, criteria {}, gain {}",
+    //     options.auto_end_early,
+    //     enough_coins,
+    //     options.auto_end_early_criteria,
+    //     game.state.rebirth_stats.coins_gain
+    // );
+    options.auto_end_early && enough_coins && old_enough
 }
 
 #[wasm_bindgen]
@@ -434,6 +478,10 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
 pub fn die() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     info!("dying");
+    die_internal(game)
+}
+
+fn die_internal(game: &mut Game) {
     engine_run(game);
     character_death_update(game);
     update_unlocks(&mut *game);

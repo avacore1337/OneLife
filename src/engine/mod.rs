@@ -100,6 +100,9 @@ fn auto_input_update(game: &mut Game) {
     if game.meta_data.options.auto_buy_tomb {
         auto_buy_tomb(game);
     }
+    // if game.meta_data.options.auto_buy_blessings {
+    //     auto_buy_blessings(game);
+    // }
 }
 
 fn get_happiness(game: &Game) -> f64 {
@@ -221,6 +224,7 @@ fn calculate_tombs_income(game: &mut Game) {
         tomb_state.effective_income =
             game.intermediate_state.get_multiplier(KeyValues::Coins) * tomb_world.coin_gain;
     }
+    game.state.rebirth_stats.coins_gain = game.intermediate_state.get_value(KeyValues::Coins);
 }
 
 fn calculate_works_income(game: &mut Game) {

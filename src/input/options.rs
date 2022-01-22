@@ -42,6 +42,8 @@ pub struct Options {
     pub auto_buy_item: bool,
     pub auto_buy_tomb: bool,
     pub auto_rebirth: bool,
+    pub auto_end_early: bool,
+    pub auto_end_early_criteria: f64,
     pub show_bought_items: bool,
     pub show_bought_upgrades: bool,
 }

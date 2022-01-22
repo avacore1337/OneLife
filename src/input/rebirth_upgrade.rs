@@ -31,7 +31,7 @@ pub enum RebirthUpgradeTypes {
     AutoBuyItem,
     AutoBuyTomb,
     AutoRebirth,
-    //AutoEndEarly, // based on coin requirement
+    AutoEndEarly, // based on coin requirement
     //QueuePurchase,
     Replay,
     TheDivine,

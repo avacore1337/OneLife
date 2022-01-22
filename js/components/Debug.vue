@@ -29,6 +29,10 @@
       {{ !metaData.options.auto_rebirth ? "Auto Rebirth" : "Don't Auto Rebirth" }}
     </button>
     <br />
+    <input v-model="end_early_criteria" size="10" />
+    <br />
+    <button v-on:click="wasm.set_auto_end_early(end_early_criteria)">Set End Early Criteria</button>
+    <br />
     <button v-on:click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
     <br />
     <button v-on:click="toggle_show_recorded" style="margin: 2px">
@@ -100,6 +104,7 @@ export default {
       money: 1000000000.0,
       coins: 1000000.0,
       divine_favor: 10000.0,
+      end_early_criteria: 0.0,
     };
   },
   mounted: function () {
