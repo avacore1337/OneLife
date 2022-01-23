@@ -35,7 +35,7 @@ impl Default for GameSave {
 impl From<&Game> for GameSave {
     fn from(game: &Game) -> Self {
         GameSave {
-            input: game.input,
+            input: game.input.clone(),
             state: game.state.clone(),
             meta_data: game.meta_data.clone(),
             inputs: game.inputs.clone(),

@@ -12,7 +12,6 @@ extern crate lazy_static;
 // #[macro_use]
 // extern crate serde_big_array;
 
-pub mod action_queue;
 pub mod engine;
 pub mod game;
 pub mod info;
@@ -69,6 +68,13 @@ pub fn main_js() -> Result<(), JsValue> {
 
     Ok(())
 }
+
+#[wasm_bindgen]
+pub fn get_world_item_queue() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    JsValue::from_serde(&game.input.get_world_item_queue()).unwrap()
+}
+
 #[wasm_bindgen]
 pub fn get_recorded_inputs() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();

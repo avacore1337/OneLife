@@ -46,7 +46,7 @@ import Section from "./Section.vue";
 import { compare } from "../utility.js";
 
 export default {
-  props: ["state", "world", "input", "wasm", "metaData"],
+  props: ["state", "world", "input", "wasm", "metaData", "item_queue"],
   components: { Section },
   computed: {
     visible_unbought_items: function () {

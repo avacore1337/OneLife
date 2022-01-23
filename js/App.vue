@@ -41,6 +41,7 @@
           v-bind:world="world"
           v-bind:wasm="wasm"
           v-bind:metaData="metaData"
+          v-bind:item_queue="item_queue"
         />
         <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
@@ -159,6 +160,7 @@ export default {
       input: {},
       recorded_inputs: {},
       previous_recorded_inputs: {},
+      item_queue: [],
       metaData: { info: {}, saved_ticks: 0.0, options: {} },
       paused: false,
       show_recorded: false,
@@ -214,6 +216,7 @@ export default {
       this.recurse_update(this.metaData, this.wasm.get_meta_data());
       this.recorded_inputs = this.wasm.get_recorded_inputs();
       this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs();
+      this.item_queue = this.wasm.get_world_item_queue();
     },
     updateModal() {
       let modal = this.$refs["the-modal"];

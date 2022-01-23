@@ -9,7 +9,10 @@ pub mod stat;
 pub mod tomb;
 pub mod work;
 
-use crate::WORLD;
+use crate::{
+    world_content::boost_item::{translate_boost_item, BoostItem},
+    WORLD,
+};
 use activity::ActivityTypes;
 use housing::HousingTypes;
 use work::WorkTypes;
@@ -18,11 +21,14 @@ use serde::{Deserialize, Serialize};
 
 use crate::state::state_container::StateContainer;
 
-#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+use self::boost_item::BoostItemTypes;
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Input {
     pub work: WorkTypes,
     pub housing: HousingTypes,
     pub activity: ActivityTypes,
+    pub item_queue: Vec<BoostItemTypes>,
 }
 
 impl Input {
@@ -31,7 +37,21 @@ impl Input {
             work: WORLD.tiers[state.rebirth_stats.tier as usize].starting_work,
             housing: HousingTypes::StoneFloor,
             activity: ActivityTypes::Run,
+            item_queue: vec![],
         }
+    }
+
+    pub fn queue_item(&mut self, item: BoostItemTypes) {
+        if !self.item_queue.contains(&item) {
+            self.item_queue.push(item);
+        }
+    }
+
+    pub fn get_world_item_queue(&self) -> Vec<BoostItem> {
+        self.item_queue
+            .iter()
+            .map(|item| translate_boost_item(item.clone()))
+            .collect()
     }
 }
 
