@@ -39,7 +39,9 @@ use crate::WORLD;
 use intermediate_state::IntermediateState;
 use strum::IntoEnumIterator;
 
-use self::auto_functions::{auto_buy_item, auto_buy_tomb, auto_living, auto_work};
+use self::auto_functions::{
+    auto_buy_blessing, auto_buy_item, auto_buy_queued_item, auto_buy_tomb, auto_living, auto_work,
+};
 
 pub fn engine_run(game: &mut Game) {
     if game.state.life_stats.dead {
@@ -97,12 +99,15 @@ fn auto_input_update(game: &mut Game) {
     if game.meta_data.options.auto_buy_item {
         auto_buy_item(game);
     }
+    if game.state.rebirth_stats.unlocks.can_queue_item {
+        auto_buy_queued_item(game);
+    }
     if game.meta_data.options.auto_buy_tomb {
         auto_buy_tomb(game);
     }
-    // if game.meta_data.options.auto_buy_blessings {
-    //     auto_buy_blessings(game);
-    // }
+    if game.meta_data.options.auto_buy_blessing {
+        auto_buy_blessing(game);
+    }
 }
 
 fn get_happiness(game: &Game) -> f64 {

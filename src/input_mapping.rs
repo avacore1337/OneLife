@@ -14,8 +14,9 @@ use crate::input::work::WorkTypes;
 use crate::input::Recordable;
 use crate::{
     buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
-    set_auto_buy_item_internal, set_auto_buy_tomb_internal, set_auto_living_internal,
-    set_auto_rebirth_internal, set_auto_work_internal, set_housing_internal, set_work_internal,
+    set_auto_buy_blessing_internal, set_auto_buy_item_internal, set_auto_buy_tomb_internal,
+    set_auto_living_internal, set_auto_rebirth_internal, set_auto_work_internal,
+    set_housing_internal, set_work_internal,
 };
 
 type Callback = Box<dyn Fn(&mut Game) + Send>;
@@ -71,6 +72,18 @@ impl Default for InputMapping {
                     auto_setting,
                     Box::new(move |game: &mut Game| {
                         set_auto_buy_item_internal(false, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoBuyBlessingTrue => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_buy_blessing_internal(true, game);
+                    }),
+                ),
+                AutoSettingTypes::AutoBuyBlessingFalse => mapping.add(
+                    auto_setting,
+                    Box::new(move |game: &mut Game| {
+                        set_auto_buy_blessing_internal(false, game);
                     }),
                 ),
                 AutoSettingTypes::AutoBuyTombTrue => mapping.add(

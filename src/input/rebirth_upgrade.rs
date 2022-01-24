@@ -29,10 +29,11 @@ pub enum RebirthUpgradeTypes {
     AutoWork,
     AutoLive,
     AutoBuyItem,
+    AutoBuyBlessing,
     AutoBuyTomb,
     AutoRebirth,
     AutoEndEarly, // based on coin requirement
-    //QueuePurchase,
+    QueueItems,
     Replay,
     TheDivine,
     BribeCharon1,

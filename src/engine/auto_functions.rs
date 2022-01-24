@@ -1,8 +1,6 @@
 use crate::{
-    game::Game,
-    input::options::AutoSettingTypes,
-    world_content::{boost_item::translate_boost_item, tomb::translate_tomb},
-    WORLD,
+    game::Game, input::options::AutoSettingTypes, world_content::boost_item::translate_boost_item,
+    world_content::tomb::translate_tomb, WORLD,
 };
 
 pub fn auto_work(game: &mut Game) {
@@ -37,6 +35,33 @@ pub fn auto_buy_item(game: &mut Game) {
             game.state.items.money -= world_item.purchasing_cost;
         }
     }
+}
+
+pub fn auto_buy_blessing(game: &mut Game) {
+    for blessing in game.state.blessings.iter_mut() {
+        let can_afford = game.state.items.divine_favor >= blessing.next_level_cost;
+        if blessing.is_unlocked && blessing.is_visible && can_afford {
+            blessing.level += 1;
+            game.state.items.divine_favor -= blessing.next_level_cost;
+        }
+    }
+}
+
+pub fn auto_buy_queued_item(game: &mut Game) {
+    for item_type in game.input.item_queue.clone().into_iter() {
+        let item_world = translate_boost_item(item_type);
+        let item = &mut game.state.boost_items[item_type as usize];
+        let can_afford = game.state.items.money >= item_world.purchasing_cost;
+        if !item.is_purchased && item.is_unlocked && item.is_visible && can_afford {
+            item.is_purchased = true;
+            game.state.items.money -= item_world.purchasing_cost;
+        } else {
+            break;
+        }
+    }
+    game.input
+        .item_queue
+        .drain_filter(|item_type| game.state.boost_items[*item_type as usize].is_purchased);
 }
 
 pub fn auto_buy_tomb(game: &mut Game) {

@@ -59,6 +59,12 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::AutoBuyItem => {
             unlocks.can_auto_buy_item = true;
         }
+        RebirthUpgradeTypes::AutoBuyBlessing => {
+            unlocks.can_auto_buy_blessing = true;
+        }
+        RebirthUpgradeTypes::QueueItems => {
+            unlocks.can_queue_item = true;
+        }
         RebirthUpgradeTypes::AutoBuyTomb => {
             unlocks.can_auto_buy_tomb = true;
         }
@@ -438,6 +444,22 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         //     effect_description: "todo",
         //     required_tier: 2,
         // },
+        RebirthUpgradeTypes::AutoBuyBlessing => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 60.0,
+            description: "todo",
+            display_name: "Automate Buying of Blessings",
+            effect_description: "todo",
+            required_tier: 2,
+        },
+        RebirthUpgradeTypes::QueueItems => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 60.0,
+            description: "tod!",
+            display_name: "Unlock The Item Queue",
+            effect_description: "todo",
+            required_tier: 2,
+        },
     }
 }
 

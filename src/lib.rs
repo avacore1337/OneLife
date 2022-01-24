@@ -1,4 +1,5 @@
 #![feature(variant_count)]
+#![feature(drain_filter)]
 // #![feature(generic_const_exprs)]
 
 use input_recording::{Inputs, RecordedInputEntry};
@@ -253,6 +254,21 @@ pub fn set_auto_living_internal(val: bool, game: &mut Game) {
 }
 
 #[wasm_bindgen]
+pub fn set_auto_buy_blessing(val: bool) {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    set_auto_buy_blessing_internal(val, game);
+}
+
+pub fn set_auto_buy_blessing_internal(val: bool, game: &mut Game) {
+    if val {
+        game.register_input(AutoSettingTypes::AutoBuyBlessingTrue)
+    } else {
+        game.register_input(AutoSettingTypes::AutoBuyBlessingFalse)
+    };
+    game.meta_data.options.auto_buy_blessing = val;
+}
+
+#[wasm_bindgen]
 pub fn set_auto_buy_item(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     set_auto_buy_item_internal(val, game);
@@ -436,6 +452,14 @@ pub fn can_buy_blessing(blessing: BlessingTypes, game: &mut Game) -> bool {
     let blessing = &game.state.blessings[blessing as usize];
     let can_afford: bool = game.state.items.divine_favor >= blessing.next_level_cost;
     can_afford
+}
+
+#[wasm_bindgen]
+pub fn queue_item(val: &JsValue) {
+    info!("Rust queue item");
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
+    game.input.queue_item(boost_item_type);
 }
 
 #[wasm_bindgen]

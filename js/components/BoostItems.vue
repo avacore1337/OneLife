@@ -1,5 +1,18 @@
 <template>
   <Section title="Items">
+    <div>
+      <h4>Item Queue</h4>
+      <table>
+        <tr v-for="item in item_queue" :key="item.name">
+          <td>
+            <span>{{ item.display_name }} </span>
+            <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
+            <br />
+            <span>{{ item.effect_description }} </span>
+          </td>
+        </tr>
+      </table>
+    </div>
     <span>
       Show bought Items
       <input

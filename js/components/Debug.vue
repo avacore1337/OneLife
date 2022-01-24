@@ -21,6 +21,10 @@
       {{ !metaData.options.auto_buy_item ? "Auto Buy Item" : "Don't Auto Buy Item" }}
     </button>
     <br />
+    <button v-on:click="toggle_auto_buy_blessing" style="margin: 2px">
+      {{ !metaData.options.auto_buy_blessing ? "Auto Buy Blessing" : "Don't Auto Buy Blessing" }}
+    </button>
+    <br />
     <button v-on:click="toggle_auto_buy_tomb" style="margin: 2px">
       {{ !metaData.options.auto_buy_tomb ? "Auto Buy Tomb" : "Don't Auto Buy Tomb" }}
     </button>
@@ -122,6 +126,9 @@ export default {
     },
     toggle_auto_buy_item: function () {
       this.wasm.set_auto_buy_item(!this.metaData.options.auto_buy_item);
+    },
+    toggle_auto_buy_blessing: function () {
+      this.wasm.set_auto_buy_blessing(!this.metaData.options.auto_buy_blessing);
     },
     toggle_auto_buy_tomb: function () {
       this.wasm.set_auto_buy_tomb(!this.metaData.options.auto_buy_tomb);
