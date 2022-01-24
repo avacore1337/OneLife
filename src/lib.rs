@@ -455,6 +455,14 @@ pub fn can_buy_blessing(blessing: BlessingTypes, game: &mut Game) -> bool {
 }
 
 #[wasm_bindgen]
+pub fn dequeue_item(val: &JsValue) {
+    info!("Rust dequeue item");
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
+    game.input.dequeue_item(boost_item_type);
+}
+
+#[wasm_bindgen]
 pub fn queue_item(val: &JsValue) {
     info!("Rust queue item");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
