@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 615 614">
+  <title>Simple ouroboros depiction (glyph "oroboros" from toa267 public domain Fnord-Podge font)</title>
+  <g transform="translate(7.5 607.5) scale(.6 -.6)">
+    <path d="m604 24c231 47 396 246 396 476 0 276-224 500-500 500s-500-224-500-500c0-217 146-408 358-470 5-1 7-2 12-2 18 0 33-13 53-13 10 0 35 3 45 3 30 0 74-18 104-18 13 0 28 10 32 24zm-262 112c-150 62-247 205-247 364 0 224 181 405 405 405s405-181 405-405c0-172-110-324-273-380 1 18-22 29-48 29-14 0-27-5-34-5-10 0-28 11-46 11-20 0-54-8-84-13s-63-12-78-6z" fill="#ebebeb"/>
+    <path d="m604 24c231 47 396 246 396 476 0 276-224 500-500 500s-500-224-500-500c0-217 146-408 358-470 5-1 7-2 12-2 18 0 33-13 53-13 10 0 35 3 45 3 30 0 74-18 104-18 13 0 28 10 32 24zm-247 19c-205 61-345 247-345 457 0 270 218 488 488 488s488-218 488-488c0-231-170-428-403-468-36-6-86 16-86 23 0 5 21 12 25 14 239 12 426 201 426 431 0 249-201 450-450 450s-450-201-450-450c0-154 83-298 218-377 13-6 37-7 47-7s46 2 56 7 49 10 69 15 47 9 62 9c25 0 48-15 56-14v2c0 3 9 5 27 5 20 0 41-7 39-23l-24-9c-20-6-29-5-39-9-25-8-31-19-54-29s-57-10-57-15c0-3 15-4 25-5 25-3 50-23 80-26 20-2 25-1 39 0-1-5-9-15-22-15-32 0-72 19-99 19-15 0-26-6-41-6-22 0-47 18-67 30-5 3-10 6-15 6s-5-1-5-2c0-4 20-10 20-13 0-2-3-1-8 0zm215 49c200 35 345 207 345 408 0 230-187 417-417 417s-417-187-417-417c0-163 100-311 254-375-24-3-52-1-65 5-133 78-214 218-214 370 0 244 198 442 442 442s442-198 442-442c0-220-175-403-403-422 5 2 13 12 33 14zm-230 44c-150 62-247 205-247 364 0 224 181 405 405 405s405-181 405-405c0-172-110-324-273-380 1 18-22 29-48 29-14 0-27-5-34-5-10 0-28 11-46 11-20 0-54-8-84-13s-63-12-78-6zm104-16c0-2 4-3 14-3 15-1 18-13 30-13 21 0 30 9 37 9l10-2 1 2c-10 7-25 17-35 17-5 0-10-1-20-4-15-4-37-4-37-6zm134 7c18-3 17-9 27-9 3 0 5 2 5 5s-12 6-31 7l-1-3z"/>
+    <path d="m472 119l15 3c0-5 3-10 5-13-9 0-15 8-20 10zm50-2l-17-7c1 5 1 10 0 15 8-2 12-5 17-8z" fill="#fff"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Ouroboros</dc:title>
+        <dc:date>2013-02-13T16:40:21</dc:date>
+        <dc:description>Simple depiction of Ouroboros symbol. Made by AnonMoos, based on a character outline in the (PostScript Type 1) "Fnord Hodge-Podge Discordian fonts version 2" by toa267 (declared by him to be Public Domain). Category:Ouroboros</dc:description>
+        <dc:source>http://openclipart.org/detail/175105/ouroboros-by-bananau-175105</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Bananau</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>Carl</rdf:li>
+            <rdf:li>Gnosticism</rdf:li>
+            <rdf:li>Hermeticism</rdf:li>
+            <rdf:li>Jung</rdf:li>
+            <rdf:li>alchemical</rdf:li>
+            <rdf:li>alchemy</rdf:li>
+            <rdf:li>bites</rdf:li>
+            <rdf:li>biting</rdf:li>
+            <rdf:li>boros</rdf:li>
+            <rdf:li>caudal</rdf:li>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>cobra</rdf:li>
+            <rdf:li>cyclicality</rdf:li>
+            <rdf:li>dragon</rdf:li>
+            <rdf:li>evolution</rdf:li>
+            <rdf:li>human</rdf:li>
+            <rdf:li>illustrations</rdf:li>
+            <rdf:li>image</rdf:li>
+            <rdf:li>media</rdf:li>
+            <rdf:li>opus</rdf:li>
+            <rdf:li>oura</rdf:li>
+            <rdf:li>ouroboros</rdf:li>
+            <rdf:li>psyche</rdf:li>
+            <rdf:li>public domain</rdf:li>
+            <rdf:li>re-creation</rdf:li>
+            <rdf:li>self</rdf:li>
+            <rdf:li>self-reflexivity</rdf:li>
+            <rdf:li>serpent</rdf:li>
+            <rdf:li>serpente</rdf:li>
+            <rdf:li>snake</rdf:li>
+            <rdf:li>svg</rdf:li>
+            <rdf:li>tail</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
