@@ -10,6 +10,16 @@
     />
 
     <br />
+    Current Work
+    <div v-for="[work, work_state] in current_work" style="border: solid; margin: 2px; padding: 10px">
+      {{ work.display_name }}
+      {{ work_state.level }}
+      <br />
+      {{ work_state.effective_income.toFixed(1) }}/s
+      <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
+    </div>
+
+    <br />
     Items
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>Money: {{ printableNumbers(state.items.money) }} Income: {{ printableNumbers(state.items.income) }}</p>
@@ -46,9 +56,23 @@
 <script>
 import BaseStats from "./BaseStats.vue";
 import Skills from "./Skills.vue";
+import ProgressBar from "./ProgressBar.vue";
 export default {
   props: ["state", "world", "input", "wasm", "metaData"],
-  components: { BaseStats, Skills },
+  components: { ProgressBar, BaseStats, Skills },
+
+  computed: {
+    current_work: function () {
+      let self = this;
+      let the_work = [];
+      this.world.works.forEach((work, i) => {
+        if (work.name == self.input.work) {
+          the_work = [[work, self.state.works[i]]];
+        }
+      });
+      return the_work;
+    },
+  },
   methods: {
     life_status: function () {
       if (this.state.life_stats.dead) {

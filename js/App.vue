@@ -148,6 +148,7 @@ export default {
         stats: {},
         skills: {},
         tombs: [],
+        works: [],
         housing: [],
         boost_items: [],
         items: {},
