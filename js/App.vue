@@ -168,7 +168,7 @@ export default {
       numberFormat: "DEFAULT",
       modalText: "",
       updateCount: 0,
-      updateRate: 2, // if made into 1, then progress bar sometimes freaks out and eats the cpu...
+      updateRate: 3, // if made into 1, then progress bar sometimes freaks out and eats the cpu...
     };
   },
   mounted: function () {
