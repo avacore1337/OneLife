@@ -84,7 +84,7 @@ fn get_multiplier(level: u32) -> f64 {
 
 pub fn calculate_effect_description(input_blessing: BlessingTypes, game: &Game) -> String {
     let blessing_state = &game.state.blessings[input_blessing as usize];
-    format!("Multiplier: {}", get_multiplier(blessing_state.level)).to_string()
+    format!("Multiplier: {}", get_multiplier(blessing_state.level))
 }
 
 pub fn calculate_blessing_next_level_cost(input_blessing: BlessingTypes, game: &Game) -> f64 {

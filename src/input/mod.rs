@@ -54,7 +54,7 @@ impl Input {
     pub fn get_world_item_queue(&self) -> Vec<BoostItem> {
         self.item_queue
             .iter()
-            .map(|item| translate_boost_item(item.clone()))
+            .map(|item| translate_boost_item(*item))
             .collect()
     }
 }
