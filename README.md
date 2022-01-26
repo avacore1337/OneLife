@@ -72,11 +72,17 @@ We use [prettier](https://prettier.io/) for formating, please run the following 
 npx prettier --write .
 ```
 
+Or a faster version
+
+```
+npx prettier $(git diff --name-only --diff-filter=ACM) $(git diff --cached --name-only --diff-filter=ACM) --write --ignore-unknown
+```
+
 ## Notes:
 
 - Money = money during life.
 - Coins = coins you get when passing into the underworld.
-- Karma = tips and boosts
+- Divine Favor = currency you get for praying.
 
 # Features
 
@@ -86,14 +92,6 @@ npx prettier --write .
 - N - Nice to have, thing/ideas that we can implement if we think they are fun or a good learning experience
 
 ## Both
-
-### C - Tombs
-
-Implement "tombs" (the thing that makes you get more coins when rebirthing)
-
-### C - Activities
-
-Things you do to boosts stats etc
 
 ## Rust/Engine
 

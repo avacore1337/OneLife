@@ -92,9 +92,11 @@
     <br />
     <br />
     Presets
-    <div v-for="(value, name) in presets" :key="name">
-      <button v-on:click="wasm.set_preset_saves(name)" style="margin: 2px">{{ name }}</button>
-    </div>
+    <b-dropdown id="dropdown-1" text="Presets" no-flip class="m-md-2">
+      <b-dropdown-item v-for="name in presets" :key="name" v-on:click="wasm.set_preset_saves(name)">{{
+        name
+      }}</b-dropdown-item>
+    </b-dropdown>
   </div>
 </template>
 
@@ -104,7 +106,7 @@ export default {
   props: ["metaData", "state", "input", "wasm"],
   data() {
     return {
-      presets: {},
+      presets: [],
       money: 1000000000.0,
       coins: 1000000.0,
       divine_favor: 10000.0,
@@ -112,7 +114,7 @@ export default {
     };
   },
   mounted: function () {
-    this.presets = this.wasm.get_preset_saves();
+    this.presets = Object.freeze(this.wasm.get_preset_saves());
   },
   methods: {
     toggle_use_saved_ticks: function () {
