@@ -64,6 +64,7 @@ export default {
   computed: {
     visible_unbought_items: function () {
       let self = this;
+      console.log("Item update");
       return self.world.boost_items
         .map((w, i) => {
           return [w, self.state.boost_items[i]];

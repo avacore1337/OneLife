@@ -92,11 +92,16 @@
     <br />
     <br />
     Presets
-    <b-dropdown id="dropdown-1" text="Presets" no-flip class="m-md-2">
-      <b-dropdown-item v-for="name in presets" :key="name" v-on:click="wasm.set_preset_saves(name)">{{
-        name
-      }}</b-dropdown-item>
-    </b-dropdown>
+    <div v-if="false">
+      <b-dropdown id="dropdown-1" text="Presets" no-flip class="m-md-2">
+        <b-dropdown-item v-for="name in presets" :key="name" v-on:click="wasm.set_preset_saves(name)">{{
+          name
+        }}</b-dropdown-item>
+      </b-dropdown>
+    </div>
+    <div v-for="name in presets" :key="name">
+      <button v-on:click="wasm.set_preset_saves(name)" style="margin: 2px">{{ name }}</button>
+    </div>
   </div>
 </template>
 
@@ -114,7 +119,7 @@ export default {
     };
   },
   mounted: function () {
-    this.presets = Object.freeze(this.wasm.get_preset_saves());
+    this.presets = this.wasm.get_preset_saves();
   },
   methods: {
     toggle_use_saved_ticks: function () {
@@ -143,9 +148,7 @@ export default {
     },
     tick: function (work_name) {
       this.wasm.single_tick();
-
-      this.$parent.state = this.wasm.get_state();
-      this.$parent.input = this.wasm.get_input();
+      this.$parent.update_dynamic_data();
     },
     toggle_show_recorded: function () {
       this.$parent.show_recorded = !this.$parent.show_recorded;

@@ -178,6 +178,7 @@ export default {
     this.recorded_inputs = this.wasm.get_recorded_inputs();
     this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs();
     this.metaData = this.wasm.get_meta_data();
+    this.item_queue = this.wasm.get_world_item_queue();
 
     let self = this;
     setInterval(function () {
@@ -200,6 +201,13 @@ export default {
   methods: {
     recurse_update(o, o2) {
       for (var key in o2) {
+        if (Array.isArray(o2[key])) {
+          if (o[key].length != o2[key].length) {
+            console.log(key, o[key], o2[key]);
+            o[key] = o2[key];
+            continue;
+          }
+        }
         if (typeof o2[key] == "object") {
           this.recurse_update(o[key], o2[key]);
           continue;
@@ -215,13 +223,21 @@ export default {
       this.recurse_update(this.state, this.wasm.get_state());
       this.recurse_update(this.input, this.wasm.get_input());
       this.recurse_update(this.metaData, this.wasm.get_meta_data());
-      this.recorded_inputs = this.wasm.get_recorded_inputs();
-      this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs();
-      this.item_queue = this.wasm.get_world_item_queue();
+      if (this.show_recorded) {
+        this.recorded_inputs = this.wasm.get_recorded_inputs();
+        this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs();
+      }
+      let queue = this.wasm.get_world_item_queue();
+      if (this.item_queue.length != queue.length) {
+        this.item_queue = queue;
+      } else {
+        this.recurse_update(this.item_queue, queue);
+      }
     },
     updateModal() {
       let modal = this.$refs["the-modal"];
       if (this.metaData.info.show_tutorial && modal.isHidden) {
+        console.log("update modal");
         this.modalText = this.world.tutorial_texts[this.metaData.info.tutorial_step];
         modal.show();
       }
