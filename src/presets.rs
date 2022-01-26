@@ -9,8 +9,8 @@ use crate::input::Input;
 use crate::state::state_container::rebirth;
 use crate::util::{
     balance_activities, get_run_study_array, get_training_meditate_array, get_training_study_array,
-    get_training_study_wargames_array, get_upgrades_up_to_tier_max_cost, set_full_auto,
-    set_jobs_at_tier_to, set_lower_tier_jobs_to,
+    get_training_study_wargames_array, get_upgrades_up_to_current_tier,
+    get_upgrades_up_to_tier_max_cost, set_full_auto, set_jobs_at_tier_to, set_lower_tier_jobs_to,
 };
 use std::collections::BTreeMap;
 use strum::IntoEnumIterator;
@@ -149,22 +149,22 @@ fn make_current() -> GameSave {
 //     game_save
 // }
 
-// pub fn make_t4() -> GameSave {
-//     let mut game_save = GameSave::default();
-//     let state = &mut game_save.state;
-//     let r = &mut state.rebirth_stats;
-//     r.tier = 4;
-//     get_upgrades_up_to_current_tier(r);
-//     r.coins = 1000.0;
-//     r.rebirth_count = 16;
+pub fn make_t4() -> GameSave {
+    let mut game_save = GameSave::default();
+    let state = &mut game_save.state;
+    let r = &mut state.rebirth_stats;
+    r.tier = 4;
+    get_upgrades_up_to_current_tier(r);
+    r.coins = 1000.0;
+    r.rebirth_count = 16;
 
-//     set_lower_tier_jobs_to(r, 70);
+    set_lower_tier_jobs_to(r, 70);
 
-//     game_save.state = rebirth(r.clone());
+    game_save.state = rebirth(r.clone());
 
-//     game_save.input = Input::new(&game_save.state);
-//     game_save
-// }
+    game_save.input = Input::new(&game_save.state);
+    game_save
+}
 
 // fn make_t5() -> GameSave {
 //     let mut game_save = GameSave::default();

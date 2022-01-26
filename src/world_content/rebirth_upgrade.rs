@@ -24,18 +24,25 @@ pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: Rebir
             state.items.money += 4000.0;
         }
         RebirthUpgradeTypes::StartingWealth2 => {
-            state.items.money += 30000.0;
-        }
-        RebirthUpgradeTypes::StartingWealth3 => {
             state.boost_items[BoostItemTypes::Book as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Shoe1 as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Clothes1 as usize].is_purchased = true;
-            state.items.money += 200_000.0;
+            state.items.money += 30000.0;
         }
-        RebirthUpgradeTypes::StartingWealth4 => {
+        RebirthUpgradeTypes::StartingWealth3 => {
+            state.items.money += 150_000.0;
             state.boost_items[BoostItemTypes::Book2 as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Shoe2 as usize].is_purchased = true;
+            state.boost_items[BoostItemTypes::Dumbell as usize].is_purchased = true;
             state.boost_items[BoostItemTypes::Clothes2 as usize].is_purchased = true;
+            state.boost_items[BoostItemTypes::Burial1 as usize].is_purchased = true;
+        }
+        RebirthUpgradeTypes::StartingWealth4 => {
+            state.boost_items[BoostItemTypes::Dumbell2 as usize].is_purchased = true;
+            state.boost_items[BoostItemTypes::Book3 as usize].is_purchased = true;
+            state.boost_items[BoostItemTypes::Shoe3 as usize].is_purchased = true;
+            state.boost_items[BoostItemTypes::Clothes3 as usize].is_purchased = true;
+            state.boost_items[BoostItemTypes::Flower1 as usize].is_purchased = true;
             state.items.money += 1_000_000.0;
         }
         _ => (),
@@ -494,6 +501,10 @@ pub fn should_be_visible_rebirth_upgrade(
         }
         RebirthUpgradeTypes::StartingWealth3 => {
             game.state.rebirth_stats.rebirth_upgrades[RebirthUpgradeTypes::StartingWealth2 as usize]
+                .is_purchased
+        }
+        RebirthUpgradeTypes::StartingWealth4 => {
+            game.state.rebirth_stats.rebirth_upgrades[RebirthUpgradeTypes::StartingWealth3 as usize]
                 .is_purchased
         }
         _ => true,
