@@ -8,10 +8,11 @@
         :key="activity.name"
       >
         <td>
-          <p v-bind:class="{ selected: activity.name == input.activity }">
+          <v-icon :name="activity.icon" size="lg" inverse="true" color="white" />
+          <span v-bind:class="{ selected: activity.name == input.activity }">
             {{ activity.display_name }}
-            <span style="float: right">Effect: {{ activity.effect_description }} </span>
-          </p>
+          </span>
+          <span style="float: right">Effect: {{ activity.effect_description }} </span>
         </td>
       </tr>
     </table>

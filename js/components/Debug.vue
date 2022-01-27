@@ -2,6 +2,19 @@
   <div>
     <h3>Settings</h3>
     <br />
+    Presets
+    <div v-if="true">
+      <b-dropdown id="dropdown-1" text="Presets" no-flip class="m-md-2">
+        <b-dropdown-item-button v-for="name in presets" :key="name" v-on:click="wasm.set_preset_saves(name)">{{
+          name
+        }}</b-dropdown-item-button>
+      </b-dropdown>
+    </div>
+    <div v-if="false">
+      <div v-for="name in presets" :key="name">
+        <button v-on:click="wasm.set_preset_saves(name)" style="margin: 2px">{{ name }}</button>
+      </div>
+    </div>
     <br />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
     <br />
@@ -91,17 +104,6 @@
     <button v-on:click="wasm.give_divine_favor(divine_favor)">Give Divine Favor</button>
     <br />
     <br />
-    Presets
-    <div v-if="false">
-      <b-dropdown id="dropdown-1" text="Presets" no-flip class="m-md-2">
-        <b-dropdown-item-button v-for="name in presets" :key="name" v-on:click="wasm.set_preset_saves(name)">{{
-          name
-        }}</b-dropdown-item-button>
-      </b-dropdown>
-    </div>
-    <div v-for="name in presets" :key="name">
-      <button v-on:click="wasm.set_preset_saves(name)" style="margin: 2px">{{ name }}</button>
-    </div>
   </div>
 </template>
 

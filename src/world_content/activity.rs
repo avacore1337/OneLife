@@ -12,6 +12,7 @@ pub struct Activity {
     pub description: &'static str,
     pub display_name: &'static str,
     pub effect_description: &'static str,
+    pub icon: &'static str,
     pub required_tier: u32,
 }
 
@@ -53,6 +54,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting stronger, faster",
             display_name: "Weight Lifting",
             effect_description: "10 Strength XP/s",
+            icon: "dumbbell",
             required_tier: 2,
         },
         ActivityTypes::Studying => Activity {
@@ -60,6 +62,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting smarter",
             display_name: "Studying",
             effect_description: "10 Intelligence XP/s",
+            icon: "brain",
             required_tier: 0,
         },
         ActivityTypes::Flirt => Activity {
@@ -67,6 +70,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting what you want",
             display_name: "Flirt",
             effect_description: "10 Charisma XP/s",
+            icon: "glass-cheers",
             required_tier: 1,
         },
         ActivityTypes::Run => Activity {
@@ -74,6 +78,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Going further",
             display_name: "Running",
             effect_description: "10 Constitution XP/s",
+            icon: "running",
             required_tier: 0,
         },
         ActivityTypes::Acrobatics => Activity {
@@ -81,6 +86,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting bendier",
             display_name: "Acrobatics",
             effect_description: "10 Dexterity XP/s",
+            icon: "dumbbell",
             required_tier: 7,
         },
         ActivityTypes::Praying => Activity {
@@ -88,6 +94,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting more pieus",
             display_name: "Praying",
             effect_description: "10 Piety XP/s",
+            icon: "pray",
             required_tier: 3,
         },
         ActivityTypes::Meditate => Activity {
@@ -95,6 +102,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Introspect on your being",
             display_name: "Meditate",
             effect_description: "10 Mindfullness XP/s",
+            icon: "hand-holding",
             required_tier: 3,
         },
         ActivityTypes::WarGames => Activity {
@@ -102,6 +110,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Train tactics",
             display_name: "War Games",
             effect_description: "10 Military Tactics XP/s",
+            icon: "map",
             required_tier: 3,
         },
     }
