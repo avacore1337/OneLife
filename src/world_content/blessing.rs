@@ -84,7 +84,32 @@ fn get_multiplier(level: u32) -> f64 {
 
 pub fn calculate_effect_description(input_blessing: BlessingTypes, game: &Game) -> String {
     let blessing_state = &game.state.blessings[input_blessing as usize];
-    format!("Multiplier: {}", get_multiplier(blessing_state.level))
+    match input_blessing {
+        BlessingTypes::HeruclesStrength => {
+            format!(
+                "Strength XP Multiplier: {}",
+                get_multiplier(blessing_state.level)
+            )
+        }
+        BlessingTypes::AthenasWisdom => {
+            format!(
+                "Intelligence XP Multiplier: {}",
+                get_multiplier(blessing_state.level)
+            )
+        }
+        BlessingTypes::PoseidonsSturdiness => {
+            format!(
+                "Constitution XP Multiplier: {}",
+                get_multiplier(blessing_state.level)
+            )
+        }
+        BlessingTypes::AfroditesCharm => {
+            format!(
+                "Charisma XP Multiplier: {}",
+                get_multiplier(blessing_state.level)
+            )
+        }
+    }
 }
 
 pub fn calculate_blessing_next_level_cost(input_blessing: BlessingTypes, game: &Game) -> f64 {
