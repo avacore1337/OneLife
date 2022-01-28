@@ -3,6 +3,7 @@
     Blessings
     <ul>
       <li v-for="[blessing, blessing_state] in visible_blessings" :key="blessing.name">
+        <my-icon :icon="blessing.icon" />
         <button v-on:click="wasm.buy_blessing(blessing.name)" :disabled="!blessing_state.is_unlocked">
           {{ blessing.display_name }}
         </button>

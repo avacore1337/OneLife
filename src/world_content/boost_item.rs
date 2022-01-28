@@ -1,6 +1,7 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
+use crate::icon::{Icon, IconType};
 use crate::input::boost_item::{BoostItemTypes, BOOST_ITEM_SIZE};
 use crate::input::work::WorkTypes;
 use serde::Serialize;
@@ -15,6 +16,7 @@ pub struct BoostItem {
     pub effect_description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
+    pub icon: Icon,
 }
 
 impl Gain for BoostItem {
@@ -186,6 +188,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Learning to read",
             required_tier: 0,
+            icon: IconType::Int.into(),
         },
         BoostItemTypes::Shoe1 => BoostItem {
             name: item_type,
@@ -194,6 +197,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Constitution XP gain",
             display_name: "Raggs Shoes",
             required_tier: 0,
+            icon: IconType::Con.into(),
         },
         BoostItemTypes::Clothes1 => BoostItem {
             name: item_type,
@@ -202,6 +206,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Happiness",
             display_name: "Ragged Clothes",
             required_tier: 0,
+            icon: IconType::Happiness.into(),
         },
         BoostItemTypes::Book2 => BoostItem {
             name: item_type,
@@ -210,6 +215,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Reading for children",
             required_tier: 0,
+            icon: IconType::Int.into(),
         },
         BoostItemTypes::Shoe2 => BoostItem {
             name: item_type,
@@ -218,6 +224,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Constitution XP gain",
             display_name: "Wooden Shoe",
             required_tier: 0,
+            icon: IconType::Con.into(),
         },
 
         // TOMB 1 - 10 000
@@ -228,6 +235,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "Improving Health",
             display_name: "Blood Leach",
             required_tier: 1,
+            icon: IconType::Health.into(),
         },
         BoostItemTypes::Clothes2 => BoostItem {
             name: item_type,
@@ -236,6 +244,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Happiness",
             display_name: "Farmers Clothes",
             required_tier: 0,
+            icon: IconType::Happiness.into(),
         },
         BoostItemTypes::Shoe3 => BoostItem {
             name: item_type,
@@ -244,6 +253,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Constitution XP gain",
             display_name: "Sandals",
             required_tier: 1,
+            icon: IconType::Con.into(),
         },
         BoostItemTypes::FishingGear => BoostItem {
             name: item_type,
@@ -252,6 +262,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Fisherman income",
             display_name: "Fishing Gear",
             required_tier: 1,
+            icon: IconType::Question.into(),
         },
         BoostItemTypes::Burial1 => BoostItem {
             name: item_type,
@@ -260,6 +271,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.3x Coin gain",
             display_name: "Burial1",
             required_tier: 1,
+            icon: IconType::Coin.into(),
         },
         BoostItemTypes::Book3 => BoostItem {
             name: item_type,
@@ -268,6 +280,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Dunner Kruger's peak",
             required_tier: 1,
+            icon: IconType::Int.into(),
         },
         BoostItemTypes::Clothes3 => BoostItem {
             name: item_type,
@@ -276,6 +289,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Happiness",
             display_name: "City Clothes",
             required_tier: 1,
+            icon: IconType::Happiness.into(),
         },
         BoostItemTypes::Flower1 => BoostItem {
             name: item_type,
@@ -284,6 +298,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Charisma XP gain",
             display_name: "Roadside flower",
             required_tier: 1,
+            icon: IconType::Cha.into(),
         },
 
         // TOMB 2 - 100 000
@@ -294,6 +309,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Strength XP gain",
             display_name: "Wooden Dumbell",
             required_tier: 2,
+            icon: IconType::Str.into(),
         },
         BoostItemTypes::Dumbell2 => BoostItem {
             name: item_type,
@@ -302,6 +318,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Strength XP gain",
             display_name: "Stone dumbell",
             required_tier: 2,
+            icon: IconType::Str.into(),
         },
         BoostItemTypes::PitchFork => BoostItem {
             name: item_type,
@@ -310,6 +327,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Farmer income",
             display_name: "Pitchfork",
             required_tier: 2,
+            icon: IconType::Question.into(),
         },
         BoostItemTypes::Book4 => BoostItem {
             name: item_type,
@@ -318,6 +336,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Elementary Education",
             required_tier: 2,
+            icon: IconType::Int.into(),
         },
         BoostItemTypes::Shoe4 => BoostItem {
             name: item_type,
@@ -326,6 +345,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Constitution XP gain",
             display_name: "Leather Sandals",
             required_tier: 2,
+            icon: IconType::Con.into(),
         },
         BoostItemTypes::Dumbell3 => BoostItem {
             name: item_type,
@@ -334,6 +354,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Strength XP gain",
             display_name: "Kettlebell",
             required_tier: 2,
+            icon: IconType::Str.into(),
         },
         BoostItemTypes::Burial2 => BoostItem {
             name: item_type,
@@ -342,6 +363,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.3x Coin gain",
             display_name: "Burial2",
             required_tier: 2,
+            icon: IconType::Coin.into(),
         },
         BoostItemTypes::Clothes4 => BoostItem {
             name: item_type,
@@ -350,6 +372,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Happiness",
             display_name: "City Clothes",
             required_tier: 2,
+            icon: IconType::Happiness.into(),
         },
         BoostItemTypes::Flower2 => BoostItem {
             name: item_type,
@@ -358,6 +381,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Charisma XP gain",
             display_name: "Daisy",
             required_tier: 2,
+            icon: IconType::Cha.into(),
         },
         BoostItemTypes::BribeOfficial1 => BoostItem {
             name: item_type,
@@ -366,6 +390,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.3x Money gain",
             display_name: "Bribe Official 1",
             required_tier: 2,
+            icon: IconType::Money.into(),
         },
 
         // TOMB 3 - 1 000 000
@@ -376,6 +401,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mining income",
             display_name: "Iron Pickaxe",
             required_tier: 3,
+            icon: IconType::Question.into(),
         },
         BoostItemTypes::MiningGear => BoostItem {
             name: item_type,
@@ -384,6 +410,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mining income",
             display_name: "Mining Gear",
             required_tier: 3,
+            icon: IconType::Question.into(),
         },
         BoostItemTypes::ExpertMiningGear => BoostItem {
             name: item_type,
@@ -392,6 +419,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mining income",
             display_name: "Expert Mining Gear",
             required_tier: 4,
+            icon: IconType::Question.into(),
         },
         BoostItemTypes::IronAxe => BoostItem {
             name: item_type,
@@ -400,6 +428,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Woodcutter income",
             display_name: "Iron Axe",
             required_tier: 3,
+            icon: IconType::Question.into(),
         },
         BoostItemTypes::HealthKit => BoostItem {
             name: item_type,
@@ -408,6 +437,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "Improving Health",
             display_name: "Healthkit",
             required_tier: 3,
+            icon: IconType::Health.into(),
         },
         BoostItemTypes::Shoe5 => BoostItem {
             name: item_type,
@@ -416,6 +446,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Constitution XP gain",
             display_name: "Leather Sandals",
             required_tier: 3,
+            icon: IconType::Con.into(),
         },
         BoostItemTypes::Dumbell4 => BoostItem {
             name: item_type,
@@ -424,6 +455,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Strength XP gain",
             display_name: "Kettlebell",
             required_tier: 3,
+            icon: IconType::Str.into(),
         },
         BoostItemTypes::Burial3 => BoostItem {
             name: item_type,
@@ -432,6 +464,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.3x Coin gain",
             display_name: "Burial3",
             required_tier: 3,
+            icon: IconType::Coin.into(),
         },
         BoostItemTypes::Book5 => BoostItem {
             name: item_type,
@@ -440,6 +473,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Elementary Education",
             required_tier: 3,
+            icon: IconType::Int.into(),
         },
         BoostItemTypes::Clothes5 => BoostItem {
             name: item_type,
@@ -448,6 +482,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Happiness",
             display_name: "City Clothes",
             required_tier: 3,
+            icon: IconType::Happiness.into(),
         },
         BoostItemTypes::Flower3 => BoostItem {
             name: item_type,
@@ -456,6 +491,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
             required_tier: 3,
+            icon: IconType::Cha.into(),
         },
         BoostItemTypes::BribeOfficial2 => BoostItem {
             name: item_type,
@@ -464,6 +500,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.3x Money gain",
             display_name: "Bribe Official 2",
             required_tier: 3,
+            icon: IconType::Money.into(),
         },
         BoostItemTypes::Tactics1 => BoostItem {
             name: item_type,
@@ -472,6 +509,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2.0x Tactics XP gain",
             display_name: "Battle Map",
             required_tier: 3,
+            icon: IconType::Tactics.into(),
         },
         BoostItemTypes::Tactics2 => BoostItem {
             name: item_type,
@@ -480,6 +518,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2.0x Tactics XP gain",
             display_name: "Battle Map 2",
             required_tier: 3,
+            icon: IconType::Tactics.into(),
         },
         BoostItemTypes::Tactics3 => BoostItem {
             name: item_type,
@@ -488,6 +527,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Tactics XP gain",
             display_name: "Battle Map 3",
             required_tier: 3,
+            icon: IconType::Tactics.into(),
         },
         BoostItemTypes::Tactics4 => BoostItem {
             name: item_type,
@@ -496,6 +536,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Tactics XP gain",
             display_name: "Battle Map 4",
             required_tier: 3,
+            icon: IconType::Tactics.into(),
         },
 
         // TOMB 4 - 10 000 000
@@ -506,6 +547,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Constitution XP gain",
             display_name: "Leather Sandals",
             required_tier: 3,
+            icon: IconType::Con.into(),
         },
         BoostItemTypes::Dumbell5 => BoostItem {
             name: item_type,
@@ -514,6 +556,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Strength XP gain",
             display_name: "Kettlebell",
             required_tier: 3,
+            icon: IconType::Str.into(),
         },
         BoostItemTypes::Book6 => BoostItem {
             name: item_type,
@@ -522,6 +565,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Intelligence XP gain",
             display_name: "Book: Elementary Education",
             required_tier: 3,
+            icon: IconType::Int.into(),
         },
         BoostItemTypes::Clothes6 => BoostItem {
             name: item_type,
@@ -530,6 +574,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Happiness",
             display_name: "City Clothes",
             required_tier: 3,
+            icon: IconType::Happiness.into(),
         },
         BoostItemTypes::Burial4 => BoostItem {
             name: item_type,
@@ -538,6 +583,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.3x Coin gain",
             display_name: "Burial4",
             required_tier: 3,
+            icon: IconType::Coin.into(),
         },
         BoostItemTypes::Flower4 => BoostItem {
             name: item_type,
@@ -546,6 +592,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Charisma XP gain",
             display_name: "Tulip",
             required_tier: 4,
+            icon: IconType::Cha.into(),
         },
         BoostItemTypes::BribeOfficial3 => BoostItem {
             name: item_type,
@@ -554,6 +601,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.3x Money gain",
             display_name: "Bribe Official 3",
             required_tier: 4,
+            icon: IconType::Money.into(),
         },
         BoostItemTypes::Tactics5 => BoostItem {
             name: item_type,
@@ -562,6 +610,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "1.5x Tactics XP gain",
             display_name: "Battle Map 5",
             required_tier: 4,
+            icon: IconType::Tactics.into(),
         },
 
         BoostItemTypes::Meditation1 => BoostItem {
@@ -571,6 +620,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mindfullness XP gain",
             display_name: "Incense",
             required_tier: 4,
+            icon: IconType::Mindfull.into(),
         },
         BoostItemTypes::Meditation2 => BoostItem {
             name: item_type,
@@ -579,6 +629,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mindfullness XP gain",
             display_name: "Meditation Mat",
             required_tier: 4,
+            icon: IconType::Mindfull.into(),
         },
         BoostItemTypes::Meditation3 => BoostItem {
             name: item_type,
@@ -587,6 +638,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mindfullness XP gain",
             display_name: "Meditation Pillow",
             required_tier: 4,
+            icon: IconType::Mindfull.into(),
         },
         BoostItemTypes::Meditation4 => BoostItem {
             name: item_type,
@@ -595,6 +647,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mindfullness XP gain",
             display_name: "Meditation Pillow",
             required_tier: 4,
+            icon: IconType::Mindfull.into(),
         },
     }
 }

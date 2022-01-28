@@ -2,6 +2,7 @@ use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
 use crate::input::blessing::{BlessingTypes, BLESSING_SIZE};
 // use crate::state::blessing::Blessing as BlessingState;
+use crate::icon::{Icon, IconType};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
@@ -13,6 +14,7 @@ pub struct Blessing {
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
+    pub icon: Icon,
 }
 
 impl Blessing {
@@ -45,7 +47,7 @@ impl Blessing {
     }
 }
 
-pub const fn translate_blessing(blessing: BlessingTypes) -> Blessing {
+pub fn translate_blessing(blessing: BlessingTypes) -> Blessing {
     match blessing {
         BlessingTypes::HeruclesStrength => Blessing {
             name: blessing,
@@ -53,6 +55,7 @@ pub const fn translate_blessing(blessing: BlessingTypes) -> Blessing {
             description: "He's a Hero!",
             display_name: "Herucles Strength",
             required_tier: 5,
+            icon: IconType::Str.into(),
         },
         BlessingTypes::AthenasWisdom => Blessing {
             name: blessing,
@@ -60,6 +63,7 @@ pub const fn translate_blessing(blessing: BlessingTypes) -> Blessing {
             description: "The Wit!",
             display_name: "Athenas Wisdom",
             required_tier: 0,
+            icon: IconType::Int.into(),
         },
         BlessingTypes::PoseidonsSturdiness => Blessing {
             name: blessing,
@@ -67,6 +71,7 @@ pub const fn translate_blessing(blessing: BlessingTypes) -> Blessing {
             description: "The Wit!",
             display_name: "Poseidons Sturdiness",
             required_tier: 0,
+            icon: IconType::Con.into(),
         },
         BlessingTypes::AfroditesCharm => Blessing {
             name: blessing,
@@ -74,6 +79,7 @@ pub const fn translate_blessing(blessing: BlessingTypes) -> Blessing {
             description: "The Wit!",
             display_name: "Afrodites Charm",
             required_tier: 0,
+            icon: IconType::Cha.into(),
         },
     }
 }

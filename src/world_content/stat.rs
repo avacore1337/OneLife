@@ -1,5 +1,6 @@
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
+use crate::icon::{Icon, IconType};
 use crate::input::stat::{StatTypes, STAT_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
@@ -11,6 +12,7 @@ pub struct Stat {
     pub description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
+    pub icon: Icon,
 }
 
 impl Stat {
@@ -49,43 +51,49 @@ impl Stat {
     }
 }
 
-pub const fn translate_stat(stat: StatTypes) -> Stat {
+pub fn translate_stat(stat: StatTypes) -> Stat {
     match stat {
         StatTypes::Str => Stat {
             name: stat,
             description: "Do you even lift?",
             display_name: "Strength",
             required_tier: 2,
+            icon: IconType::Str.into(),
         },
         StatTypes::Cha => Stat {
             name: stat,
             description: "Being liked has it's benifits",
             display_name: "Charisma",
             required_tier: 1,
+            icon: IconType::Cha.into(),
         },
         StatTypes::Dex => Stat {
             name: stat,
             description: "Bendy!",
             display_name: "Dexterity",
             required_tier: 7,
+            icon: IconType::Dex.into(),
         },
         StatTypes::Int => Stat {
             name: stat,
             description: "Brainiac",
             display_name: "Intelligence",
             required_tier: 0,
+            icon: IconType::Int.into(),
         },
         StatTypes::Con => Stat {
             name: stat,
             description: "Endure the pain!",
             display_name: "Constitution",
             required_tier: 0,
+            icon: IconType::Con.into(),
         },
         StatTypes::Faith => Stat {
             name: stat,
             description: "Have some",
             display_name: "Faith",
             required_tier: 4,
+            icon: IconType::Faith.into(),
         },
     }
 }

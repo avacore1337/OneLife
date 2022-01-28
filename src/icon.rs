@@ -21,6 +21,11 @@ pub enum IconType {
     Dex,
     Mindfull,
     Tactics,
+    Coin,
+    Money,
+    Happiness,
+    Health,
+    Question,
 }
 impl From<IconType> for Icon {
     fn from(icon: IconType) -> Self {
@@ -40,5 +45,10 @@ fn get_icon_name(icon: IconType) -> &'static str {
         IconType::Faith => "church",
         IconType::Mindfull => "hand-holding",
         IconType::Tactics => "map",
+        IconType::Coin => "coins",
+        IconType::Money => "money-bill",
+        IconType::Happiness => "laugh-beam",
+        IconType::Health => "medkit",
+        IconType::Question => "question",
     }
 }

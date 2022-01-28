@@ -1,5 +1,6 @@
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
+use crate::icon::{Icon, IconType};
 use crate::input::skill::{SkillTypes, SKILL_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
@@ -12,6 +13,7 @@ pub struct Skill {
     pub display_name: &'static str,
     pub required_tier: u32,
     pub xp_req_modifier: f64,
+    pub icon: Icon,
 }
 
 impl Skill {
@@ -37,7 +39,7 @@ impl Skill {
     }
 }
 
-pub const fn translate_skill(skill: SkillTypes) -> Skill {
+pub fn translate_skill(skill: SkillTypes) -> Skill {
     match skill {
         SkillTypes::Mindfull => Skill {
             name: skill,
@@ -45,6 +47,7 @@ pub const fn translate_skill(skill: SkillTypes) -> Skill {
             display_name: "Mindefullness",
             required_tier: 1,
             xp_req_modifier: 4.0,
+            icon: IconType::Mindfull.into(),
         },
         SkillTypes::Tactics => Skill {
             name: skill,
@@ -52,6 +55,7 @@ pub const fn translate_skill(skill: SkillTypes) -> Skill {
             display_name: "Military Tactics",
             required_tier: 3,
             xp_req_modifier: 1.0,
+            icon: IconType::Tactics.into(),
         },
     }
 }
