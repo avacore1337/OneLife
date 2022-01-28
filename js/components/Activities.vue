@@ -8,7 +8,7 @@
         :key="activity.name"
       >
         <td>
-          <v-icon :name="activity.icon" size="lg" inverse="true" color="white" />
+          <v-icon :name="activity.icon" size="lg" color="white" />
           <span v-bind:class="{ selected: activity.name == input.activity }">
             {{ activity.display_name }}
           </span>

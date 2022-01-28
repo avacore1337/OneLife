@@ -5,7 +5,7 @@
     Presets
     <div v-if="true">
       <b-dropdown id="dropdown-1" text="Presets" no-flip class="m-md-2">
-        <b-dropdown-item-button v-for="name in presets" :key="name" v-on:click="wasm.set_preset_saves(name)">{{
+        <b-dropdown-item-button v-for="name in presets" :key="name" @click="wasm.set_preset_saves(name)">{{
           name
         }}</b-dropdown-item-button>
       </b-dropdown>
