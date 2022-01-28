@@ -1,6 +1,7 @@
 use crate::engine::intermediate_state::{Gain, IntermediateState};
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
+use crate::icon::{Icon, IconType};
 use crate::input::activity::{ActivityTypes, ACTIVITY_SIZE};
 use serde::Serialize;
 use std::mem::{self, MaybeUninit};
@@ -12,7 +13,7 @@ pub struct Activity {
     pub description: &'static str,
     pub display_name: &'static str,
     pub effect_description: &'static str,
-    pub icon: &'static str,
+    pub icon: Icon,
     pub required_tier: u32,
 }
 
@@ -54,7 +55,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting stronger, faster",
             display_name: "Weight Lifting",
             effect_description: "10 Strength XP/s",
-            icon: "dumbbell",
+            icon: IconType::Str.into(),
             required_tier: 2,
         },
         ActivityTypes::Studying => Activity {
@@ -62,7 +63,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting smarter",
             display_name: "Studying",
             effect_description: "10 Intelligence XP/s",
-            icon: "brain",
+            icon: IconType::Int.into(),
             required_tier: 0,
         },
         ActivityTypes::Flirt => Activity {
@@ -70,7 +71,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting what you want",
             display_name: "Flirt",
             effect_description: "10 Charisma XP/s",
-            icon: "glass-cheers",
+            icon: IconType::Cha.into(),
             required_tier: 1,
         },
         ActivityTypes::Run => Activity {
@@ -78,7 +79,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Going further",
             display_name: "Running",
             effect_description: "10 Constitution XP/s",
-            icon: "running",
+            icon: IconType::Con.into(),
             required_tier: 0,
         },
         ActivityTypes::Acrobatics => Activity {
@@ -86,7 +87,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting bendier",
             display_name: "Acrobatics",
             effect_description: "10 Dexterity XP/s",
-            icon: "dumbbell",
+            icon: IconType::Dex.into(),
             required_tier: 7,
         },
         ActivityTypes::Praying => Activity {
@@ -94,7 +95,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Getting more pieus",
             display_name: "Praying",
             effect_description: "10 Piety XP/s",
-            icon: "pray",
+            icon: IconType::Faith.into(),
             required_tier: 3,
         },
         ActivityTypes::Meditate => Activity {
@@ -102,7 +103,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Introspect on your being",
             display_name: "Meditate",
             effect_description: "10 Mindfullness XP/s",
-            icon: "hand-holding",
+            icon: IconType::Mindfull.into(),
             required_tier: 3,
         },
         ActivityTypes::WarGames => Activity {
@@ -110,7 +111,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             description: "Train tactics",
             display_name: "War Games",
             effect_description: "10 Military Tactics XP/s",
-            icon: "map",
+            icon: IconType::Tactics.into(),
             required_tier: 3,
         },
     }

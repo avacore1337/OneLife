@@ -109,6 +109,10 @@ impl Game {
     pub fn hard_reset(&mut self) {
         self.state = StateContainer::default();
         self.input = Input::new(&self.state);
+        self.intermediate_state = IntermediateState::new();
+        self.meta_data = MetaData::new();
+        self.inputs = Inputs::default();
+        self.previous_inputs = Inputs::default();
     }
 
     pub fn load_game(&mut self, save: GameSave) {

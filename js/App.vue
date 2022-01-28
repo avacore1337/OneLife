@@ -109,6 +109,7 @@ import RecordedInputs from "./components/RecordedInputs.vue";
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
 import Icon from "vue-awesome/components/Icon";
+import MyIcon from "./components/MyIcon.vue";
 
 import "vue-awesome/icons";
 import "bootstrap/dist/css/bootstrap.css";
@@ -117,6 +118,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(BootstrapVue);
 Vue.config.performance = true;
 Vue.component("v-icon", Icon);
+Vue.component("my-icon", MyIcon);
 
 export default {
   props: ["wasm"],

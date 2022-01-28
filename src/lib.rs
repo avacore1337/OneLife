@@ -15,6 +15,7 @@ extern crate lazy_static;
 
 pub mod engine;
 pub mod game;
+pub mod icon;
 pub mod info;
 pub mod input;
 pub mod input_mapping;
