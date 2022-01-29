@@ -22,7 +22,10 @@
     <br />
     Items
     <div style="border: solid; margin: 2px; padding: 10px">
-      <p>Money: {{ printableNumbers(state.items.money) }} Income: {{ printableNumbers(state.items.income) }}</p>
+      <p>
+        <my-icon :icon="wasm.get_icon_by_enum('Coin')" />
+        Money: {{ printableNumbers(state.items.money) }} Income: {{ printableNumbers(state.items.income) }}
+      </p>
       <p v-if="state.rebirth_stats.unlocks.has_faith">
         Divine Favor: {{ printableNumbers(state.items.divine_favor) }} Rate:
         {{ printableNumbers(state.items.divine_favor_rate) }}

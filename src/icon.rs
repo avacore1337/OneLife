@@ -27,6 +27,7 @@ pub enum IconType {
     Health,
     Question,
 }
+
 impl From<IconType> for Icon {
     fn from(icon: IconType) -> Self {
         Icon {
@@ -35,7 +36,7 @@ impl From<IconType> for Icon {
     }
 }
 
-fn get_icon_name(icon: IconType) -> &'static str {
+pub fn get_icon_name(icon: IconType) -> &'static str {
     match icon {
         IconType::Con => "running",
         IconType::Int => "brain",

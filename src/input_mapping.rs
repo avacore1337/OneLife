@@ -12,10 +12,12 @@ use crate::input::options::AutoSettingTypes;
 use crate::input::tomb::TombTypes;
 use crate::input::work::WorkTypes;
 use crate::input::Recordable;
-use crate::{
-    buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
+use crate::wasm_api::auto_settings::{
     set_auto_buy_blessing_internal, set_auto_buy_item_internal, set_auto_buy_tomb_internal,
     set_auto_living_internal, set_auto_rebirth_internal, set_auto_work_internal,
+};
+use crate::{
+    buy_blessing_internal, buy_item_internal, buy_tomb_internal, set_activity_internal,
     set_housing_internal, set_work_internal,
 };
 

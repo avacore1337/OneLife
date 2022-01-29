@@ -2,6 +2,7 @@
 #![feature(drain_filter)]
 // #![feature(generic_const_exprs)]
 
+use icon::{Icon, IconType};
 use input_recording::{Inputs, RecordedInputEntry};
 use log::{info, Level};
 use std::sync::Mutex;
@@ -35,7 +36,6 @@ use game::Game;
 use input::activity::ActivityTypes;
 use input::boost_item::BoostItemTypes;
 use input::housing::HousingTypes;
-use input::options::AutoSettingTypes;
 use input::rebirth_upgrade::RebirthUpgradeTypes;
 use input::tomb::TombTypes;
 use input::work::WorkTypes;
@@ -69,6 +69,13 @@ pub fn main_js() -> Result<(), JsValue> {
     info!("Hello One Life!");
 
     Ok(())
+}
+
+#[wasm_bindgen]
+pub fn get_icon_by_enum(val: JsValue) -> JsValue {
+    let icon_type: IconType = val.into_serde().unwrap();
+    let icon: Icon = icon_type.into();
+    JsValue::from_serde(&icon).unwrap()
 }
 
 #[wasm_bindgen]
@@ -163,140 +170,6 @@ pub fn paused() {
         die_internal(game);
         do_rebirth_internal(game);
     }
-}
-
-#[wasm_bindgen]
-pub fn clear_recorded() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    game.inputs.clear()
-}
-
-#[wasm_bindgen]
-pub fn clear_previous_recorded() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    game.previous_inputs.clear()
-}
-
-#[wasm_bindgen]
-pub fn remove_recorded(val: u32) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    if let Err(err) = game.inputs.remove(val) {
-        log::info!("{:?}", err);
-    }
-}
-
-#[wasm_bindgen]
-pub fn remove_previous_recorded(val: u32) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    if let Err(err) = game.previous_inputs.remove(val) {
-        log::info!("{:?}", err);
-    }
-}
-#[wasm_bindgen]
-pub fn set_auto_end_early(val: f64) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    set_auto_end_early_internal(val, game);
-}
-
-pub fn set_auto_end_early_internal(val: f64, game: &mut Game) {
-    game.meta_data.options.auto_end_early_criteria = val;
-    if val == 0.0 {
-        //     game.register_input(AutoSettingTypes::AutoRebirthTrue)
-        game.meta_data.options.auto_end_early = false;
-    } else {
-        game.meta_data.options.auto_end_early = true;
-        //     game.register_input(AutoSettingTypes::AutoRebirthFalse)
-    }
-}
-
-#[wasm_bindgen]
-pub fn set_auto_rebirth(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    set_auto_rebirth_internal(val, game);
-}
-
-pub fn set_auto_rebirth_internal(val: bool, game: &mut Game) {
-    if val {
-        game.register_input(AutoSettingTypes::AutoRebirthTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoRebirthFalse)
-    };
-    game.meta_data.options.auto_rebirth = val;
-}
-
-#[wasm_bindgen]
-pub fn set_auto_work(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    set_auto_work_internal(val, game);
-}
-
-pub fn set_auto_work_internal(val: bool, game: &mut Game) {
-    if val {
-        game.register_input(AutoSettingTypes::AutoWorkTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoWorkFalse)
-    };
-    game.meta_data.options.auto_work = val;
-}
-
-#[wasm_bindgen]
-pub fn set_auto_living(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    set_auto_living_internal(val, game);
-}
-
-pub fn set_auto_living_internal(val: bool, game: &mut Game) {
-    if val {
-        game.register_input(AutoSettingTypes::AutoLivingTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoLivingFalse)
-    };
-    game.meta_data.options.auto_living = val;
-}
-
-#[wasm_bindgen]
-pub fn set_auto_buy_blessing(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    set_auto_buy_blessing_internal(val, game);
-}
-
-pub fn set_auto_buy_blessing_internal(val: bool, game: &mut Game) {
-    if val {
-        game.register_input(AutoSettingTypes::AutoBuyBlessingTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoBuyBlessingFalse)
-    };
-    game.meta_data.options.auto_buy_blessing = val;
-}
-
-#[wasm_bindgen]
-pub fn set_auto_buy_item(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    set_auto_buy_item_internal(val, game);
-}
-
-pub fn set_auto_buy_item_internal(val: bool, game: &mut Game) {
-    if val {
-        game.register_input(AutoSettingTypes::AutoBuyItemTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoBuyItemFalse)
-    };
-    game.meta_data.options.auto_buy_item = val;
-}
-
-#[wasm_bindgen]
-pub fn set_auto_buy_tomb(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    set_auto_buy_tomb_internal(val, game);
-}
-
-pub fn set_auto_buy_tomb_internal(val: bool, game: &mut Game) {
-    if val {
-        game.register_input(AutoSettingTypes::AutoBuyTombTrue)
-    } else {
-        game.register_input(AutoSettingTypes::AutoBuyTombFalse)
-    };
-    game.meta_data.options.auto_buy_tomb = val;
 }
 
 #[wasm_bindgen]
