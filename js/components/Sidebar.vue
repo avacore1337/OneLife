@@ -57,11 +57,11 @@
       <p>Class: {{ state.rebirth_stats.tier }}</p>
       <p>
         <my-icon :icon="wasm.get_icon_by_enum('Coin')" />
-        Coins: {{ state.rebirth_stats.coins }}
+        Coins: {{ printableNumbers(state.rebirth_stats.coins) }}
       </p>
       <p>
         <my-icon :icon="wasm.get_icon_by_enum('Coin')" />
-        Coins Gain: {{ state.rebirth_stats.coins_gain }}
+        Coins Gain: {{ printableNumbers(state.rebirth_stats.coins_gain) }}
       </p>
       <p>Karma: {{ state.rebirth_stats.karma }}</p>
       <p>Time multiplier: {{ state.rebirth_stats.time_factor }}</p>
