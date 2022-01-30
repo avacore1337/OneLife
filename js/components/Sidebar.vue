@@ -23,10 +23,11 @@
     Items
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>
-        <my-icon :icon="wasm.get_icon_by_enum('Coin')" />
+        <my-icon :icon="wasm.get_icon_by_enum('Money')" />
         Money: {{ printableNumbers(state.items.money) }} Income: {{ printableNumbers(state.items.income) }}
       </p>
       <p v-if="state.rebirth_stats.unlocks.has_faith">
+        <my-icon :icon="wasm.get_icon_by_enum('DivineFavor')" />
         Divine Favor: {{ printableNumbers(state.items.divine_favor) }} Rate:
         {{ printableNumbers(state.items.divine_favor_rate) }}
       </p>
@@ -37,8 +38,14 @@
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>Age: {{ prettyPrintDays(state.life_stats.age) }}</p>
       <p>Lifespan: {{ prettyPrintDays(state.life_stats.lifespan) }}</p>
-      <p>Health: {{ state.life_stats.health.toFixed(2) }} Rate: {{ state.life_stats.health_rate.toPrecision(2) }}/s</p>
-      <p>Happiness: {{ state.life_stats.happiness }}</p>
+      <p>
+        <my-icon :icon="wasm.get_icon_by_enum('Health')" />
+        Health: {{ state.life_stats.health.toFixed(2) }} Rate: {{ state.life_stats.health_rate.toPrecision(2) }}/s
+      </p>
+      <p>
+        <my-icon :icon="wasm.get_icon_by_enum('Happiness')" />
+        Happiness: {{ state.life_stats.happiness }}
+      </p>
       <p>Alive: {{ life_status() }}</p>
       <p>Tick: {{ state.life_stats.current_tick }}</p>
     </div>
@@ -48,8 +55,14 @@
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>Life number {{ state.rebirth_stats.rebirth_count + 1 }}</p>
       <p>Class: {{ state.rebirth_stats.tier }}</p>
-      <p>Coins: {{ state.rebirth_stats.coins }}</p>
-      <p>Coins Gain: {{ state.rebirth_stats.coins_gain }}</p>
+      <p>
+        <my-icon :icon="wasm.get_icon_by_enum('Coin')" />
+        Coins: {{ state.rebirth_stats.coins }}
+      </p>
+      <p>
+        <my-icon :icon="wasm.get_icon_by_enum('Coin')" />
+        Coins Gain: {{ state.rebirth_stats.coins_gain }}
+      </p>
       <p>Karma: {{ state.rebirth_stats.karma }}</p>
       <p>Time multiplier: {{ state.rebirth_stats.time_factor }}</p>
     </div>

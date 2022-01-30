@@ -5,10 +5,10 @@
       <table>
         <tr v-for="item in item_queue" :key="item.name">
           <td v-on:click="wasm.dequeue_item(item.name)">
-            <my-icon :icon="item.icon" />
             <span>{{ item.display_name }} </span>
             <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
             <br />
+            <my-icon :icon="item.icon" />
             <span>{{ item.effect_description }} </span>
           </td>
         </tr>
@@ -28,9 +28,9 @@
       <table>
         <tr v-for="[item, item_state] in bought_items" :key="item.name" style="height: 2rem">
           <td>
-            <my-icon :icon="item.icon" />
             <span>{{ item.display_name }}</span>
             <br />
+            <my-icon :icon="item.icon" />
             <span>{{ item.effect_description }} </span>
           </td>
         </tr>
@@ -46,10 +46,10 @@
         :key="item.name"
       >
         <td v-on:click.shift.exakt="wasm.queue_item(item.name)" v-on:click.exakt="buy_item(item.name, $event)">
-          <my-icon :icon="item.icon" />
           <span>{{ item.display_name }} </span>
           <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
           <br />
+          <my-icon :icon="item.icon" />
           <span>{{ item.effect_description }} </span>
         </td>
       </tr>
