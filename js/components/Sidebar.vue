@@ -18,16 +18,15 @@
       {{ work_state.effective_income.toFixed(1) }}/s
       <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
     </div>
-
     <br />
     Items
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>
-        <my-icon :icon="wasm.get_icon_by_enum('Money')" />
+        <my-icon :icon="world.icons['Money']" />
         Money: {{ printableNumbers(state.items.money) }} Income: {{ printableNumbers(state.items.income) }}
       </p>
       <p v-if="state.rebirth_stats.unlocks.has_faith">
-        <my-icon :icon="wasm.get_icon_by_enum('DivineFavor')" />
+        <my-icon :icon="world.icons['DivineFavor']" />
         Divine Favor: {{ printableNumbers(state.items.divine_favor) }} Rate:
         {{ printableNumbers(state.items.divine_favor_rate) }}
       </p>
@@ -39,11 +38,11 @@
       <p>Age: {{ prettyPrintDays(state.life_stats.age) }}</p>
       <p>Lifespan: {{ prettyPrintDays(state.life_stats.lifespan) }}</p>
       <p>
-        <my-icon :icon="wasm.get_icon_by_enum('Health')" />
+        <my-icon :icon="world.icons['Health']" />
         Health: {{ state.life_stats.health.toFixed(2) }} Rate: {{ state.life_stats.health_rate.toPrecision(2) }}/s
       </p>
       <p>
-        <my-icon :icon="wasm.get_icon_by_enum('Happiness')" />
+        <my-icon :icon="world.icons['Happiness']" />
         Happiness: {{ state.life_stats.happiness }}
       </p>
       <p>Alive: {{ life_status() }}</p>
@@ -56,11 +55,11 @@
       <p>Life number {{ state.rebirth_stats.rebirth_count + 1 }}</p>
       <p>Class: {{ state.rebirth_stats.tier }}</p>
       <p>
-        <my-icon :icon="wasm.get_icon_by_enum('Coin')" />
+        <my-icon :icon="world.icons['Coin']" />
         Coins: {{ printableNumbers(state.rebirth_stats.coins) }}
       </p>
       <p>
-        <my-icon :icon="wasm.get_icon_by_enum('Coin')" />
+        <my-icon :icon="world.icons['Coin']" />
         Coins Gain: {{ printableNumbers(state.rebirth_stats.coins_gain) }}
       </p>
       <p>Karma: {{ state.rebirth_stats.karma }}</p>

@@ -15,6 +15,7 @@ use super::tier::{init_tiers, Tier};
 use super::tomb::{get_tombs, Tomb};
 use super::tutorial::get_tutorial_texts;
 use super::work::{get_works, Work};
+use crate::icon::{get_icons, Icon};
 use crate::input::activity::{ActivityTypes, ACTIVITY_SIZE};
 use crate::input::blessing::BLESSING_SIZE;
 use crate::input::boost_item::BOOST_ITEM_SIZE;
@@ -25,6 +26,7 @@ use crate::input::stat::STAT_SIZE;
 use crate::input::tomb::TOMB_SIZE;
 use crate::input::work::{WorkTypes, WORK_SIZE};
 use crate::input_mapping::InputMapping;
+use std::collections::BTreeMap;
 
 #[serbia]
 #[derive(Serialize)]
@@ -44,6 +46,7 @@ pub struct World {
     works: [Work; WORK_SIZE],
     #[serde(skip_serializing)]
     pub input_mapping: Mutex<InputMapping>,
+    pub icons: BTreeMap<String, Icon>,
 }
 
 impl World {
@@ -77,6 +80,7 @@ impl Default for World {
             blessings: get_blessings(),
             skills: get_skills(),
             input_mapping: Mutex::new(InputMapping::default()),
+            icons: get_icons(),
         }
     }
 }

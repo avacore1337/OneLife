@@ -1,26 +1,17 @@
 <template>
   <div class="app">
-    <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
-      <span class="the-modal">
-        <div class="d-block text-center">
-          <h3>{{ this.modalText }}</h3>
-        </div>
-        <b-button class="float-end" block @click="hideModal">Next</b-button>
-        <b-button class="float-end" variant="danger" block @click="disable_tutorial">Disable Tutorial</b-button>
-      </span>
-    </b-modal>
-    <div>
-      <Topbar
-        v-bind:state="state"
-        v-bind:input="input"
-        v-bind:world="world"
-        v-bind:wasm="wasm"
-        v-bind:metaData="metaData"
-      />
-    </div>
-    <div>
-      <div style="width: 15%; float: left">
-        <Sidebar
+    <div v-if="loaded">
+      <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
+        <span class="the-modal">
+          <div class="d-block text-center">
+            <h3>{{ this.modalText }}</h3>
+          </div>
+          <b-button class="float-end" block @click="hideModal">Next</b-button>
+          <b-button class="float-end" variant="danger" block @click="disable_tutorial">Disable Tutorial</b-button>
+        </span>
+      </b-modal>
+      <div>
+        <Topbar
           v-bind:state="state"
           v-bind:input="input"
           v-bind:world="world"
@@ -28,70 +19,9 @@
           v-bind:metaData="metaData"
         />
       </div>
-
-      <div style="margin-left: 2%; float: left; width: 30%">
-        <Works
-          v-bind:metaData="metaData"
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-        />
-        <Housing
-          v-bind:metaData="metaData"
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-        />
-      </div>
-
-      <div style="margin-left: 2%; float: left; width: 30%">
-        <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-        <BoostItems
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-          v-bind:metaData="metaData"
-          v-bind:item_queue="item_queue"
-        />
-        <Tombs
-          v-bind:metaData="metaData"
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-        />
-        <Blessings
-          v-if="state.rebirth_stats.unlocks.has_faith"
-          v-bind:metaData="metaData"
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-        />
-        <div v-if="show_recorded">
-          <RecordedInputs
-            v-bind:recorded_inputs="previous_recorded_inputs"
-            v-bind:wasm="wasm"
-            v-bind:remove_recorded="wasm.remove_previous_recorded"
-            v-bind:clear_recorded="wasm.clear_previous_recorded"
-          />
-          <RecordedInputs
-            v-bind:recorded_inputs="recorded_inputs"
-            v-bind:wasm="wasm"
-            v-bind:clear_recorded="wasm.clear_recorded"
-            v-bind:remove_recorded="wasm.remove_recorded"
-          />
-        </div>
-      </div>
-
-      <div style="margin-left: 2%; float: left; width: 18%">
-        <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0">
-          <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-          <RebirthUpgrades
-            v-if="state.rebirth_stats.tier > 0"
+      <div>
+        <div style="width: 15%; float: left">
+          <Sidebar
             v-bind:state="state"
             v-bind:input="input"
             v-bind:world="world"
@@ -100,11 +30,96 @@
           />
         </div>
 
-        <div
-          style="margin-left: 20px; border: 5px solid white; width: 200px; display: inline; float: left; padding: 10px"
-          v-if="world.settings.display_debug"
-        >
-          <Debug v-bind:metaData="metaData" v-bind:state="state" v-bind:input="input" v-bind:wasm="wasm" />
+        <div style="margin-left: 2%; float: left; width: 30%">
+          <Works
+            v-bind:metaData="metaData"
+            v-bind:state="state"
+            v-bind:input="input"
+            v-bind:world="world"
+            v-bind:wasm="wasm"
+          />
+          <Housing
+            v-bind:metaData="metaData"
+            v-bind:state="state"
+            v-bind:input="input"
+            v-bind:world="world"
+            v-bind:wasm="wasm"
+          />
+        </div>
+
+        <div style="margin-left: 2%; float: left; width: 30%">
+          <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+          <BoostItems
+            v-bind:state="state"
+            v-bind:input="input"
+            v-bind:world="world"
+            v-bind:wasm="wasm"
+            v-bind:metaData="metaData"
+            v-bind:item_queue="item_queue"
+          />
+          <Tombs
+            v-bind:metaData="metaData"
+            v-bind:state="state"
+            v-bind:input="input"
+            v-bind:world="world"
+            v-bind:wasm="wasm"
+          />
+          <Blessings
+            v-if="state.rebirth_stats.unlocks.has_faith"
+            v-bind:metaData="metaData"
+            v-bind:state="state"
+            v-bind:input="input"
+            v-bind:world="world"
+            v-bind:wasm="wasm"
+          />
+          <div v-if="show_recorded">
+            <RecordedInputs
+              v-bind:recorded_inputs="previous_recorded_inputs"
+              v-bind:wasm="wasm"
+              v-bind:remove_recorded="wasm.remove_previous_recorded"
+              v-bind:clear_recorded="wasm.clear_previous_recorded"
+            />
+            <RecordedInputs
+              v-bind:recorded_inputs="recorded_inputs"
+              v-bind:wasm="wasm"
+              v-bind:clear_recorded="wasm.clear_recorded"
+              v-bind:remove_recorded="wasm.remove_recorded"
+            />
+          </div>
+        </div>
+
+        <div style="margin-left: 2%; float: left; width: 18%">
+          <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0">
+            <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+            <RebirthUpgrades
+              v-if="state.rebirth_stats.tier > 0"
+              v-bind:state="state"
+              v-bind:input="input"
+              v-bind:world="world"
+              v-bind:wasm="wasm"
+              v-bind:metaData="metaData"
+            />
+          </div>
+
+          <div
+            style="
+              margin-left: 20px;
+              border: 5px solid white;
+              width: 200px;
+              display: inline;
+              float: left;
+              padding: 10px;
+            "
+            v-if="world.settings.display_debug"
+          >
+            <Debug
+              v-bind:world="world"
+              v-bind:metaData="metaData"
+              v-bind:state="state"
+              v-bind:input="input"
+              v-bind:wasm="wasm"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -157,6 +172,7 @@ export default {
   },
   data() {
     return {
+      loaded: false,
       world: {
         works: [],
         housing: [],
@@ -167,6 +183,7 @@ export default {
         rebirth_upgrades: [],
         tutorial_texts: [],
         settings: {},
+        icons: {},
       },
       state: {
         stats: {},
@@ -203,6 +220,7 @@ export default {
     this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs();
     this.metaData = this.wasm.get_meta_data();
     this.item_queue = this.wasm.get_world_item_queue();
+    this.loaded = true;
 
     let self = this;
     setInterval(function () {

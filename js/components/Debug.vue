@@ -82,6 +82,8 @@
     <br />
     <button v-on:click="print_frontend_debug_state">Print Frontend Debug State</button>
     <br />
+    <button v-on:click="print_frontend_debug_world">Print Frontend Debug World</button>
+    <br />
     <button v-on:click="wasm.print_debug_intermediate">Print Debug Intermediate</button>
     <br />
     <button v-on:click="wasm.print_debug_state">Print Debug State</button>
@@ -110,7 +112,7 @@
 <script>
 import { downloadFile } from "../utility.js";
 export default {
-  props: ["metaData", "state", "input", "wasm"],
+  props: ["metaData", "state", "world", "input", "wasm"],
   data() {
     return {
       presets: [],
@@ -147,6 +149,9 @@ export default {
     },
     print_frontend_debug_state: function () {
       console.log(this.state);
+    },
+    print_frontend_debug_world: function () {
+      console.log(this.world);
     },
     tick: function (work_name) {
       this.wasm.single_tick();

@@ -1,4 +1,7 @@
 use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
+use strum::EnumIter;
+use strum::IntoEnumIterator;
 
 #[derive(Serialize, Debug, Clone)]
 pub struct Icon {
@@ -11,7 +14,7 @@ impl Icon {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum IconType {
     Con,
     Int,
@@ -54,4 +57,12 @@ pub fn get_icon_name(icon: IconType) -> &'static str {
         IconType::Health => "medkit",
         IconType::Question => "question",
     }
+}
+
+pub fn get_icons() -> BTreeMap<String, Icon> {
+    let mut icons = BTreeMap::new();
+    for icon in IconType::iter() {
+        icons.insert(format!("{:?}", icon), icon.into());
+    }
+    icons
 }
