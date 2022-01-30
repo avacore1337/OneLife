@@ -1,6 +1,18 @@
 <template>
   <Section title="Items">
-    <div>
+    <b-button v-if="state.rebirth_stats.unlocks.can_auto_buy_item" v-on:click="toggle_auto_buy_item" size="sm">
+      {{ !metaData.options.auto_buy_item ? "Auto Buy Item" : "Don't Auto Buy Item" }}
+    </b-button>
+    <span>
+      Show bought Items
+      <input
+        type="checkbox"
+        id="show_bought"
+        v-on:click="toggle_show_bought"
+        :checked="metaData.options.show_bought_items"
+      />
+    </span>
+    <div v-if="state.rebirth_stats.unlocks.can_queue_item">
       <h4>Item Queue</h4>
       <table>
         <tr v-for="item in item_queue" :key="item.name">
@@ -14,15 +26,6 @@
         </tr>
       </table>
     </div>
-    <span>
-      Show bought Items
-      <input
-        type="checkbox"
-        id="show_bought"
-        v-on:click="toggle_show_bought"
-        :checked="metaData.options.show_bought_items"
-      />
-    </span>
     <span v-if="metaData.options.show_bought_items && state.boost_items.some((item) => item.is_purchased)">
       <h4>Bought Items</h4>
       <table>
@@ -90,6 +93,9 @@ export default {
     },
   },
   methods: {
+    toggle_auto_buy_item: function () {
+      this.wasm.set_auto_buy_item(!this.metaData.options.auto_buy_item);
+    },
     buy_item: function (val, e) {
       if (!e.shiftKey) {
         console.log("no shift");

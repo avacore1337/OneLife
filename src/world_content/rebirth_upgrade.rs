@@ -285,6 +285,14 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         },
 
         // TIER 3 - 500
+        RebirthUpgradeTypes::QueueItems => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 150.0,
+            description: "tod!",
+            display_name: "Unlock The Item Queue",
+            effect_description: "todo",
+            required_tier: 3,
+        },
         RebirthUpgradeTypes::AutoBuyTomb => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 250.0,
@@ -426,6 +434,14 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         },
 
         // TIER 5 - 50 000
+        RebirthUpgradeTypes::AutoBuyBlessing => RebirthUpgrade {
+            name: rebirth_upgrade,
+            purchasing_cost: 6000.0,
+            description: "todo",
+            display_name: "Automate Buying of Blessings",
+            effect_description: "todo",
+            required_tier: 5,
+        },
         RebirthUpgradeTypes::Replay => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 6_000.0,
@@ -451,22 +467,6 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         //     effect_description: "todo",
         //     required_tier: 2,
         // },
-        RebirthUpgradeTypes::AutoBuyBlessing => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 60.0,
-            description: "todo",
-            display_name: "Automate Buying of Blessings",
-            effect_description: "todo",
-            required_tier: 2,
-        },
-        RebirthUpgradeTypes::QueueItems => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 60.0,
-            description: "tod!",
-            display_name: "Unlock The Item Queue",
-            effect_description: "todo",
-            required_tier: 2,
-        },
     }
 }
 

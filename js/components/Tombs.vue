@@ -1,5 +1,8 @@
 <template>
-  <Section title="Items">
+  <Section title="Tombs">
+    <b-button v-if="state.rebirth_stats.unlocks.can_auto_buy_tomb" v-on:click="toggle_auto_buy_tomb" size="sm">
+      {{ !metaData.options.auto_buy_tomb ? "Auto Buy Tomb" : "Don't Auto Buy Tomb" }}
+    </b-button>
     <span v-if="state.tombs.some((tomb) => tomb.is_purchased)">
       <h4>Bought Tombs</h4>
       <table>
@@ -13,7 +16,7 @@
       </table>
     </span>
 
-    <h4>Tombs</h4>
+    <h4>Buyable Tombs</h4>
     <table>
       <tr
         v-for="[tomb, tomb_state] in visible_unbought_tombs"
@@ -35,7 +38,7 @@
 import Section from "./Section.vue";
 
 export default {
-  props: ["state", "world", "input", "wasm"],
+  props: ["metaData", "state", "world", "input", "wasm"],
   components: { Section },
   computed: {
     visible_unbought_tombs: function () {
@@ -60,6 +63,9 @@ export default {
     },
   },
   methods: {
+    toggle_auto_buy_tomb: function () {
+      this.wasm.set_auto_buy_tomb(!this.metaData.options.auto_buy_tomb);
+    },
     buyTomb: function (tomb_name) {
       this.wasm.buy_tomb(tomb_name);
       this.$parent.update_dynamic_data();

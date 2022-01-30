@@ -1,6 +1,9 @@
 <template>
   <div>
     <Section title="Works">
+      <b-button v-if="state.rebirth_stats.unlocks.can_auto_work" v-on:click="toggle_auto_work" size="sm">
+        {{ !metaData.options.auto_work ? "Auto Work" : "Don't Auto Work" }}
+      </b-button>
       <h4>Labor</h4>
       <table>
         <tr
@@ -73,7 +76,7 @@ import ProgressBar from "./ProgressBar.vue";
 import Section from "./Section.vue";
 
 export default {
-  props: ["state", "world", "input", "wasm"],
+  props: ["metaData", "state", "world", "input", "wasm"],
   components: { ProgressBar, Section },
   computed: {
     visible_labor_work: function () {
@@ -107,7 +110,11 @@ export default {
         });
     },
   },
-  methods: {},
+  methods: {
+    toggle_auto_work: function () {
+      this.wasm.set_auto_work(!this.metaData.options.auto_work);
+    },
+  },
 };
 </script>
 

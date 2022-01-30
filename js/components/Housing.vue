@@ -1,5 +1,8 @@
 <template>
   <Section title="Housing">
+    <b-button v-if="state.rebirth_stats.unlocks.can_auto_living" v-on:click="toggle_auto_living" size="sm">
+      {{ !metaData.options.auto_living ? "Auto Living" : "Don't Auto Living" }}
+    </b-button>
     <table>
       <tr
         v-for="[housing, housing_state] in visible_housing"
@@ -28,9 +31,13 @@
 import Section from "./Section.vue";
 
 export default {
-  props: ["state", "world", "input", "wasm"],
+  props: ["metaData", "state", "world", "input", "wasm"],
   components: { Section },
-  methods: {},
+  methods: {
+    toggle_auto_living: function () {
+      this.wasm.set_auto_living(!this.metaData.options.auto_living);
+    },
+  },
   computed: {
     visible_housing: function () {
       let self = this;

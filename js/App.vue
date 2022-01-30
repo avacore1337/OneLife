@@ -30,11 +30,24 @@
       </div>
 
       <div style="margin-left: 2%; float: left; width: 30%">
-        <Works v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-        <Housing v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <Works
+          v-bind:metaData="metaData"
+          v-bind:state="state"
+          v-bind:input="input"
+          v-bind:world="world"
+          v-bind:wasm="wasm"
+        />
+        <Housing
+          v-bind:metaData="metaData"
+          v-bind:state="state"
+          v-bind:input="input"
+          v-bind:world="world"
+          v-bind:wasm="wasm"
+        />
       </div>
 
       <div style="margin-left: 2%; float: left; width: 30%">
+        <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
         <BoostItems
           v-bind:state="state"
           v-bind:input="input"
@@ -43,10 +56,16 @@
           v-bind:metaData="metaData"
           v-bind:item_queue="item_queue"
         />
-        <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-        <Tombs v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <Tombs
+          v-bind:metaData="metaData"
+          v-bind:state="state"
+          v-bind:input="input"
+          v-bind:world="world"
+          v-bind:wasm="wasm"
+        />
         <Blessings
           v-if="state.rebirth_stats.unlocks.has_faith"
+          v-bind:metaData="metaData"
           v-bind:state="state"
           v-bind:input="input"
           v-bind:world="world"

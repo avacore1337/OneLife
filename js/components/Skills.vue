@@ -4,7 +4,8 @@
     <div style="border: solid; margin: 2px; padding: 10px">
       <div v-for="[skill, skill_state] in visible_skills" :key="skill.name">
         <my-icon :icon="skill.icon" />
-        <span>{{ skill.display_name }}: {{ skill_state.level }} xp rate: {{ skill_state.xp_rate }}</span>
+        <span>{{ skill.display_name }}: {{ skill_state.level }} </span>
+        <span> xp rate: {{ Math.round(skill_state.xp_rate) }} </span>
         <ProgressBar :value="skill_state.next_level_percentage" :decimalPoints="2"> </ProgressBar>
         <br />
       </div>
