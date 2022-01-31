@@ -1,6 +1,0 @@
-pkg/
-node_modules/
-target/
-
-package-lock.json
-js/HackTimer.js
