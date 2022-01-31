@@ -31,14 +31,7 @@
         </div>
 
         <div style="margin-left: 2%; float: left; width: 30%">
-          <Works
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
-          />
-          <Housing
+          <Main
             v-bind:metaData="metaData"
             v-bind:state="state"
             v-bind:input="input"
@@ -127,10 +120,9 @@
 </template>
 
 <script>
-import Works from "./components/Works.vue";
+import Main from "./components/Main.vue";
 import Tombs from "./components/Tombs.vue";
 import Blessings from "./components/Blessings.vue";
-import Housing from "./components/Housing.vue";
 import Activities from "./components/Activities.vue";
 import Death from "./components/Death.vue";
 import Debug from "./components/Debug.vue";
@@ -157,8 +149,7 @@ Vue.component("my-icon", MyIcon);
 export default {
   props: ["wasm"],
   components: {
-    Works,
-    Housing,
+    Main,
     Activities,
     Debug,
     BoostItems,
