@@ -43,7 +43,7 @@
       </p>
       <p>
         <my-icon :icon="world.icons['Happiness']" />
-        Happiness: {{ state.life_stats.happiness }}
+        Happiness: {{ state.life_stats.happiness.toFixed(1) }}
       </p>
       <p>Alive: {{ life_status() }}</p>
       <p>Tick: {{ state.life_stats.current_tick }}</p>

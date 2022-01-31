@@ -11,7 +11,10 @@
           <span v-bind:class="{ selected: activity.name == input.activity }">
             {{ activity.display_name }}
           </span>
-          <span style="float: right">
+        </td>
+
+        <td style="width: 50%">
+          <span>
             <my-icon :icon="activity.icon" />
             {{ activity.effect_description }}
           </span>
@@ -43,4 +46,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+tr > td:first-child {
+  width: 50%;
+}
+
+/* tr > td:not(:first-child) { */
+/*   width: 30%; */
+/* } */
+</style>
