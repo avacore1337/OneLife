@@ -14,6 +14,7 @@
     <button v-on:click="toggle_show_recorded" style="margin: 2px">
       {{ !$parent.show_recorded ? "Show Recorded" : "Don't Show Recorded" }}
     </button>
+    <br />
     <button v-on:click="toggle_pause" style="margin: 2px">
       {{ $parent.$parent.paused ? "Resume the game" : "Pause the game" }}
     </button>
@@ -23,6 +24,16 @@
     <br />
     Import gamesave
     <p>TODO</p>
+    <button v-on:click="wasm.save">Save</button>
+    <br />
+    <button v-on:click="wasm.load">Load</button>
+    <br />
+    <button v-on:click="wasm.hard_reset">Hard Reset</button>
+    <br />
+    <input type="checkbox" id="autosave" v-on:click="toggleAutoSave" :checked="metaData.autosave" />
+    <label for="autosave">Autosave</label>
+    <br />
+    <button v-on:click="setNumberFormat">{{ nextNumberFormat($parent.$parent.numberFormat) }}</button>
   </div>
 </template>
 
@@ -71,6 +82,21 @@ export default {
         };
       })(f);
       reader.readAsText(f);
+    },
+    toggleAutoSave: function () {
+      this.wasm.set_autosave(!this.metaData.autosave);
+    },
+    nextNumberFormat: function (numberFormat) {
+      return {
+        DEFAULT: "Scientific notation",
+        SCIENTIFIC: "Natural numbers",
+      }[numberFormat];
+    },
+    setNumberFormat: function () {
+      this.$parent.numberFormat = {
+        DEFAULT: "SCIENTIFIC",
+        SCIENTIFIC: "DEFAULT",
+      }[this.$parent.numberFormat];
     },
   },
 };
