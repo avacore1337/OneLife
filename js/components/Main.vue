@@ -1,6 +1,6 @@
 <template>
   <b-tabs>
-    <b-tab title="Life">
+    <b-tab title="Life" key="life-tab">
       <div style="margin-left: 1%; float: left; width: 49%">
         <Works
           v-bind:metaData="metaData"
@@ -51,7 +51,7 @@
         </div>
       </div>
     </b-tab>
-    <b-tab title="Death">
+    <b-tab title="Death" key="death-tab">
       <div style="margin-left: 1%; float: left; width: 49%">
         <Tombs
           v-bind:metaData="metaData"
@@ -73,7 +73,7 @@
         />
       </div>
     </b-tab>
-    <b-tab title="Settings">
+    <b-tab title="Settings" key="settings-tab">
       <Settings
         v-bind:state="state"
         v-bind:input="input"

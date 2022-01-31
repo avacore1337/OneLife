@@ -20,10 +20,18 @@
     </button>
     <br />
     <br />
-    <button v-on:click="export_save" style="margin: 2px">Export gamesave</button>
+    <button v-on:click="download_save" style="margin: 2px">Download Save</button>
     <br />
-    Import gamesave
-    <p>TODO</p>
+    <b-form-textarea
+      id="textarea"
+      v-model="save_text"
+      placeholder="Paste save here"
+      rows="6"
+      max-rows="6"
+    ></b-form-textarea>
+    <button v-on:click="import_save" style="margin: 2px">Import Save</button>
+    <button v-on:click="export_save" style="margin: 2px">Export Save</button>
+    <br />
     <button v-on:click="wasm.save">Save</button>
     <br />
     <button v-on:click="wasm.load">Load</button>
@@ -43,6 +51,7 @@ export default {
   props: ["metaData", "state", "world", "input", "wasm"],
   data() {
     return {
+      save_text: "",
       presets: [],
       money: 1000000000.0,
       coins: 1000000.0,
@@ -63,11 +72,11 @@ export default {
     toggle_pause: function () {
       this.$parent.$parent.paused = !this.$parent.$parent.paused;
     },
-    export_save: function () {
+    download_save: function () {
       // TODO: This should be exported by the backend
       downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save());
     },
-    import_save: function (event) {
+    import_save_file: function (event) {
       // TODO: This is only on the frontend atm, it doesn't actually save the changes
       var files = event.target.files;
       var f = files[0];
@@ -82,6 +91,12 @@ export default {
         };
       })(f);
       reader.readAsText(f);
+    },
+    import_save: function () {
+      this.wasm.import_save(this.save_text);
+    },
+    export_save: function () {
+      this.save_text = this.wasm.export_save();
     },
     toggleAutoSave: function () {
       this.wasm.set_autosave(!this.metaData.autosave);
