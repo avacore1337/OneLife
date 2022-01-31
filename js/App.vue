@@ -20,7 +20,7 @@
         />
       </div>
       <div>
-        <div style="width: 15%; float: left">
+        <div style="margin-left: 1%; %width: 15%; float: left">
           <Sidebar
             v-bind:state="state"
             v-bind:input="input"
@@ -30,7 +30,7 @@
           />
         </div>
 
-        <div style="margin-left: 2%; float: left; width: 30%">
+        <div style="margin-left: 1%; width: 62%; float: left">
           <Main
             v-bind:metaData="metaData"
             v-bind:state="state"
@@ -40,48 +40,7 @@
           />
         </div>
 
-        <div style="margin-left: 2%; float: left; width: 30%">
-          <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-          <BoostItems
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
-            v-bind:metaData="metaData"
-            v-bind:item_queue="item_queue"
-          />
-          <Tombs
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
-          />
-          <Blessings
-            v-if="state.rebirth_stats.unlocks.has_faith"
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
-          />
-          <div v-if="show_recorded">
-            <RecordedInputs
-              v-bind:recorded_inputs="previous_recorded_inputs"
-              v-bind:wasm="wasm"
-              v-bind:remove_recorded="wasm.remove_previous_recorded"
-              v-bind:clear_recorded="wasm.clear_previous_recorded"
-            />
-            <RecordedInputs
-              v-bind:recorded_inputs="recorded_inputs"
-              v-bind:wasm="wasm"
-              v-bind:clear_recorded="wasm.clear_recorded"
-              v-bind:remove_recorded="wasm.remove_recorded"
-            />
-          </div>
-        </div>
-
-        <div style="margin-left: 2%; float: left; width: 18%">
+        <div style="margin-left: 1%; float: left; width: 19%">
           <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0">
             <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
             <RebirthUpgrades
@@ -121,16 +80,11 @@
 
 <script>
 import Main from "./components/Main.vue";
-import Tombs from "./components/Tombs.vue";
-import Blessings from "./components/Blessings.vue";
-import Activities from "./components/Activities.vue";
 import Death from "./components/Death.vue";
 import Debug from "./components/Debug.vue";
 import Sidebar from "./components/Sidebar.vue";
 import Topbar from "./components/Topbar.vue";
-import BoostItems from "./components/BoostItems.vue";
 import RebirthUpgrades from "./components/RebirthUpgrades.vue";
-import RecordedInputs from "./components/RecordedInputs.vue";
 
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
@@ -150,16 +104,11 @@ export default {
   props: ["wasm"],
   components: {
     Main,
-    Activities,
     Debug,
-    BoostItems,
     Death,
     Sidebar,
     Topbar,
-    Blessings,
-    Tombs,
     RebirthUpgrades,
-    RecordedInputs,
   },
   data() {
     return {
