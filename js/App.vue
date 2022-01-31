@@ -32,6 +32,7 @@
 
         <div style="margin-left: 1%; width: 62%; float: left">
           <Main
+            v-bind:item_queue="item_queue"
             v-bind:metaData="metaData"
             v-bind:state="state"
             v-bind:input="input"
@@ -41,27 +42,10 @@
         </div>
 
         <div style="margin-left: 1%; float: left; width: 19%">
-          <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0">
-            <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-            <RebirthUpgrades
-              v-if="state.rebirth_stats.tier > 0"
-              v-bind:state="state"
-              v-bind:input="input"
-              v-bind:world="world"
-              v-bind:wasm="wasm"
-              v-bind:metaData="metaData"
-            />
-          </div>
+          <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"></div>
 
           <div
-            style="
-              margin-left: 20px;
-              border: 5px solid white;
-              width: 200px;
-              display: inline;
-              float: left;
-              padding: 10px;
-            "
+            style="margin-left: 20px; border: 5px solid white; display: inline; float: left; padding: 10px"
             v-if="world.settings.display_debug"
           >
             <Debug
@@ -80,11 +64,9 @@
 
 <script>
 import Main from "./components/Main.vue";
-import Death from "./components/Death.vue";
 import Debug from "./components/Debug.vue";
 import Sidebar from "./components/Sidebar.vue";
 import Topbar from "./components/Topbar.vue";
-import RebirthUpgrades from "./components/RebirthUpgrades.vue";
 
 import Vue from "vue/dist/vue.js";
 import { BootstrapVue } from "bootstrap-vue";
@@ -105,10 +87,8 @@ export default {
   components: {
     Main,
     Debug,
-    Death,
     Sidebar,
     Topbar,
-    RebirthUpgrades,
   },
   data() {
     return {

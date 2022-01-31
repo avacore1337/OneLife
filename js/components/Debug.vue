@@ -3,17 +3,12 @@
     <h3>Settings</h3>
     <br />
     Presets
-    <div v-if="true">
+    <div>
       <b-dropdown id="dropdown-1" text="Presets" no-flip class="m-md-2">
         <b-dropdown-item-button v-for="name in presets" :key="name" @click="wasm.set_preset_saves(name)">{{
           name
         }}</b-dropdown-item-button>
       </b-dropdown>
-    </div>
-    <div v-if="false">
-      <div v-for="name in presets" :key="name">
-        <button v-on:click="wasm.set_preset_saves(name)" style="margin: 2px">{{ name }}</button>
-      </div>
     </div>
     <br />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
@@ -55,6 +50,7 @@
     <button v-on:click="toggle_show_recorded" style="margin: 2px">
       {{ !$parent.show_recorded ? "Show Recorded" : "Don't Show Recorded" }}
     </button>
+    <br />
     <button v-on:click="toggle_pause" style="margin: 2px">
       {{ $parent.paused ? "Resume the game" : "Pause the game" }}
     </button>
