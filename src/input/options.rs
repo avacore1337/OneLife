@@ -51,4 +51,5 @@ pub struct Options {
     pub auto_end_early_criteria: f64,
     pub show_bought_items: bool,
     pub show_bought_upgrades: bool,
+    pub show_recorded: bool,
 }

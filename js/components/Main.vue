@@ -35,14 +35,16 @@
           v-bind:world="world"
           v-bind:wasm="wasm"
         />
-        <div v-if="$parent.show_recorded">
+        <div v-if="metaData.options.show_recorded">
           <RecordedInputs
+            title="Previous Recorded Inputs"
             v-bind:recorded_inputs="previous_recorded_inputs"
             v-bind:wasm="wasm"
             v-bind:remove_recorded="wasm.remove_previous_recorded"
             v-bind:clear_recorded="wasm.clear_previous_recorded"
           />
           <RecordedInputs
+            title="Current Inputs"
             v-bind:recorded_inputs="recorded_inputs"
             v-bind:wasm="wasm"
             v-bind:clear_recorded="wasm.clear_recorded"
@@ -101,7 +103,7 @@ import RebirthUpgrades from "./RebirthUpgrades.vue";
 import Settings from "./Settings.vue";
 
 export default {
-  props: ["item_queue", "metaData", "state", "world", "input", "wasm"],
+  props: ["item_queue", "metaData", "state", "world", "input", "wasm", "recorded_inputs", "previous_recorded_inputs"],
   components: {
     Works,
     Housing,

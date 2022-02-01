@@ -48,7 +48,7 @@
     <button v-on:click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
     <br />
     <button v-on:click="toggle_show_recorded" style="margin: 2px">
-      {{ !$parent.show_recorded ? "Show Recorded" : "Don't Show Recorded" }}
+      {{ !metaData.options.show_recorded ? "Show Recorded" : "Don't Show Recorded" }}
     </button>
     <br />
     <button v-on:click="toggle_pause" style="margin: 2px">
@@ -154,7 +154,7 @@ export default {
       this.$parent.update_dynamic_data();
     },
     toggle_show_recorded: function () {
-      this.$parent.show_recorded = !this.$parent.show_recorded;
+      this.wasm.set_show_recorded(!this.metaData.options.show_recorded);
     },
     toggle_pause: function () {
       this.$parent.paused = !this.$parent.paused;

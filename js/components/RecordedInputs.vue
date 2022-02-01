@@ -1,5 +1,5 @@
 <template>
-  <Section title="Recorded Inputs">
+  <Section :title="title">
     <button v-on:click="clear_recorded">Clear Recorded</button>
     <br />
     <table>
@@ -16,7 +16,7 @@
 import Section from "./Section.vue";
 
 export default {
-  props: ["wasm", "recorded_inputs", "remove_recorded", "clear_recorded"],
+  props: ["wasm", "recorded_inputs", "remove_recorded", "clear_recorded", "title"],
   components: { Section },
   computed: {
     entries: function () {

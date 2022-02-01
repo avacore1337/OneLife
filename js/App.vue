@@ -38,6 +38,8 @@
             v-bind:input="input"
             v-bind:world="world"
             v-bind:wasm="wasm"
+            v-bind:previous_recorded_inputs="previous_recorded_inputs"
+            v-bind:recorded_inputs="recorded_inputs"
           />
         </div>
 
@@ -101,7 +103,6 @@ export default {
       item_queue: [],
       metaData: {},
       paused: false,
-      show_recorded: false,
       numberFormat: "DEFAULT",
       modalText: "",
       updateCount: 0,
@@ -161,9 +162,19 @@ export default {
       this.recurse_update(this.state, this.wasm.get_state());
       this.recurse_update(this.input, this.wasm.get_input());
       this.recurse_update(this.metaData, this.wasm.get_meta_data());
-      if (this.show_recorded) {
-        this.recorded_inputs = this.wasm.get_recorded_inputs();
-        this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs();
+      if (this.metaData.options.show_recorded) {
+        let recorded = this.wasm.get_recorded_inputs();
+        if (this.recorded_inputs.length != recorded.length) {
+          this.recorded_inputs = recorded;
+        } else {
+          this.recurse_update(this.recorded_inputs, recorded);
+        }
+        let previous_recorded = this.wasm.get_previous_recorded_inputs();
+        if (this.previous_recorded_inputs.length != previous_recorded.length) {
+          this.previous_recorded_inputs = previous_recorded;
+        } else {
+          this.recurse_update(this.previous_recorded_inputs, previous_recorded);
+        }
       }
       let queue = this.wasm.get_world_item_queue();
       if (this.item_queue.length != queue.length) {
