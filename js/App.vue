@@ -1,17 +1,26 @@
 <template>
-  <div class="app">
-    <div v-if="loaded">
-      <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
-        <span class="the-modal">
-          <div class="d-block text-center">
-            <h3>{{ this.modalText }}</h3>
-          </div>
-          <b-button class="float-end" block @click="hideModal">Next</b-button>
-          <b-button class="float-end" variant="danger" block @click="disable_tutorial">Disable Tutorial</b-button>
-        </span>
-      </b-modal>
-      <div>
-        <Topbar
+  <div class="app" v-if="loaded">
+    <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
+      <span class="the-modal">
+        <div class="d-block text-center">
+          <h3>{{ this.modalText }}</h3>
+        </div>
+        <b-button class="float-end" block @click="hideModal">Next</b-button>
+        <b-button class="float-end" variant="danger" block @click="disable_tutorial">Disable Tutorial</b-button>
+      </span>
+    </b-modal>
+    <div>
+      <Topbar
+        v-bind:state="state"
+        v-bind:input="input"
+        v-bind:world="world"
+        v-bind:wasm="wasm"
+        v-bind:metaData="metaData"
+      />
+    </div>
+    <div class="my-container">
+      <div class="left-sidebar">
+        <Sidebar
           v-bind:state="state"
           v-bind:input="input"
           v-bind:world="world"
@@ -19,45 +28,31 @@
           v-bind:metaData="metaData"
         />
       </div>
-      <div>
-        <div style="margin-left: 1%; %width: 15%; float: left">
-          <Sidebar
+
+      <div class="main">
+        <Main
+          v-bind:item_queue="item_queue"
+          v-bind:metaData="metaData"
+          v-bind:state="state"
+          v-bind:input="input"
+          v-bind:world="world"
+          v-bind:wasm="wasm"
+          v-bind:previous_recorded_inputs="previous_recorded_inputs"
+          v-bind:recorded_inputs="recorded_inputs"
+        />
+      </div>
+
+      <div style="">
+        <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"></div>
+
+        <div style="margin-left: 20px; border: 5px solid white; padding: 10px" v-if="world.settings.display_debug">
+          <Debug
+            v-bind:world="world"
+            v-bind:metaData="metaData"
             v-bind:state="state"
             v-bind:input="input"
-            v-bind:world="world"
             v-bind:wasm="wasm"
-            v-bind:metaData="metaData"
           />
-        </div>
-
-        <div style="margin-left: 1%; width: 62%; float: left">
-          <Main
-            v-bind:item_queue="item_queue"
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
-            v-bind:previous_recorded_inputs="previous_recorded_inputs"
-            v-bind:recorded_inputs="recorded_inputs"
-          />
-        </div>
-
-        <div style="margin-left: 1%; float: left; width: 19%">
-          <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"></div>
-
-          <div
-            style="margin-left: 20px; border: 5px solid white; display: inline; float: left; padding: 10px"
-            v-if="world.settings.display_debug"
-          >
-            <Debug
-              v-bind:world="world"
-              v-bind:metaData="metaData"
-              v-bind:state="state"
-              v-bind:input="input"
-              v-bind:wasm="wasm"
-            />
-          </div>
         </div>
       </div>
     </div>
@@ -218,8 +213,26 @@ span.the-modal {
   color: black;
 }
 
+.my-container {
+  display: flex;
+  /* max-width: 1920; */
+  margin: 0 auto;
+}
+
+.left-sidebar {
+  width: 280px;
+}
+
+.right-sidebar {
+  width: 280px;
+}
+
+.main {
+  flex-grow: 1;
+}
+
 div.app {
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw; */
+  /* height: 100vh; */
 }
 </style>
