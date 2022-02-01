@@ -102,7 +102,6 @@ export default {
       previous_recorded_inputs: {},
       item_queue: [],
       metaData: {},
-      paused: false,
       numberFormat: "DEFAULT",
       modalText: "",
       updateCount: 0,
@@ -121,7 +120,7 @@ export default {
 
     let self = this;
     setInterval(function () {
-      if (self.paused || self.state.life_stats.is_dying || self.state.life_stats.dead) {
+      if (self.metaData.options.paused || self.state.life_stats.is_dying || self.state.life_stats.dead) {
         self.wasm.paused();
         self.update_dynamic_data();
         self.updateModal();

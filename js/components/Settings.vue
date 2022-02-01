@@ -16,7 +16,7 @@
     </button>
     <br />
     <button v-on:click="toggle_pause" style="margin: 2px">
-      {{ $parent.$parent.paused ? "Resume the game" : "Pause the game" }}
+      {{ metaData.options.paused ? "Resume the game" : "Pause the game" }}
     </button>
     <br />
     <br />
@@ -70,7 +70,7 @@ export default {
       this.wasm.set_show_recorded(!this.metaData.options.show_recorded);
     },
     toggle_pause: function () {
-      this.$parent.$parent.paused = !this.$parent.$parent.paused;
+      this.wasm.set_paused(!this.metaData.options.paused);
     },
     download_save: function () {
       // TODO: This should be exported by the backend

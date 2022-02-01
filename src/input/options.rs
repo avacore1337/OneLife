@@ -52,4 +52,5 @@ pub struct Options {
     pub show_bought_items: bool,
     pub show_bought_upgrades: bool,
     pub show_recorded: bool,
+    pub paused: bool,
 }

@@ -16,6 +16,12 @@ pub fn set_disable_tutorial(val: bool) {
 }
 
 #[wasm_bindgen]
+pub fn set_paused(val: bool) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.paused = val;
+}
+
+#[wasm_bindgen]
 pub fn set_show_recorded(show: bool) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.options.show_recorded = show;
