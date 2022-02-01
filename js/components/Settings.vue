@@ -2,6 +2,15 @@
   <div>
     <h3>Settings</h3>
     <br />
+    <button v-on:click="wasm.save">Save</button>
+    <br />
+    <button v-on:click="wasm.load">Load</button>
+    <br />
+    <button v-on:click="wasm.hard_reset">Hard Reset</button>
+    <br />
+    <input type="checkbox" id="autosave" v-on:click="toggleAutoSave" :checked="metaData.autosave" />
+    <label for="autosave">Autosave</label>
+    <br />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
     <br />
     <button v-on:click="toggle_use_saved_ticks" style="margin: 2px">
@@ -22,24 +31,17 @@
     <br />
     <button v-on:click="download_save" style="margin: 2px">Download Save</button>
     <br />
-    <b-form-textarea
-      id="textarea"
-      v-model="save_text"
-      placeholder="Paste save here"
-      rows="6"
-      max-rows="6"
-    ></b-form-textarea>
+    <div style="max-width: 1000px">
+      <b-form-textarea
+        id="textarea"
+        v-model="save_text"
+        placeholder="Paste save here"
+        rows="6"
+        max-rows="6"
+      ></b-form-textarea>
+    </div>
     <button v-on:click="import_save" style="margin: 2px">Import Save</button>
     <button v-on:click="export_save" style="margin: 2px">Export Save</button>
-    <br />
-    <button v-on:click="wasm.save">Save</button>
-    <br />
-    <button v-on:click="wasm.load">Load</button>
-    <br />
-    <button v-on:click="wasm.hard_reset">Hard Reset</button>
-    <br />
-    <input type="checkbox" id="autosave" v-on:click="toggleAutoSave" :checked="metaData.autosave" />
-    <label for="autosave">Autosave</label>
     <br />
     <button v-on:click="setNumberFormat">{{ nextNumberFormat($parent.$parent.numberFormat) }}</button>
   </div>

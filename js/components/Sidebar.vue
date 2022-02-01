@@ -62,8 +62,10 @@
         <my-icon :icon="world.icons['Coin']" />
         Coins Gain: {{ printableNumbers(state.rebirth_stats.coins_gain) }}
       </p>
-      <p>Karma: {{ state.rebirth_stats.karma }}</p>
-      <p>Time multiplier: {{ state.rebirth_stats.time_factor }}</p>
+      <div v-if="false">
+        <p>Karma: {{ state.rebirth_stats.karma }}</p>
+        <p>Time multiplier: {{ state.rebirth_stats.time_factor }}</p>
+      </div>
     </div>
   </div>
 </template>

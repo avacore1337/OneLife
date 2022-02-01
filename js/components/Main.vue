@@ -53,7 +53,12 @@
         </div>
       </div>
     </b-tab>
-    <b-tab title="Death" key="death-tab">
+
+    <b-tab
+      title="Death"
+      v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"
+      key="death-tab"
+    >
       <div style="margin-left: 1%; float: left; width: 49%">
         <Tombs
           v-bind:metaData="metaData"

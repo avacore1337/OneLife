@@ -43,8 +43,15 @@
       </div>
 
       <div style="">
-        <div v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"></div>
-
+        <div style="margin-left: 20px; border: 5px solid white; padding: 10px">
+          <SidebarRight
+            v-bind:world="world"
+            v-bind:metaData="metaData"
+            v-bind:state="state"
+            v-bind:input="input"
+            v-bind:wasm="wasm"
+          />
+        </div>
         <div style="margin-left: 20px; border: 5px solid white; padding: 10px" v-if="world.settings.display_debug">
           <Debug
             v-bind:world="world"
@@ -62,6 +69,7 @@
 <script>
 import Main from "./components/Main.vue";
 import Debug from "./components/Debug.vue";
+import SidebarRight from "./components/SidebarRight.vue";
 import Sidebar from "./components/Sidebar.vue";
 import Topbar from "./components/Topbar.vue";
 
@@ -85,6 +93,7 @@ export default {
     Main,
     Debug,
     Sidebar,
+    SidebarRight,
     Topbar,
   },
   data() {
@@ -217,6 +226,8 @@ span.the-modal {
   display: flex;
   /* max-width: 1920; */
   margin: 0 auto;
+  gap: 10px;
+  padding: 10px;
 }
 
 .left-sidebar {
