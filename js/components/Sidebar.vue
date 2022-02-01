@@ -19,7 +19,7 @@
       <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
     </div>
     <br />
-    Items
+    Currencies
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>
         <my-icon :icon="world.icons['Money']" />
@@ -52,8 +52,8 @@
     <br />
     Rebirth Stats
     <div style="border: solid; margin: 2px; padding: 10px">
-      <p>Life number {{ state.rebirth_stats.rebirth_count + 1 }}</p>
-      <p>Class: {{ state.rebirth_stats.tier }}</p>
+      <p>Life number: {{ state.rebirth_stats.rebirth_count + 1 }}</p>
+      <p>Tier: {{ state.rebirth_stats.tier }} {{ world.tiers[state.rebirth_stats.tier].display_name }}</p>
       <p>
         <my-icon :icon="world.icons['Coin']" />
         Coins: {{ printableNumbers(state.rebirth_stats.coins) }}
