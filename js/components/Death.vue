@@ -17,7 +17,7 @@
     <button v-on:click="wasm.die" v-if="state.life_stats.is_dying && !state.life_stats.dead" style="margin: 2px">
       Go To The Other Side
     </button>
-    <button v-on:click="wasm.do_rebirth" v-if="state.life_stats.dead" style="margin: 2px">Rebirth</button>
+    <button v-on:click="rebirth" v-if="state.life_stats.dead" style="margin: 2px">Rebirth</button>
     <button v-on:click="wasm.do_rebirth_replay" v-if="state.life_stats.dead" style="margin: 2px">Rebirth Replay</button>
     <div style="border: solid; margin: 2px">
       <ul>
@@ -34,7 +34,13 @@
 <script>
 export default {
   props: ["state", "world", "input", "wasm"],
-  methods: {},
+  methods: {
+    rebirth: function () {
+      console.log("rebirth tag sent");
+      this.$gtag.event("rebirth", { method: "normal" });
+      this.wasm.do_rebirth();
+    },
+  },
 };
 </script>
 

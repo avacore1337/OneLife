@@ -3,7 +3,9 @@
   "name": "one-life",
   "version": "0.1.0",
   "scripts": {
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
+    "postdeploy": "rm -rf dist/",
     "build": "rimraf dist pkg && webpack",
     "start": "rimraf dist pkg && webpack-dev-server --open -d",
     "test": "cargo test && wasm-pack test --headless"
@@ -32,6 +34,7 @@
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "vue": "^2.6.14",
-    "vue-awesome": "^4.5.0"
+    "vue-awesome": "^4.5.0",
+    "vue-gtag": "^1.16.1"
   }
 }
