@@ -5,8 +5,8 @@ use one_life::input::tomb::TombTypes;
 use one_life::input::work::WorkTypes;
 use one_life::input_recording::Inputs;
 use one_life::presets::make_t4;
-
-use one_life::{set_auto_end_early_internal, tick_internal};
+use one_life::tick_internal;
+use one_life::wasm_api::auto_settings::set_auto_end_early_internal;
 use wasm_bindgen_test::wasm_bindgen_test;
 
 #[wasm_bindgen_test]
