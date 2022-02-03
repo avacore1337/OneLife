@@ -49,24 +49,8 @@ import SidebarRight from "./components/SidebarRight.vue";
 import Sidebar from "./components/Sidebar.vue";
 import Topbar from "./components/Topbar.vue";
 
-import Vue from "vue/dist/vue.js";
-import { BootstrapVue } from "bootstrap-vue";
-import Icon from "vue-awesome/components/Icon";
-import MyIcon from "./components/MyIcon.vue";
-import VueGtag from "vue-gtag";
-
-import "vue-awesome/icons";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-
-Vue.use(BootstrapVue);
-Vue.use(VueGtag, {
-  config: { id: "G-JW5LS1NXT6" },
-});
-
-Vue.config.performance = true;
-Vue.component("VIcon", Icon);
-Vue.component("MyIcon", MyIcon);
 
 export default {
   components: {
