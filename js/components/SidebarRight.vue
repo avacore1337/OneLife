@@ -57,15 +57,8 @@ export default {
   props: ["metaData", "state", "world", "input", "wasm"],
   data() {
     return {
-      presets: [],
-      money: 1000000000.0,
-      coins: 1000000.0,
-      divine_favor: 10000.0,
       end_early_criteria: 0.0,
     };
-  },
-  mounted: function () {
-    this.presets = this.wasm.get_preset_saves();
   },
   methods: {
     toggle_use_saved_ticks: function () {
