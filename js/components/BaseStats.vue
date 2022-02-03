@@ -6,7 +6,7 @@
         <my-icon :icon="stat.icon" />
         <span>{{ stat.display_name }}: {{ stat_state.level }} </span>
         <span> xp rate: {{ Math.round(stat_state.xp_rate) }} </span>
-        <ProgressBar :value="stat_state.next_level_percentage" :decimalPoints="2"></ProgressBar>
+        <ProgressBar :value="stat_state.next_level_percentage" :decimal-points="2"></ProgressBar>
         <br />
       </div>
     </div>
@@ -17,9 +17,8 @@
 import ProgressBar from "./ProgressBar.vue";
 
 export default {
-  props: ["state", "world", "input", "wasm"],
   components: { ProgressBar },
-  methods: {},
+  props: ["state", "world", "input", "wasm"],
   computed: {
     visible_stats: function () {
       let self = this;
@@ -32,6 +31,7 @@ export default {
         });
     },
   },
+  methods: {},
 };
 </script>
 

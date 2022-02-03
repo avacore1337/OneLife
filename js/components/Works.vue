@@ -1,25 +1,25 @@
 <template>
   <div>
     <Section title="Works">
-      <b-button v-if="state.rebirth_stats.unlocks.can_auto_work" v-on:click="toggle_auto_work" size="sm">
+      <b-button v-if="state.rebirth_stats.unlocks.can_auto_work" size="sm" @click="toggle_auto_work">
         {{ !metaData.options.auto_work ? "Auto Work" : "Don't Auto Work" }}
       </b-button>
       <h4>Labor</h4>
       <table>
         <tr
           v-for="[work, work_state] in visible_labor_work"
-          v-on:click="work_state.is_unlocked && wasm.set_work(work.name)"
-          v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
+          :class="{ disabled: !work_state.is_unlocked }"
+          @click="work_state.is_unlocked && wasm.set_work(work.name)"
         >
           <td>
-            <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
+            <p :class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
           </td>
           <td>
             <p>
               Level: {{ work_state.level }} Reached level: {{ work_state.max_job_levels }} Income
               {{ work_state.effective_income.toFixed(1) }}/s
-              <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
+              <ProgressBar :value="work_state.next_level_percentage" :decimal-points="2" />
               <!--- XP required for next level: {{ work_state.next_level_required }} --->
             </p>
           </td>
@@ -30,18 +30,18 @@
         <h4>Soldiering</h4>
         <tr
           v-for="[work, work_state] in visible_soldier_work"
-          v-on:click="work_state.is_unlocked && wasm.set_work(work.name)"
-          v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
+          :class="{ disabled: !work_state.is_unlocked }"
+          @click="work_state.is_unlocked && wasm.set_work(work.name)"
         >
           <td>
-            <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
+            <p :class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
           </td>
           <td>
             <p>
               Level: {{ work_state.level }} Reached level: {{ work_state.max_job_levels }} Income
               {{ work_state.effective_income.toFixed(1) }}/s
-              <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
+              <ProgressBar :value="work_state.next_level_percentage" :decimal-points="2" />
             </p>
           </td>
         </tr>
@@ -51,18 +51,18 @@
         <h4>Priesthood</h4>
         <tr
           v-for="[work, work_state] in visible_priest_work"
-          v-on:click="work_state.is_unlocked && wasm.set_work(work.name)"
-          v-bind:class="{ disabled: !work_state.is_unlocked }"
           :key="work.name"
+          :class="{ disabled: !work_state.is_unlocked }"
+          @click="work_state.is_unlocked && wasm.set_work(work.name)"
         >
           <td>
-            <p v-bind:class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
+            <p :class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
           </td>
           <td>
             <p>
               Level: {{ work_state.level }} Reached level: {{ work_state.max_job_levels }} Income
               {{ work_state.effective_income.toFixed(1) }}/s
-              <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
+              <ProgressBar :value="work_state.next_level_percentage" :decimal-points="2" />
             </p>
           </td>
         </tr>
@@ -76,8 +76,8 @@ import ProgressBar from "./ProgressBar.vue";
 import Section from "./Section.vue";
 
 export default {
-  props: ["metaData", "state", "world", "input", "wasm"],
   components: { ProgressBar, Section },
+  props: ["metaData", "state", "world", "input", "wasm"],
   computed: {
     visible_labor_work: function () {
       let self = this;

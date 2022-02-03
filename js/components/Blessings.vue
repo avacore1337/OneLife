@@ -1,13 +1,13 @@
 <template>
   <div style="border: solid; margin: 2px">
     Blessings
-    <b-button v-if="state.rebirth_stats.unlocks.can_auto_buy_blessing" v-on:click="toggle_auto_buy_blessing" size="sm">
+    <b-button v-if="state.rebirth_stats.unlocks.can_auto_buy_blessing" size="sm" @click="toggle_auto_buy_blessing">
       {{ !metaData.options.auto_buy_blessing ? "Auto Buy Blessing" : "Don't Auto Buy Blessing" }}
     </b-button>
     <ul>
       <li v-for="[blessing, blessing_state] in visible_blessings" :key="blessing.name">
         <my-icon :icon="blessing.icon" />
-        <button v-on:click="wasm.buy_blessing(blessing.name)" :disabled="!blessing_state.is_unlocked">
+        <button :disabled="!blessing_state.is_unlocked" @click="wasm.buy_blessing(blessing.name)">
           {{ blessing.display_name }}
         </button>
 
@@ -23,11 +23,6 @@
 <script>
 export default {
   props: ["metaData", "state", "world", "input", "wasm"],
-  methods: {
-    toggle_auto_buy_blessing: function () {
-      this.wasm.set_auto_buy_blessing(!this.metaData.options.auto_buy_blessing);
-    },
-  },
   computed: {
     visible_blessings: function () {
       let self = this;
@@ -38,6 +33,11 @@ export default {
         .filter(([w, s]) => {
           return s.is_visible;
         });
+    },
+  },
+  methods: {
+    toggle_auto_buy_blessing: function () {
+      this.wasm.set_auto_buy_blessing(!this.metaData.options.auto_buy_blessing);
     },
   },
 };

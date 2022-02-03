@@ -1,13 +1,7 @@
 <template>
   <div style="border: solid; margin: 2px">
-    <BaseStats v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
-    <Skills
-      v-if="state.rebirth_stats.unlocks.has_skills"
-      v-bind:state="state"
-      v-bind:input="input"
-      v-bind:world="world"
-      v-bind:wasm="wasm"
-    />
+    <BaseStats :state="state" :input="input" :world="world" :wasm="wasm" />
+    <Skills v-if="state.rebirth_stats.unlocks.has_skills" :state="state" :input="input" :world="world" :wasm="wasm" />
 
     <br />
     Current Work
@@ -16,14 +10,15 @@
       {{ work_state.level }}
       <br />
       {{ work_state.effective_income.toFixed(1) }}/s
-      <ProgressBar :value="work_state.next_level_percentage" :decimalPoints="2" />
+      <ProgressBar :value="work_state.next_level_percentage" :decimal-points="2" />
     </div>
     <br />
     Currencies
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>
         <my-icon :icon="world.icons['Money']" />
-        Money: {{ printableNumbers(state.items.money) }} Income: {{ printableNumbers(state.items.income) }}
+        Money: {{ printableNumbers(state.items.money) }} Income:
+        {{ printableNumbers(state.items.income) }}
       </p>
       <p v-if="state.rebirth_stats.unlocks.has_faith">
         <my-icon :icon="world.icons['DivineFavor']" />
@@ -53,7 +48,10 @@
     Rebirth Stats
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>Life number: {{ state.rebirth_stats.rebirth_count + 1 }}</p>
-      <p>Tier: {{ state.rebirth_stats.tier }} {{ world.tiers[state.rebirth_stats.tier].display_name }}</p>
+      <p>
+        Tier: {{ state.rebirth_stats.tier }}
+        {{ world.tiers[state.rebirth_stats.tier].display_name }}
+      </p>
       <p>
         <my-icon :icon="world.icons['Coin']" />
         Coins: {{ printableNumbers(state.rebirth_stats.coins) }}
@@ -75,8 +73,8 @@ import BaseStats from "./BaseStats.vue";
 import Skills from "./Skills.vue";
 import ProgressBar from "./ProgressBar.vue";
 export default {
-  props: ["state", "world", "input", "wasm", "metaData"],
   components: { ProgressBar, BaseStats, Skills },
+  props: ["state", "world", "input", "wasm", "metaData"],
 
   computed: {
     current_work: function () {

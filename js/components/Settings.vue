@@ -2,34 +2,34 @@
   <div>
     <h3>Settings</h3>
     <br />
-    <button v-on:click="wasm.save">Save</button>
+    <button @click="wasm.save">Save</button>
     <br />
-    <button v-on:click="wasm.load">Load</button>
+    <button @click="wasm.load">Load</button>
     <br />
-    <button v-on:click="wasm.hard_reset">Hard Reset</button>
+    <button @click="wasm.hard_reset">Hard Reset</button>
     <br />
-    <input type="checkbox" id="autosave" v-on:click="toggleAutoSave" :checked="metaData.autosave" />
+    <input id="autosave" type="checkbox" :checked="metaData.autosave" @click="toggleAutoSave" />
     <label for="autosave">Autosave</label>
     <br />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
     <br />
-    <button v-on:click="toggle_use_saved_ticks" style="margin: 2px">
+    <button style="margin: 2px" @click="toggle_use_saved_ticks">
       {{ !metaData.use_saved_ticks ? "Use Saved Ticks" : "Don't Use Saved Ticks" }}
     </button>
 
     <br />
-    <button v-on:click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
+    <button @click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
     <br />
-    <button v-on:click="toggle_show_recorded" style="margin: 2px">
+    <button style="margin: 2px" @click="toggle_show_recorded">
       {{ !metaData.options.show_recorded ? "Show Recorded" : "Don't Show Recorded" }}
     </button>
     <br />
-    <button v-on:click="toggle_pause" style="margin: 2px">
+    <button style="margin: 2px" @click="toggle_pause">
       {{ metaData.options.paused ? "Resume the game" : "Pause the game" }}
     </button>
     <br />
     <br />
-    <button v-on:click="download_save" style="margin: 2px">Download Save</button>
+    <button style="margin: 2px" @click="download_save">Download Save</button>
     <br />
     <div style="max-width: 1000px">
       <b-form-textarea
@@ -40,10 +40,12 @@
         max-rows="6"
       ></b-form-textarea>
     </div>
-    <button v-on:click="import_save" style="margin: 2px">Import Save</button>
-    <button v-on:click="export_save" style="margin: 2px">Export Save</button>
+    <button style="margin: 2px" @click="import_save">Import Save</button>
+    <button style="margin: 2px" @click="export_save">Export Save</button>
     <br />
-    <button v-on:click="setNumberFormat">{{ nextNumberFormat($parent.$parent.numberFormat) }}</button>
+    <button @click="setNumberFormat">
+      {{ nextNumberFormat($parent.$parent.numberFormat) }}
+    </button>
   </div>
 </template>
 

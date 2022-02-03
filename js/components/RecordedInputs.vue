@@ -1,9 +1,9 @@
 <template>
   <Section :title="title">
-    <button v-on:click="clear_recorded">Clear Recorded</button>
+    <button @click="clear_recorded">Clear Recorded</button>
     <br />
     <table>
-      <tr v-for="entry in entries" v-on:click="remove_recorded(entry.id)">
+      <tr v-for="entry in entries" @click="remove_recorded(entry.id)">
         <td>
           <p>tick:{{ entry.tick }} | {{ entry.name }}</p>
         </td>
@@ -16,8 +16,8 @@
 import Section from "./Section.vue";
 
 export default {
-  props: ["wasm", "recorded_inputs", "remove_recorded", "clear_recorded", "title"],
   components: { Section },
+  props: ["wasm", "recorded_inputs", "remove_recorded", "clear_recorded", "title"],
   computed: {
     entries: function () {
       return Object.values(this.recorded_inputs);

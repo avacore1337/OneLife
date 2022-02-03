@@ -1,55 +1,43 @@
 <template>
   <b-tabs>
-    <b-tab title="Life" key="life-tab">
+    <b-tab key="life-tab" title="Life">
       <div class="my-container">
         <div class="main-item">
-          <Works
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
-          />
-          <Housing
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
-          />
+          <Works :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
+          <Housing :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
         </div>
         <div class="main-item">
-          <Activities v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+          <Activities :state="state" :input="input" :world="world" :wasm="wasm" />
           <BoostItems
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
-            v-bind:metaData="metaData"
-            v-bind:item_queue="item_queue"
+            :state="state"
+            :input="input"
+            :world="world"
+            :wasm="wasm"
+            :meta-data="metaData"
+            :item_queue="item_queue"
           />
           <Blessings
             v-if="state.rebirth_stats.unlocks.has_faith"
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:world="world"
-            v-bind:wasm="wasm"
+            :meta-data="metaData"
+            :state="state"
+            :input="input"
+            :world="world"
+            :wasm="wasm"
           />
           <div v-if="metaData.options.show_recorded">
             <RecordedInputs
               title="Previous Recorded Inputs"
-              v-bind:recorded_inputs="previous_recorded_inputs"
-              v-bind:wasm="wasm"
-              v-bind:remove_recorded="wasm.remove_previous_recorded"
-              v-bind:clear_recorded="wasm.clear_previous_recorded"
+              :recorded_inputs="previous_recorded_inputs"
+              :wasm="wasm"
+              :remove_recorded="wasm.remove_previous_recorded"
+              :clear_recorded="wasm.clear_previous_recorded"
             />
             <RecordedInputs
               title="Current Inputs"
-              v-bind:recorded_inputs="recorded_inputs"
-              v-bind:wasm="wasm"
-              v-bind:clear_recorded="wasm.clear_recorded"
-              v-bind:remove_recorded="wasm.remove_recorded"
+              :recorded_inputs="recorded_inputs"
+              :wasm="wasm"
+              :clear_recorded="wasm.clear_recorded"
+              :remove_recorded="wasm.remove_recorded"
             />
           </div>
         </div>
@@ -57,39 +45,27 @@
     </b-tab>
 
     <b-tab
-      title="Death"
       v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"
       key="death-tab"
+      title="Death"
     >
       <div style="margin-left: 1%; float: left; width: 49%">
-        <Tombs
-          v-bind:metaData="metaData"
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-        />
+        <Tombs :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
       </div>
       <div style="margin-left: 1%; float: left; width: 49%">
-        <Death v-bind:state="state" v-bind:input="input" v-bind:world="world" v-bind:wasm="wasm" />
+        <Death :state="state" :input="input" :world="world" :wasm="wasm" />
         <RebirthUpgrades
           v-if="state.rebirth_stats.tier > 0"
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-          v-bind:metaData="metaData"
+          :state="state"
+          :input="input"
+          :world="world"
+          :wasm="wasm"
+          :meta-data="metaData"
         />
       </div>
     </b-tab>
-    <b-tab title="Settings" key="settings-tab">
-      <Settings
-        v-bind:state="state"
-        v-bind:input="input"
-        v-bind:world="world"
-        v-bind:wasm="wasm"
-        v-bind:metaData="metaData"
-      />
+    <b-tab key="settings-tab" title="Settings">
+      <Settings :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
     </b-tab>
   </b-tabs>
 </template>
@@ -110,7 +86,6 @@ import RebirthUpgrades from "./RebirthUpgrades.vue";
 import Settings from "./Settings.vue";
 
 export default {
-  props: ["item_queue", "metaData", "state", "world", "input", "wasm", "recorded_inputs", "previous_recorded_inputs"],
   components: {
     Works,
     Housing,
@@ -123,6 +98,7 @@ export default {
     RebirthUpgrades,
     Settings,
   },
+  props: ["item_queue", "metaData", "state", "world", "input", "wasm", "recorded_inputs", "previous_recorded_inputs"],
 };
 </script>
 

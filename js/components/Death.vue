@@ -3,7 +3,6 @@
     Death Section
     <br />
     <button
-      v-on:click="wasm.die"
       v-if="
         state.rebirth_stats.unlocks.can_end_early &&
         !state.life_stats.is_dying &&
@@ -11,18 +10,19 @@
         state.life_stats.current_tick >= 5000
       "
       style="margin: 2px"
+      @click="wasm.die"
     >
       End It Early
     </button>
-    <button v-on:click="wasm.die" v-if="state.life_stats.is_dying && !state.life_stats.dead" style="margin: 2px">
+    <button v-if="state.life_stats.is_dying && !state.life_stats.dead" style="margin: 2px" @click="wasm.die">
       Go To The Other Side
     </button>
-    <button v-on:click="rebirth" v-if="state.life_stats.dead" style="margin: 2px">Rebirth</button>
-    <button v-on:click="wasm.do_rebirth_replay" v-if="state.life_stats.dead" style="margin: 2px">Rebirth Replay</button>
+    <button v-if="state.life_stats.dead" style="margin: 2px" @click="rebirth">Rebirth</button>
+    <button v-if="state.life_stats.dead" style="margin: 2px" @click="wasm.do_rebirth_replay">Rebirth Replay</button>
     <div style="border: solid; margin: 2px">
       <ul>
         <li v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.tier)" :key="tier.name">
-          <button v-on:click="wasm.buy_tier(tier.level)" style="margin: 2px" :disabled="!wasm.can_buy_tier(tier.level)">
+          <button style="margin: 2px" :disabled="!wasm.can_buy_tier(tier.level)" @click="wasm.buy_tier(tier.level)">
             T{{ tier.level }} {{ tier.display_name }}: Cost {{ tier.purchasing_cost }}
           </button>
         </li>

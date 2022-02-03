@@ -1,65 +1,41 @@
 <template>
-  <div class="app" v-if="loaded">
+  <div v-if="loaded" class="app">
     <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
       <span class="the-modal">
         <div class="d-block text-center">
-          <h3>{{ this.modalText }}</h3>
+          <h3>{{ modalText }}</h3>
         </div>
         <b-button class="float-end" block @click="hideModal">Next</b-button>
         <b-button class="float-end" variant="danger" block @click="disable_tutorial">Disable Tutorial</b-button>
       </span>
     </b-modal>
     <div>
-      <Topbar
-        v-bind:state="state"
-        v-bind:input="input"
-        v-bind:world="world"
-        v-bind:wasm="wasm"
-        v-bind:metaData="metaData"
-      />
+      <Topbar :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
     </div>
     <div class="my-container">
       <div class="left-sidebar">
-        <Sidebar
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-          v-bind:metaData="metaData"
-        />
+        <Sidebar :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
       </div>
 
       <div class="main">
         <Main
-          v-bind:item_queue="item_queue"
-          v-bind:metaData="metaData"
-          v-bind:state="state"
-          v-bind:input="input"
-          v-bind:world="world"
-          v-bind:wasm="wasm"
-          v-bind:previous_recorded_inputs="previous_recorded_inputs"
-          v-bind:recorded_inputs="recorded_inputs"
+          :item_queue="item_queue"
+          :meta-data="metaData"
+          :state="state"
+          :input="input"
+          :world="world"
+          :wasm="wasm"
+          :previous_recorded_inputs="previous_recorded_inputs"
+          :recorded_inputs="recorded_inputs"
         />
       </div>
 
       <div style="">
         <div style="margin-left: 20px; border: 5px solid white; padding: 10px">
-          <SidebarRight
-            v-bind:world="world"
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:wasm="wasm"
-          />
+          <SidebarRight :world="world" :meta-data="metaData" :state="state" :input="input" :wasm="wasm" />
         </div>
-        <div style="margin-left: 20px; border: 5px solid white; padding: 10px" v-if="world.settings.display_debug">
-          <Debug
-            v-bind:world="world"
-            v-bind:metaData="metaData"
-            v-bind:state="state"
-            v-bind:input="input"
-            v-bind:wasm="wasm"
-          />
+        <div v-if="world.settings.display_debug" style="margin-left: 20px; border: 5px solid white; padding: 10px">
+          <Debug :world="world" :meta-data="metaData" :state="state" :input="input" :wasm="wasm" />
         </div>
       </div>
     </div>
@@ -89,11 +65,10 @@ Vue.use(VueGtag, {
 });
 
 Vue.config.performance = true;
-Vue.component("v-icon", Icon);
-Vue.component("my-icon", MyIcon);
+Vue.component("VIcon", Icon);
+Vue.component("MyIcon", MyIcon);
 
 export default {
-  props: ["wasm"],
   components: {
     Main,
     Debug,
@@ -101,6 +76,7 @@ export default {
     SidebarRight,
     Topbar,
   },
+  props: ["wasm"],
   data() {
     return {
       loaded: false,

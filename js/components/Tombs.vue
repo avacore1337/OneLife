@@ -1,6 +1,6 @@
 <template>
   <Section title="Tombs">
-    <b-button v-if="state.rebirth_stats.unlocks.can_auto_buy_tomb" v-on:click="toggle_auto_buy_tomb" size="sm">
+    <b-button v-if="state.rebirth_stats.unlocks.can_auto_buy_tomb" size="sm" @click="toggle_auto_buy_tomb">
       {{ !metaData.options.auto_buy_tomb ? "Auto Buy Tomb" : "Don't Auto Buy Tomb" }}
     </b-button>
     <span v-if="state.tombs.some((tomb) => tomb.is_purchased)">
@@ -20,10 +20,10 @@
     <table>
       <tr
         v-for="[tomb, tomb_state] in visible_unbought_tombs"
-        v-bind:class="{ disabled: !tomb_state.is_unlocked }"
         :key="tomb.name"
+        :class="{ disabled: !tomb_state.is_unlocked }"
       >
-        <td v-on:click="buyTomb(tomb.name)">
+        <td @click="buyTomb(tomb.name)">
           <span>{{ tomb.display_name }} </span>
           <span style="float: right">Cost: {{ tomb.purchasing_cost }} money </span>
           <br />
@@ -38,8 +38,8 @@
 import Section from "./Section.vue";
 
 export default {
-  props: ["metaData", "state", "world", "input", "wasm"],
   components: { Section },
+  props: ["metaData", "state", "world", "input", "wasm"],
   computed: {
     visible_unbought_tombs: function () {
       let self = this;

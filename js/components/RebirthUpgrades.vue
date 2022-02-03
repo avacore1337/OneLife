@@ -3,10 +3,10 @@
     <span>
       Show bought upgrades
       <input
-        type="checkbox"
         id="show_bought"
-        v-on:click="toggle_show_bought"
+        type="checkbox"
         :checked="metaData.options.show_bought_upgrades"
+        @click="toggle_show_bought"
       />
     </span>
     <br />
@@ -27,9 +27,9 @@
     <ul>
       <li v-for="[upgrade, upgrade_state] in visible_unbought_upgrades" :key="upgrade.name">
         <button
-          v-on:click="wasm.buy_rebirth_upgrade(upgrade.name)"
           style="margin: 2px"
           :disabled="!upgrade_state.is_unlocked"
+          @click="wasm.buy_rebirth_upgrade(upgrade.name)"
         >
           {{ upgrade.display_name }}
           {{ upgrade.purchasing_cost }}
@@ -43,11 +43,6 @@
 import { compare } from "../utility.js";
 export default {
   props: ["state", "world", "input", "wasm", "metaData"],
-  methods: {
-    toggle_show_bought: function () {
-      this.wasm.set_show_bought_upgrades(!this.metaData.options.show_bought_upgrades);
-    },
-  },
   computed: {
     visible_unbought_upgrades: function () {
       let self = this;
@@ -70,6 +65,11 @@ export default {
           return s.is_purchased;
         })
         .sort(compare);
+    },
+  },
+  methods: {
+    toggle_show_bought: function () {
+      this.wasm.set_show_bought_upgrades(!this.metaData.options.show_bought_upgrades);
     },
   },
 };

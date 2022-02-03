@@ -1,22 +1,22 @@
 <template>
   <Section title="Items">
-    <b-button v-if="state.rebirth_stats.unlocks.can_auto_buy_item" v-on:click="toggle_auto_buy_item" size="sm">
+    <b-button v-if="state.rebirth_stats.unlocks.can_auto_buy_item" size="sm" @click="toggle_auto_buy_item">
       {{ !metaData.options.auto_buy_item ? "Auto Buy Item" : "Don't Auto Buy Item" }}
     </b-button>
     <span>
       Show bought Items
       <input
-        type="checkbox"
         id="show_bought"
-        v-on:click="toggle_show_bought"
+        type="checkbox"
         :checked="metaData.options.show_bought_items"
+        @click="toggle_show_bought"
       />
     </span>
     <div v-if="state.rebirth_stats.unlocks.can_queue_item">
       <h4>Item Queue</h4>
       <table>
         <tr v-for="item in item_queue" :key="item.name">
-          <td v-on:click="wasm.dequeue_item(item.name)">
+          <td @click="wasm.dequeue_item(item.name)">
             <span>{{ item.display_name }} </span>
             <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
             <br />
@@ -45,10 +45,10 @@
     <table>
       <tr
         v-for="[item, item_state] in visible_unbought_items"
-        v-bind:class="{ disabled: !item_state.is_unlocked }"
         :key="item.name"
+        :class="{ disabled: !item_state.is_unlocked }"
       >
-        <td v-on:click.shift.exakt="wasm.queue_item(item.name)" v-on:click.exakt="buy_item(item.name, $event)">
+        <td @click.shift.exakt="wasm.queue_item(item.name)" @click.exakt="buy_item(item.name, $event)">
           <span>{{ item.display_name }} </span>
           <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
           <br />
@@ -65,8 +65,8 @@ import Section from "./Section.vue";
 import { compare } from "../utility.js";
 
 export default {
-  props: ["state", "world", "input", "wasm", "metaData", "item_queue"],
   components: { Section },
+  props: ["state", "world", "input", "wasm", "metaData", "item_queue"],
   computed: {
     visible_unbought_items: function () {
       let self = this;

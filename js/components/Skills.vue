@@ -6,7 +6,7 @@
         <my-icon :icon="skill.icon" />
         <span>{{ skill.display_name }}: {{ skill_state.level }} </span>
         <span> xp rate: {{ Math.round(skill_state.xp_rate) }} </span>
-        <ProgressBar :value="skill_state.next_level_percentage" :decimalPoints="2"> </ProgressBar>
+        <ProgressBar :value="skill_state.next_level_percentage" :decimal-points="2"> </ProgressBar>
         <br />
       </div>
     </div>
@@ -18,9 +18,8 @@ import Section from "./Section.vue";
 import ProgressBar from "./ProgressBar.vue";
 
 export default {
-  props: ["state", "world", "input", "wasm"],
   components: { Section, ProgressBar },
-  methods: {},
+  props: ["state", "world", "input", "wasm"],
   computed: {
     visible_skills: function () {
       let self = this;
@@ -33,6 +32,7 @@ export default {
         });
     },
   },
+  methods: {},
 };
 </script>
 
