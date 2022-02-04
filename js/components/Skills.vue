@@ -14,11 +14,10 @@
 </template>
 
 <script>
-import Section from './Section.vue'
 import ProgressBar from './ProgressBar.vue'
 
 export default {
-  components: { Section, ProgressBar },
+  components: { ProgressBar },
   props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_skills() {

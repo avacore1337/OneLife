@@ -68,6 +68,8 @@ module.exports = {
   },
 
   rules: {
+    "vue/multi-word-component-names": "off",
+    "vue/require-prop-types": "off",
     "prettier-vue/prettier": [
       "error",
       {

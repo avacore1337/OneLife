@@ -13,6 +13,7 @@
     Current Work
     <div
       v-for="[work, work_state] in current_work"
+      :key="work.name"
       style="border: solid; margin: 2px; padding: 10px"
     >
       {{ work.display_name }}
