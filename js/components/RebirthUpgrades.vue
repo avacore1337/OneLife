@@ -40,39 +40,39 @@
 </template>
 
 <script>
-import { compare } from "../utility.js";
+import { compare } from '../utility.js'
 export default {
-  props: ["state", "world", "input", "wasm", "metaData"],
+  props: ['state', 'world', 'input', 'wasm', 'metaData'],
   computed: {
     visible_unbought_upgrades() {
-      let self = this;
+      let self = this
       return self.world.rebirth_upgrades
         .map((w, i) => {
-          return [w, self.state.rebirth_stats.rebirth_upgrades[i]];
+          return [w, self.state.rebirth_stats.rebirth_upgrades[i]]
         })
         .filter(([w, s]) => {
-          return s.is_visible && !s.is_purchased;
+          return s.is_visible && !s.is_purchased
         })
-        .sort(compare);
+        .sort(compare)
     },
     bought_upgrades() {
-      let self = this;
+      let self = this
       return self.world.rebirth_upgrades
         .map((w, i) => {
-          return [w, self.state.rebirth_stats.rebirth_upgrades[i]];
+          return [w, self.state.rebirth_stats.rebirth_upgrades[i]]
         })
         .filter(([w, s]) => {
-          return s.is_purchased;
+          return s.is_purchased
         })
-        .sort(compare);
+        .sort(compare)
     },
   },
   methods: {
     toggle_show_bought() {
-      this.wasm.set_show_bought_upgrades(!this.metaData.options.show_bought_upgrades);
+      this.wasm.set_show_bought_upgrades(!this.metaData.options.show_bought_upgrades)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

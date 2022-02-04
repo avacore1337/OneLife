@@ -4,7 +4,13 @@
       <div class="my-container">
         <div class="main-item">
           <Works :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
-          <Housing :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
+          <Housing
+            :meta-data="metaData"
+            :state="state"
+            :input="input"
+            :world="world"
+            :wasm="wasm"
+          />
         </div>
         <div class="main-item">
           <Activities :state="state" :input="input" :world="world" :wasm="wasm" />
@@ -45,7 +51,9 @@
     </b-tab>
 
     <b-tab
-      v-if="state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0"
+      v-if="
+        state.life_stats.dead || state.life_stats.is_dying || state.rebirth_stats.rebirth_count > 0
+      "
       key="death-tab"
       title="Death"
     >
@@ -71,19 +79,19 @@
 </template>
 
 <script>
-import Works from "./Works.vue";
-import Housing from "./Housing.vue";
-import Blessings from "./Blessings.vue";
-import Activities from "./Activities.vue";
-import RecordedInputs from "./RecordedInputs.vue";
-import BoostItems from "./BoostItems.vue";
+import Works from './Works.vue'
+import Housing from './Housing.vue'
+import Blessings from './Blessings.vue'
+import Activities from './Activities.vue'
+import RecordedInputs from './RecordedInputs.vue'
+import BoostItems from './BoostItems.vue'
 
-import Tombs from "./Tombs.vue";
+import Tombs from './Tombs.vue'
 
-import Death from "./Death.vue";
-import RebirthUpgrades from "./RebirthUpgrades.vue";
+import Death from './Death.vue'
+import RebirthUpgrades from './RebirthUpgrades.vue'
 
-import Settings from "./Settings.vue";
+import Settings from './Settings.vue'
 
 export default {
   components: {
@@ -98,8 +106,17 @@ export default {
     RebirthUpgrades,
     Settings,
   },
-  props: ["item_queue", "metaData", "state", "world", "input", "wasm", "recorded_inputs", "previous_recorded_inputs"],
-};
+  props: [
+    'item_queue',
+    'metaData',
+    'state',
+    'world',
+    'input',
+    'wasm',
+    'recorded_inputs',
+    'previous_recorded_inputs',
+  ],
+}
 </script>
 
 <style scoped>

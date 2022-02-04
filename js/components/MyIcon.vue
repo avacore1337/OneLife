@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  props: ["icon"],
-};
+  props: ['icon'],
+}
 </script>
 
 <style scoped></style>

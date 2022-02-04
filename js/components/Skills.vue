@@ -14,26 +14,26 @@
 </template>
 
 <script>
-import Section from "./Section.vue";
-import ProgressBar from "./ProgressBar.vue";
+import Section from './Section.vue'
+import ProgressBar from './ProgressBar.vue'
 
 export default {
   components: { Section, ProgressBar },
-  props: ["state", "world", "input", "wasm"],
+  props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_skills() {
-      let self = this;
+      let self = this
       return self.world.skills
         .map((w, i) => {
-          return [w, self.state.skills[i]];
+          return [w, self.state.skills[i]]
         })
         .filter(([w, s]) => {
-          return s.is_visible;
-        });
+          return s.is_visible
+        })
     },
   },
   methods: {},
-};
+}
 </script>
 
 <style scoped></style>

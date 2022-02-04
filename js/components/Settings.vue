@@ -14,18 +14,18 @@
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
     <br />
     <button style="margin: 2px" @click="toggle_use_saved_ticks">
-      {{ !metaData.use_saved_ticks ? "Use Saved Ticks" : "Don't Use Saved Ticks" }}
+      {{ !metaData.use_saved_ticks ? 'Use Saved Ticks' : "Don't Use Saved Ticks" }}
     </button>
 
     <br />
     <button @click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
     <br />
     <button style="margin: 2px" @click="toggle_show_recorded">
-      {{ !metaData.options.show_recorded ? "Show Recorded" : "Don't Show Recorded" }}
+      {{ !metaData.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
     </button>
     <br />
     <button style="margin: 2px" @click="toggle_pause">
-      {{ metaData.options.paused ? "Resume the game" : "Pause the game" }}
+      {{ metaData.options.paused ? 'Resume the game' : 'Pause the game' }}
     </button>
     <br />
     <br />
@@ -50,63 +50,63 @@
 </template>
 
 <script>
-import { downloadFile } from "../utility.js";
+import { downloadFile } from '../utility.js'
 export default {
-  props: ["metaData", "state", "world", "input", "wasm"],
+  props: ['metaData', 'state', 'world', 'input', 'wasm'],
   data() {
     return {
-      save_text: "",
-    };
+      save_text: '',
+    }
   },
   computed: {
     nextNumberFormat() {
-      return this.$store.getters.getNextNumberFormat;
+      return this.$store.getters.getNextNumberFormat
     },
   },
   methods: {
     toggle_use_saved_ticks() {
-      this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks);
+      this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks)
     },
     toggle_show_recorded() {
-      this.wasm.set_show_recorded(!this.metaData.options.show_recorded);
+      this.wasm.set_show_recorded(!this.metaData.options.show_recorded)
     },
     toggle_pause() {
-      this.wasm.set_paused(!this.metaData.options.paused);
+      this.wasm.set_paused(!this.metaData.options.paused)
     },
     download_save() {
       // TODO: This should be exported by the backend
-      downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save());
+      downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save())
     },
     import_save_file(event) {
       // TODO: This is only on the frontend atm, it doesn't actually save the changes
-      var files = event.target.files;
-      var f = files[0];
-      var reader = new FileReader();
-      var self = this;
+      var files = event.target.files
+      var f = files[0]
+      var reader = new FileReader()
+      var self = this
 
       reader.onload = (function (theFile) {
         return function (e) {
-          var data = e.target.result;
-          console.log(data);
-          this.wasm.import_save(data);
-        };
-      })(f);
-      reader.readAsText(f);
+          var data = e.target.result
+          console.log(data)
+          this.wasm.import_save(data)
+        }
+      })(f)
+      reader.readAsText(f)
     },
     import_save() {
-      this.wasm.import_save(this.save_text);
+      this.wasm.import_save(this.save_text)
     },
     export_save() {
-      this.save_text = this.wasm.export_save();
+      this.save_text = this.wasm.export_save()
     },
     toggleAutoSave() {
-      this.wasm.set_autosave(!this.metaData.autosave);
+      this.wasm.set_autosave(!this.metaData.autosave)
     },
     setNumberFormat() {
-      this.$store.commit("toggleNumberFormat");
+      this.$store.commit('toggleNumberFormat')
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

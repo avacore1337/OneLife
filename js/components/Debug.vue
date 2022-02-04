@@ -5,9 +5,12 @@
     Presets
     <div>
       <b-dropdown id="dropdown-1" text="Presets" no-flip class="m-md-2" lazy>
-        <b-dropdown-item-button v-for="name in presets" :key="name" @click="wasm.set_preset_saves(name)">{{
-          name
-        }}</b-dropdown-item-button>
+        <b-dropdown-item-button
+          v-for="name in presets"
+          :key="name"
+          @click="wasm.set_preset_saves(name)"
+          >{{ name }}</b-dropdown-item-button
+        >
       </b-dropdown>
     </div>
     <br />
@@ -52,29 +55,29 @@
 </template>
 
 <script>
-import { downloadFile } from "../utility.js";
+import { downloadFile } from '../utility.js'
 export default {
-  props: ["metaData", "state", "world", "input", "wasm"],
+  props: ['metaData', 'state', 'world', 'input', 'wasm'],
   data() {
     return {
       presets: [],
       money: 1000000000.0,
       coins: 1000000.0,
       divine_favor: 10000.0,
-    };
+    }
   },
   mounted() {
-    this.presets = this.wasm.get_preset_saves();
+    this.presets = this.wasm.get_preset_saves()
   },
   methods: {
     print_frontend_debug_state() {
-      console.log(this.state);
+      console.log(this.state)
     },
     print_frontend_debug_world() {
-      console.log(this.world);
+      console.log(this.world)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

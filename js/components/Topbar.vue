@@ -6,9 +6,9 @@
 
 <script>
 export default {
-  props: ["state", "world", "input", "wasm", "metaData"],
+  props: ['state', 'world', 'input', 'wasm', 'metaData'],
   methods: {},
-};
+}
 </script>
 
 <style scoped></style>

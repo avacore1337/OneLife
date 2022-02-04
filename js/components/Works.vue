@@ -1,8 +1,12 @@
 <template>
   <div>
     <Section title="Works">
-      <b-button v-if="state.rebirth_stats.unlocks.can_auto_work" size="sm" @click="toggle_auto_work">
-        {{ !metaData.options.auto_work ? "Auto Work" : "Don't Auto Work" }}
+      <b-button
+        v-if="state.rebirth_stats.unlocks.can_auto_work"
+        size="sm"
+        @click="toggle_auto_work"
+      >
+        {{ !metaData.options.auto_work ? 'Auto Work' : "Don't Auto Work" }}
       </b-button>
       <h4>Labor</h4>
       <table>
@@ -72,50 +76,50 @@
 </template>
 
 <script>
-import ProgressBar from "./ProgressBar.vue";
-import Section from "./Section.vue";
+import ProgressBar from './ProgressBar.vue'
+import Section from './Section.vue'
 
 export default {
   components: { ProgressBar, Section },
-  props: ["metaData", "state", "world", "input", "wasm"],
+  props: ['metaData', 'state', 'world', 'input', 'wasm'],
   computed: {
     visible_labor_work() {
-      let self = this;
+      let self = this
       return self.world.works
         .map((w, i) => {
-          return [w, self.state.works[i]];
+          return [w, self.state.works[i]]
         })
         .filter(([w, s]) => {
-          return s.is_visible && w.work_type === "Labor";
-        });
+          return s.is_visible && w.work_type === 'Labor'
+        })
     },
     visible_soldier_work() {
-      let self = this;
+      let self = this
       return self.world.works
         .map((w, i) => {
-          return [w, self.state.works[i]];
+          return [w, self.state.works[i]]
         })
         .filter(([w, s]) => {
-          return s.is_visible && w.work_type === "Soldier";
-        });
+          return s.is_visible && w.work_type === 'Soldier'
+        })
     },
     visible_priest_work() {
-      let self = this;
+      let self = this
       return self.world.works
         .map((w, i) => {
-          return [w, self.state.works[i]];
+          return [w, self.state.works[i]]
         })
         .filter(([w, s]) => {
-          return s.is_visible && w.work_type === "Priest";
-        });
+          return s.is_visible && w.work_type === 'Priest'
+        })
     },
   },
   methods: {
     toggle_auto_work() {
-      this.wasm.set_auto_work(!this.metaData.options.auto_work);
+      this.wasm.set_auto_work(!this.metaData.options.auto_work)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

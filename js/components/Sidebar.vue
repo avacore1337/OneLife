@@ -1,11 +1,20 @@
 <template>
   <div style="border: solid; margin: 2px">
     <BaseStats :state="state" :input="input" :world="world" :wasm="wasm" />
-    <Skills v-if="state.rebirth_stats.unlocks.has_skills" :state="state" :input="input" :world="world" :wasm="wasm" />
+    <Skills
+      v-if="state.rebirth_stats.unlocks.has_skills"
+      :state="state"
+      :input="input"
+      :world="world"
+      :wasm="wasm"
+    />
 
     <br />
     Current Work
-    <div v-for="[work, work_state] in current_work" style="border: solid; margin: 2px; padding: 10px">
+    <div
+      v-for="[work, work_state] in current_work"
+      style="border: solid; margin: 2px; padding: 10px"
+    >
       {{ work.display_name }}
       {{ work_state.level }}
       <br />
@@ -34,7 +43,8 @@
       <p>Lifespan: {{ prettyPrintDays(state.life_stats.lifespan) }}</p>
       <p>
         <my-icon :icon="world.icons['Health']" />
-        Health: {{ state.life_stats.health.toFixed(2) }} Rate: {{ state.life_stats.health_rate.toPrecision(2) }}/s
+        Health: {{ state.life_stats.health.toFixed(2) }} Rate:
+        {{ state.life_stats.health_rate.toPrecision(2) }}/s
       </p>
       <p>
         <my-icon :icon="world.icons['Happiness']" />
@@ -69,86 +79,86 @@
 </template>
 
 <script>
-import BaseStats from "./BaseStats.vue";
-import Skills from "./Skills.vue";
-import ProgressBar from "./ProgressBar.vue";
+import BaseStats from './BaseStats.vue'
+import Skills from './Skills.vue'
+import ProgressBar from './ProgressBar.vue'
 export default {
   components: { ProgressBar, BaseStats, Skills },
-  props: ["state", "world", "input", "wasm", "metaData"],
+  props: ['state', 'world', 'input', 'wasm', 'metaData'],
 
   computed: {
     current_work() {
-      let self = this;
-      let the_work = [];
+      let self = this
+      let the_work = []
       this.world.works.forEach((work, i) => {
         if (work.name == self.input.work) {
-          the_work = [[work, self.state.works[i]]];
+          the_work = [[work, self.state.works[i]]]
         }
-      });
-      return the_work;
+      })
+      return the_work
     },
   },
   methods: {
     life_status() {
       if (this.state.life_stats.dead) {
-        return "No ;(";
+        return 'No ;('
       }
       if (this.state.life_stats.is_dying) {
-        return "Soon dead...";
+        return 'Soon dead...'
       }
-      return "Yes :)";
+      return 'Yes :)'
     },
     printableNumbers(num) {
       if (num === undefined) {
-        return null;
+        return null
       }
 
       if (num < 100) {
-        return num.toFixed(1);
+        return num.toFixed(1)
       }
       if (num < 10000) {
-        return Math.floor(num).toString();
+        return Math.floor(num).toString()
       }
 
-      if (this.$parent.numberFormat === "SCIENTIFIC") {
-        let exponent = 1;
+      if (this.$parent.numberFormat === 'SCIENTIFIC') {
+        let exponent = 1
         while (num >= 10) {
-          num /= 10;
-          exponent++;
+          num /= 10
+          exponent++
         }
 
-        return `${num.toFixed(1)}e${exponent}`;
+        return `${num.toFixed(1)}e${exponent}`
       }
 
-      const ending = ["K", "M", "B", "T", "Qa", "Qi", "He", "Se", "Oc", "No", "De"];
-      let index = -1;
+      const ending = ['K', 'M', 'B', 'T', 'Qa', 'Qi', 'He', 'Se', 'Oc', 'No', 'De']
+      let index = -1
       while (num >= 10000 && index < ending.length - 1) {
-        num /= 1000;
-        index++;
+        num /= 1000
+        index++
       }
 
-      return `${num.toFixed(1)}${ending[index]}`;
+      return `${num.toFixed(1)}${ending[index]}`
     },
     prettyPrintDays(total_days) {
-      const years = Math.floor(total_days / 365);
-      const days = total_days % 365;
+      const years = Math.floor(total_days / 365)
+      const days = total_days % 365
 
       if (years === 0) {
-        return `${days} days`;
+        return `${days} days`
       } else if (days === 0) {
-        return `${years} years`;
+        return `${years} years`
       }
-      return `${years} years and ${days.toFixed(0)} days`;
+      return `${years} years and ${days.toFixed(0)} days`
     },
     prettyPrint(value) {
-      if (typeof value !== "number") {
-        return value;
+      if (typeof value !== 'number') {
+        return value
       }
 
-      return this.printableNumbers(value);
+      return this.printableNumbers(value)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

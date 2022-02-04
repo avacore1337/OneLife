@@ -25,25 +25,25 @@
 </template>
 
 <script>
-import Section from "./Section.vue";
+import Section from './Section.vue'
 
 export default {
   components: { Section },
-  props: ["state", "world", "input", "wasm"],
+  props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_activities() {
-      let self = this;
+      let self = this
       return self.world.activities
         .map((w, i) => {
-          return [w, self.state.activities[i]];
+          return [w, self.state.activities[i]]
         })
         .filter(([w, s]) => {
-          return s.is_visible;
-        });
+          return s.is_visible
+        })
     },
   },
   methods: {},
-};
+}
 </script>
 
 <style scoped>

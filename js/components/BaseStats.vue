@@ -14,25 +14,25 @@
 </template>
 
 <script>
-import ProgressBar from "./ProgressBar.vue";
+import ProgressBar from './ProgressBar.vue'
 
 export default {
   components: { ProgressBar },
-  props: ["state", "world", "input", "wasm"],
+  props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_stats() {
-      let self = this;
+      let self = this
       return self.world.stats
         .map((w, i) => {
-          return [w, self.state.stats[i]];
+          return [w, self.state.stats[i]]
         })
         .filter(([w, s]) => {
-          return s.is_visible;
-        });
+          return s.is_visible
+        })
     },
   },
   methods: {},
-};
+}
 </script>
 
 <style scoped></style>
