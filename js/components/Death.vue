@@ -23,7 +23,7 @@
       <ul>
         <li v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.tier)" :key="tier.name">
           <button style="margin: 2px" :disabled="!wasm.can_buy_tier(tier.level)" @click="wasm.buy_tier(tier.level)">
-            T{{ tier.level }} {{ tier.display_name }}: Cost {{ tier.purchasing_cost }}
+            T{{ tier.level }} {{ tier.display_name }}: Cost <FormatNumber :value="tier.purchasing_cost" />
           </button>
         </li>
       </ul>
@@ -32,7 +32,9 @@
 </template>
 
 <script>
+import FormatNumber from "./FormatNumber.vue";
 export default {
+  components: { FormatNumber },
   props: ["state", "world", "input", "wasm"],
   methods: {
     rebirth: function () {

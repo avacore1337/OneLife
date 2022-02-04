@@ -18,7 +18,7 @@
         <tr v-for="item in item_queue" :key="item.name">
           <td @click="wasm.dequeue_item(item.name)">
             <span>{{ item.display_name }} </span>
-            <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
+            <span style="float: right">Cost: <FormatNumber :value="item.purchasing_cost" /> money </span>
             <br />
             <my-icon :icon="item.icon" />
             <span>{{ item.effect_description }} </span>
@@ -50,7 +50,7 @@
       >
         <td @click.shift.exakt="wasm.queue_item(item.name)" @click.exakt="buy_item(item.name, $event)">
           <span>{{ item.display_name }} </span>
-          <span style="float: right">Cost: {{ item.purchasing_cost }} money </span>
+          <span style="float: right">Cost: <FormatNumber :value="item.purchasing_cost" /> money </span>
           <br />
           <my-icon :icon="item.icon" />
           <span>{{ item.effect_description }} </span>
@@ -63,9 +63,10 @@
 <script>
 import Section from "./Section.vue";
 import { compare } from "../utility.js";
+import FormatNumber from "./FormatNumber.vue";
 
 export default {
-  components: { Section },
+  components: { Section, FormatNumber },
   props: ["state", "world", "input", "wasm", "metaData", "item_queue"],
   computed: {
     visible_unbought_items: function () {

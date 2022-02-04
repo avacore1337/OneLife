@@ -25,7 +25,7 @@
       >
         <td @click="buyTomb(tomb.name)">
           <span>{{ tomb.display_name }} </span>
-          <span style="float: right">Cost: {{ tomb.purchasing_cost }} money </span>
+          <span style="float: right">Cost: <FormatNumber :value="tomb.purchasing_cost" /> money </span>
           <br />
           <span>Coins: {{ tomb_state.effective_income }} </span>
         </td>
@@ -36,9 +36,11 @@
 
 <script>
 import Section from "./Section.vue";
+import FormatNumber from "./FormatNumber.vue";
 
 export default {
   components: { Section },
+  components: { Section, FormatNumber },
   props: ["metaData", "state", "world", "input", "wasm"],
   computed: {
     visible_unbought_tombs: function () {
