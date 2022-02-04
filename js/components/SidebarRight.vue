@@ -61,35 +61,35 @@ export default {
     };
   },
   methods: {
-    toggle_use_saved_ticks: function () {
+    toggle_use_saved_ticks() {
       this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks);
     },
-    toggle_auto_work: function () {
+    toggle_auto_work() {
       this.wasm.set_auto_work(!this.metaData.options.auto_work);
     },
-    toggle_auto_living: function () {
+    toggle_auto_living() {
       this.wasm.set_auto_living(!this.metaData.options.auto_living);
     },
-    toggle_auto_buy_item: function () {
+    toggle_auto_buy_item() {
       this.wasm.set_auto_buy_item(!this.metaData.options.auto_buy_item);
     },
-    toggle_auto_buy_blessing: function () {
+    toggle_auto_buy_blessing() {
       this.wasm.set_auto_buy_blessing(!this.metaData.options.auto_buy_blessing);
     },
-    toggle_auto_buy_tomb: function () {
+    toggle_auto_buy_tomb() {
       this.wasm.set_auto_buy_tomb(!this.metaData.options.auto_buy_tomb);
     },
-    toggle_auto_rebirth: function () {
+    toggle_auto_rebirth() {
       this.wasm.set_auto_rebirth(!this.metaData.options.auto_rebirth);
     },
-    tick: function (work_name) {
+    tick(work_name) {
       this.wasm.single_tick();
       this.$parent.update_dynamic_data();
     },
-    toggle_show_recorded: function () {
+    toggle_show_recorded() {
       this.wasm.set_show_recorded(!this.metaData.options.show_recorded);
     },
-    toggle_pause: function () {
+    toggle_pause() {
       this.wasm.set_paused(!this.metaData.options.paused);
     },
   },

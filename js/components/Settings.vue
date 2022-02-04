@@ -64,20 +64,20 @@ export default {
     },
   },
   methods: {
-    toggle_use_saved_ticks: function () {
+    toggle_use_saved_ticks() {
       this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks);
     },
-    toggle_show_recorded: function () {
+    toggle_show_recorded() {
       this.wasm.set_show_recorded(!this.metaData.options.show_recorded);
     },
-    toggle_pause: function () {
+    toggle_pause() {
       this.wasm.set_paused(!this.metaData.options.paused);
     },
-    download_save: function () {
+    download_save() {
       // TODO: This should be exported by the backend
       downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save());
     },
-    import_save_file: function (event) {
+    import_save_file(event) {
       // TODO: This is only on the frontend atm, it doesn't actually save the changes
       var files = event.target.files;
       var f = files[0];
@@ -93,16 +93,16 @@ export default {
       })(f);
       reader.readAsText(f);
     },
-    import_save: function () {
+    import_save() {
       this.wasm.import_save(this.save_text);
     },
-    export_save: function () {
+    export_save() {
       this.save_text = this.wasm.export_save();
     },
-    toggleAutoSave: function () {
+    toggleAutoSave() {
       this.wasm.set_autosave(!this.metaData.autosave);
     },
-    setNumberFormat: function () {
+    setNumberFormat() {
       this.$store.commit("toggleNumberFormat");
     },
   },

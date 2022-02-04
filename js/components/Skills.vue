@@ -21,7 +21,7 @@ export default {
   components: { Section, ProgressBar },
   props: ["state", "world", "input", "wasm"],
   computed: {
-    visible_skills: function () {
+    visible_skills() {
       let self = this;
       return self.world.skills
         .map((w, i) => {

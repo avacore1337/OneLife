@@ -77,7 +77,7 @@ export default {
   props: ["state", "world", "input", "wasm", "metaData"],
 
   computed: {
-    current_work: function () {
+    current_work() {
       let self = this;
       let the_work = [];
       this.world.works.forEach((work, i) => {
@@ -89,7 +89,7 @@ export default {
     },
   },
   methods: {
-    life_status: function () {
+    life_status() {
       if (this.state.life_stats.dead) {
         return "No ;(";
       }
@@ -98,7 +98,7 @@ export default {
       }
       return "Yes :)";
     },
-    printableNumbers: function (num) {
+    printableNumbers(num) {
       if (num === undefined) {
         return null;
       }
@@ -129,7 +129,7 @@ export default {
 
       return `${num.toFixed(1)}${ending[index]}`;
     },
-    prettyPrintDays: function (total_days) {
+    prettyPrintDays(total_days) {
       const years = Math.floor(total_days / 365);
       const days = total_days % 365;
 
@@ -140,7 +140,7 @@ export default {
       }
       return `${years} years and ${days.toFixed(0)} days`;
     },
-    prettyPrint: function (value) {
+    prettyPrint(value) {
       if (typeof value !== "number") {
         return value;
       }

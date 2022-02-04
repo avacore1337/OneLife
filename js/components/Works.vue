@@ -79,7 +79,7 @@ export default {
   components: { ProgressBar, Section },
   props: ["metaData", "state", "world", "input", "wasm"],
   computed: {
-    visible_labor_work: function () {
+    visible_labor_work() {
       let self = this;
       return self.world.works
         .map((w, i) => {
@@ -89,7 +89,7 @@ export default {
           return s.is_visible && w.work_type === "Labor";
         });
     },
-    visible_soldier_work: function () {
+    visible_soldier_work() {
       let self = this;
       return self.world.works
         .map((w, i) => {
@@ -99,7 +99,7 @@ export default {
           return s.is_visible && w.work_type === "Soldier";
         });
     },
-    visible_priest_work: function () {
+    visible_priest_work() {
       let self = this;
       return self.world.works
         .map((w, i) => {
@@ -111,7 +111,7 @@ export default {
     },
   },
   methods: {
-    toggle_auto_work: function () {
+    toggle_auto_work() {
       this.wasm.set_auto_work(!this.metaData.options.auto_work);
     },
   },

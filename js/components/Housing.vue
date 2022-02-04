@@ -34,7 +34,7 @@ export default {
   components: { Section },
   props: ["metaData", "state", "world", "input", "wasm"],
   computed: {
-    visible_housing: function () {
+    visible_housing() {
       let self = this;
       return self.world.housing
         .map((w, i) => {
@@ -46,7 +46,7 @@ export default {
     },
   },
   methods: {
-    toggle_auto_living: function () {
+    toggle_auto_living() {
       this.wasm.set_auto_living(!this.metaData.options.auto_living);
     },
   },

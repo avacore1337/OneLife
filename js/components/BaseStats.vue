@@ -20,7 +20,7 @@ export default {
   components: { ProgressBar },
   props: ["state", "world", "input", "wasm"],
   computed: {
-    visible_stats: function () {
+    visible_stats() {
       let self = this;
       return self.world.stats
         .map((w, i) => {

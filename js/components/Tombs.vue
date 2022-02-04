@@ -43,7 +43,7 @@ export default {
   components: { Section, FormatNumber },
   props: ["metaData", "state", "world", "input", "wasm"],
   computed: {
-    visible_unbought_tombs: function () {
+    visible_unbought_tombs() {
       let self = this;
       return self.world.tombs
         .map((w, i) => {
@@ -53,7 +53,7 @@ export default {
           return s.is_visible && !s.is_purchased;
         });
     },
-    bought_tombs: function () {
+    bought_tombs() {
       let self = this;
       return self.world.tombs
         .map((w, i) => {
@@ -65,10 +65,10 @@ export default {
     },
   },
   methods: {
-    toggle_auto_buy_tomb: function () {
+    toggle_auto_buy_tomb() {
       this.wasm.set_auto_buy_tomb(!this.metaData.options.auto_buy_tomb);
     },
-    buyTomb: function (tomb_name) {
+    buyTomb(tomb_name) {
       this.wasm.buy_tomb(tomb_name);
       this.$parent.update_dynamic_data();
     },

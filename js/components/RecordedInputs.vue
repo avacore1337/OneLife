@@ -19,7 +19,7 @@ export default {
   components: { Section },
   props: ["wasm", "recorded_inputs", "remove_recorded", "clear_recorded", "title"],
   computed: {
-    entries: function () {
+    entries() {
       return Object.values(this.recorded_inputs);
     },
   },

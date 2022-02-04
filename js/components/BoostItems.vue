@@ -69,7 +69,7 @@ export default {
   components: { Section, FormatNumber },
   props: ["state", "world", "input", "wasm", "metaData", "item_queue"],
   computed: {
-    visible_unbought_items: function () {
+    visible_unbought_items() {
       let self = this;
       console.log("Item update");
       return self.world.boost_items
@@ -81,7 +81,7 @@ export default {
         })
         .sort(compare);
     },
-    bought_items: function () {
+    bought_items() {
       let self = this;
       return self.world.boost_items
         .map((w, i) => {
@@ -94,17 +94,17 @@ export default {
     },
   },
   methods: {
-    toggle_auto_buy_item: function () {
+    toggle_auto_buy_item() {
       this.wasm.set_auto_buy_item(!this.metaData.options.auto_buy_item);
     },
-    buy_item: function (val, e) {
+    buy_item(val, e) {
       if (!e.shiftKey) {
         console.log("no shift");
         this.wasm.buy_item(val);
       }
     },
 
-    toggle_show_bought: function () {
+    toggle_show_bought() {
       this.wasm.set_show_bought_items(!this.metaData.options.show_bought_items);
     },
   },

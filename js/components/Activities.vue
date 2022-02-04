@@ -31,7 +31,7 @@ export default {
   components: { Section },
   props: ["state", "world", "input", "wasm"],
   computed: {
-    visible_activities: function () {
+    visible_activities() {
       let self = this;
       return self.world.activities
         .map((w, i) => {

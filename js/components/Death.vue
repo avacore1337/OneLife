@@ -37,7 +37,7 @@ export default {
   components: { FormatNumber },
   props: ["state", "world", "input", "wasm"],
   methods: {
-    rebirth: function () {
+    rebirth() {
       console.log("rebirth tag sent");
       this.$gtag.event("rebirth", { method: "normal" });
       this.wasm.do_rebirth();

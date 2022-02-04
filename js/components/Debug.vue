@@ -63,14 +63,14 @@ export default {
       divine_favor: 10000.0,
     };
   },
-  mounted: function () {
+  mounted() {
     this.presets = this.wasm.get_preset_saves();
   },
   methods: {
-    print_frontend_debug_state: function () {
+    print_frontend_debug_state() {
       console.log(this.state);
     },
-    print_frontend_debug_world: function () {
+    print_frontend_debug_world() {
       console.log(this.world);
     },
   },

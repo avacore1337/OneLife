@@ -8,7 +8,7 @@
 export default {
   props: ["value"],
   computed: {
-    printableNumber: function () {
+    printableNumber() {
       let num = this.value;
       if (num === undefined) {
         return null;

@@ -44,7 +44,7 @@ import { compare } from "../utility.js";
 export default {
   props: ["state", "world", "input", "wasm", "metaData"],
   computed: {
-    visible_unbought_upgrades: function () {
+    visible_unbought_upgrades() {
       let self = this;
       return self.world.rebirth_upgrades
         .map((w, i) => {
@@ -55,7 +55,7 @@ export default {
         })
         .sort(compare);
     },
-    bought_upgrades: function () {
+    bought_upgrades() {
       let self = this;
       return self.world.rebirth_upgrades
         .map((w, i) => {
@@ -68,7 +68,7 @@ export default {
     },
   },
   methods: {
-    toggle_show_bought: function () {
+    toggle_show_bought() {
       this.wasm.set_show_bought_upgrades(!this.metaData.options.show_bought_upgrades);
     },
   },

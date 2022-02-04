@@ -24,7 +24,7 @@
 export default {
   props: ["metaData", "state", "world", "input", "wasm"],
   computed: {
-    visible_blessings: function () {
+    visible_blessings() {
       let self = this;
       return self.world.blessings
         .map((w, i) => {
@@ -36,7 +36,7 @@ export default {
     },
   },
   methods: {
-    toggle_auto_buy_blessing: function () {
+    toggle_auto_buy_blessing() {
       this.wasm.set_auto_buy_blessing(!this.metaData.options.auto_buy_blessing);
     },
   },

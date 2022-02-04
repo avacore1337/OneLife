@@ -77,7 +77,7 @@ export default {
       updateRate: 3, // if made into 1, then progress bar sometimes freaks out and eats the cpu...
     };
   },
-  mounted: function () {
+  mounted() {
     this.world = Object.freeze(this.wasm.get_world());
     this.state = this.wasm.get_state();
     this.input = this.wasm.get_input();
@@ -167,7 +167,7 @@ export default {
       this.$refs["the-modal"].hide();
     },
     toggleModal() {},
-    disable_tutorial: function () {
+    disable_tutorial() {
       this.wasm.set_disable_tutorial(true);
       this.wasm.next_info_step();
       this.$refs["the-modal"].hide();
