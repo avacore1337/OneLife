@@ -44,7 +44,7 @@
     <button style="margin: 2px" @click="export_save">Export Save</button>
     <br />
     <button @click="setNumberFormat">
-      {{ nextNumberFormat($parent.$parent.numberFormat) }}
+      {{ nextNumberFormat }}
     </button>
   </div>
 </template>
@@ -57,6 +57,11 @@ export default {
     return {
       save_text: "",
     };
+  },
+  computed: {
+    nextNumberFormat() {
+      return this.$store.getters.getNextNumberFormat;
+    },
   },
   methods: {
     toggle_use_saved_ticks: function () {
@@ -97,17 +102,8 @@ export default {
     toggleAutoSave: function () {
       this.wasm.set_autosave(!this.metaData.autosave);
     },
-    nextNumberFormat: function (numberFormat) {
-      return {
-        DEFAULT: "Scientific notation",
-        SCIENTIFIC: "Natural numbers",
-      }[numberFormat];
-    },
     setNumberFormat: function () {
-      this.$parent.numberFormat = {
-        DEFAULT: "SCIENTIFIC",
-        SCIENTIFIC: "DEFAULT",
-      }[this.$parent.numberFormat];
+      this.$store.commit("toggleNumberFormat");
     },
   },
 };
