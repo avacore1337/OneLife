@@ -15,7 +15,9 @@
           {{ blessing.display_name }}
         </button>
 
-        <span style="float: right">Cost: {{ blessing_state.next_level_cost }} Divine Favor </span>
+        <span style="float: right"
+          >Cost: <FormatNumber :value="blessing_state.next_level_cost" /> Divine Favor
+        </span>
 
         <br />
         Level: {{ blessing_state.level }}, Effect: {{ blessing_state.effect_description }}
@@ -25,7 +27,9 @@
 </template>
 
 <script>
+import FormatNumber from './FormatNumber.vue'
 export default {
+  components: { FormatNumber },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   computed: {
     visible_blessings() {

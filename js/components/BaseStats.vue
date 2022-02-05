@@ -5,7 +5,7 @@
       <div v-for="[stat, stat_state] in visible_stats" :key="stat.name">
         <my-icon :icon="stat.icon" />
         <span>{{ stat.display_name }}: {{ stat_state.level }} </span>
-        <span> xp rate: {{ Math.round(stat_state.xp_rate) }} </span>
+        <span> xp rate: <FormatNumber :value="stat_state.xp_rate" /> </span>
         <ProgressBar :value="stat_state.next_level_percentage" :decimal-points="2"></ProgressBar>
         <br />
       </div>
@@ -15,9 +15,10 @@
 
 <script>
 import ProgressBar from './ProgressBar.vue'
+import FormatNumber from './FormatNumber.vue'
 
 export default {
-  components: { ProgressBar },
+  components: { ProgressBar, FormatNumber },
   props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_stats() {

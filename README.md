@@ -10,6 +10,19 @@ Install rust and then wasm-pack:
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 ```
 
+install [nvm](https://github.com/nvm-sh/nvm):
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+
+follow any extra instructions from the script and restart your terminal. Then run:
+
+```bash
+nvm install 16
+nvm use 16
+```
+
 install npm and then run:
 
 ```bash
@@ -38,10 +51,10 @@ Note that you need quite a new server (python 3.8 for example) or the mime type 
 
 ## Release version
 
-install gh-pages:
+We release by pushing to the github pages branch with the help of a npm package:
 https://www.npmjs.com/package/gh-pages
 
-Then to publish/deploy:
+To publish/deploy run:
 
 ```
 npm run deploy
@@ -51,8 +64,16 @@ npm run deploy
 
 ### Easy way
 
+Run all tests
+
 ```
 WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node
+```
+
+Run a specific test file:
+
+```bash
+WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node --test tier_0
 ```
 
 ### Manual Way

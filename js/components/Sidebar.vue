@@ -27,21 +27,21 @@
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>
         <my-icon :icon="world.icons['Money']" />
-        Money: {{ printableNumbers(state.items.money) }} Income:
-        {{ printableNumbers(state.items.income) }}
+        Money: <FormatNumber :value="state.items.money" /> Income:
+        <FormatNumber :value="state.items.income" />
       </p>
       <p v-if="state.rebirth_stats.unlocks.has_faith">
         <my-icon :icon="world.icons['DivineFavor']" />
-        Divine Favor: {{ printableNumbers(state.items.divine_favor) }} Rate:
-        {{ printableNumbers(state.items.divine_favor_rate) }}
+        Divine Favor: <FormatNumber :value="state.items.divine_favor" /> Rate:
+        <FormatNumber :value="state.items.divine_favor_rate" />
       </p>
     </div>
 
     <br />
     Life Stats
     <div style="border: solid; margin: 2px; padding: 10px">
-      <p>Age: {{ prettyPrintDays(state.life_stats.age) }}</p>
-      <p>Lifespan: {{ prettyPrintDays(state.life_stats.lifespan) }}</p>
+      <p>Age: <FormatDays :value="state.life_stats.age" /></p>
+      <p>Lifespan: <FormatDays :value="state.life_stats.lifespan" /></p>
       <p>
         <my-icon :icon="world.icons['Health']" />
         Health: {{ state.life_stats.health.toFixed(2) }} Rate:
@@ -52,7 +52,7 @@
         Happiness: {{ state.life_stats.happiness.toFixed(1) }}
       </p>
       <p>Alive: {{ life_status() }}</p>
-      <p>Tick: {{ state.life_stats.current_tick }}</p>
+      <p>Tick: <FormatNumber :value="state.life_stats.current_tick" /></p>
     </div>
 
     <br />
@@ -65,11 +65,11 @@
       </p>
       <p>
         <my-icon :icon="world.icons['Coin']" />
-        Coins: {{ printableNumbers(state.rebirth_stats.coins) }}
+        Coins: <FormatNumber :value="state.rebirth_stats.coins" />state.rebirth_stats.coins
       </p>
       <p>
         <my-icon :icon="world.icons['Coin']" />
-        Coins Gain: {{ printableNumbers(state.rebirth_stats.coins_gain) }}
+        Coins Gain: <FormatNumber :value="state.rebirth_stats.coins_gain" />
       </p>
       <div v-if="false">
         <p>Karma: {{ state.rebirth_stats.karma }}</p>
@@ -83,8 +83,10 @@
 import BaseStats from './BaseStats.vue'
 import Skills from './Skills.vue'
 import ProgressBar from './ProgressBar.vue'
+import FormatNumber from './FormatNumber.vue'
+import FormatDays from './FormatDays.vue'
 export default {
-  components: { ProgressBar, BaseStats, Skills },
+  components: { ProgressBar, BaseStats, Skills, FormatNumber, FormatDays },
   props: ['state', 'world', 'input', 'wasm', 'metaData'],
 
   computed: {
@@ -109,37 +111,6 @@ export default {
       }
       return 'Yes :)'
     },
-    printableNumbers(num) {
-      if (num === undefined) {
-        return null
-      }
-
-      if (num < 100) {
-        return num.toFixed(1)
-      }
-      if (num < 10000) {
-        return Math.floor(num).toString()
-      }
-
-      if (this.$parent.numberFormat === 'SCIENTIFIC') {
-        let exponent = 1
-        while (num >= 10) {
-          num /= 10
-          exponent++
-        }
-
-        return `${num.toFixed(1)}e${exponent}`
-      }
-
-      const ending = ['K', 'M', 'B', 'T', 'Qa', 'Qi', 'He', 'Se', 'Oc', 'No', 'De']
-      let index = -1
-      while (num >= 10000 && index < ending.length - 1) {
-        num /= 1000
-        index++
-      }
-
-      return `${num.toFixed(1)}${ending[index]}`
-    },
     prettyPrintDays(total_days) {
       const years = Math.floor(total_days / 365)
       const days = total_days % 365
@@ -150,13 +121,6 @@ export default {
         return `${years} years`
       }
       return `${years} years and ${days.toFixed(0)} days`
-    },
-    prettyPrint(value) {
-      if (typeof value !== 'number') {
-        return value
-      }
-
-      return this.printableNumbers(value)
     },
   },
 }

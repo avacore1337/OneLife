@@ -26,9 +26,10 @@
 
 <script>
 import Section from './Section.vue'
+import FormatNumber from './FormatNumber.vue'
 
 export default {
-  components: { Section },
+  components: { Section, FormatNumber },
   props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_activities() {
