@@ -106,18 +106,10 @@ export default {
         self.state.life_stats.dead
       ) {
         self.wasm.paused()
-        self.update_dynamic_data()
-        self.updateModal()
-        return
+      } else {
+        self.wasm.tick()
       }
-
-      self.wasm.tick()
-
-      self.updateCount += 1
-      if (self.updateCount % self.updateRate === 0) {
-        self.update_dynamic_data()
-        self.updateModal()
-      }
+      self.do_update()
     }, 1000 / 30)
   },
   methods: {
@@ -139,6 +131,13 @@ export default {
           /* console.log(key, o[key], o2[key]); */
           o[key] = o2[key]
         }
+      }
+    },
+    do_update() {
+      this.updateCount += 1
+      if (this.updateCount % this.updateRate === 0) {
+        this.update_dynamic_data()
+        this.updateModal()
       }
     },
     update_dynamic_data() {

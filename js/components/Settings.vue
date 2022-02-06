@@ -11,7 +11,7 @@
     <input id="autosave" type="checkbox" :checked="metaData.autosave" @click="toggleAutoSave" />
     <label for="autosave">Autosave</label>
     <br />
-    Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
+    Saved Ticks: <FormatNumber :value="metaData.saved_ticks" />
     <br />
     <button style="margin: 2px" @click="toggle_use_saved_ticks">
       {{ !metaData.use_saved_ticks ? 'Use Saved Ticks' : "Don't Use Saved Ticks" }}
@@ -51,8 +51,10 @@
 
 <script>
 import { downloadFile } from '../utility.js'
+import FormatNumber from './FormatNumber.vue'
 export default {
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
+  components: { FormatNumber },
   data() {
     return {
       save_text: '',

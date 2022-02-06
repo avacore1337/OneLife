@@ -45,7 +45,6 @@ import Section from './Section.vue'
 import FormatNumber from './FormatNumber.vue'
 
 export default {
-  components: { Section },
   components: { Section, FormatNumber },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   computed: {
