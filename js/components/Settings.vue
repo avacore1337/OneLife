@@ -53,8 +53,8 @@
 import { downloadFile } from '../utility.js'
 import FormatNumber from './FormatNumber.vue'
 export default {
-  props: ['metaData', 'state', 'world', 'input', 'wasm'],
   components: { FormatNumber },
+  props: ['metaData', 'state', 'world', 'input', 'wasm'],
   data() {
     return {
       save_text: '',

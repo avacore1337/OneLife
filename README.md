@@ -20,8 +20,9 @@ follow any extra instructions from the script and restart your terminal. Then ru
 
 ```bash
 nvm install 16
-nvm use 16
+nvm use
 ```
+you don't need to specify 16 since it's set by the .nvmrc file
 
 install npm and then run:
 
