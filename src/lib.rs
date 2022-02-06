@@ -114,7 +114,9 @@ pub fn get_input() -> JsValue {
 #[wasm_bindgen]
 pub fn get_state() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&game.state).unwrap()
+    // This method is the standard one and might be faster or slower?
+    // serde_wasm_bindgen::to_value(&game.state).unwrap()
+    serde_wasm_bindgen::to_value(&game.state).unwrap()
 }
 
 #[wasm_bindgen]
