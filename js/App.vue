@@ -85,7 +85,6 @@ export default {
       numberFormat: 'DEFAULT',
       modalText: '',
       updateCount: 0,
-      updateRate: 3, // if made into 1, then progress bar sometimes freaks out and eats the cpu...
     }
   },
   mounted() {
@@ -135,7 +134,7 @@ export default {
     },
     do_update() {
       this.updateCount += 1
-      if (this.updateCount % this.updateRate === 0) {
+      if (this.updateCount % this.metaData.options.update_rate === 0) {
         this.update_dynamic_data()
         this.updateModal()
       }

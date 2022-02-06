@@ -10,6 +10,12 @@ use std::str;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+pub fn set_update_rate(val: u32) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.update_rate = val;
+}
+
+#[wasm_bindgen]
 pub fn set_disable_tutorial(val: bool) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.info.disable_tutorial = val;

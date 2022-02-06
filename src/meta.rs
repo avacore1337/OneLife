@@ -24,14 +24,14 @@ impl Default for MetaData {
 impl MetaData {
     pub fn new() -> MetaData {
         MetaData {
-            game_speed: 10,
-            autosave: false,
+            game_speed: get_game_speed_default(),
+            autosave: get_autosave_default(),
             last_save_time: Date::new_0().get_time(),
             last_tick_time: Date::new_0().get_time(),
             saved_ticks: 0.0,
             info: Info::new(),
             use_saved_ticks: false,
-            options: Options::default(),
+            options: Options::new(),
         }
     }
 
@@ -75,4 +75,16 @@ impl MetaData {
         }
         self.last_tick_time = Date::new_0().get_time();
     }
+}
+
+fn get_game_speed_default() -> u32 {
+    if cfg!(debug_assertions) {
+        10
+    } else {
+        1
+    }
+}
+
+fn get_autosave_default() -> bool {
+    !cfg!(debug_assertions)
 }

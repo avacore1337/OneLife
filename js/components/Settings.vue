@@ -29,6 +29,15 @@
     </button>
     <br />
     <br />
+    FPS Settings
+    <br />
+    <button @click="wasm.set_update_rate(1)">30</button>
+    <button @click="wasm.set_update_rate(2)">15</button>
+    <button @click="wasm.set_update_rate(3)">10</button>
+    <button @click="wasm.set_update_rate(10)">3</button>
+    <button @click="wasm.set_update_rate(30)">1</button>
+    <br />
+    <br />
     <button style="margin: 2px" @click="download_save">Download Save</button>
     <br />
     <div style="max-width: 1000px">

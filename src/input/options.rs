@@ -39,7 +39,7 @@ impl Recordable for AutoSettingTypes {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, Copy, Default, Debug)]
+#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Options {
     pub auto_work: bool,
     pub auto_living: bool,
@@ -53,4 +53,25 @@ pub struct Options {
     pub show_bought_upgrades: bool,
     pub show_recorded: bool,
     pub paused: bool,
+    pub update_rate: u32,
+}
+
+impl Options {
+    pub fn new() -> Options {
+        Options {
+            auto_work: false,
+            auto_living: false,
+            auto_buy_item: false,
+            auto_buy_blessing: false,
+            auto_buy_tomb: false,
+            auto_rebirth: false,
+            auto_end_early: false,
+            auto_end_early_criteria: 0.0,
+            show_bought_items: false,
+            show_bought_upgrades: false,
+            show_recorded: false,
+            paused: false,
+            update_rate: 1,
+        }
+    }
 }
