@@ -13,38 +13,19 @@ pub struct Activity {
     pub description: &'static str,
     pub display_name: &'static str,
     pub effect_description: &'static str,
+    pub gained_value_type: KeyValues,
+    pub base_gain_amount: f64,
     pub icon: Icon,
     pub required_tier: u32,
 }
 
 impl Gain for Activity {
     fn gain(&self, intermediate: &mut IntermediateState) {
-        match self.name {
-            ActivityTypes::Training => {
-                intermediate.set_base(KeyValues::Str, 10.0, self.display_name);
-            }
-            ActivityTypes::Studying => {
-                intermediate.set_base(KeyValues::Int, 10.0, self.display_name);
-            }
-            ActivityTypes::Flirt => {
-                intermediate.set_base(KeyValues::Cha, 10.0, self.display_name);
-            }
-            ActivityTypes::Run => {
-                intermediate.set_base(KeyValues::Con, 10.0, self.display_name);
-            }
-            ActivityTypes::Acrobatics => {
-                intermediate.set_base(KeyValues::Dex, 10.0, self.display_name);
-            }
-            ActivityTypes::Praying => {
-                intermediate.set_base(KeyValues::Faith, 10.0, self.display_name);
-            }
-            ActivityTypes::Meditate => {
-                intermediate.set_base(KeyValues::Mindfull, 10.0, self.display_name);
-            }
-            ActivityTypes::WarGames => {
-                intermediate.set_base(KeyValues::Tactics, 10.0, self.display_name);
-            }
-        }
+        intermediate.set_base(
+            self.gained_value_type,
+            self.base_gain_amount,
+            self.display_name,
+        );
     }
 }
 
@@ -54,7 +35,9 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Getting stronger, faster",
             display_name: "Weight Lifting",
-            effect_description: "10 Strength XP/s",
+            effect_description: "Strength",
+            gained_value_type: KeyValues::Str,
+            base_gain_amount: 10.0,
             icon: IconType::Str.into(),
             required_tier: 2,
         },
@@ -62,7 +45,9 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Getting smarter",
             display_name: "Studying",
-            effect_description: "10 Intelligence XP/s",
+            effect_description: "Intelligence",
+            gained_value_type: KeyValues::Int,
+            base_gain_amount: 10.0,
             icon: IconType::Int.into(),
             required_tier: 0,
         },
@@ -70,7 +55,9 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Getting what you want",
             display_name: "Flirt",
-            effect_description: "10 Charisma XP/s",
+            effect_description: "Charisma",
+            gained_value_type: KeyValues::Cha,
+            base_gain_amount: 10.0,
             icon: IconType::Cha.into(),
             required_tier: 1,
         },
@@ -78,7 +65,9 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Going further",
             display_name: "Running",
-            effect_description: "10 Constitution XP/s",
+            effect_description: "Constitution",
+            gained_value_type: KeyValues::Con,
+            base_gain_amount: 10.0,
             icon: IconType::Con.into(),
             required_tier: 0,
         },
@@ -86,7 +75,9 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Getting bendier",
             display_name: "Acrobatics",
-            effect_description: "10 Dexterity XP/s",
+            effect_description: "Dexterity",
+            gained_value_type: KeyValues::Dex,
+            base_gain_amount: 10.0,
             icon: IconType::Dex.into(),
             required_tier: 7,
         },
@@ -94,7 +85,9 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Getting more pieus",
             display_name: "Praying",
-            effect_description: "10 Piety XP/s",
+            effect_description: "Piety",
+            gained_value_type: KeyValues::Faith,
+            base_gain_amount: 10.0,
             icon: IconType::Faith.into(),
             required_tier: 3,
         },
@@ -102,7 +95,9 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Introspect on your being",
             display_name: "Meditate",
-            effect_description: "10 Mindfullness XP/s",
+            effect_description: "Mindfullness",
+            gained_value_type: KeyValues::Mindfull,
+            base_gain_amount: 10.0,
             icon: IconType::Mindfull.into(),
             required_tier: 3,
         },
@@ -110,7 +105,9 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Train tactics",
             display_name: "War Games",
-            effect_description: "10 Military Tactics XP/s",
+            effect_description: "Military Tactics",
+            gained_value_type: KeyValues::Tactics,
+            base_gain_amount: 10.0,
             icon: IconType::Tactics.into(),
             required_tier: 3,
         },

@@ -1,6 +1,11 @@
 <template>
   <Section v-if="world.activities !== undefined" title="Activity">
     <table>
+    <tr>
+    <th>Name</th>
+    <th class="is-centered">Base Amount</th>
+    <th class="is-centered">Stat/Skill</th>
+  </tr>
       <tr
         v-for="[activity, activity_state] in visible_activities"
         :key="activity.name"
@@ -13,7 +18,12 @@
           </span>
         </td>
 
-        <td style="width: 50%">
+        <td style="width: 20%" class="is-centered">
+          <span>
+            {{ activity.base_gain_amount }}
+          </span>
+        </td>
+        <td style="width: 30%" class="is-centered">
           <span>
             <my-icon :icon="activity.icon" />
             {{ activity.effect_description }}
@@ -50,6 +60,10 @@ export default {
 <style scoped>
 tr > td:first-child {
   width: 50%;
+}
+
+.is-centered {
+text-align: center
 }
 
 /* tr > td:not(:first-child) { */
