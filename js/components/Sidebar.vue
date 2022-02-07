@@ -65,7 +65,7 @@
       </p>
       <p>
         <my-icon :icon="world.icons['Coin']" />
-        Coins: <FormatNumber :value="state.rebirth_stats.coins" />state.rebirth_stats.coins
+        Coins: <FormatNumber :value="state.rebirth_stats.coins" />
       </p>
       <p>
         <my-icon :icon="world.icons['Coin']" />
