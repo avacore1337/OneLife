@@ -1,11 +1,11 @@
 <template>
   <Section v-if="world.activities !== undefined" title="Activity">
     <table>
-    <tr>
-    <th>Name</th>
-    <th class="is-centered">Base Amount</th>
-    <th class="is-centered">Stat/Skill</th>
-  </tr>
+      <tr>
+        <th>Name</th>
+        <th class="is-centered">Base Amount</th>
+        <th class="is-centered">Stat/Skill</th>
+      </tr>
       <tr
         v-for="[activity, activity_state] in visible_activities"
         :key="activity.name"
@@ -63,7 +63,7 @@ tr > td:first-child {
 }
 
 .is-centered {
-text-align: center
+  text-align: center;
 }
 
 /* tr > td:not(:first-child) { */

@@ -1,7 +1,7 @@
 import App from './App.vue'
 import MyIcon from './components/MyIcon.vue'
 
-import { store }from './store.js'
+import { store } from './store.js'
 
 import { BootstrapVue } from 'bootstrap-vue'
 import Vue from 'vue/dist/vue.js'
