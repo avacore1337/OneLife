@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Section title="Works">
+    <Section2>
       <b-button
         v-if="state.rebirth_stats.unlocks.can_auto_work"
         size="sm"
@@ -10,6 +10,13 @@
       </b-button>
       <h4>Labor</h4>
       <table>
+        <tr>
+          <th>Name</th>
+          <th>Level</th>
+          <th>Max level</th>
+          <th>Income</th>
+        </tr>
+
         <tr
           v-for="[work, work_state] in visible_labor_work"
           :key="work.name"
@@ -17,15 +24,20 @@
           @click="work_state.is_unlocked && wasm.set_work(work.name)"
         >
           <td>
-            <p :class="{ selected: input.work === work.name }">{{ work.display_name }}</p>
+            <MyProgressBar
+              v-if="work_state.next_level_percentage !== undefined"
+              :value="work_state.next_level_percentage"
+              :name="work.display_name"
+            />
           </td>
           <td>
-            <p>
-              Level: {{ work_state.level }} Reached level: {{ work_state.max_job_levels }} Income
-              {{ work_state.effective_income.toFixed(1) }}/s
-              <ProgressBar :value="work_state.next_level_percentage" :decimal-points="2" />
-              <!--- XP required for next level: {{ work_state.next_level_required }} --->
-            </p>
+            {{ work_state.level }}
+          </td>
+          <td>
+            {{ work_state.max_job_levels }}
+          </td>
+          <td>
+            {{ work_state.effective_income.toFixed(1) }}
           </td>
         </tr>
       </table>
@@ -71,16 +83,17 @@
           </td>
         </tr>
       </table>
-    </Section>
+    </Section2>
   </div>
 </template>
 
 <script>
 import ProgressBar from './ProgressBar.vue'
-import Section from './Section.vue'
+import MyProgressBar from './MyProgressBar.vue'
+import Section2 from './Section2.vue'
 
 export default {
-  components: { ProgressBar, Section },
+  components: { ProgressBar, Section2, MyProgressBar },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   computed: {
     visible_labor_work() {
