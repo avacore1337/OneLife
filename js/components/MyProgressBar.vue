@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <template>
   <div class="progress" style="position: relative">
-    <div class="my-bar" :style="{ width: value + '%' }" id="myBar"></div>
-    <div class="progress-text">{{ name }}</div>
+    <div id="myBar" class="my-bar" :style="{ width: value + '%' }"></div>
+    <div class="progress-text">
+      <span :class="{ selected: selected }">
+        {{ name }}
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['value', 'name'],
+  props: ['value', 'name', 'selected'],
 }
 </script>
 
@@ -32,5 +36,9 @@ export default {
   padding: 0.5rem;
   color: black;
   box-sizing: inherit;
+}
+.selected {
+  text-decoration: underline;
+  font-weight: bold;
 }
 </style>
