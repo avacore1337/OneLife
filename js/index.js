@@ -7,12 +7,15 @@ import { BootstrapVue } from 'bootstrap-vue'
 import Vue from 'vue/dist/vue.js'
 import VueGtag from 'vue-gtag'
 import Icon from 'vue-awesome/components/Icon'
+import Buefy from 'buefy'
 
 import 'vue-awesome/icons'
 import '../css/styles.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'buefy/dist/buefy.css'
 
+Vue.use(Buefy)
 Vue.use(VueGtag, {
   config: { id: 'G-JW5LS1NXT6' },
 })

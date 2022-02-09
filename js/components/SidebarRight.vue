@@ -8,6 +8,11 @@
       {{ !metaData.use_saved_ticks ? 'Use Saved Ticks' : "Don't Use Saved Ticks" }}
     </button>
     <br />
+    <!-- Default switch
+<div class="custom-control custom-switch">
+  <input type="checkbox" class="custom-control-input" id="customSwitches">
+  <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
+</div> -->
     <button style="margin: 2px" @click="toggle_auto_work">
       {{ !metaData.options.auto_work ? 'Auto Work' : "Don't Auto Work" }}
     </button>
