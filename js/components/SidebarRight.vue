@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>Settings</h3>
     <br />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
     <br />
@@ -8,34 +7,27 @@
       {{ !metaData.use_saved_ticks ? 'Use Saved Ticks' : "Don't Use Saved Ticks" }}
     </button>
     <br />
-    <!-- Default switch
-<div class="custom-control custom-switch">
-  <input type="checkbox" class="custom-control-input" id="customSwitches">
-  <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
-</div> -->
-    <button style="margin: 2px" @click="toggle_auto_work">
-      {{ !metaData.options.auto_work ? 'Auto Work' : "Don't Auto Work" }}
-    </button>
+    <MyToggle :value="metaData.options.auto_work" :click="toggle_auto_work"> Auto Work </MyToggle>
     <br />
-    <button style="margin: 2px" @click="toggle_auto_living">
-      {{ !metaData.options.auto_living ? 'Auto Living' : "Don't Auto Living" }}
-    </button>
+    <MyToggle :value="metaData.options.auto_living" :click="toggle_auto_living">
+      Auto Living
+    </MyToggle>
     <br />
-    <button style="margin: 2px" @click="toggle_auto_buy_item">
-      {{ !metaData.options.auto_buy_item ? 'Auto Buy Item' : "Don't Auto Buy Item" }}
-    </button>
+    <MyToggle :value="metaData.options.auto_buy_item" :click="toggle_auto_buy_item">
+      Auto Buy Items
+    </MyToggle>
     <br />
-    <button style="margin: 2px" @click="toggle_auto_buy_blessing">
-      {{ !metaData.options.auto_buy_blessing ? 'Auto Buy Blessing' : "Don't Auto Buy Blessing" }}
-    </button>
+    <MyToggle :value="metaData.options.auto_buy_blessing" :click="toggle_auto_buy_blessing">
+      Auto Buy Blessings
+    </MyToggle>
     <br />
-    <button style="margin: 2px" @click="toggle_auto_buy_tomb">
-      {{ !metaData.options.auto_buy_tomb ? 'Auto Buy Tomb' : "Don't Auto Buy Tomb" }}
-    </button>
+    <MyToggle :value="metaData.options.auto_buy_tomb" :click="toggle_auto_buy_tomb">
+      Auto Buy Tombs
+    </MyToggle>
     <br />
-    <button style="margin: 2px" @click="toggle_auto_rebirth">
-      {{ !metaData.options.auto_rebirth ? 'Auto Rebirth' : "Don't Auto Rebirth" }}
-    </button>
+    <MyToggle :value="metaData.options.auto_rebirth" :click="toggle_auto_rebirth">
+      Auto Rebirth
+    </MyToggle>
     <br />
     <input v-model="end_early_criteria" size="10" />
     <br />
@@ -58,7 +50,9 @@
 
 <script>
 import { downloadFile } from '../utility.js'
+import MyToggle from './MyToggle.vue'
 export default {
+  components: { MyToggle },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   data() {
     return {

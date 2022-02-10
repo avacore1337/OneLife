@@ -2,7 +2,9 @@
   <div>
     <table>
       <tr class="header-row">
-        <th>{{ name }}</th>
+        <th>
+          <span class="my-category"> {{ name }}</span>
+        </th>
         <th>Level</th>
         <th>Max level</th>
         <th>Income</th>
@@ -85,6 +87,10 @@ tr > td:first-child {
 tr > th:first-child {
   justify-content: start;
   flex-grow: 2;
+}
+
+.my-category {
+  padding-left: 0.5rem;
 }
 
 /* tr:not(:last-child) { */

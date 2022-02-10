@@ -31,11 +31,10 @@ export default {
 
 .progress-text {
   position: absolute;
-  top: 0px;
-  bottom: 0px;
   padding: 0.5rem;
   color: black;
   box-sizing: inherit;
+  white-space: nowrap;
 }
 .selected {
   text-decoration: underline;
