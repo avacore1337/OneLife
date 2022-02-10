@@ -22,9 +22,21 @@ pub fn set_disable_tutorial(val: bool) {
 }
 
 #[wasm_bindgen]
+pub fn toggle_paused() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.paused = !game.meta_data.options.paused;
+}
+
+#[wasm_bindgen]
 pub fn set_paused(val: bool) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.options.paused = val;
+}
+
+#[wasm_bindgen]
+pub fn toggle_show_recorded() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.show_recorded = !game.meta_data.options.show_recorded;
 }
 
 #[wasm_bindgen]

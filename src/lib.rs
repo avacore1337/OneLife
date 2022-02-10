@@ -175,6 +175,12 @@ pub fn paused() {
 }
 
 #[wasm_bindgen]
+pub fn toggle_use_saved_ticks() {
+    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    game.meta_data.use_saved_ticks = !game.meta_data.use_saved_ticks;
+}
+
+#[wasm_bindgen]
 pub fn use_saved_ticks(val: bool) {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     game.meta_data.use_saved_ticks = val;
