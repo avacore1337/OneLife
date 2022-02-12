@@ -58,6 +58,12 @@ pub fn set_show_bought_upgrades(show: bool) {
 }
 
 #[wasm_bindgen]
+pub fn toggle_autosave() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.autosave = !game.meta_data.autosave;
+}
+
+#[wasm_bindgen]
 pub fn set_autosave(autosave: bool) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.autosave = autosave;

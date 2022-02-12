@@ -1,45 +1,32 @@
 <template>
-  <div>
+  <div class="column-flex">
     <h3>Settings</h3>
-    <br />
-    <button @click="wasm.save">Save</button>
-    <br />
-    <button @click="wasm.load">Load</button>
-    <br />
-    <button @click="wasm.hard_reset">Hard Reset</button>
-    <br />
-    <input id="autosave" type="checkbox" :checked="metaData.autosave" @click="toggleAutoSave" />
-    <label for="autosave">Autosave</label>
-    <br />
-    Saved Ticks: <FormatNumber :value="metaData.saved_ticks" />
-    <br />
-    <button style="margin: 2px" @click="toggle_use_saved_ticks">
-      {{ !metaData.use_saved_ticks ? 'Use Saved Ticks' : "Don't Use Saved Ticks" }}
-    </button>
-
-    <br />
-    <button @click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
-    <br />
-    <button style="margin: 2px" @click="toggle_show_recorded">
+    <b-button @click="wasm.save">Save</b-button>
+    <b-button @click="wasm.load">Load</b-button>
+    <b-button @click="wasm.hard_reset">Hard Reset</b-button>
+    <MyToggle :value="metaData.autosave" :click="wasm.toggle_autosave"> AutoSave </MyToggle>
+    <h4>Display options</h4>
+    <b-button @click="wasm.set_disable_tutorial(false)">Enable Tutorial</b-button>
+    <b-button @click="wasm.toggle_show_recorded">
       {{ !metaData.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
-    </button>
-    <br />
-    <button style="margin: 2px" @click="toggle_pause">
-      {{ metaData.options.paused ? 'Resume the game' : 'Pause the game' }}
-    </button>
-    <br />
-    <br />
+    </b-button>
+    <b-button @click="setNumberFormat">
+      {{ nextNumberFormat }}
+    </b-button>
     FPS Settings
-    <br />
-    <button @click="wasm.set_update_rate(1)">30</button>
-    <button @click="wasm.set_update_rate(2)">15</button>
-    <button @click="wasm.set_update_rate(3)">10</button>
-    <button @click="wasm.set_update_rate(10)">3</button>
-    <button @click="wasm.set_update_rate(30)">1</button>
-    <br />
-    <br />
-    <button style="margin: 2px" @click="download_save">Download Save</button>
-    <br />
+    <div>
+      <b-button-group>
+        <b-button
+          v-for="button in buttons"
+          :pressed="metaData.options.update_rate == button.update_rate"
+          @click="wasm.set_update_rate(button.update_rate)"
+          :key="button.update_rate"
+          >{{ button.fps }}</b-button
+        >
+      </b-button-group>
+    </div>
+    <h4>Import/Export saves</h4>
+    <b-button @click="download_save">Download Save</b-button>
     <div style="max-width: 1000px">
       <b-form-textarea
         id="textarea"
@@ -49,24 +36,29 @@
         max-rows="6"
       ></b-form-textarea>
     </div>
-    <button style="margin: 2px" @click="import_save">Import Save</button>
-    <button style="margin: 2px" @click="export_save">Export Save</button>
-    <br />
-    <button @click="setNumberFormat">
-      {{ nextNumberFormat }}
-    </button>
+    <b-button @click="import_save">Import Save</b-button>
+    <b-button @click="export_save">Export Save</b-button>
   </div>
 </template>
 
 <script>
 import { downloadFile } from '../utility.js'
 import FormatNumber from './FormatNumber.vue'
+import MyToggle from './MyToggle.vue'
+
 export default {
-  components: { FormatNumber },
+  components: { FormatNumber, MyToggle },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   data() {
     return {
       save_text: '',
+      buttons: [
+        { fps: '30', update_rate: 1 },
+        { fps: '15', update_rate: 2 },
+        { fps: '10', update_rate: 3 },
+        { fps: '3', update_rate: 10 },
+        { fps: '1', update_rate: 30 },
+      ],
     }
   },
   computed: {
@@ -75,15 +67,6 @@ export default {
     },
   },
   methods: {
-    toggle_use_saved_ticks() {
-      this.wasm.use_saved_ticks(!this.metaData.use_saved_ticks)
-    },
-    toggle_show_recorded() {
-      this.wasm.set_show_recorded(!this.metaData.options.show_recorded)
-    },
-    toggle_pause() {
-      this.wasm.set_paused(!this.metaData.options.paused)
-    },
     download_save() {
       // TODO: This should be exported by the backend
       downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save())
@@ -110,9 +93,6 @@ export default {
     export_save() {
       this.save_text = this.wasm.export_save()
     },
-    toggleAutoSave() {
-      this.wasm.set_autosave(!this.metaData.autosave)
-    },
     setNumberFormat() {
       this.$store.commit('toggleNumberFormat')
     },
@@ -120,4 +100,20 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button {
+  max-width: 200px;
+  flex-grow: 0;
+}
+
+.column-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+</style>

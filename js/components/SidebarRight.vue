@@ -3,9 +3,9 @@
     <br />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
     <br />
-    <button style="margin: 2px" @click="wasm.toggle_use_saved_ticks">
+    <b-button style="margin: 2px" @click="wasm.toggle_use_saved_ticks">
       {{ !metaData.use_saved_ticks ? 'Use Saved Ticks' : "Don't Use Saved Ticks" }}
-    </button>
+    </b-button>
     <br />
     <MyToggle :value="metaData.options.auto_work" :click="wasm.toggle_auto_work">
       Auto Work
@@ -26,15 +26,14 @@
       Auto Rebirth
     </MyToggle>
     <input v-model="end_early_criteria" size="10" />
-    <button @click="wasm.set_auto_end_early(end_early_criteria)">Set End Early Criteria</button>
-    <button @click="wasm.set_disable_tutorial(false)">Enable Tutorial</button>
-    <button @click="wasm.toggle_show_recorded">
+    <b-button @click="wasm.set_auto_end_early(end_early_criteria)">Set End Early Criteria</b-button>
+    <b-button @click="wasm.toggle_show_recorded">
       {{ !metaData.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
-    </button>
-    <button @click="wasm.toggle_paused">
+    </b-button>
+    <b-button @click="wasm.toggle_paused">
       {{ metaData.options.paused ? 'Resume the game' : 'Pause the game' }}
-    </button>
-    <button @click="tick">Tick</button>
+    </b-button>
+    <b-button @click="tick">Tick</b-button>
   </div>
 </template>
 
@@ -62,5 +61,6 @@ export default {
 .column-flex {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 </style>
