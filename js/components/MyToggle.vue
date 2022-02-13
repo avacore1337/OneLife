@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <template>
-  <div style="position: relative">
+  <div class="centered-container" style="position: relative">
     <!-- Rounded switch -->
     <label class="switch">
       <input type="checkbox" :checked="value" @click="click" />
@@ -77,5 +77,11 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.centered-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 </style>

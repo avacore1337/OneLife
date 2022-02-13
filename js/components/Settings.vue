@@ -18,9 +18,9 @@
       <b-button-group>
         <b-button
           v-for="button in buttons"
+          :key="button.update_rate"
           :pressed="metaData.options.update_rate == button.update_rate"
           @click="wasm.set_update_rate(button.update_rate)"
-          :key="button.update_rate"
           >{{ button.fps }}</b-button
         >
       </b-button-group>

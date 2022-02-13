@@ -58,7 +58,7 @@
         :key="item.name"
         :class="{ disabled: !item_state.is_unlocked }"
       >
-        <td @click.shift="wasm.queue_item(item.name)" @click="buy_item(item.name, $event)">
+        <td @click.shift.exact="wasm.queue_item(item.name)" @click="buy_item(item.name, $event)">
           <span>{{ item.display_name }} </span>
           <span style="float: right"
             >Cost: <FormatNumber :value="item.purchasing_cost" /> money
