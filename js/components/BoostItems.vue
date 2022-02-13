@@ -15,8 +15,9 @@
         <tr v-for="item in item_queue" :key="item.name">
           <td @click="wasm.dequeue_item(item.name)">
             <span>{{ item.display_name }} </span>
-            <span style="float: right"
-              >Cost: <FormatNumber :value="item.purchasing_cost" /> money
+            <span style="float: right">
+              <FormatNumber :value="item.purchasing_cost" />
+              <my-icon :icon="world.icons['Money']" />
             </span>
             <br />
             <my-icon :icon="item.icon" />
@@ -53,8 +54,9 @@
       >
         <td @click.shift.exact="wasm.queue_item(item.name)" @click="buy_item(item.name, $event)">
           <span>{{ item.display_name }} </span>
-          <span style="float: right"
-            >Cost: <FormatNumber :value="item.purchasing_cost" /> money
+          <span style="float: right">
+            <my-icon :icon="world.icons['Money']" />
+            <FormatNumber :value="item.purchasing_cost" />
           </span>
           <br />
           <my-icon :icon="item.icon" />
@@ -100,8 +102,9 @@ export default {
   methods: {
     buy_item(val, e) {
       if (!e.shiftKey) {
-        console.log('no shift')
         this.wasm.buy_item(val)
+      } else {
+        e.preventDefault()
       }
     },
 

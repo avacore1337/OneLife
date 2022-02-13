@@ -20,7 +20,7 @@
           v-for="button in buttons"
           :key="button.update_rate"
           :pressed="metaData.options.update_rate == button.update_rate"
-          @click="wasm.set_update_rate(button.update_rate)"
+          @click="set_update_rate(button.update_rate)"
           >{{ button.fps }}</b-button
         >
       </b-button-group>
@@ -67,6 +67,10 @@ export default {
     },
   },
   methods: {
+    set_update_rate(rate) {
+      this.wasm.set_update_rate(rate)
+      //TODO parent parent update?
+    },
     download_save() {
       // TODO: This should be exported by the backend
       downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save())

@@ -23,7 +23,7 @@ export default {
 .section {
   width: 100%;
   margin-bottom: 1rem;
-  padding: 1rem 1rem 1rem 2rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
   background-color: #333c4a;
   border-radius: 1rem 1rem 1rem 1rem;
   border-top: 0.4rem solid #1a202b;

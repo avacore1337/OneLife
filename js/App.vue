@@ -97,6 +97,7 @@ export default {
     this.metaData = this.wasm.get_meta_data()
     this.item_queue = this.wasm.get_world_item_queue()
     this.loaded = true
+    this.set_keyboard_listeners()
 
     let self = this
     setInterval(function () {
@@ -113,11 +114,20 @@ export default {
     }, 1000 / 30)
   },
   methods: {
+    set_keyboard_listeners() {
+      window.addEventListener('keydown', (event) => {
+        if (event.code == 'Space') {
+          event.preventDefault()
+          this.wasm.toggle_paused()
+          this.do_update()
+        }
+      })
+    },
     recurse_update(o, o2) {
       for (var key in o2) {
         if (Array.isArray(o2[key])) {
           if (o[key].length != o2[key].length) {
-            console.log(key, o[key], o2[key])
+            /* console.log(key, o[key], o2[key]) */
             o[key] = o2[key]
             continue
           }
