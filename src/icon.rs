@@ -30,6 +30,8 @@ pub enum IconType {
     Happiness,
     Health,
     Question,
+    Pause,
+    Play,
 }
 
 impl From<IconType> for Icon {
@@ -56,6 +58,8 @@ pub fn get_icon_name(icon: IconType) -> &'static str {
         IconType::Happiness => "laugh-beam",
         IconType::Health => "medkit",
         IconType::Question => "question",
+        IconType::Pause => "pause",
+        IconType::Play => "play",
     }
 }
 

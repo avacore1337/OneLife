@@ -1,12 +1,9 @@
 <template>
   <div class="column-flex">
-    <br />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
-    <br />
-    <b-button style="margin: 2px" @click="wasm.toggle_use_saved_ticks">
+    <b-button @click="wasm.toggle_use_saved_ticks">
       {{ !metaData.use_saved_ticks ? 'Use Saved Ticks' : "Don't Use Saved Ticks" }}
     </b-button>
-    <br />
     <MyToggle :value="metaData.options.auto_work" :click="wasm.toggle_auto_work">
       Auto Work
     </MyToggle>
@@ -31,7 +28,14 @@
       {{ !metaData.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
     </b-button>
     <b-button @click="wasm.toggle_paused">
-      {{ metaData.options.paused ? 'Resume the game' : 'Pause the game' }}
+      <span v-if="metaData.options.paused">
+        <my-icon :icon="world.icons['Play']" style="margin-right: 0.3rem" />
+        Resume the game
+      </span>
+      <span v-if="!metaData.options.paused">
+        <my-icon :icon="world.icons['Pause']" style="margin-right: 0.3rem" />
+        Pause the game
+      </span>
     </b-button>
     <b-button @click="tick">Tick</b-button>
   </div>
