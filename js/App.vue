@@ -40,6 +40,7 @@
             :state="state"
             :input="input"
             :wasm="wasm"
+            :item_queue="item_queue"
           />
         </div>
         <div

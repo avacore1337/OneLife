@@ -17,10 +17,11 @@ export default {
   margin-bottom: 1rem;
   padding: 1rem 1rem 1rem 2rem;
   background-color: #333c4a;
-  border-radius: 3rem 3rem 0 0;
+  border-radius: 3rem 3rem 3rem 3rem;
   border-top: 0.4rem solid #1a202b;
   border-left: 0.4rem solid #1a202b;
   border-right: 0.4rem solid #1a202b;
+  border-bottom: 0.4rem solid #1a202b;
 }
 
 .title {

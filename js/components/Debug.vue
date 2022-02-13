@@ -24,6 +24,7 @@
     <br />
     <button @click="wasm.set_gamespeed(1000)">Set GameSpeed 1000</button>
     <br />
+    <b-button @click="tick">Tick</b-button>
     <br />
     <button @click="print_frontend_debug_state">Print Frontend Debug State</button>
     <br />
@@ -75,6 +76,10 @@ export default {
     },
     print_frontend_debug_world() {
       console.log(this.world)
+    },
+    tick() {
+      this.wasm.single_tick()
+      this.$parent.update_dynamic_data()
     },
   },
 }

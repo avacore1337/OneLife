@@ -1,5 +1,10 @@
 <template>
   <div class="column-flex">
+    <ItemQueue
+      v-if="state.rebirth_stats.unlocks.can_queue_item"
+      :wasm="wasm"
+      :item_queue="item_queue"
+    />
     Saved Ticks: {{ metaData.saved_ticks.toFixed(0) }}
     <b-button @click="wasm.toggle_use_saved_ticks">
       {{ !metaData.use_saved_ticks ? 'Use Saved Ticks' : "Don't Use Saved Ticks" }}
@@ -37,27 +42,23 @@
         Pause the game
       </span>
     </b-button>
-    <b-button @click="tick">Tick</b-button>
   </div>
 </template>
 
 <script>
 import { downloadFile } from '../utility.js'
+import ItemQueue from './ItemQueue.vue'
 import MyToggle from './MyToggle.vue'
+import FormatNumber from './FormatNumber.vue'
 export default {
-  components: { MyToggle },
-  props: ['metaData', 'state', 'world', 'input', 'wasm'],
+  components: { ItemQueue, FormatNumber, MyToggle },
+  props: ['metaData', 'state', 'world', 'input', 'wasm', 'item_queue'],
   data() {
     return {
       end_early_criteria: 0.0,
     }
   },
-  methods: {
-    tick() {
-      this.wasm.single_tick()
-      this.$parent.update_dynamic_data()
-    },
-  },
+  methods: {},
 }
 </script>
 
