@@ -24,10 +24,7 @@
           </span>
         </td>
         <td style="width: 30%" class="is-centered">
-          <span>
-            <my-icon :icon="activity.icon" />
-            {{ activity.effect_description }}
-          </span>
+          <icon-with-text :icon="activity.icon" :text="activity.effect_description" />
         </td>
       </tr>
     </table>
@@ -64,6 +61,12 @@ tr > td:first-child {
 
 .is-centered {
   text-align: center;
+}
+
+.center-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* tr > td:not(:first-child) { */

@@ -1,5 +1,6 @@
 import App from './App.vue'
 import MyIcon from './components/MyIcon.vue'
+import IconWithText from './components/IconWithText.vue'
 
 import { store } from './store.js'
 
@@ -21,6 +22,7 @@ Vue.use(BootstrapVue)
 Vue.config.performance = true
 Vue.component('VIcon', Icon)
 Vue.component('MyIcon', MyIcon)
+Vue.component('IconWithText', IconWithText)
 
 import('../pkg/index.js')
   .then(function (wasm) {

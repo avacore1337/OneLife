@@ -1,23 +1,26 @@
 <template>
   <Section title="Items">
-    <div v-if="metaData.options.show_bought_items && state.boost_items.some((item) => item.is_purchased) ">
-      <span>
-        Show bought Items
-        <input
-          id="show_bought"
-          type="checkbox"
-          :checked="metaData.options.show_bought_items"
-          @click="toggle_show_bought"
-        />
-      </span>
+    <span>
+      Show bought Items
+      <input
+        id="show_bought"
+        type="checkbox"
+        :checked="metaData.options.show_bought_items"
+        @click="toggle_show_bought"
+      />
+    </span>
+    <div
+      v-if="
+        metaData.options.show_bought_items && state.boost_items.some((item) => item.is_purchased)
+      "
+    >
       <h4>Bought Items</h4>
       <table>
-        <tr v-for="[item, item_state] in bought_items" :key="item.name" style="height: 2rem">
+        <tr v-for="[item, item_state] in bought_items" :key="item.name">
           <td>
             <span>{{ item.display_name }}</span>
             <br />
-            <my-icon :icon="item.icon" />
-            <span>{{ item.effect_description }} </span>
+            <icon-with-text :icon="item.icon" :text="item.effect_description" />
           </td>
         </tr>
       </table>
@@ -34,12 +37,12 @@
         <td @click.shift.exact="wasm.queue_item(item.name)" @click="buy_item(item.name, $event)">
           <span>{{ item.display_name }} </span>
           <span style="float: right">
-            <my-icon :icon="world.icons['Money']" />
-            <FormatNumber :value="item.purchasing_cost" />
+            <icon-with-text :icon="world.icons['Money']">
+              <FormatNumber :value="item.purchasing_cost" />
+            </icon-with-text>
           </span>
           <br />
-          <my-icon :icon="item.icon" />
-          <span>{{ item.effect_description }} </span>
+          <icon-with-text :icon="item.icon" :text="item.effect_description" />
         </td>
       </tr>
     </table>
