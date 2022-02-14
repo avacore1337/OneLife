@@ -4,7 +4,7 @@
       <tr>
         Item Queue
       </tr>
-      <tr v-for="item in item_queue" :key="item.name">
+      <tr v-b-tooltip.hover.left="info_text(item)" v-for="item in item_queue" :key="item.name">
         <td @click="wasm.dequeue_item(item.name)">
           <span>{{ item.display_name }} </span>
         </td>
@@ -16,6 +16,11 @@
 <script>
 export default {
   props: ['item_queue', 'wasm'],
+  methods: {
+    info_text(item) {
+      return item.display_name
+    },
+  },
 }
 </script>
 
