@@ -8,4 +8,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.fa-icon {
+  fill: currentColor;
+}
+</style>
