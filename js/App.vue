@@ -32,7 +32,7 @@
         />
       </div>
 
-      <div style="">
+      <div class="right-sidebar">
         <div style="margin-left: 20px; border: 5px solid white; padding: 10px">
           <SidebarRight
             :world="world"
@@ -221,10 +221,12 @@ span.the-modal {
 
 .left-sidebar {
   width: 280px;
+  flex-shrink: 0;
 }
 
 .right-sidebar {
   width: 280px;
+  flex-shrink: 0;
 }
 
 .main {
