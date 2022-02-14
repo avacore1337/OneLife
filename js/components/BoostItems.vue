@@ -1,36 +1,15 @@
 <template>
   <Section title="Items">
-    <span>
-      Show bought Items
-      <input
-        id="show_bought"
-        type="checkbox"
-        :checked="metaData.options.show_bought_items"
-        @click="toggle_show_bought"
-      />
-    </span>
-    <div v-if="state.rebirth_stats.unlocks.can_queue_item && false">
-      <h4>Item Queue</h4>
-      <table>
-        <tr v-for="item in item_queue" :key="item.name">
-          <td @click="wasm.dequeue_item(item.name)">
-            <span>{{ item.display_name }} </span>
-            <span style="float: right">
-              <FormatNumber :value="item.purchasing_cost" />
-              <my-icon :icon="world.icons['Money']" />
-            </span>
-            <br />
-            <my-icon :icon="item.icon" />
-            <span>{{ item.effect_description }} </span>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <span
-      v-if="
-        metaData.options.show_bought_items && state.boost_items.some((item) => item.is_purchased)
-      "
-    >
+    <div v-if="metaData.options.show_bought_items && state.boost_items.some((item) => item.is_purchased) ">
+      <span>
+        Show bought Items
+        <input
+          id="show_bought"
+          type="checkbox"
+          :checked="metaData.options.show_bought_items"
+          @click="toggle_show_bought"
+        />
+      </span>
       <h4>Bought Items</h4>
       <table>
         <tr v-for="[item, item_state] in bought_items" :key="item.name" style="height: 2rem">
@@ -42,7 +21,7 @@
           </td>
         </tr>
       </table>
-    </span>
+    </div>
     <br />
 
     <h4>Buyable Items</h4>
