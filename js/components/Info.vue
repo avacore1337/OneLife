@@ -1,11 +1,23 @@
 <template>
-  <div>
-    <h3>Story</h3>
-    <div class="log-area">
-      <span v-for="text in world.tutorial_texts">
-        {{ text }}
-        <hr />
-      </span>
+  <div class="my-container">
+    <div>
+      <h3>Story</h3>
+      <div class="log-area">
+        <span v-for="text in world.tutorial_texts">
+          {{ text }}
+          <hr />
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <h3>Tutorial</h3>
+      <div class="log-area">
+        <span v-for="text in world.tutorial_texts">
+          {{ text }}
+          <hr />
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -35,9 +47,10 @@ export default {
 
 <style scoped>
 .log-area {
+  padding: 0.5rem;
   max-width: 1000px;
   border: 1px solid lightgray;
-  height: 20rem;
+  height: 70%;
   overflow-y: scroll;
 }
 </style>
