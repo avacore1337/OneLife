@@ -1,10 +1,10 @@
 <template>
   <Section v-if="world.activities !== undefined" title="Activity">
     <table>
-      <tr>
+      <tr class="header-row">
         <th>Name</th>
-        <th class="is-centered">Base Amount</th>
-        <th class="is-centered">Stat/Skill</th>
+        <th>XP</th>
+        <th>Stat/Skill</th>
       </tr>
       <tr
         v-for="[activity, activity_state] in visible_activities"
@@ -18,12 +18,12 @@
           </span>
         </td>
 
-        <td style="width: 20%" class="is-centered">
+        <td style="width: 20%">
           <span>
             {{ activity.base_gain_amount }}
           </span>
         </td>
-        <td style="width: 30%" class="is-centered">
+        <td style="width: 30%">
           <icon-with-text :icon="activity.icon" :text="activity.effect_description" />
         </td>
       </tr>
@@ -59,25 +59,7 @@ tr > td:first-child {
   width: 50%;
 }
 
-.is-centered {
-  text-align: center;
+.header-row {
+  background-color: #4b7b30;
 }
-
-.center-me {
-  margin: 0;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.center-items {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* tr > td:not(:first-child) { */
-/*   width: 30%; */
-/* } */
 </style>
