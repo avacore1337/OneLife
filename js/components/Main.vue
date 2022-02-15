@@ -75,6 +75,9 @@
     <b-tab key="settings-tab" title="Settings">
       <Settings :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
     </b-tab>
+    <b-tab key="info-tab" title="Info">
+      <Info :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
+    </b-tab>
   </b-tabs>
 </template>
 
@@ -93,6 +96,8 @@ import RebirthUpgrades from './RebirthUpgrades.vue'
 
 import Settings from './Settings.vue'
 
+import Info from './Info.vue'
+
 export default {
   components: {
     Works,
@@ -105,6 +110,7 @@ export default {
     Death,
     RebirthUpgrades,
     Settings,
+    Info,
   },
   props: [
     'item_queue',
