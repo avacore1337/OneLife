@@ -1,14 +1,11 @@
 <template>
   <div>
-    Info
-    <div style="max-width: 1000px">
-      <b-form-textarea
-        readonly
-        id="textarea"
-        v-model="tutorial_text"
-        rows="24"
-        max-rows="24"
-      ></b-form-textarea>
+    <h3>Story</h3>
+    <div class="log-area">
+      <span v-for="text in world.tutorial_texts">
+        {{ text }}
+        <hr />
+      </span>
     </div>
   </div>
 </template>
@@ -36,4 +33,11 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.log-area {
+  max-width: 1000px;
+  border: 1px solid lightgray;
+  height: 20rem;
+  overflow-y: scroll;
+}
+</style>
