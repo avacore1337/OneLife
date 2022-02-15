@@ -54,6 +54,7 @@ pub fn set_full_auto(options: &mut Options) {
     options.auto_living = true;
     options.auto_buy_item = true;
     options.auto_buy_tomb = true;
+    options.auto_buy_blessing = true;
 }
 
 pub fn balance_activities(

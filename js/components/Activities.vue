@@ -63,6 +63,14 @@ tr > td:first-child {
   text-align: center;
 }
 
+.center-me {
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
 .center-items {
   display: flex;
   justify-content: center;
