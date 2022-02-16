@@ -1,35 +1,40 @@
 <template>
-  <div style="border: solid; margin: 2px">
-    Blessings
-    <b-button
-      v-if="state.rebirth_stats.unlocks.can_auto_buy_blessing"
-      size="sm"
-      @click="toggle_auto_buy_blessing"
-    >
-      {{ !metaData.options.auto_buy_blessing ? 'Auto Buy Blessing' : "Don't Auto Buy Blessing" }}
-    </b-button>
-    <ul>
-      <li v-for="[blessing, blessing_state] in visible_blessings" :key="blessing.name">
-        <my-icon :icon="blessing.icon" />
-        <button :disabled="!blessing_state.is_unlocked" @click="wasm.buy_blessing(blessing.name)">
-          {{ blessing.display_name }}
-        </button>
-
-        <span style="float: right"
-          >Cost: <FormatNumber :value="blessing_state.next_level_cost" /> Divine Favor
-        </span>
-
-        <br />
-        Level: {{ blessing_state.level }}, Effect: {{ blessing_state.effect_description }}
-      </li>
-    </ul>
-  </div>
+  <Section2>
+    <table>
+      <tr class="header-row">
+        <th style="flex-grow: 3">Blessing</th>
+        <th style="flex-grow: 3">Effect</th>
+        <th>Level</th>
+        <th>Cost</th>
+      </tr>
+      <tr
+        v-for="[blessing, blessing_state] in visible_blessings"
+        :key="blessing.name"
+        :class="{ disabled: !blessing_state.is_unlocked }"
+        @click="wasm.buy_blessing(blessing.name)"
+      >
+        <td style="flex-grow: 3">
+          <icon-with-text :icon="blessing.icon" :text="blessing.display_name" />
+        </td>
+        <td style="flex-grow: 3">
+          {{ blessing_state.effect_description }}
+        </td>
+        <td>{{ blessing_state.level }},</td>
+        <td>
+          <icon-with-text :icon="world.icons['DivineFavor']">
+            <FormatNumber :value="blessing_state.next_level_cost" />
+          </icon-with-text>
+        </td>
+      </tr>
+    </table>
+  </Section2>
 </template>
 
 <script>
+import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 export default {
-  components: { FormatNumber },
+  components: { Section2, FormatNumber },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   computed: {
     visible_blessings() {

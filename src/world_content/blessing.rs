@@ -92,28 +92,22 @@ pub fn calculate_effect_description(input_blessing: BlessingTypes, game: &Game) 
     let blessing_state = &game.state.blessings[input_blessing as usize];
     match input_blessing {
         BlessingTypes::HeruclesStrength => {
-            format!(
-                "Strength XP Multiplier: {}",
-                get_multiplier(blessing_state.level)
-            )
+            format!("Strength XP: {:.2}x", get_multiplier(blessing_state.level))
         }
         BlessingTypes::AthenasWisdom => {
             format!(
-                "Intelligence XP Multiplier: {}",
+                "Intelligence XP: {:.2}x",
                 get_multiplier(blessing_state.level)
             )
         }
         BlessingTypes::PoseidonsSturdiness => {
             format!(
-                "Constitution XP Multiplier: {}",
+                "Constitution XP: {:.2}x",
                 get_multiplier(blessing_state.level)
             )
         }
         BlessingTypes::AfroditesCharm => {
-            format!(
-                "Charisma XP Multiplier: {}",
-                get_multiplier(blessing_state.level)
-            )
+            format!("Charisma XP: {:.2}x", get_multiplier(blessing_state.level))
         }
     }
 }

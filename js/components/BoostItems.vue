@@ -24,9 +24,9 @@
 
     <table>
       <tr class="header-row">
-        <th>Buyable Items</th>
-        <th>Effect</th>
-        <th>Cost</th>
+        <th style="flex-grow: 2">Buyable Items</th>
+        <th style="flex-grow: 2">Effect</th>
+        <th style="flex-grow: 1">Cost</th>
       </tr>
       <tr
         v-for="[item, item_state] in visible_unbought_items"

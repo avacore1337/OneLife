@@ -14,14 +14,6 @@
         </div>
         <div class="main-item">
           <Activities :state="state" :input="input" :world="world" :wasm="wasm" />
-          <BoostItems
-            :state="state"
-            :input="input"
-            :world="world"
-            :wasm="wasm"
-            :meta-data="metaData"
-            :item_queue="item_queue"
-          />
           <Blessings
             v-if="state.rebirth_stats.unlocks.has_faith"
             :meta-data="metaData"
@@ -29,6 +21,14 @@
             :input="input"
             :world="world"
             :wasm="wasm"
+          />
+          <BoostItems
+            :state="state"
+            :input="input"
+            :world="world"
+            :wasm="wasm"
+            :meta-data="metaData"
+            :item_queue="item_queue"
           />
           <div v-if="metaData.options.show_recorded">
             <RecordedInputs
