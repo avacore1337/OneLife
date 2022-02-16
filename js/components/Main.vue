@@ -57,24 +57,28 @@
       key="death-tab"
       title="Death"
     >
-      <div style="margin-left: 1%; float: left; width: 49%">
-        <Tombs :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
-      </div>
-      <div style="margin-left: 1%; float: left; width: 49%">
-        <Death :state="state" :input="input" :world="world" :wasm="wasm" />
-        <RebirthUpgrades
-          v-if="state.rebirth_stats.tier > 0"
-          :state="state"
-          :input="input"
-          :world="world"
-          :wasm="wasm"
-          :meta-data="metaData"
-        />
+      <div class="my-container">
+        <div class="main-item">
+          <Tombs :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
+        </div>
+        <div class="main-item">
+          <Death :state="state" :input="input" :world="world" :wasm="wasm" />
+          <RebirthUpgrades
+            v-if="state.rebirth_stats.tier > 0"
+            :state="state"
+            :input="input"
+            :world="world"
+            :wasm="wasm"
+            :meta-data="metaData"
+          />
+        </div>
       </div>
     </b-tab>
+
     <b-tab key="settings-tab" title="Settings">
       <Settings :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
     </b-tab>
+
     <b-tab key="info-tab" title="Info">
       <Info :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
     </b-tab>

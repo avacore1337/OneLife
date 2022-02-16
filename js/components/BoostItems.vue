@@ -31,7 +31,10 @@
       <tr
         v-for="[item, item_state] in visible_unbought_items"
         :key="item.name"
-        :class="{ disabled: !item_state.is_unlocked }"
+        :class="{
+          disabled:
+            !item_state.is_unlocked && !(shift && state.rebirth_stats.unlocks.can_queue_item),
+        }"
         @click.shift.exact="wasm.queue_item(item.name)"
         @click="buy_item(item.name, $event)"
       >
@@ -59,6 +62,23 @@ import FormatNumber from './FormatNumber.vue'
 export default {
   components: { Section2, FormatNumber },
   props: ['state', 'world', 'input', 'wasm', 'metaData', 'item_queue'],
+  data() {
+    return {
+      shift: false,
+    }
+  },
+  mounted() {
+    window.addEventListener('keydown', (event) => {
+      if (event.key == 'Shift') {
+        this.shift = true
+      }
+    })
+    window.addEventListener('keyup', (event) => {
+      if (event.key == 'Shift') {
+        this.shift = false
+      }
+    })
+  },
   computed: {
     visible_unbought_items() {
       let self = this
