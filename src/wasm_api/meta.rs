@@ -46,6 +46,18 @@ pub fn set_show_recorded(show: bool) {
 }
 
 #[wasm_bindgen]
+pub fn toggle_show_bought_items() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.show_bought_items = !game.meta_data.options.show_bought_items;
+}
+
+#[wasm_bindgen]
+pub fn toggle_show_bought_upgrades() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.show_bought_upgrades = !game.meta_data.options.show_bought_upgrades;
+}
+
+#[wasm_bindgen]
 pub fn set_show_bought_items(show: bool) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.options.show_bought_items = show;

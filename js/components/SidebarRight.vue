@@ -29,9 +29,12 @@
     </MyToggle>
     <input v-model="end_early_criteria" size="10" />
     <b-button @click="wasm.set_auto_end_early(end_early_criteria)">Set End Early Criteria</b-button>
-    <b-button @click="wasm.toggle_show_recorded">
-      {{ !metaData.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
-    </b-button>
+    <MyToggle :value="metaData.options.show_bought_items" :click="wasm.toggle_show_bought_items">
+      Show Bought Items
+    </MyToggle>
+    <MyToggle :value="metaData.options.show_recorded" :click="wasm.toggle_show_recorded">
+      Show Recorded
+    </MyToggle>
     <b-button @click="wasm.toggle_paused">
       <span v-if="metaData.options.paused">
         <my-icon :icon="world.icons['Play']" style="margin-right: 0.3rem" />

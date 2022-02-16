@@ -1,5 +1,5 @@
 <template>
-  <div class="section">
+  <div class="section" style="min-height: 20rem">
     <table>
       <tr>
         Item Queue

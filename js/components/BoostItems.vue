@@ -1,61 +1,63 @@
 <template>
-  <Section title="Items">
-    <span>
-      Show bought Items
-      <input
-        id="show_bought"
-        type="checkbox"
-        :checked="metaData.options.show_bought_items"
-        @click="toggle_show_bought"
-      />
-    </span>
+  <Section2>
     <div
       v-if="
         metaData.options.show_bought_items && state.boost_items.some((item) => item.is_purchased)
       "
+      style="margin-bottom: 2rem"
     >
-      <h4>Bought Items</h4>
       <table>
+        <tr class="header-row">
+          <th>Bought Items</th>
+          <th>Effect</th>
+        </tr>
         <tr v-for="[item, item_state] in bought_items" :key="item.name">
           <td>
             <span>{{ item.display_name }}</span>
-            <br />
+          </td>
+          <td>
             <icon-with-text :icon="item.icon" :text="item.effect_description" />
           </td>
         </tr>
       </table>
     </div>
-    <br />
 
-    <h4>Buyable Items</h4>
     <table>
+      <tr class="header-row">
+        <th>Buyable Items</th>
+        <th>Effect</th>
+        <th>Cost</th>
+      </tr>
       <tr
         v-for="[item, item_state] in visible_unbought_items"
         :key="item.name"
         :class="{ disabled: !item_state.is_unlocked }"
+        @click.shift.exact="wasm.queue_item(item.name)"
+        @click="buy_item(item.name, $event)"
       >
-        <td @click.shift.exact="wasm.queue_item(item.name)" @click="buy_item(item.name, $event)">
-          <span>{{ item.display_name }} </span>
-          <span style="float: right">
-            <icon-with-text :icon="world.icons['Money']">
-              <FormatNumber :value="item.purchasing_cost" />
-            </icon-with-text>
-          </span>
-          <br />
+        <td style="flex-grow: 2">
+          {{ item.display_name }}
+        </td>
+        <td style="flex-grow: 2">
           <icon-with-text :icon="item.icon" :text="item.effect_description" />
+        </td>
+        <td style="flex-grow: 1">
+          <icon-with-text :icon="world.icons['Money']">
+            <FormatNumber :value="item.purchasing_cost" />
+          </icon-with-text>
         </td>
       </tr>
     </table>
-  </Section>
+  </Section2>
 </template>
 
 <script>
-import Section from './Section.vue'
+import Section2 from './Section2.vue'
 import { compare } from '../utility.js'
 import FormatNumber from './FormatNumber.vue'
 
 export default {
-  components: { Section, FormatNumber },
+  components: { Section2, FormatNumber },
   props: ['state', 'world', 'input', 'wasm', 'metaData', 'item_queue'],
   computed: {
     visible_unbought_items() {
@@ -88,10 +90,6 @@ export default {
       } else {
         e.preventDefault()
       }
-    },
-
-    toggle_show_bought() {
-      this.wasm.set_show_bought_items(!this.metaData.options.show_bought_items)
     },
   },
 }
