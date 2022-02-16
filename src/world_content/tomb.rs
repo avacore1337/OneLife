@@ -99,11 +99,10 @@ pub fn should_unlock_tomb(input_tomb: TombTypes, game: &Game) -> bool {
     if tomb.purchasing_cost > game.state.items.money {
         return false;
     }
-    true
-    // match input_tomb {
-    //     TombTypes::Mines => true,
-    //     TombTypes::Latrine => game.state.tombs[TombTypes::Mines as usize].level >= 10,
-    // }
+    match input_tomb {
+        TombTypes::ShallowGrave => true,
+        _ => game.state.tombs[input_tomb as usize - 1].is_purchased,
+    }
 }
 
 pub fn should_be_visible_tomb(input_tomb: TombTypes, game: &Game) -> bool {

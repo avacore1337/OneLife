@@ -1,44 +1,54 @@
 <template>
-  <Section title="Tombs">
-    <span v-if="state.tombs.some((tomb) => tomb.is_purchased)">
-      <h4>Bought Tombs</h4>
+  <Section2>
+    <div v-if="state.tombs.some((tomb) => tomb.is_purchased)" style="margin-bottom: 2rem">
       <table>
-        <tr v-for="[tomb, tomb_state] in bought_tombs" :key="tomb.name">
-          <td>
-            <span>{{ tomb.display_name }}</span>
-            <br />
-            <span>Coins: <FormatNumber :value="tomb_state.effective_income" /> </span>
-          </td>
+        <tr class="header-row">
+          <th style="flex-grow: 2">Current tomb</th>
+          <th style="flex-grow: 1">Coin Gain</th>
+        </tr>
+        <tr>
+          <td>{{ max_bought_tomb[0].display_name }}</td>
+          <td>Coins: <FormatNumber :value="max_bought_tomb[1].effective_income" /></td>
         </tr>
       </table>
-    </span>
+    </div>
 
-    <h4>Buyable Tombs</h4>
     <table>
+      <tr class="header-row">
+        <th style="flex-grow: 2">Buyable tombs</th>
+        <th style="flex-grow: 1">Coin Gain</th>
+        <th style="flex-grow: 1">Cost</th>
+      </tr>
       <tr
         v-for="[tomb, tomb_state] in visible_unbought_tombs"
         :key="tomb.name"
         :class="{ disabled: !tomb_state.is_unlocked }"
+        @click="buyTomb(tomb.name)"
       >
-        <td @click="buyTomb(tomb.name)">
-          <span>{{ tomb.display_name }} </span>
-          <span style="float: right"
-            >Cost: <FormatNumber :value="tomb.purchasing_cost" /> money
-          </span>
-          <br />
-          <span>Coins: <FormatNumber :value="tomb_state.effective_income" /> </span>
+        <td>
+          {{ tomb.display_name }}
+        </td>
+        <td>
+          <icon-with-text :icon="world.icons['Coin']">
+            <FormatNumber :value="tomb_state.effective_income" />
+          </icon-with-text>
+        </td>
+        <td>
+          <icon-with-text :icon="world.icons['Money']">
+            <FormatNumber :value="tomb.purchasing_cost" />
+          </icon-with-text>
         </td>
       </tr>
     </table>
-  </Section>
+  </Section2>
 </template>
 
 <script>
-import Section from './Section.vue'
+import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 
 export default {
-  components: { Section, FormatNumber },
+  components: { Section2, FormatNumber },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   computed: {
     visible_unbought_tombs() {
@@ -51,15 +61,15 @@ export default {
           return s.is_visible && !s.is_purchased
         })
     },
-    bought_tombs() {
-      let self = this
-      return self.world.tombs
+    max_bought_tomb() {
+      let bought_tombs = this.world.tombs
         .map((w, i) => {
-          return [w, self.state.tombs[i]]
+          return [w, this.state.tombs[i]]
         })
         .filter(([w, s]) => {
           return s.is_purchased
         })
+      return bought_tombs[bought_tombs.length - 1]
     },
   },
   methods: {

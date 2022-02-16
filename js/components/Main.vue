@@ -1,5 +1,5 @@
 <template>
-  <b-tabs>
+  <b-tabs class="my-navbar">
     <b-tab key="life-tab" title="Life">
       <div class="my-container">
         <div class="main-item">
@@ -137,5 +137,8 @@ b-tab {
 .main-item {
   flex-grow: 1;
   flex-basis: 0;
+}
+
+.my-navbar {
 }
 </style>
