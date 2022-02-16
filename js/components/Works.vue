@@ -1,34 +1,31 @@
 <template>
-  <div>
-    <Section2>
-      <WorkCategory name="Labor Work" :thework="visible_labor_work" :input="input" :wasm="wasm" />
-      <br />
-      <WorkCategory
-        v-if="state.rebirth_stats.tier >= 2"
-        name="Soldiering"
-        :thework="visible_soldier_work"
-        :wasm="wasm"
-        :input="input"
-      />
-      <br />
-      <WorkCategory
-        v-if="state.rebirth_stats.unlocks.has_faith"
-        name="Soldiering"
-        :thework="visible_priest_work"
-        :input="input"
-        :wasm="wasm"
-      />
-    </Section2>
+  <div class="section">
+    <WorkCategory name="Labor Work" :thework="visible_labor_work" :input="input" :wasm="wasm" />
+    <br />
+    <WorkCategory
+      v-if="state.rebirth_stats.tier >= 2"
+      name="Soldiering"
+      :thework="visible_soldier_work"
+      :wasm="wasm"
+      :input="input"
+    />
+    <br />
+    <WorkCategory
+      v-if="state.rebirth_stats.unlocks.has_faith"
+      name="Soldiering"
+      :thework="visible_priest_work"
+      :input="input"
+      :wasm="wasm"
+    />
   </div>
 </template>
 
 <script>
 import ProgressBar from './ProgressBar.vue'
 import WorkCategory from './WorkCategory.vue'
-import Section2 from './Section2.vue'
 
 export default {
-  components: { ProgressBar, Section2, WorkCategory },
+  components: { ProgressBar, WorkCategory },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   computed: {
     visible_labor_work() {

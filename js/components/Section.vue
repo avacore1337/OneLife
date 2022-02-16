@@ -12,18 +12,6 @@ export default {
 </script>
 
 <style scoped>
-.section {
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 1rem 1rem 1rem 2rem;
-  background-color: #333c4a;
-  border-radius: 3rem 3rem 3rem 3rem;
-  border-top: 0.4rem solid #1a202b;
-  border-left: 0.4rem solid #1a202b;
-  border-right: 0.4rem solid #1a202b;
-  border-bottom: 0.4rem solid #1a202b;
-}
-
 .title {
   padding-bottom: 1rem;
 }
@@ -58,16 +46,5 @@ tr > td:first-child {
 
 tr > td:not(:first-child) {
   width: 70%;
-}
-
-tr.disabled {
-  cursor: inherit;
-  background-color: #84878a;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.selected {
-  text-decoration: underline;
-  font-weight: bold;
 }
 </style>

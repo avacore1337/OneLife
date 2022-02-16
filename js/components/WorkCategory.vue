@@ -13,6 +13,7 @@
       <tr
         v-for="[work, work_state] in thework"
         :key="work.name"
+        class="no-touch"
         :class="{ disabled: !work_state.is_unlocked }"
         @click="work_state.is_unlocked && wasm.set_work(work.name)"
       >
@@ -61,12 +62,6 @@ tr {
   padding: 0.5rem;
   border-bottom: 2px solid lightgray;
   /* border-top: 2px solid lightgray; */
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 th {
@@ -106,15 +101,5 @@ tr > th:first-child {
 
 tr:hover {
   cursor: pointer;
-}
-
-tr.disabled {
-  cursor: inherit;
-  background-color: #84878a;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.header-row {
-  background-color: #4b7b30;
 }
 </style>

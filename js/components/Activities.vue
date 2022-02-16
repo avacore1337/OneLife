@@ -58,8 +58,4 @@ export default {
 tr > td:first-child {
   width: 50%;
 }
-
-.header-row {
-  background-color: #4b7b30;
-}
 </style>
