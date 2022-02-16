@@ -1,8 +1,8 @@
 <template>
-  <Section v-if="world.activities !== undefined" title="Activity">
+  <Section2 v-if="world.activities !== undefined">
     <table>
       <tr class="header-row">
-        <th>Name</th>
+        <th>Activity</th>
         <th>XP</th>
         <th>Stat/Skill</th>
       </tr>
@@ -28,15 +28,15 @@
         </td>
       </tr>
     </table>
-  </Section>
+  </Section2>
 </template>
 
 <script>
-import Section from './Section.vue'
+import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 
 export default {
-  components: { Section, FormatNumber },
+  components: { Section2, FormatNumber },
   props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_activities() {
@@ -54,8 +54,4 @@ export default {
 }
 </script>
 
-<style scoped>
-tr > td:first-child {
-  width: 50%;
-}
-</style>
+<style scoped></style>

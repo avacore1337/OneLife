@@ -27,13 +27,15 @@
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>
         <my-icon :icon="world.icons['Money']" />
-        Money: <FormatNumber :value="state.items.money" /> Income:
-        <FormatNumber :value="state.items.income" />
+        Money: <FormatNumber :value="state.items.money" />
+        <br />
+        Income: <FormatNumber :value="state.items.income" />/s
       </p>
       <p v-if="state.rebirth_stats.unlocks.has_faith">
         <my-icon :icon="world.icons['DivineFavor']" />
-        Divine Favor: <FormatNumber :value="state.items.divine_favor" /> Rate:
-        <FormatNumber :value="state.items.divine_favor_rate" />
+        Divine Favor: <FormatNumber :value="state.items.divine_favor" />
+        <br />
+        Income: <FormatNumber :value="state.items.divine_favor_rate" />/s
       </p>
     </div>
 
