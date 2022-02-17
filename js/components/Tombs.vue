@@ -3,12 +3,16 @@
     <div v-if="state.tombs.some((tomb) => tomb.is_purchased)" style="margin-bottom: 2rem">
       <table>
         <tr class="header-row">
-          <th style="flex-grow: 2">Current tomb</th>
+          <th style="flex-grow: 3">Current tomb</th>
           <th style="flex-grow: 1">Coin Gain</th>
         </tr>
-        <tr>
-          <td>{{ max_bought_tomb[0].display_name }}</td>
-          <td>Coins: <FormatNumber :value="max_bought_tomb[1].effective_income" /></td>
+        <tr class="info-tr">
+          <td style="flex-grow: 3">{{ max_bought_tomb[0].display_name }}</td>
+          <td style="flex-grow: 1">
+            <icon-with-text :icon="world.icons['Coin']">
+              <FormatNumber :value="max_bought_tomb[1].effective_income" />
+            </icon-with-text>
+          </td>
         </tr>
       </table>
     </div>

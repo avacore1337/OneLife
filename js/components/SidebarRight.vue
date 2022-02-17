@@ -32,6 +32,12 @@
     <MyToggle :value="metaData.options.show_bought_items" :click="wasm.toggle_show_bought_items">
       Show Bought Items
     </MyToggle>
+    <MyToggle
+      :value="metaData.options.show_bought_upgrades"
+      :click="wasm.toggle_show_bought_upgrades"
+    >
+      Show Bought Rebirth Upgrades
+    </MyToggle>
     <MyToggle :value="metaData.options.show_recorded" :click="wasm.toggle_show_recorded">
       Show Recorded
     </MyToggle>

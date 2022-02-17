@@ -1,48 +1,54 @@
 <template>
-  <div style="border: solid; margin: 2px">
-    <span>
-      Show bought upgrades
-      <input
-        id="show_bought"
-        type="checkbox"
-        :checked="metaData.options.show_bought_upgrades"
-        @click="toggle_show_bought"
-      />
-    </span>
-    <br />
-    <span
+  <Section2>
+    <div
       v-if="
         metaData.options.show_bought_upgrades &&
         state.rebirth_stats.rebirth_upgrades.some((upgrade) => upgrade.is_purchased)
       "
+      style="margin-bottom: 1rem"
     >
-      Bought Rebirth Upgrades
-      <ul>
-        <li v-for="[upgrade, upgrade_state] in bought_upgrades" :key="upgrade.name">
-          {{ upgrade.display_name }}
-        </li>
-      </ul>
-    </span>
-    Rebirth Upgrades
-    <ul>
-      <li v-for="[upgrade, upgrade_state] in visible_unbought_upgrades" :key="upgrade.name">
-        <button
-          style="margin: 2px"
-          :disabled="!upgrade_state.is_unlocked"
-          @click="wasm.buy_rebirth_upgrade(upgrade.name)"
-        >
-          {{ upgrade.display_name }}
-          {{ upgrade.purchasing_cost }}
-        </button>
-      </li>
-    </ul>
-  </div>
+      <table>
+        <tr class="header-row">
+          <th style="flex-grow: 1">Bought Upgrade</th>
+          <th style="flex-grow: 1">Effect</th>
+        </tr>
+        <tr v-for="[upgrade, upgrade_state] in bought_upgrades" :key="upgrade.name" class="info-tr">
+          <td style="flex-grow: 1">{{ upgrade.display_name }}</td>
+          <td style="flex-grow: 1">Placeholder</td>
+        </tr>
+      </table>
+    </div>
+    <table>
+      <tr class="header-row">
+        <th style="flex-grow: 2">Rebirth Upgrade</th>
+        <th style="flex-grow: 1">Effect</th>
+        <th style="flex-grow: 1">Cost</th>
+      </tr>
+      <tr
+        v-for="[upgrade, upgrade_state] in visible_unbought_upgrades"
+        :key="upgrade.name"
+        :class="{ disabled: !upgrade_state.is_unlocked }"
+        @click="wasm.buy_rebirth_upgrade(upgrade.name)"
+      >
+        <td style="flex-grow: 2">{{ upgrade.display_name }}</td>
+        <td style="flex-grow: 1">Placeholder</td>
+        <td style="flex-grow: 1">
+          <icon-with-text :icon="world.icons['Coin']">
+            <FormatNumber :value="upgrade.purchasing_cost" />
+          </icon-with-text>
+        </td>
+      </tr>
+    </table>
+  </Section2>
 </template>
 
 <script>
+import Section2 from './Section2.vue'
+import FormatNumber from './FormatNumber.vue'
 import { compare } from '../utility.js'
 export default {
   props: ['state', 'world', 'input', 'wasm', 'metaData'],
+  components: { Section2, FormatNumber },
   computed: {
     visible_unbought_upgrades() {
       let self = this

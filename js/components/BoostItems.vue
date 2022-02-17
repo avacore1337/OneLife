@@ -11,7 +11,7 @@
           <th>Bought Items</th>
           <th>Effect</th>
         </tr>
-        <tr v-for="[item, item_state] in bought_items" :key="item.name">
+        <tr v-for="[item, item_state] in bought_items" :key="item.name" class="info-tr">
           <td>
             <span>{{ item.display_name }}</span>
           </td>
