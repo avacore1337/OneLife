@@ -14,7 +14,9 @@
         </tr>
         <tr v-for="[upgrade, upgrade_state] in bought_upgrades" :key="upgrade.name" class="info-tr">
           <td style="flex-grow: 1">{{ upgrade.display_name }}</td>
-          <td style="flex-grow: 1">Placeholder</td>
+          <td style="flex-grow: 1">
+            <icon-with-text :icon="upgrade.icon" :text="upgrade.effect_description" />
+          </td>
         </tr>
       </table>
     </div>
@@ -31,7 +33,9 @@
         @click="wasm.buy_rebirth_upgrade(upgrade.name)"
       >
         <td style="flex-grow: 2">{{ upgrade.display_name }}</td>
-        <td style="flex-grow: 1">Placeholder</td>
+        <td style="flex-grow: 1">
+          <icon-with-text :icon="upgrade.icon" :text="upgrade.effect_description" />
+        </td>
         <td style="flex-grow: 1">
           <icon-with-text :icon="world.icons['Coin']">
             <FormatNumber :value="upgrade.purchasing_cost" />

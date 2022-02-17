@@ -35,7 +35,7 @@ pub enum RebirthUpgradeTypes {
     AutoEndEarly, // based on coin requirement
     QueueItems,
     Replay,
-    TheDivine,
+    // TheDivine,
     BribeCharon1,
     BribeCharon2,
     BribeCharon3,

@@ -32,6 +32,12 @@ pub enum IconType {
     Question,
     Pause,
     Play,
+    Soldier,
+    Labor,
+    Priest,
+    Death,
+    Tomb,
+    Automate,
 }
 
 impl From<IconType> for Icon {
@@ -60,6 +66,12 @@ pub fn get_icon_name(icon: IconType) -> &'static str {
         IconType::Question => "question",
         IconType::Pause => "pause",
         IconType::Play => "play",
+        IconType::Soldier => "hammer", // should be a sword
+        IconType::Labor => "hammer",
+        IconType::Priest => "hammer", // should be something else
+        IconType::Death => "skull-crossbones",
+        IconType::Tomb => "skull", // should be a tombstone
+        IconType::Automate => "gears",
     }
 }
 

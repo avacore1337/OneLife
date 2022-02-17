@@ -72,7 +72,6 @@ export default {
       //TODO parent parent update?
     },
     download_save() {
-      // TODO: This should be exported by the backend
       downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save())
     },
     import_save_file(event) {

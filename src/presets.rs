@@ -189,7 +189,7 @@ fn make_t5_faith() -> GameSave {
     r.rebirth_count = 32;
 
     set_lower_tier_jobs_to(r, 80);
-    r.rebirth_upgrades[RebirthUpgradeTypes::TheDivine as usize].is_purchased = true;
+    r.rebirth_upgrades[RebirthUpgradeTypes::UnlockFaith as usize].is_purchased = true;
 
     game_save.state = rebirth(r.clone());
     game_save.state.items.money = 1.0e9;

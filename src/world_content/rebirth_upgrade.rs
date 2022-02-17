@@ -1,5 +1,6 @@
 use crate::engine::value_keys::KeyValues;
 use crate::game::Game;
+use crate::icon::{Icon, IconType};
 use crate::input::boost_item::BoostItemTypes;
 use crate::input::rebirth_upgrade::{RebirthUpgradeTypes, REBIRTH_UPGRADE_SIZE};
 use crate::state::rebirth_stats::Unlocks;
@@ -16,6 +17,7 @@ pub struct RebirthUpgrade {
     pub display_name: &'static str,
     pub required_tier: u32,
     pub effect_description: &'static str,
+    pub icon: Icon,
 }
 
 pub fn apply_starting_upgrade(state: &mut StateContainer, rebirth_upgrade: RebirthUpgradeTypes) {
@@ -84,9 +86,9 @@ pub fn unlock(rebirth_upgrade: RebirthUpgradeTypes, unlocks: &mut Unlocks) {
         RebirthUpgradeTypes::Replay => {
             unlocks.can_replay = true;
         }
-        RebirthUpgradeTypes::TheDivine => {
-            unlocks.has_faith = true;
-        }
+        // RebirthUpgradeTypes::TheDivine => {
+        //     unlocks.has_faith = true;
+        // }
         RebirthUpgradeTypes::UnlockTactics => {
             unlocks.has_skills = true;
             unlocks.has_military_tactics = true;
@@ -163,7 +165,7 @@ impl RebirthUpgrade {
     }
 }
 
-pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> RebirthUpgrade {
+pub fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> RebirthUpgrade {
     match rebirth_upgrade {
         // -------------------------------------------------------
         // TIER 1
@@ -172,40 +174,45 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 3.0,
             description: "You feel happier now that you know that death isn't the end",
             display_name: "Accepting Death",
-            effect_description: "todo",
+            effect_description: "Happiness 1.7x",
             required_tier: 1,
+            icon: IconType::Happiness.into(),
         },
         RebirthUpgradeTypes::StartingWealth1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 8.0,
             description: "Pocket change for some, a fortune for others",
             display_name: "Starting Money",
-            effect_description: "todo",
+            effect_description: "Start with 4000 money",
             required_tier: 1,
+            icon: IconType::Money.into(),
         },
         RebirthUpgradeTypes::Privilege1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 12.0,
             description: "You have it easier than some at least",
             display_name: "Tiny Privilege",
-            effect_description: "todo",
+            effect_description: "Money 1.2x",
             required_tier: 1,
+            icon: IconType::Happiness.into(),
         },
         RebirthUpgradeTypes::LaborXp1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 20.0,
-            description: "TODO",
+            description: "Work harder",
             display_name: "Labor Experience",
-            effect_description: "todo",
+            effect_description: "Labor job XP 1.5x",
             required_tier: 1,
+            icon: IconType::Labor.into(),
         },
         RebirthUpgradeTypes::AutoWork => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 12.0,
             description: "You start making decisions out of habit",
-            display_name: "Automate Work Progression",
-            effect_description: "todo",
+            display_name: "Automate Work",
+            effect_description: "Unlock Work progression",
             required_tier: 1,
+            icon: IconType::Labor.into(),
         },
 
         // -------------------------------------------------------
@@ -215,32 +222,36 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             purchasing_cost: 30.0,
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 1",
-            effect_description: "todo",
+            effect_description: "Coins 1.2x",
             required_tier: 2,
+            icon: IconType::Coin.into(),
         },
         RebirthUpgradeTypes::StartingWealth2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 80.0,
             description: "Pocket change for some, a fortune for others",
             display_name: "Starting Wealth 2",
-            effect_description: "todo",
+            effect_description: "30k + items",
             required_tier: 1,
+            icon: IconType::Money.into(),
         },
         RebirthUpgradeTypes::Privilege2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 90.0,
             description: "Not the worst in town at least",
             display_name: "Minor Privilege",
-            effect_description: "todo",
+            effect_description: "Money 1.2x",
             required_tier: 2,
+            icon: IconType::Coin.into(),
         },
         RebirthUpgradeTypes::LaborXp2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 80.0,
-            description: "TODO",
+            description: "Work faster",
             display_name: "Labor Experience 2",
-            effect_description: "todo",
+            effect_description: "Labor job XP 1.5x",
             required_tier: 2,
+            icon: IconType::Labor.into(),
         },
         RebirthUpgradeTypes::AcceptingDeath2 => RebirthUpgrade {
             name: rebirth_upgrade,
@@ -248,40 +259,45 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description:
                 "You now have a goal, to improve your life and have the best life possible",
             display_name: "Finding A Goal",
-            effect_description: "todo",
+            effect_description: "Happiness 1.3x",
             required_tier: 2,
+            icon: IconType::Happiness.into(),
         },
         RebirthUpgradeTypes::EndItEarly => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 300.0,
             description: "You can now commit a grave sin",
             display_name: "Ending It Early",
-            effect_description: "todo",
+            effect_description: "You can now rebirth earlier",
             required_tier: 2,
+            icon: IconType::Death.into(),
         },
         RebirthUpgradeTypes::AutoLive => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 12.0,
             description: "If you can affort it, why not?",
-            display_name: "Automate Housing Progression",
-            effect_description: "todo",
+            display_name: "Automate Housing",
+            effect_description: "Unlock automatic housing progression ",
             required_tier: 2,
+            icon: IconType::Automate.into(),
         },
         RebirthUpgradeTypes::AutoBuyItem => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 60.0,
             description: "Consumerism!",
-            display_name: "Automate Buying of Items",
-            effect_description: "todo",
+            display_name: "Automate Items",
+            effect_description: "Unlock autobuying items",
             required_tier: 2,
+            icon: IconType::Automate.into(),
         },
         RebirthUpgradeTypes::SoldierXp1 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 30.0,
-            description: "TODO",
+            description: "Posture is important",
             display_name: "Soldier Experience",
-            effect_description: "todo",
+            effect_description: "Soldier job XP 2x",
             required_tier: 2,
+            icon: IconType::Soldier.into(),
         },
 
         // TIER 3 - 500
@@ -289,25 +305,28 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             name: rebirth_upgrade,
             purchasing_cost: 150.0,
             description: "tod!",
-            display_name: "Unlock The Item Queue",
-            effect_description: "todo",
+            display_name: "Unlock Item Queue",
+            effect_description: "Shift click to queue items",
             required_tier: 3,
+            icon: IconType::Automate.into(),
         },
         RebirthUpgradeTypes::AutoBuyTomb => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 250.0,
             description: "Put some more thought into it!",
-            display_name: "Automate Buying of Tombs",
-            effect_description: "todo",
+            display_name: "Automate Tombs",
+            effect_description: "Unlock autobuying tombs",
             required_tier: 3,
+            icon: IconType::Tomb.into(),
         },
         RebirthUpgradeTypes::BribeCharon2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 300.0,
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 2",
-            effect_description: "todo",
+            effect_description: "Coins 1.2x",
             required_tier: 3,
+            icon: IconType::Coin.into(),
         },
         RebirthUpgradeTypes::GemKnowledge => RebirthUpgrade {
             name: rebirth_upgrade,
@@ -315,150 +334,168 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
             description:
                 "You are told where all the miners found their big treasures during their lives",
             display_name: "Gem Knowledge",
-            effect_description: "todo",
+            effect_description: "Mines income 100x",
             required_tier: 3,
+            icon: IconType::Labor.into(),
         },
         RebirthUpgradeTypes::SoldierXp2 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 500.0,
-            description: "TODO",
+            description: "Thrust! Slash! Lounge!",
             display_name: "Soldier Experience 2",
-            effect_description: "todo",
+            effect_description: "Soldier job XP 2x",
             required_tier: 3,
+            icon: IconType::Soldier.into(),
         },
         RebirthUpgradeTypes::StartingWealth3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 800.0,
             description: "Anything is better than nothing",
             display_name: "Starting Wealth 3",
-            effect_description: "todo",
+            effect_description: "150k + items",
             required_tier: 3,
+            icon: IconType::Money.into(),
         },
         RebirthUpgradeTypes::UnlockTactics => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 1000.0,
             description: "A military genious in the making",
             display_name: "Unlock Tactics",
-            effect_description: "todo",
+            effect_description: "Unlocks the skill tactics",
             required_tier: 3,
+            icon: IconType::Tactics.into(),
         },
         RebirthUpgradeTypes::Privilege3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 1500.0,
-            description: "TODO",
+            description: "You have some perks based on your origins",
             display_name: "Lesser Privilege",
-            effect_description: "todo",
+            effect_description: "Money 1.2x",
             required_tier: 3,
+            icon: IconType::Money.into(),
         },
         RebirthUpgradeTypes::AcceptingDeath3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 2000.0,
             description: "You know who you are. And that someone is going to be important one day",
             display_name: "Finding yourself",
-            effect_description: "todo",
+            effect_description: "Happiness 1.3x",
             required_tier: 3,
+            icon: IconType::Happiness.into(),
         },
 
         // TIER 4 - 5000
         RebirthUpgradeTypes::AutoRebirth => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 3_000.0,
-            description: "Sometimes they ferry payment is more expensive than it should be",
-            display_name: "Bribe Charon 3",
-            effect_description: "todo",
+            description: "Why would you want to not rebirth?",
+            display_name: "Automate Rebirth",
+            effect_description: "Unlock automatic rebirth",
             required_tier: 4,
+            icon: IconType::Death.into(),
         },
         RebirthUpgradeTypes::BribeCharon3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 3_000.0,
             description: "Sometimes they ferry payment is more expensive than it should be",
             display_name: "Bribe Charon 3",
-            effect_description: "todo",
+            effect_description: "Coins 1.2x",
             required_tier: 4,
+            icon: IconType::Coin.into(),
         },
         RebirthUpgradeTypes::UnlockMeditation => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 4_000.0,
             description: "You can be good at things now",
             display_name: "Meditation",
-            effect_description: "todo",
+            effect_description: "Unlocks the Meditation skill",
             required_tier: 4,
+            icon: IconType::Mindfull.into(),
         },
         RebirthUpgradeTypes::SoldierXp3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 5000.0,
-            description: "TODO",
+            description: "I'll make a *man*, out of youuuuu!",
             display_name: "Soldier Experience 3",
-            effect_description: "todo",
+            effect_description: "Soldier job XP 2x",
             required_tier: 4,
+            icon: IconType::Soldier.into(),
         },
         RebirthUpgradeTypes::LaborXp3 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 8000.0,
-            description: "TODO",
+            description: "Work stronger",
             display_name: "Labor Experience 3",
-            effect_description: "todo",
+            effect_description: "Labor job XP 1.5x",
             required_tier: 4,
+            icon: IconType::Labor.into(),
         },
         RebirthUpgradeTypes::StartingWealth4 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 8000.0,
             description: "Anything is better than nothing",
-            display_name: "Starting Items",
-            effect_description: "todo",
+            display_name: "Starting Wealth",
+            effect_description: "1m + items",
             required_tier: 4,
+            icon: IconType::Money.into(),
         },
         RebirthUpgradeTypes::UnlockFaith => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 10_000.0,
             description: "Believing in gods is not that hard when they actualy exists",
             display_name: "Unlock Faith",
-            effect_description: "todo",
+            effect_description: "Unlocks the Faith stat",
             required_tier: 4,
+            icon: IconType::Faith.into(),
         },
         RebirthUpgradeTypes::AcceptingDeath4 => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 20_000.0,
             description: "You know who you are. And that someone is going to be important one day",
-            display_name: "Finding yourself",
-            effect_description: "todo",
+            display_name: "Finding Happiness",
+            effect_description: "Happiness 1.5x",
             required_tier: 4,
+            icon: IconType::Happiness.into(),
         },
         RebirthUpgradeTypes::AutoEndEarly => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 30_000.0,
-            description: "todo",
+            description: "Might as well end it all",
             display_name: "AutoEndEarly",
-            effect_description: "todo",
+            effect_description: "End early based on criteria",
             required_tier: 4,
+            icon: IconType::Death.into(),
         },
 
         // TIER 5 - 50 000
         RebirthUpgradeTypes::AutoBuyBlessing => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 6000.0,
-            description: "todo",
-            display_name: "Automate Buying of Blessings",
-            effect_description: "todo",
+            description: "You should visit your local church regularly",
+            display_name: "Automate Blessings",
+            effect_description: "Unlock autobuying blessings",
             required_tier: 5,
+            icon: IconType::Automate.into(),
         },
         RebirthUpgradeTypes::Replay => RebirthUpgrade {
             name: rebirth_upgrade,
             purchasing_cost: 6_000.0,
             description: "Are you still playing?",
             display_name: "Replay",
-            effect_description: "todo",
+            effect_description: "You can replay your inputs",
             required_tier: 5,
+            icon: IconType::Automate.into(),
         },
         // TIER 6 - 500 000
-        RebirthUpgradeTypes::TheDivine => RebirthUpgrade {
-            name: rebirth_upgrade,
-            purchasing_cost: 600_000.0,
-            description: "Have a little faith",
-            display_name: "Connect With The Gods",
-            effect_description: "todo",
-            required_tier: 6,
-        },
+        // RebirthUpgradeTypes::TheDivine => RebirthUpgrade {
+        //     name: rebirth_upgrade,
+        //     purchasing_cost: 600_000.0,
+        //     description: "Have a little faith",
+        //     display_name: "Connect With The Gods",
+        //     effect_description: "todo",
+        //     required_tier: 6,
+        //     icon: IconType::Happiness.into(),
+        // },
         // RebirthUpgradeTypes::StatMemory1 => RebirthUpgrade {
         //     name: rebirth_upgrade,
         //     purchasing_cost: 60.0,
@@ -466,6 +503,7 @@ pub const fn translate_rebirth_upgrade(rebirth_upgrade: RebirthUpgradeTypes) -> 
         //     display_name: "A feeling of the past",
         //     effect_description: "todo",
         //     required_tier: 2,
+        //     icon: IconType::Happiness.into(),
         // },
     }
 }
