@@ -262,7 +262,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Fisherman income",
             display_name: "Fishing Gear",
             required_tier: 1,
-            icon: IconType::Question.into(),
+            icon: IconType::Labor.into(),
         },
         BoostItemTypes::Burial1 => BoostItem {
             name: item_type,
@@ -327,7 +327,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Farmer income",
             display_name: "Pitchfork",
             required_tier: 2,
-            icon: IconType::Question.into(),
+            icon: IconType::Labor.into(),
         },
         BoostItemTypes::Book4 => BoostItem {
             name: item_type,
@@ -401,7 +401,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mining income",
             display_name: "Iron Pickaxe",
             required_tier: 3,
-            icon: IconType::Question.into(),
+            icon: IconType::Labor.into(),
         },
         BoostItemTypes::MiningGear => BoostItem {
             name: item_type,
@@ -410,7 +410,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mining income",
             display_name: "Mining Gear",
             required_tier: 3,
-            icon: IconType::Question.into(),
+            icon: IconType::Labor.into(),
         },
         BoostItemTypes::ExpertMiningGear => BoostItem {
             name: item_type,
@@ -419,7 +419,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Mining income",
             display_name: "Expert Mining Gear",
             required_tier: 4,
-            icon: IconType::Question.into(),
+            icon: IconType::Labor.into(),
         },
         BoostItemTypes::IronAxe => BoostItem {
             name: item_type,
@@ -428,7 +428,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             effect_description: "2x Woodcutter income",
             display_name: "Iron Axe",
             required_tier: 3,
-            icon: IconType::Question.into(),
+            icon: IconType::Labor.into(),
         },
         BoostItemTypes::HealthKit => BoostItem {
             name: item_type,

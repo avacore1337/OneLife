@@ -42,14 +42,16 @@
       Show Recorded
     </MyToggle>
     <b-button @click="wasm.toggle_paused">
-      <span v-if="metaData.options.paused">
-        <my-icon :icon="world.icons['Play']" style="margin-right: 0.3rem" />
-        Resume the game
-      </span>
-      <span v-if="!metaData.options.paused">
-        <my-icon :icon="world.icons['Pause']" style="margin-right: 0.3rem" />
-        Pause the game
-      </span>
+      <icon-with-text
+        v-if="metaData.options.paused"
+        :icon="world.icons['Play']"
+        text="Resume the game"
+      />
+      <icon-with-text
+        v-if="!metaData.options.paused"
+        :icon="world.icons['Pause']"
+        text="Pause the game"
+      />
     </b-button>
   </div>
 </template>

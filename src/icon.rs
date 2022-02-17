@@ -71,7 +71,7 @@ pub fn get_icon_name(icon: IconType) -> &'static str {
         IconType::Priest => "hammer", // should be something else
         IconType::Death => "skull-crossbones",
         IconType::Tomb => "skull", // should be a tombstone
-        IconType::Automate => "gears",
+        IconType::Automate => "cogs",
     }
 }
 

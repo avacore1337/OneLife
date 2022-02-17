@@ -26,14 +26,16 @@
     Currencies
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>
-        <my-icon :icon="world.icons['Money']" />
-        Money: <FormatNumber :value="state.items.money" />
+        <icon-with-text :icon="world.icons['Money']">
+          Money: <FormatNumber :value="state.items.money" />
+        </icon-with-text>
         <br />
         Income: <FormatNumber :value="state.items.income" />/s
       </p>
       <p v-if="state.rebirth_stats.unlocks.has_faith">
-        <my-icon :icon="world.icons['DivineFavor']" />
-        Divine Favor: <FormatNumber :value="state.items.divine_favor" />
+        <icon-with-text :icon="world.icons['DivineFavor']">
+          Divine Favor: <FormatNumber :value="state.items.divine_favor" />
+        </icon-with-text>
         <br />
         Income: <FormatNumber :value="state.items.divine_favor_rate" />/s
       </p>
@@ -45,13 +47,16 @@
       <p>Age: <FormatDays :value="state.life_stats.age" /></p>
       <p>Lifespan: <FormatDays :value="state.life_stats.lifespan" /></p>
       <p>
-        <my-icon :icon="world.icons['Health']" />
-        Health: {{ state.life_stats.health.toFixed(2) }} Rate:
+        <icon-with-text :icon="world.icons['Health']">
+          Health: {{ state.life_stats.health.toFixed(2) }}
+        </icon-with-text>
+        Rate:
         {{ state.life_stats.health_rate.toPrecision(2) }}/s
       </p>
       <p>
-        <my-icon :icon="world.icons['Happiness']" />
-        Happiness: {{ state.life_stats.happiness.toFixed(1) }}
+        <icon-with-text :icon="world.icons['Happiness']">
+          Happiness: {{ state.life_stats.happiness.toFixed(1) }}
+        </icon-with-text>
       </p>
       <p>Alive: {{ life_status() }}</p>
       <p>Tick: <FormatNumber :value="state.life_stats.current_tick" /></p>
@@ -66,12 +71,14 @@
         {{ world.tiers[state.rebirth_stats.tier].display_name }}
       </p>
       <p>
-        <my-icon :icon="world.icons['Coin']" />
-        Coins: <FormatNumber :value="state.rebirth_stats.coins" />
+        <icon-with-text :icon="world.icons['Coin']">
+          Coins: <FormatNumber :value="state.rebirth_stats.coins" />
+        </icon-with-text>
       </p>
       <p>
-        <my-icon :icon="world.icons['Coin']" />
-        Coins Gain: <FormatNumber :value="state.rebirth_stats.coins_gain" />
+        <icon-with-text :icon="world.icons['Coin']">
+          Coins Gain: <FormatNumber :value="state.rebirth_stats.coins_gain" />
+        </icon-with-text>
       </p>
       <div v-if="false">
         <p>Karma: {{ state.rebirth_stats.karma }}</p>
