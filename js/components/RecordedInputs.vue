@@ -3,7 +3,7 @@
     <button @click="clear_recorded">Clear Recorded</button>
     <br />
     <table>
-      <tr v-for="entry in entries" :key="entry" @click="remove_recorded(entry.id)">
+      <tr v-for="(entry, index) in entries" :key="index" @click="remove_recorded(entry.id)">
         <td>
           <p>tick:{{ entry.tick }} | {{ entry.name }}</p>
         </td>

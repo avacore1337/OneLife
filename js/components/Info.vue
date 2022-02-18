@@ -3,7 +3,7 @@
     <div>
       <h3>Story</h3>
       <div class="log-area">
-        <span v-for="text in world.tutorial_texts">
+        <span v-for="(text, index) in world.tutorial_texts" :key="index">
           {{ text }}
           <hr />
         </span>
@@ -13,7 +13,7 @@
     <div>
       <h3>Tutorial</h3>
       <div class="log-area">
-        <span v-for="text in world.tutorial_texts">
+        <span v-for="(text, index) in world.tutorial_texts" :key="index">
           {{ text }}
           <hr />
         </span>

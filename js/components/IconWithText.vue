@@ -14,7 +14,10 @@
 <script>
 export default {
   props: {
-    icon: Object,
+    icon: {
+      type: Object,
+      required: true,
+    },
     text: {
       type: String,
       default: '',

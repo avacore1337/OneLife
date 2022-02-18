@@ -12,7 +12,7 @@
     <br />
     <WorkCategory
       v-if="state.rebirth_stats.unlocks.has_faith"
-      name="Soldiering"
+      name="Priesthood"
       :thework="visible_priest_work"
       :input="input"
       :wasm="wasm"
