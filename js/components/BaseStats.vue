@@ -6,24 +6,27 @@
         v-for="[stat, stat_state] in visible_stats"
         :key="stat.name"
         v-b-tooltip.hover.right.html="tooltip(stat)"
+        style="margin-bottom: 1rem"
       >
-        <icon-with-text :icon="stat.icon">
-          <span>{{ stat.display_name }}: {{ stat_state.level }} </span>
-          <span> xp rate: <FormatNumber :value="stat_state.xp_rate" /> </span>
-        </icon-with-text>
-        <ProgressBar :value="stat_state.next_level_percentage" :decimal-points="2"></ProgressBar>
-        <br />
+        <MyProgressBar :value="stat_state.next_level_percentage">
+          <span style="display: flex; justify-content: space-between; width: 100%">
+            <icon-with-text :icon="stat.icon" color="black">
+              <span>{{ stat.display_name }}</span>
+            </icon-with-text>
+            <span> Level: {{ stat_state.level }} </span>
+          </span>
+        </MyProgressBar>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProgressBar from './ProgressBar.vue'
+import MyProgressBar from './MyProgressBar.vue'
 import FormatNumber from './FormatNumber.vue'
 
 export default {
-  components: { ProgressBar, FormatNumber },
+  components: { MyProgressBar, FormatNumber },
   props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_stats() {

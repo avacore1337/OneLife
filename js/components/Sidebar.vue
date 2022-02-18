@@ -50,7 +50,7 @@
 
     <br />
     Life Stats
-    <div style="border: solid; margin: 2px; padding: 10px">
+    <div class="column-flex" style="border: solid; margin: 2px; padding: 10px">
       <p v-b-tooltip.hover.right="age_tooltip">Age: <FormatDays :value="state.life_stats.age" /></p>
       <p v-b-tooltip.hover.right="lifespan_tooltip">
         Lifespan: <FormatDays :value="state.life_stats.lifespan" />
@@ -61,7 +61,7 @@
         </icon-with-text>
         <br />
         <span v-b-tooltip.hover.right="health_rate_tooltip">
-          Health Change Rate:
+          Health Change:
           {{ state.life_stats.health_rate.toPrecision(2) }}/s
         </span>
       </p>
@@ -109,11 +109,10 @@
 import BaseStats from './BaseStats.vue'
 import MyProgressBar from './MyProgressBar.vue'
 import Skills from './Skills.vue'
-import ProgressBar from './ProgressBar.vue'
 import FormatNumber from './FormatNumber.vue'
 import FormatDays from './FormatDays.vue'
 export default {
-  components: { ProgressBar, BaseStats, Skills, FormatNumber, FormatDays, MyProgressBar },
+  components: { BaseStats, Skills, FormatNumber, FormatDays, MyProgressBar },
   props: ['state', 'world', 'input', 'wasm', 'metaData'],
   data() {
     return {

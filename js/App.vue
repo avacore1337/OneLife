@@ -218,8 +218,7 @@ span.the-modal {
 }
 
 .left-sidebar {
-  width: 340px;
-  /* width: 280px; todo, use this value instead? */
+  width: 280px;
   flex-shrink: 0;
 }
 

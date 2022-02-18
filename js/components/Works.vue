@@ -21,11 +21,10 @@
 </template>
 
 <script>
-import ProgressBar from './ProgressBar.vue'
 import WorkCategory from './WorkCategory.vue'
 
 export default {
-  components: { ProgressBar, WorkCategory },
+  components: { WorkCategory },
   props: ['metaData', 'state', 'world', 'input', 'wasm'],
   computed: {
     visible_labor_work() {

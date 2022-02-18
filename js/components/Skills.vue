@@ -6,23 +6,26 @@
         v-for="[skill, skill_state] in visible_skills"
         :key="skill.name"
         v-b-tooltip.hover.right.html="tooltip(skill)"
+        style="margin-bottom: 1rem"
       >
-        <icon-with-text :icon="skill.icon">
-          <span>{{ skill.display_name }}: {{ skill_state.level }} </span>
-          <span> xp rate: {{ Math.round(skill_state.xp_rate) }} </span>
-        </icon-with-text>
-        <ProgressBar :value="skill_state.next_level_percentage" :decimal-points="2"> </ProgressBar>
-        <br />
+        <MyProgressBar :value="skill_state.next_level_percentage">
+          <span style="display: flex; justify-content: space-between; width: 100%">
+            <icon-with-text :icon="skill.icon" color="black">
+              <span>{{ skill.display_name }}</span>
+            </icon-with-text>
+            <span> Level: {{ skill_state.level }} </span>
+          </span>
+        </MyProgressBar>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProgressBar from './ProgressBar.vue'
+import MyProgressBar from './MyProgressBar.vue'
 
 export default {
-  components: { ProgressBar },
+  components: { MyProgressBar },
   props: ['state', 'world', 'input', 'wasm'],
   computed: {
     visible_skills() {
