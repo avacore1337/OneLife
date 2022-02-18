@@ -11,7 +11,12 @@
           <th>Bought Items</th>
           <th>Effect</th>
         </tr>
-        <tr v-for="[item, item_state] in bought_items" :key="item.name" class="info-tr">
+        <tr
+          v-for="[item, item_state] in bought_items"
+          :key="item.name"
+          class="info-tr"
+          v-b-tooltip.hover.left="item.description"
+        >
           <td>
             <span>{{ item.display_name }}</span>
           </td>
@@ -32,11 +37,12 @@
         v-for="[item, item_state] in visible_unbought_items"
         :key="item.name"
         :class="{
-          disabled:
+          mydisabled:
             !item_state.is_unlocked && !(shift && state.rebirth_stats.unlocks.can_queue_item),
         }"
         @click.shift.exact="wasm.queue_item(item.name)"
         @click="buy_item(item.name, $event)"
+        v-b-tooltip.hover.left="item.description"
       >
         <td style="flex-grow: 2">
           {{ item.display_name }}

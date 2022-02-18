@@ -32,11 +32,11 @@
   border-bottom: 0.4rem solid #1a202b;
 }
 
-tr.disabled:hover {
+tr.mydisabled:hover {
   cursor: default;
 }
 
-tr.disabled {
+tr.mydisabled {
   cursor: inherit;
   background-color: #84878a;
   color: rgba(255, 255, 255, 0.5);

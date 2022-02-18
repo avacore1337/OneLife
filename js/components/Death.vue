@@ -33,7 +33,7 @@
       <tr
         v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.tier)"
         :key="tier.name"
-        :class="{ disabled: !wasm.can_buy_tier(tier.level) }"
+        :class="{ mydisabled: !wasm.can_buy_tier(tier.level) }"
         @click="buy_tier(tier.level)"
       >
         <td>T{{ tier.level }} {{ tier.display_name }}</td>

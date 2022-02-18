@@ -7,7 +7,7 @@
       <tr
         v-for="item in item_queue"
         :key="item.name"
-        v-b-tooltip.hover.left="info_text(item)"
+        v-b-tooltip.hover.left="item.description"
         class="no-select"
       >
         <td @click="wasm.dequeue_item(item.name)">
@@ -21,11 +21,7 @@
 <script>
 export default {
   props: ['item_queue', 'wasm'],
-  methods: {
-    info_text(item) {
-      return item.display_name
-    },
-  },
+  methods: {},
 }
 </script>
 

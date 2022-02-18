@@ -9,7 +9,7 @@
       <tr
         v-for="[activity, activity_state] in visible_activities"
         :key="activity.name"
-        :class="{ disabled: !activity_state.is_unlocked }"
+        :class="{ mydisabled: !activity_state.is_unlocked }"
         @click="wasm.set_activity(activity.name)"
       >
         <td>

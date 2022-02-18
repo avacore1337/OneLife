@@ -14,7 +14,7 @@
         v-for="[work, work_state] in thework"
         :key="work.name"
         class="no-touch"
-        :class="{ disabled: !work_state.is_unlocked }"
+        :class="{ mydisabled: !work_state.is_unlocked }"
         @click="work_state.is_unlocked && wasm.set_work(work.name)"
       >
         <td>

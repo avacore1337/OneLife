@@ -10,7 +10,7 @@
       <tr
         v-for="[housing, housing_state] in visible_housing"
         :key="housing.name"
-        :class="{ disabled: !housing_state.is_unlocked }"
+        :class="{ mydisabled: !housing_state.is_unlocked }"
         @click="wasm.set_housing(housing.name)"
       >
         <td>

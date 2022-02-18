@@ -26,7 +26,7 @@
       <tr
         v-for="[tomb, tomb_state] in visible_unbought_tombs"
         :key="tomb.name"
-        :class="{ disabled: !tomb_state.is_unlocked }"
+        :class="{ mydisabled: !tomb_state.is_unlocked }"
         @click="buyTomb(tomb.name)"
       >
         <td>

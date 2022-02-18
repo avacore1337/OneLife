@@ -29,7 +29,7 @@
       <tr
         v-for="[upgrade, upgrade_state] in visible_unbought_upgrades"
         :key="upgrade.name"
-        :class="{ disabled: !upgrade_state.is_unlocked }"
+        :class="{ mydisabled: !upgrade_state.is_unlocked }"
         @click="wasm.buy_rebirth_upgrade(upgrade.name)"
       >
         <td style="flex-grow: 2">{{ upgrade.display_name }}</td>

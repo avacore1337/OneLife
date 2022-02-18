@@ -10,7 +10,7 @@
       <tr
         v-for="[blessing, blessing_state] in visible_blessings"
         :key="blessing.name"
-        :class="{ disabled: !blessing_state.is_unlocked }"
+        :class="{ mydisabled: !blessing_state.is_unlocked }"
         @click="wasm.buy_blessing(blessing.name)"
       >
         <td style="flex-grow: 3">
