@@ -1,7 +1,7 @@
 <template>
   <div>
-    Base Stats
-    <div style="border: solid; margin: 2px; padding: 10px">
+    <h4 class="section-header">Base Stats</h4>
+    <div class="section">
       <div
         v-for="[stat, stat_state] in visible_stats"
         :key="stat.name"

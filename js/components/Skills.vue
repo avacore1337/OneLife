@@ -1,7 +1,7 @@
 <template>
   <div>
-    Skills
-    <div style="border: solid; margin: 2px; padding: 10px">
+    <h4 class="section-header">Skills</h4>
+    <div class="section">
       <div
         v-for="[skill, skill_state] in visible_skills"
         :key="skill.name"

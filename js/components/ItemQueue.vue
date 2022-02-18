@@ -1,20 +1,17 @@
 <template>
-  <div class="section" style="min-height: 20rem">
-    <table>
-      <tr>
-        Item Queue
-      </tr>
-      <tr
+  <div>
+    <h4 class="section-header">Item Queue</h4>
+    <div class="section" style="min-height: 20rem">
+      <div
         v-for="item in item_queue"
         :key="item.name"
         v-b-tooltip.hover.left="item.description"
         class="no-select"
+        @click="wasm.dequeue_item(item.name)"
       >
-        <td @click="wasm.dequeue_item(item.name)">
-          <span>{{ item.display_name }} </span>
-        </td>
-      </tr>
-    </table>
+        <span>{{ item.display_name }} </span>
+      </div>
+    </div>
   </div>
 </template>
 

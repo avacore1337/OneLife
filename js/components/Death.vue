@@ -1,6 +1,6 @@
 <template>
   <Section2>
-    <h2 style="margin-bottom: 1rem">Death Section</h2>
+    <h4 style="margin-bottom: 1rem">Death Section</h4>
     <div style="margin-bottom: 1rem">
       <b-button
         v-if="

@@ -33,7 +33,7 @@
       </div>
 
       <div class="right-sidebar">
-        <div style="border: 5px solid white; padding: 10px">
+        <div>
           <SidebarRight
             :world="world"
             :meta-data="metaData"
@@ -43,7 +43,7 @@
             :item_queue="item_queue"
           />
         </div>
-        <div v-if="world.settings.display_debug" style="border: 5px solid white; padding: 10px">
+        <div v-if="world.settings.display_debug">
           <Debug :world="world" :meta-data="metaData" :state="state" :input="input" :wasm="wasm" />
         </div>
       </div>

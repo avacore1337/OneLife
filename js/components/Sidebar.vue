@@ -1,5 +1,5 @@
 <template>
-  <div style="border: solid; margin: 2px">
+  <div style="margin-top: 1rem">
     <BaseStats :state="state" :input="input" :world="world" :wasm="wasm" />
     <Skills
       v-if="state.rebirth_stats.unlocks.has_skills"
@@ -9,13 +9,8 @@
       :wasm="wasm"
     />
 
-    <br />
-    Current Work
-    <div
-      v-for="[work, work_state] in current_work"
-      :key="work.name"
-      style="border: solid; margin: 2px; padding: 10px"
-    >
+    <h4 class="section-header">Current Work</h4>
+    <div v-for="[work, work_state] in current_work" :key="work.name" class="section">
       <MyProgressBar :value="work_state.next_level_percentage">
         <span style="display: flex; justify-content: space-between; width: 100%">
           <span>{{ work.display_name }} </span>
@@ -23,9 +18,9 @@
         </span>
       </MyProgressBar>
     </div>
-    <br />
-    Currencies
-    <div class="column-flex" style="border: solid; margin: 2px; padding: 10px">
+
+    <h4 class="section-header">Currencies</h4>
+    <div class="section column-flex">
       <icon-with-text v-b-tooltip.hover.right="money_tooltip" :icon="world.icons['Money']">
         Money: <FormatNumber :value="state.items.money" />
       </icon-with-text>
@@ -48,9 +43,8 @@
       </span>
     </div>
 
-    <br />
-    Life Stats
-    <div class="column-flex" style="border: solid; margin: 2px; padding: 10px">
+    <h4 class="section-header">Life Stats</h4>
+    <div class="section column-flex">
       <p v-b-tooltip.hover.right="age_tooltip">Age: <FormatDays :value="state.life_stats.age" /></p>
       <p v-b-tooltip.hover.right="lifespan_tooltip">
         Lifespan: <FormatDays :value="state.life_stats.lifespan" />
@@ -79,9 +73,8 @@
       </p>
     </div>
 
-    <br />
-    Rebirth Stats
-    <div style="border: solid; margin: 2px; padding: 10px">
+    <h4 class="section-header">Rebirth Stats</h4>
+    <div class="section column-flex">
       <p>Life number: {{ state.rebirth_stats.rebirth_count + 1 }}</p>
       <p v-b-tooltip.hover.right="tier_tooltip">
         Tier: {{ state.rebirth_stats.tier }}
