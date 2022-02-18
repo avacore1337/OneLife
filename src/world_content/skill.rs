@@ -10,6 +10,7 @@ use strum::IntoEnumIterator;
 pub struct Skill {
     pub name: SkillTypes,
     pub description: &'static str,
+    pub effect_description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
     pub xp_req_modifier: f64,
@@ -44,6 +45,7 @@ pub fn translate_skill(skill: SkillTypes) -> Skill {
         SkillTypes::Mindfull => Skill {
             name: skill,
             description: "Be one with the world",
+            effect_description: "Multiplies Happiness by 1 + level*0.05",
             display_name: "Mindefullness",
             required_tier: 1,
             xp_req_modifier: 4.0,
@@ -52,6 +54,7 @@ pub fn translate_skill(skill: SkillTypes) -> Skill {
         SkillTypes::Tactics => Skill {
             name: skill,
             description: "Flank them!",
+            effect_description: "Multiplies Soldier XP by 1 + level*0.05",
             display_name: "Military Tactics",
             required_tier: 3,
             xp_req_modifier: 1.0,

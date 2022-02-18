@@ -5,7 +5,7 @@
       <div
         v-for="[skill, skill_state] in visible_skills"
         :key="skill.name"
-        v-b-tooltip.hover.right="'tooltip todo'"
+        v-b-tooltip.hover.right.html="tooltip(skill)"
       >
         <icon-with-text :icon="skill.icon">
           <span>{{ skill.display_name }}: {{ skill_state.level }} </span>
@@ -36,7 +36,11 @@ export default {
         })
     },
   },
-  methods: {},
+  methods: {
+    tooltip(stat) {
+      return stat.description + '\n\n' + stat.effect_description
+    },
+  },
 }
 </script>
 

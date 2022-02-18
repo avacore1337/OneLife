@@ -24,6 +24,7 @@ Vue.use(BVConfig, {
       show: 400,
       hide: 100,
     },
+    boundaryPadding: 80,
   },
 })
 

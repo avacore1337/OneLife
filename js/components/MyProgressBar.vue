@@ -3,9 +3,10 @@
   <div class="progress" style="position: relative">
     <div id="myBar" class="my-bar" :style="{ width: value + '%' }"></div>
     <div class="progress-text">
-      <span :class="{ selected: selected }">
+      <span v-if="name !== undefined" :class="{ selected: selected }">
         {{ name }}
       </span>
+      <slot v-if="name === undefined" />
     </div>
   </div>
 </template>
@@ -35,6 +36,7 @@ export default {
   color: black;
   box-sizing: inherit;
   white-space: nowrap;
+  width: 100%;
 }
 .selected {
   text-decoration: underline;

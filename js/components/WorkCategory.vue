@@ -19,7 +19,6 @@
       >
         <td>
           <MyProgressBar
-            v-if="work_state.next_level_percentage !== undefined"
             :value="work_state.next_level_percentage"
             :name="work.display_name"
             :selected="work.name == input.work"

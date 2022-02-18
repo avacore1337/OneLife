@@ -15,63 +15,66 @@
       v-for="[work, work_state] in current_work"
       :key="work.name"
       style="border: solid; margin: 2px; padding: 10px"
-      v-b-tooltip.hover.right="'tooltip todo'"
     >
-      {{ work.display_name }}
-      {{ work_state.level }}
-      <br />
-      {{ work_state.effective_income.toFixed(1) }}/s
-      <ProgressBar :value="work_state.next_level_percentage" :decimal-points="2" />
+      <MyProgressBar :value="work_state.next_level_percentage">
+        <span style="display: flex; justify-content: space-between; width: 100%">
+          <span>{{ work.display_name }} </span>
+          <span> Level {{ work_state.level }} </span>
+        </span>
+      </MyProgressBar>
     </div>
     <br />
     Currencies
-    <div style="border: solid; margin: 2px; padding: 10px">
-      <p>
-        <icon-with-text :icon="world.icons['Money']" v-b-tooltip.hover.right="'tooltip todo'">
-          Money: <FormatNumber :value="state.items.money" />
-        </icon-with-text>
-        <br />
-        <span v-b-tooltip.hover.right="'tooltip todo'">
-          Income: <FormatNumber :value="state.items.income" />/s
-        </span>
-      </p>
-      <p v-if="state.rebirth_stats.unlocks.has_faith">
-        <icon-with-text :icon="world.icons['DivineFavor']" v-b-tooltip.hover.right="'tooltip todo'">
-          Divine Favor: <FormatNumber :value="state.items.divine_favor" />
-        </icon-with-text>
-        <br />
+    <div class="column-flex" style="border: solid; margin: 2px; padding: 10px">
+      <icon-with-text :icon="world.icons['Money']" v-b-tooltip.hover.right="money_tooltip">
+        Money: <FormatNumber :value="state.items.money" />
+      </icon-with-text>
+      <span v-b-tooltip.hover.right="money_income_tooltip">
+        Income: <FormatNumber :value="state.items.income" />/s
+      </span>
+      <icon-with-text
+        v-if="state.rebirth_stats.unlocks.has_faith"
+        :icon="world.icons['DivineFavor']"
+        v-b-tooltip.hover.right="divine_tooltip"
+      >
+        Divine Favor: <FormatNumber :value="state.items.divine_favor" />
+      </icon-with-text>
+      <br />
+      <span
+        v-if="state.rebirth_stats.unlocks.has_faith"
+        v-b-tooltip.hover.right="divine_income_tooltip"
+      >
         Income: <FormatNumber :value="state.items.divine_favor_rate" />/s
-      </p>
+      </span>
     </div>
 
     <br />
     Life Stats
     <div style="border: solid; margin: 2px; padding: 10px">
-      <p v-b-tooltip.hover.right="'tooltip todo'">
-        Age: <FormatDays :value="state.life_stats.age" />
-      </p>
-      <p v-b-tooltip.hover.right="'tooltip todo'">
+      <p v-b-tooltip.hover.right="age_tooltip">Age: <FormatDays :value="state.life_stats.age" /></p>
+      <p v-b-tooltip.hover.right="lifespan_tooltip">
         Lifespan: <FormatDays :value="state.life_stats.lifespan" />
       </p>
       <p>
-        <icon-with-text :icon="world.icons['Health']" v-b-tooltip.hover.right="'tooltip todo'">
+        <icon-with-text :icon="world.icons['Health']" v-b-tooltip.hover.right="health_tooltip">
           Health: {{ state.life_stats.health.toFixed(2) }}
         </icon-with-text>
-        Rate:
-        {{ state.life_stats.health_rate.toPrecision(2) }}/s
+        <br />
+        <span v-b-tooltip.hover.right="health_rate_tooltip">
+          Health Change Rate:
+          {{ state.life_stats.health_rate.toPrecision(2) }}/s
+        </span>
       </p>
       <p>
         <icon-with-text
           :icon="world.icons['Happiness']"
-          v-b-tooltip.hover.right="'Happiness boosts gained work XP'"
+          v-b-tooltip.hover.right="happiness_tooltip"
         >
           Happiness: {{ state.life_stats.happiness.toFixed(1) }}
         </icon-with-text>
       </p>
-      <p v-b-tooltip.hover.right="'If you are currently alive, dead or dying'">
-        Alive: {{ life_status() }}
-      </p>
-      <p v-b-tooltip.hover.right="'Happiness boosts gained work XP'">
+      <p v-b-tooltip.hover.right="life_status_tooltip">Alive: {{ life_status() }}</p>
+      <p v-b-tooltip.hover.right="current_tick_tooltip">
         Tick: <FormatNumber :value="state.life_stats.current_tick" />
       </p>
     </div>
@@ -80,27 +83,17 @@
     Rebirth Stats
     <div style="border: solid; margin: 2px; padding: 10px">
       <p>Life number: {{ state.rebirth_stats.rebirth_count + 1 }}</p>
-      <p
-        v-b-tooltip.hover.right="
-          'What your current tier is. This is the main progression in the game and decides starting stats and what can/can not be bought'
-        "
-      >
+      <p v-b-tooltip.hover.right="tier_tooltip">
         Tier: {{ state.rebirth_stats.tier }}
         {{ world.tiers[state.rebirth_stats.tier].display_name }}
       </p>
       <p>
-        <icon-with-text
-          :icon="world.icons['Coin']"
-          v-b-tooltip.hover.right="'The main currency used for progressing between rebirths'"
-        >
+        <icon-with-text :icon="world.icons['Coin']" v-b-tooltip.hover.right="coin_tooltip">
           Coins: <FormatNumber :value="state.rebirth_stats.coins" />
         </icon-with-text>
       </p>
       <p>
-        <icon-with-text
-          :icon="world.icons['Coin']"
-          v-b-tooltip.hover.right="'How many coins you would get if you rebirthed right now'"
-        >
+        <icon-with-text :icon="world.icons['Coin']" v-b-tooltip.hover.right="coin_income_tooltip">
           Coins Gain: <FormatNumber :value="state.rebirth_stats.coins_gain" />
         </icon-with-text>
       </p>
@@ -114,13 +107,35 @@
 
 <script>
 import BaseStats from './BaseStats.vue'
+import MyProgressBar from './MyProgressBar.vue'
 import Skills from './Skills.vue'
 import ProgressBar from './ProgressBar.vue'
 import FormatNumber from './FormatNumber.vue'
 import FormatDays from './FormatDays.vue'
 export default {
-  components: { ProgressBar, BaseStats, Skills, FormatNumber, FormatDays },
+  components: { ProgressBar, BaseStats, Skills, FormatNumber, FormatDays, MyProgressBar },
   props: ['state', 'world', 'input', 'wasm', 'metaData'],
+  data() {
+    return {
+      money_tooltip: 'The amount of money you have to spend on housing/items/tombs',
+      money_income_tooltip: 'Your current effective income per second (net income - housing costs)',
+      divine_tooltip: 'The amount of divine favor you have to spend up blessings',
+      divine_income_tooltip: 'Divine income gained per second',
+      age_tooltip: 'Your current age, you will die when this value is equal to your Lifespan',
+      lifespan_tooltip:
+        'Your current maximum age, a value between 0 and 140 depending on your health',
+      health_tooltip: 'Your current health value, a value between -1 and 1',
+      health_rate_tooltip:
+        'How much your health is changing per second. \nDepends on both health modifier and current health',
+      coin_tooltip: 'The main currency used for progressing between rebirths',
+      coin_income_tooltip: 'How many coins you would get if you rebirthed right now',
+      happiness_tooltip: 'Happiness boosts gained work XP',
+      current_tick_tooltip: 'The amount of ticks since this rebirth started',
+      life_status_tooltip: 'If you are currently alive, dead or dying',
+      tier_tooltip:
+        'What your current tier is. This is the main progression in the game and decides starting stats and what can/can not be bought',
+    }
+  },
 
   computed: {
     current_work() {
@@ -159,4 +174,11 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.column-flex {
+  display: flex;
+  flex-direction: column;
+  /* align-items: start; */
+  gap: 5px;
+}
+</style>
