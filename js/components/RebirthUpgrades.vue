@@ -51,8 +51,8 @@ import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 import { compare } from '../utility.js'
 export default {
-  props: ['state', 'world', 'input', 'wasm', 'metaData'],
   components: { Section2, FormatNumber },
+  props: ['state', 'world', 'input', 'wasm', 'metaData'],
   computed: {
     visible_unbought_upgrades() {
       let self = this

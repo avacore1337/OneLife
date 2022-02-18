@@ -14,8 +14,8 @@
         <tr
           v-for="[item, item_state] in bought_items"
           :key="item.name"
-          class="info-tr"
           v-b-tooltip.hover.left="item.description"
+          class="info-tr"
         >
           <td>
             <span>{{ item.display_name }}</span>
@@ -36,13 +36,13 @@
       <tr
         v-for="[item, item_state] in visible_unbought_items"
         :key="item.name"
+        v-b-tooltip.hover.left="item.description"
         :class="{
           mydisabled:
             !item_state.is_unlocked && !(shift && state.rebirth_stats.unlocks.can_queue_item),
         }"
         @click.shift.exact="wasm.queue_item(item.name)"
         @click="buy_item(item.name, $event)"
-        v-b-tooltip.hover.left="item.description"
       >
         <td style="flex-grow: 2">
           {{ item.display_name }}
@@ -73,18 +73,6 @@ export default {
       shift: false,
     }
   },
-  mounted() {
-    window.addEventListener('keydown', (event) => {
-      if (event.key == 'Shift') {
-        this.shift = true
-      }
-    })
-    window.addEventListener('keyup', (event) => {
-      if (event.key == 'Shift') {
-        this.shift = false
-      }
-    })
-  },
   computed: {
     visible_unbought_items() {
       let self = this
@@ -108,6 +96,18 @@ export default {
         })
         .sort(compare)
     },
+  },
+  mounted() {
+    window.addEventListener('keydown', (event) => {
+      if (event.key == 'Shift') {
+        this.shift = true
+      }
+    })
+    window.addEventListener('keyup', (event) => {
+      if (event.key == 'Shift') {
+        this.shift = false
+      }
+    })
   },
   methods: {
     buy_item(val, e) {

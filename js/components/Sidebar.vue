@@ -26,7 +26,7 @@
     <br />
     Currencies
     <div class="column-flex" style="border: solid; margin: 2px; padding: 10px">
-      <icon-with-text :icon="world.icons['Money']" v-b-tooltip.hover.right="money_tooltip">
+      <icon-with-text v-b-tooltip.hover.right="money_tooltip" :icon="world.icons['Money']">
         Money: <FormatNumber :value="state.items.money" />
       </icon-with-text>
       <span v-b-tooltip.hover.right="money_income_tooltip">
@@ -34,8 +34,8 @@
       </span>
       <icon-with-text
         v-if="state.rebirth_stats.unlocks.has_faith"
-        :icon="world.icons['DivineFavor']"
         v-b-tooltip.hover.right="divine_tooltip"
+        :icon="world.icons['DivineFavor']"
       >
         Divine Favor: <FormatNumber :value="state.items.divine_favor" />
       </icon-with-text>
@@ -56,7 +56,7 @@
         Lifespan: <FormatDays :value="state.life_stats.lifespan" />
       </p>
       <p>
-        <icon-with-text :icon="world.icons['Health']" v-b-tooltip.hover.right="health_tooltip">
+        <icon-with-text v-b-tooltip.hover.right="health_tooltip" :icon="world.icons['Health']">
           Health: {{ state.life_stats.health.toFixed(2) }}
         </icon-with-text>
         <br />
@@ -67,8 +67,8 @@
       </p>
       <p>
         <icon-with-text
-          :icon="world.icons['Happiness']"
           v-b-tooltip.hover.right="happiness_tooltip"
+          :icon="world.icons['Happiness']"
         >
           Happiness: {{ state.life_stats.happiness.toFixed(1) }}
         </icon-with-text>
@@ -88,12 +88,12 @@
         {{ world.tiers[state.rebirth_stats.tier].display_name }}
       </p>
       <p>
-        <icon-with-text :icon="world.icons['Coin']" v-b-tooltip.hover.right="coin_tooltip">
+        <icon-with-text v-b-tooltip.hover.right="coin_tooltip" :icon="world.icons['Coin']">
           Coins: <FormatNumber :value="state.rebirth_stats.coins" />
         </icon-with-text>
       </p>
       <p>
-        <icon-with-text :icon="world.icons['Coin']" v-b-tooltip.hover.right="coin_income_tooltip">
+        <icon-with-text v-b-tooltip.hover.right="coin_income_tooltip" :icon="world.icons['Coin']">
           Coins Gain: <FormatNumber :value="state.rebirth_stats.coins_gain" />
         </icon-with-text>
       </p>
