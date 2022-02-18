@@ -64,3 +64,17 @@ tr.mydisabled {
 .info-tr:hover {
   cursor: default !important;
 }
+.tooltip.b-tooltip {
+  opacity: 1 !important;
+}
+
+.tooltip-inner {
+  border: 1px solid white;
+}
+
+.tooltip .tooltip-inner {
+  max-width: 500px !important;
+  width: 300px !important;
+  background-color: #333c4a;
+  white-space: pre-line;
+}

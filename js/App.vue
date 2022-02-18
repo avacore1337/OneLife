@@ -205,6 +205,7 @@ body {
 }
 
 span.the-modal {
+  white-space: pre-line;
   color: black;
 }
 
@@ -217,7 +218,8 @@ span.the-modal {
 }
 
 .left-sidebar {
-  width: 280px;
+  width: 340px;
+  /* width: 280px; todo, use this value instead? */
   flex-shrink: 0;
 }
 

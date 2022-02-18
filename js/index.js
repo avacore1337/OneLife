@@ -4,7 +4,7 @@ import IconWithText from './components/IconWithText.vue'
 
 import { store } from './store.js'
 
-import { BootstrapVue } from 'bootstrap-vue'
+import { BootstrapVue, BVConfig } from 'bootstrap-vue'
 import Vue from 'vue/dist/vue.js'
 import VueGtag from 'vue-gtag'
 import Icon from 'vue-awesome/components/Icon'
@@ -17,6 +17,16 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(VueGtag, {
   config: { id: 'G-JW5LS1NXT6' },
 })
+
+Vue.use(BVConfig, {
+  BTooltip: {
+    delay: {
+      show: 400,
+      hide: 100,
+    },
+  },
+})
+
 Vue.use(BootstrapVue)
 
 Vue.config.performance = true

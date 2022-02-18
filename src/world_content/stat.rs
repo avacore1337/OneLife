@@ -10,6 +10,7 @@ use strum::IntoEnumIterator;
 pub struct Stat {
     pub name: StatTypes,
     pub description: &'static str,
+    pub effect_description: &'static str,
     pub display_name: &'static str,
     pub required_tier: u32,
     pub icon: Icon,
@@ -55,13 +56,15 @@ pub fn translate_stat(stat: StatTypes) -> Stat {
         StatTypes::Str => Stat {
             name: stat,
             description: "Do you even lift?",
+            effect_description: "Boosts income from Soldier related jobs and Soldier XP",
             display_name: "Strength",
             required_tier: 2,
             icon: IconType::Str.into(),
         },
         StatTypes::Cha => Stat {
             name: stat,
-            description: "Being liked has it's benifits",
+            description: "Being liked has its benifits.",
+            effect_description: "Boosts Coin gain by 0.05x level",
             display_name: "Charisma",
             required_tier: 1,
             icon: IconType::Cha.into(),
@@ -69,13 +72,15 @@ pub fn translate_stat(stat: StatTypes) -> Stat {
         StatTypes::Dex => Stat {
             name: stat,
             description: "Bendy!",
+            effect_description: "todo",
             display_name: "Dexterity",
             required_tier: 7,
             icon: IconType::Dex.into(),
         },
         StatTypes::Int => Stat {
             name: stat,
-            description: "Brainiac",
+            description: "Nerd!",
+            effect_description: "Boosts XP gain for skills/stats",
             display_name: "Intelligence",
             required_tier: 0,
             icon: IconType::Int.into(),
@@ -83,13 +88,15 @@ pub fn translate_stat(stat: StatTypes) -> Stat {
         StatTypes::Con => Stat {
             name: stat,
             description: "Endure the pain!",
+            effect_description: "Increases income for labor related jobs and increases health gain",
             display_name: "Constitution",
             required_tier: 0,
             icon: IconType::Con.into(),
         },
         StatTypes::Faith => Stat {
             name: stat,
-            description: "Have some",
+            description: "Have some.",
+            effect_description: "Boosts income from Priest related jobs",
             display_name: "Faith",
             required_tier: 4,
             icon: IconType::Faith.into(),

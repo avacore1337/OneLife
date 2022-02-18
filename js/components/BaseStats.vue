@@ -2,7 +2,11 @@
   <div>
     Base Stats
     <div style="border: solid; margin: 2px; padding: 10px">
-      <div v-for="[stat, stat_state] in visible_stats" :key="stat.name">
+      <div
+        v-for="[stat, stat_state] in visible_stats"
+        :key="stat.name"
+        v-b-tooltip.hover.right.html="tooltip(stat)"
+      >
         <icon-with-text :icon="stat.icon">
           <span>{{ stat.display_name }}: {{ stat_state.level }} </span>
           <span> xp rate: <FormatNumber :value="stat_state.xp_rate" /> </span>
@@ -33,7 +37,11 @@ export default {
         })
     },
   },
-  methods: {},
+  methods: {
+    tooltip(stat) {
+      return stat.description + '\n\n' + stat.effect_description
+    },
+  },
 }
 </script>
 
