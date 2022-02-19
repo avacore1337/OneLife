@@ -3,30 +3,22 @@
     <b-tab key="life-tab" title="Life">
       <div class="my-container">
         <div class="main-item">
-          <Works :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
-          <Housing
-            :meta-data="metaData"
-            :state="state"
-            :input="input"
-            :world="world"
-            :wasm="wasm"
-          />
+          <Works :meta-data="metaData" :state="state" :input="input" :world="world" />
+          <Housing :meta-data="metaData" :state="state" :input="input" :world="world" />
         </div>
         <div class="main-item">
-          <Activities :state="state" :input="input" :world="world" :wasm="wasm" />
+          <Activities :state="state" :input="input" :world="world" />
           <Blessings
             v-if="state.rebirth_stats.unlocks.has_faith"
             :meta-data="metaData"
             :state="state"
             :input="input"
             :world="world"
-            :wasm="wasm"
           />
           <BoostItems
             :state="state"
             :input="input"
             :world="world"
-            :wasm="wasm"
             :meta-data="metaData"
             :item_queue="item_queue"
           />
@@ -34,16 +26,14 @@
             <RecordedInputs
               title="Previous Recorded Inputs"
               :recorded_inputs="previous_recorded_inputs"
-              :wasm="wasm"
-              :remove_recorded="wasm.remove_previous_recorded"
-              :clear_recorded="wasm.clear_previous_recorded"
+              :remove_recorded="$wasm.remove_previous_recorded"
+              :clear_recorded="$wasm.clear_previous_recorded"
             />
             <RecordedInputs
               title="Current Inputs"
               :recorded_inputs="recorded_inputs"
-              :wasm="wasm"
-              :clear_recorded="wasm.clear_recorded"
-              :remove_recorded="wasm.remove_recorded"
+              :clear_recorded="$wasm.clear_recorded"
+              :remove_recorded="$wasm.remove_recorded"
             />
           </div>
         </div>
@@ -59,16 +49,15 @@
     >
       <div class="my-container">
         <div class="main-item">
-          <Tombs :meta-data="metaData" :state="state" :input="input" :world="world" :wasm="wasm" />
+          <Tombs :meta-data="metaData" :state="state" :input="input" :world="world" />
         </div>
         <div class="main-item">
-          <Death :state="state" :input="input" :world="world" :wasm="wasm" />
+          <Death :state="state" :input="input" :world="world" />
           <RebirthUpgrades
             v-if="state.rebirth_stats.tier > 0"
             :state="state"
             :input="input"
             :world="world"
-            :wasm="wasm"
             :meta-data="metaData"
           />
         </div>
@@ -76,11 +65,11 @@
     </b-tab>
 
     <b-tab key="settings-tab" title="Settings">
-      <Settings :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
+      <Settings :state="state" :input="input" :world="world" :meta-data="metaData" />
     </b-tab>
 
     <b-tab key="info-tab" title="Info">
-      <Info :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
+      <Info :state="state" :input="input" :world="world" :meta-data="metaData" />
     </b-tab>
   </b-tabs>
 </template>
@@ -122,7 +111,6 @@ export default {
     'state',
     'world',
     'input',
-    'wasm',
     'recorded_inputs',
     'previous_recorded_inputs',
   ],

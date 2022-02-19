@@ -11,7 +11,7 @@
         v-for="[housing, housing_state] in visible_housing"
         :key="housing.name"
         :class="{ mydisabled: !housing_state.is_unlocked }"
-        @click="wasm.set_housing(housing.name)"
+        @click="$wasm.set_housing(housing.name)"
       >
         <td>
           <span :class="{ selected: input.housing === housing.name }"
@@ -37,7 +37,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['metaData', 'state', 'world', 'input', 'wasm'],
+  props: ['metaData', 'state', 'world', 'input'],
   computed: {
     visible_housing() {
       let self = this
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     toggle_auto_living() {
-      this.wasm.set_auto_living(!this.metaData.options.auto_living)
+      this.$wasm.set_auto_living(!this.metaData.options.auto_living)
     },
   },
 }

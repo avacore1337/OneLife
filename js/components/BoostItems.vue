@@ -41,7 +41,7 @@
           mydisabled:
             !item_state.is_unlocked && !(shift && state.rebirth_stats.unlocks.can_queue_item),
         }"
-        @click.shift.exact="wasm.queue_item(item.name)"
+        @click.shift.exact="$wasm.queue_item(item.name)"
         @click="buy_item(item.name, $event)"
       >
         <td style="flex-grow: 2">
@@ -67,7 +67,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'world', 'input', 'wasm', 'metaData', 'item_queue'],
+  props: ['state', 'world', 'input', 'metaData', 'item_queue'],
   data() {
     return {
       shift: false,
@@ -112,7 +112,7 @@ export default {
   methods: {
     buy_item(val, e) {
       if (!e.shiftKey) {
-        this.wasm.buy_item(val)
+        this.$wasm.buy_item(val)
       } else {
         e.preventDefault()
       }

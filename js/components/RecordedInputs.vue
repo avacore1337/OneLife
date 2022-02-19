@@ -17,7 +17,7 @@ import Section from './Section.vue'
 
 export default {
   components: { Section },
-  props: ['wasm', 'recorded_inputs', 'remove_recorded', 'clear_recorded', 'title'],
+  props: ['recorded_inputs', 'remove_recorded', 'clear_recorded', 'title'],
   computed: {
     entries() {
       return Object.values(this.recorded_inputs)

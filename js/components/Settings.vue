@@ -1,13 +1,13 @@
 <template>
   <div class="column-flex">
     <h3>Settings</h3>
-    <b-button @click="wasm.save">Save</b-button>
-    <b-button @click="wasm.load">Load</b-button>
-    <b-button @click="wasm.hard_reset">Hard Reset</b-button>
-    <MyToggle :value="metaData.autosave" :click="wasm.toggle_autosave"> AutoSave </MyToggle>
+    <b-button @click="$wasm.save">Save</b-button>
+    <b-button @click="$wasm.load">Load</b-button>
+    <b-button @click="$wasm.hard_reset">Hard Reset</b-button>
+    <MyToggle :value="metaData.autosave" :click="$wasm.toggle_autosave"> AutoSave </MyToggle>
     <h4>Display options</h4>
-    <b-button @click="wasm.set_disable_tutorial(false)">Enable Tutorial</b-button>
-    <b-button @click="wasm.toggle_show_recorded">
+    <b-button @click="$wasm.set_disable_tutorial(false)">Enable Tutorial</b-button>
+    <b-button @click="$wasm.toggle_show_recorded">
       {{ !metaData.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
     </b-button>
     <b-button @click="setNumberFormat">
@@ -48,7 +48,7 @@ import MyToggle from './MyToggle.vue'
 
 export default {
   components: { FormatNumber, MyToggle },
-  props: ['metaData', 'state', 'world', 'input', 'wasm'],
+  props: ['metaData', 'state', 'world', 'input'],
   data() {
     return {
       save_text: '',
@@ -68,11 +68,11 @@ export default {
   },
   methods: {
     set_update_rate(rate) {
-      this.wasm.set_update_rate(rate)
+      this.$wasm.set_update_rate(rate)
       //TODO parent parent update?
     },
     download_save() {
-      downloadFile(`gamesave_${Date.now()}.txt`, this.wasm.export_save())
+      downloadFile(`gamesave_${Date.now()}.txt`, this.$wasm.export_save())
     },
     import_save_file(event) {
       // TODO: This is only on the frontend atm, it doesn't actually save the changes
@@ -85,16 +85,16 @@ export default {
         return function (e) {
           var data = e.target.result
           console.log(data)
-          this.wasm.import_save(data)
+          this.$wasm.import_save(data)
         }
       })(f)
       reader.readAsText(f)
     },
     import_save() {
-      this.wasm.import_save(this.save_text)
+      this.$wasm.import_save(this.save_text)
     },
     export_save() {
-      this.save_text = this.wasm.export_save()
+      this.save_text = this.$wasm.export_save()
     },
     setNumberFormat() {
       this.$store.commit('toggleNumberFormat')

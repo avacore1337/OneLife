@@ -53,7 +53,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['metaData', 'state', 'world', 'input', 'wasm'],
+  props: ['metaData', 'state', 'world', 'input'],
   computed: {
     visible_unbought_tombs() {
       let self = this
@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     buyTomb(tomb_name) {
-      this.wasm.buy_tomb(tomb_name)
+      this.$wasm.buy_tomb(tomb_name)
       this.$parent.update_dynamic_data()
     },
   },

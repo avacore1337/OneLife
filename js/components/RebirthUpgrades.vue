@@ -30,7 +30,7 @@
         v-for="[upgrade, upgrade_state] in visible_unbought_upgrades"
         :key="upgrade.name"
         :class="{ mydisabled: !upgrade_state.is_unlocked }"
-        @click="wasm.buy_rebirth_upgrade(upgrade.name)"
+        @click="$wasm.buy_rebirth_upgrade(upgrade.name)"
       >
         <td style="flex-grow: 2">{{ upgrade.display_name }}</td>
         <td style="flex-grow: 1">
@@ -52,7 +52,7 @@ import FormatNumber from './FormatNumber.vue'
 import { compare } from '../utility.js'
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'world', 'input', 'wasm', 'metaData'],
+  props: ['state', 'world', 'input', 'metaData'],
   computed: {
     visible_unbought_upgrades() {
       let self = this
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     toggle_show_bought() {
-      this.wasm.set_show_bought_upgrades(!this.metaData.options.show_bought_upgrades)
+      this.$wasm.set_show_bought_upgrades(!this.metaData.options.show_bought_upgrades)
     },
   },
 }

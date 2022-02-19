@@ -9,19 +9,19 @@
           !state.life_stats.dead &&
           state.life_stats.current_tick >= 5000
         "
-        @click="wasm.die"
+        @click="$wasm.die"
       >
         End It Early
       </b-button>
       <b-button
         v-if="state.life_stats.is_dying && !state.life_stats.dead"
         style="margin: 2px"
-        @click="wasm.die"
+        @click="$wasm.die"
       >
         Go To The Other Side
       </b-button>
       <b-button v-if="state.life_stats.dead" @click="rebirth">Rebirth</b-button>
-      <b-button v-if="state.life_stats.dead" @click="wasm.do_rebirth_replay">
+      <b-button v-if="state.life_stats.dead" @click="$wasm.do_rebirth_replay">
         Rebirth Replay
       </b-button>
     </div>
@@ -33,7 +33,7 @@
       <tr
         v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.tier)"
         :key="tier.name"
-        :class="{ mydisabled: !wasm.can_buy_tier(tier.level) }"
+        :class="{ mydisabled: !$wasm.can_buy_tier(tier.level) }"
         @click="buy_tier(tier.level)"
       >
         <td>T{{ tier.level }} {{ tier.display_name }}</td>
@@ -52,12 +52,12 @@ import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'world', 'input', 'wasm'],
+  props: ['state', 'world', 'input'],
   methods: {
     rebirth() {
       console.log('rebirth tag sent')
       this.$gtag.event('rebirth', { method: 'normal' })
-      this.wasm.do_rebirth()
+      this.$wasm.do_rebirth()
     },
   },
 }

@@ -26,7 +26,7 @@
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { FormatNumber },
-  props: ['state', 'world', 'input', 'wasm', 'metaData'],
+  props: ['state', 'world', 'input', 'metaData'],
   computed: {
     tutorial_text() {
       let separator = '-'.repeat(60)
