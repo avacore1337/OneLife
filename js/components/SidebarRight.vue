@@ -1,6 +1,6 @@
 <template>
   <div class="column-flex" style="margin-top: 1rem">
-    <ItemQueue v-if="state.rebirth_stats.unlocks.can_queue_item" :item_queue="item_queue" />
+    <ItemQueue v-if="state.rebirth_stats.unlocks.can_queue_item" />
     <Automation v-if="state.rebirth_stats.unlocks.can_auto_work" :meta="meta" :state="state" />
     <h4 class="section-header">Options</h4>
     <div class="section column-flex">
@@ -44,7 +44,7 @@ import MyToggle from './MyToggle.vue'
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { ItemQueue, Automation, FormatNumber, MyToggle },
-  props: ['meta', 'state', 'input', 'item_queue'],
+  props: ['meta', 'state', 'input'],
   data() {
     return {
       end_early_criteria: 0.0,

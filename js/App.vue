@@ -21,7 +21,6 @@
 
       <div class="main">
         <Main
-          :item_queue="item_queue"
           :meta="meta"
           :state="state"
           :input="input"
@@ -33,7 +32,7 @@
 
       <div class="right-sidebar">
         <div>
-          <SidebarRight :meta="meta" :state="state" :input="input" :item_queue="item_queue" />
+          <SidebarRight :meta="meta" :state="state" :input="input" />
         </div>
         <div v-if="$world.settings.display_debug">
           <Debug :state="state" />
@@ -62,29 +61,32 @@ export default {
     Topbar,
   },
   props: ['wasm'],
+  computed: {
+    state() {
+      return this.$store.state.state
+    },
+    input() {
+      return this.$store.state.input
+    },
+    meta() {
+      return this.$store.state.meta
+    },
+    recorded_inputs() {
+      return this.$store.state.recorded_inputs
+    },
+    previous_recorded_inputs() {
+      return this.$store.state.previous_recorded_inputs
+    },
+  },
   data() {
     return {
       loaded: false,
-      world: {},
-      state: {},
-      input: {},
-      recorded_inputs: {},
-      previous_recorded_inputs: {},
-      item_queue: [],
-      meta: {},
       numberFormat: 'DEFAULT',
       modalText: '',
       updateCount: 0,
     }
   },
   mounted() {
-    this.$world = Object.freeze(this.wasm.get_world())
-    this.state = this.wasm.get_state()
-    this.input = this.wasm.get_input()
-    this.recorded_inputs = this.wasm.get_recorded_inputs()
-    this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs()
-    this.meta = this.wasm.get_meta_data()
-    this.item_queue = this.wasm.get_world_item_queue()
     this.loaded = true
     this.set_keyboard_listeners()
 
@@ -112,56 +114,11 @@ export default {
         }
       })
     },
-    recurse_update(o, o2) {
-      for (var key in o2) {
-        if (Array.isArray(o2[key])) {
-          if (o[key].length != o2[key].length) {
-            /* console.log(key, o[key], o2[key]) */
-            o[key] = o2[key]
-            continue
-          }
-        }
-        if (typeof o2[key] == 'object') {
-          this.recurse_update(o[key], o2[key])
-          continue
-        }
-        if (o[key] != o2[key]) {
-          /* console.log(typeof o[key]); */
-          /* console.log(key, o[key], o2[key]); */
-          o[key] = o2[key]
-        }
-      }
-    },
     do_update() {
       this.updateCount += 1
       if (this.updateCount % this.meta.options.update_rate === 0) {
-        this.update_dynamic_data()
+        this.$store.commit('update_dynamic_data')
         this.updateModal()
-      }
-    },
-    update_dynamic_data() {
-      this.recurse_update(this.state, this.wasm.get_state())
-      this.recurse_update(this.input, this.wasm.get_input())
-      this.recurse_update(this.meta, this.wasm.get_meta_data())
-      if (this.meta.options.show_recorded) {
-        let recorded = this.wasm.get_recorded_inputs()
-        if (this.recorded_inputs.length != recorded.length) {
-          this.recorded_inputs = recorded
-        } else {
-          this.recurse_update(this.recorded_inputs, recorded)
-        }
-        let previous_recorded = this.wasm.get_previous_recorded_inputs()
-        if (this.previous_recorded_inputs.length != previous_recorded.length) {
-          this.previous_recorded_inputs = previous_recorded
-        } else {
-          this.recurse_update(this.previous_recorded_inputs, previous_recorded)
-        }
-      }
-      let queue = this.wasm.get_world_item_queue()
-      if (this.item_queue.length != queue.length) {
-        this.item_queue = queue
-      } else {
-        this.recurse_update(this.item_queue, queue)
       }
     },
     updateModal() {

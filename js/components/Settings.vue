@@ -69,7 +69,7 @@ export default {
   methods: {
     set_update_rate(rate) {
       this.$wasm.set_update_rate(rate)
-      //TODO parent parent update?
+      this.$store.commit('update_dynamic_data')
     },
     download_save() {
       downloadFile(`gamesave_${Date.now()}.txt`, this.$wasm.export_save())

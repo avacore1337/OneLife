@@ -65,7 +65,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'input', 'meta', 'item_queue'],
+  props: ['state', 'input', 'meta'],
   data() {
     return {
       shift: false,

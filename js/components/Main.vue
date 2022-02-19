@@ -14,7 +14,7 @@
             :state="state"
             :input="input"
           />
-          <BoostItems :state="state" :input="input" :meta="meta" :item_queue="item_queue" />
+          <BoostItems :state="state" :input="input" :meta="meta" />
           <div v-if="meta.options.show_recorded">
             <RecordedInputs
               title="Previous Recorded Inputs"
@@ -97,7 +97,7 @@ export default {
     Settings,
     Info,
   },
-  props: ['item_queue', 'meta', 'state', 'input', 'recorded_inputs', 'previous_recorded_inputs'],
+  props: ['meta', 'state', 'input', 'recorded_inputs', 'previous_recorded_inputs'],
 }
 </script>
 

@@ -79,7 +79,7 @@ export default {
     },
     tick() {
       this.$wasm.single_tick()
-      this.$parent.update_dynamic_data()
+      this.$store.commit('update_dynamic_data')
     },
   },
 }

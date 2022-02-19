@@ -302,6 +302,7 @@ pub fn buy_tomb_internal(tomb_type: TombTypes, game: &mut Game) {
         let tomb: &Tomb = &game.world.tombs[tomb_type as usize];
         game.state.items.money -= tomb.purchasing_cost;
         game.state.tombs[tomb_type as usize].is_purchased = true;
+        update_unlocks(game);
     }
 }
 

@@ -17,8 +17,13 @@
 
 <script>
 export default {
-  props: ['item_queue'],
+  props: [''],
   methods: {},
+  computed: {
+    item_queue() {
+      return this.$store.state.item_queue
+    },
+  },
 }
 </script>
 

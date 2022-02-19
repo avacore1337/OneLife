@@ -79,7 +79,7 @@ export default {
   methods: {
     buyTomb(tomb_name) {
       this.$wasm.buy_tomb(tomb_name)
-      this.$parent.update_dynamic_data()
+      this.$store.commit('update_dynamic_data')
     },
   },
 }
