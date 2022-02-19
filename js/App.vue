@@ -11,32 +11,19 @@
         >
       </span>
     </b-modal>
-    <div>
-      <Topbar />
-    </div>
+    <Topbar />
     <div class="my-container">
       <div class="left-sidebar">
-        <Sidebar :state="state" :input="input" meta="meta" />
+        <Sidebar />
       </div>
 
       <div class="main">
-        <Main
-          :meta="meta"
-          :state="state"
-          :input="input"
-          :wasm="wasm"
-          :previous_recorded_inputs="previous_recorded_inputs"
-          :recorded_inputs="recorded_inputs"
-        />
+        <Main />
       </div>
 
       <div class="right-sidebar">
-        <div>
-          <SidebarRight :meta="meta" :state="state" :input="input" />
-        </div>
-        <div v-if="$world.settings.display_debug">
-          <Debug :state="state" />
-        </div>
+        <SidebarRight />
+        <Debug />
       </div>
     </div>
   </div>
@@ -48,6 +35,7 @@ import Debug from './components/Debug.vue'
 import SidebarRight from './components/SidebarRight.vue'
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
+import { mapState } from 'vuex'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -61,23 +49,7 @@ export default {
     Topbar,
   },
   props: ['wasm'],
-  computed: {
-    state() {
-      return this.$store.state.state
-    },
-    input() {
-      return this.$store.state.input
-    },
-    meta() {
-      return this.$store.state.meta
-    },
-    recorded_inputs() {
-      return this.$store.state.recorded_inputs
-    },
-    previous_recorded_inputs() {
-      return this.$store.state.previous_recorded_inputs
-    },
-  },
+  computed: mapState(['state', 'meta', 'input']),
   data() {
     return {
       loaded: false,

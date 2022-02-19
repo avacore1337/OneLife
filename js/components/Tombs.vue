@@ -50,11 +50,12 @@
 <script>
 import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['meta', 'state', 'input'],
   computed: {
+    ...mapState(['state', 'meta', 'input']),
     visible_unbought_tombs() {
       let self = this
       return self.$world.tombs

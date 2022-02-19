@@ -62,16 +62,17 @@
 import Section2 from './Section2.vue'
 import { compare } from '../utility.js'
 import FormatNumber from './FormatNumber.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'input', 'meta'],
   data() {
     return {
       shift: false,
     }
   },
   computed: {
+    ...mapState(['state', 'meta', 'input']),
     visible_unbought_items() {
       let self = this
       return self.$world.boost_items

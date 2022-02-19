@@ -3,18 +3,13 @@
     <b-tab key="life-tab" title="Life">
       <div class="my-container">
         <div class="main-item">
-          <Works :meta="meta" :state="state" :input="input" />
-          <Housing :meta="meta" :state="state" :input="input" />
+          <Works />
+          <Housing />
         </div>
         <div class="main-item">
-          <Activities :state="state" :input="input" />
-          <Blessings
-            v-if="state.rebirth_stats.unlocks.has_faith"
-            :meta="meta"
-            :state="state"
-            :input="input"
-          />
-          <BoostItems :state="state" :input="input" :meta="meta" />
+          <Activities />
+          <Blessings v-if="state.rebirth_stats.unlocks.has_faith" />
+          <BoostItems />
           <div v-if="meta.options.show_recorded">
             <RecordedInputs
               title="Previous Recorded Inputs"
@@ -42,26 +37,21 @@
     >
       <div class="my-container">
         <div class="main-item">
-          <Tombs :meta="meta" :state="state" :input="input" />
+          <Tombs />
         </div>
         <div class="main-item">
-          <Death :state="state" :input="input" />
-          <RebirthUpgrades
-            v-if="state.rebirth_stats.tier > 0"
-            :state="state"
-            :input="input"
-            :meta="meta"
-          />
+          <Death />
+          <RebirthUpgrades v-if="state.rebirth_stats.tier > 0" />
         </div>
       </div>
     </b-tab>
 
     <b-tab key="settings-tab" title="Settings">
-      <Settings :state="state" :input="input" :meta="meta" />
+      <Settings />
     </b-tab>
 
     <b-tab key="info-tab" title="Info">
-      <Info :state="state" :input="input" :meta="meta" />
+      <Info />
     </b-tab>
   </b-tabs>
 </template>
@@ -83,6 +73,8 @@ import Settings from './Settings.vue'
 
 import Info from './Info.vue'
 
+import { mapState } from 'vuex'
+
 export default {
   components: {
     Works,
@@ -97,7 +89,15 @@ export default {
     Settings,
     Info,
   },
-  props: ['meta', 'state', 'input', 'recorded_inputs', 'previous_recorded_inputs'],
+  computed: {
+    ...mapState(['state', 'meta', 'input']),
+    recorded_inputs() {
+      return this.$store.state.recorded_inputs
+    },
+    previous_recorded_inputs() {
+      return this.$store.state.previous_recorded_inputs
+    },
+  },
 }
 </script>
 

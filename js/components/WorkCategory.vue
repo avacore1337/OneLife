@@ -40,10 +40,12 @@
 
 <script>
 import MyProgressBar from './MyProgressBar.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { MyProgressBar },
-  props: ['name', 'thework', 'input'],
+  props: ['name', 'thework'],
+  computed: mapState(['input']),
 }
 </script>
 

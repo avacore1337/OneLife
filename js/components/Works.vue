@@ -1,30 +1,29 @@
 <template>
   <div class="section">
-    <WorkCategory name="Labor Work" :thework="visible_labor_work" :input="input" />
+    <WorkCategory name="Labor Work" :thework="visible_labor_work" />
     <br />
     <WorkCategory
       v-if="state.rebirth_stats.tier >= 2"
       name="Soldiering"
       :thework="visible_soldier_work"
-      :input="input"
     />
     <br />
     <WorkCategory
       v-if="state.rebirth_stats.unlocks.has_faith"
       name="Priesthood"
       :thework="visible_priest_work"
-      :input="input"
     />
   </div>
 </template>
 
 <script>
 import WorkCategory from './WorkCategory.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { WorkCategory },
-  props: ['meta', 'state', 'input'],
   computed: {
+    ...mapState(['state', 'meta', 'input']),
     visible_labor_work() {
       let self = this
       return self.$world.works

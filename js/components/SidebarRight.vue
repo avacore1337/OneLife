@@ -1,7 +1,7 @@
 <template>
   <div class="column-flex" style="margin-top: 1rem">
     <ItemQueue v-if="state.rebirth_stats.unlocks.can_queue_item" />
-    <Automation v-if="state.rebirth_stats.unlocks.can_auto_work" :meta="meta" :state="state" />
+    <Automation v-if="state.rebirth_stats.unlocks.can_auto_work" />
     <h4 class="section-header">Options</h4>
     <div class="section column-flex">
       Saved Ticks: {{ meta.saved_ticks.toFixed(0) }}
@@ -42,15 +42,17 @@ import ItemQueue from './ItemQueue.vue'
 import Automation from './Automation.vue'
 import MyToggle from './MyToggle.vue'
 import FormatNumber from './FormatNumber.vue'
+import { mapState } from 'vuex'
+
 export default {
   components: { ItemQueue, Automation, FormatNumber, MyToggle },
-  props: ['meta', 'state', 'input'],
   data() {
     return {
       end_early_criteria: 0.0,
     }
   },
   methods: {},
+  computed: mapState(['state', 'meta']),
 }
 </script>
 

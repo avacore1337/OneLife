@@ -45,10 +45,10 @@
 import { downloadFile } from '../utility.js'
 import FormatNumber from './FormatNumber.vue'
 import MyToggle from './MyToggle.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { FormatNumber, MyToggle },
-  props: ['meta', 'state', 'input'],
   data() {
     return {
       save_text: '',
@@ -62,6 +62,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['state', 'meta', 'input']),
     nextNumberFormat() {
       return this.$store.getters.getNextNumberFormat
     },

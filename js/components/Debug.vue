@@ -57,8 +57,10 @@
 
 <script>
 import { downloadFile } from '../utility.js'
+import { mapState } from 'vuex'
+
 export default {
-  props: ['state'],
+  computed: mapState(['state']),
   data() {
     return {
       presets: [],

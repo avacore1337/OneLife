@@ -34,11 +34,12 @@
 <script>
 import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'input'],
   computed: {
+    ...mapState(['state', 'input']),
     visible_activities() {
       let self = this
       return self.$world.activities

@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 1rem">
-    <BaseStats :state="state" />
-    <Skills v-if="state.rebirth_stats.unlocks.has_skills" :state="state" />
+    <BaseStats />
+    <Skills v-if="state.rebirth_stats.unlocks.has_skills" />
 
     <h4 class="section-header">Current Work</h4>
     <div v-for="[work, work_state] in current_work" :key="work.name" class="section">
@@ -87,9 +87,10 @@ import MyProgressBar from './MyProgressBar.vue'
 import Skills from './Skills.vue'
 import FormatNumber from './FormatNumber.vue'
 import FormatDays from './FormatDays.vue'
+import { mapState } from 'vuex'
+
 export default {
   components: { BaseStats, Skills, FormatNumber, FormatDays, MyProgressBar },
-  props: ['state', 'input', 'meta'],
   data() {
     return {
       money_tooltip: 'The amount of money you have to spend on housing/items/tombs',
@@ -113,6 +114,7 @@ export default {
   },
 
   computed: {
+    ...mapState(['state', 'meta', 'input']),
     current_work() {
       let self = this
       let the_work = []

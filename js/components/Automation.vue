@@ -75,9 +75,11 @@
 
 <script>
 import MyToggle from './MyToggle.vue'
+import { mapState } from 'vuex'
+
 export default {
   components: { MyToggle },
-  props: ['meta', 'state'],
+  computed: mapState(['state', 'meta']),
   data() {
     return {
       end_early_criteria: 0.0,

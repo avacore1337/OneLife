@@ -24,10 +24,12 @@
 
 <script>
 import FormatNumber from './FormatNumber.vue'
+import { mapState } from 'vuex'
+
 export default {
   components: { FormatNumber },
-  props: ['state', 'input', 'meta'],
   computed: {
+    ...mapState(['state', 'meta', 'input']),
     tutorial_text() {
       let separator = '-'.repeat(60)
       return this.$world.tutorial_texts

@@ -23,11 +23,12 @@
 
 <script>
 import MyProgressBar from './MyProgressBar.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { MyProgressBar },
-  props: ['state'],
   computed: {
+    ...mapState(['state']),
     visible_skills() {
       let self = this
       return self.$world.skills

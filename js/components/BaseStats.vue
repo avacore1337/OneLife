@@ -24,11 +24,12 @@
 <script>
 import MyProgressBar from './MyProgressBar.vue'
 import FormatNumber from './FormatNumber.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { MyProgressBar, FormatNumber },
-  props: ['state'],
   computed: {
+    ...mapState(['state']),
     visible_stats() {
       let self = this
       return self.$world.stats

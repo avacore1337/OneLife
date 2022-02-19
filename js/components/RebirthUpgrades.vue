@@ -50,10 +50,12 @@
 import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 import { compare } from '../utility.js'
+import { mapState } from 'vuex'
+
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'input', 'meta'],
   computed: {
+    ...mapState(['state', 'meta', 'input']),
     visible_unbought_upgrades() {
       let self = this
       return self.$world.rebirth_upgrades
