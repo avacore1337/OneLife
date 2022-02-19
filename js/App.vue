@@ -12,11 +12,11 @@
       </span>
     </b-modal>
     <div>
-      <Topbar :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
+      <Topbar />
     </div>
     <div class="my-container">
       <div class="left-sidebar">
-        <Sidebar :state="state" :input="input" :world="world" :wasm="wasm" :meta-data="metaData" />
+        <Sidebar :state="state" :input="input" :world="world" :meta-data="metaData" />
       </div>
 
       <div class="main">
@@ -39,12 +39,11 @@
             :meta-data="metaData"
             :state="state"
             :input="input"
-            :wasm="wasm"
             :item_queue="item_queue"
           />
         </div>
         <div v-if="world.settings.display_debug">
-          <Debug :world="world" :meta-data="metaData" :state="state" :input="input" :wasm="wasm" />
+          <Debug :world="world" :state="state" />
         </div>
       </div>
     </div>

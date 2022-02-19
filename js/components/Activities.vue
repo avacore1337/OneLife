@@ -10,7 +10,7 @@
         v-for="[activity, activity_state] in visible_activities"
         :key="activity.name"
         :class="{ mydisabled: !activity_state.is_unlocked }"
-        @click="wasm.set_activity(activity.name)"
+        @click="$wasm.set_activity(activity.name)"
       >
         <td>
           <span :class="{ selected: activity.name == input.activity }">
@@ -37,7 +37,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'world', 'input', 'wasm'],
+  props: ['state', 'world', 'input'],
   computed: {
     visible_activities() {
       let self = this

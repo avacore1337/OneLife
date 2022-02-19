@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  props: ['state', 'world', 'input', 'wasm', 'metaData'],
+  props: [],
   methods: {},
 }
 </script>

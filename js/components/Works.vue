@@ -1,12 +1,11 @@
 <template>
   <div class="section">
-    <WorkCategory name="Labor Work" :thework="visible_labor_work" :input="input" :wasm="wasm" />
+    <WorkCategory name="Labor Work" :thework="visible_labor_work" :input="input" />
     <br />
     <WorkCategory
       v-if="state.rebirth_stats.tier >= 2"
       name="Soldiering"
       :thework="visible_soldier_work"
-      :wasm="wasm"
       :input="input"
     />
     <br />
@@ -15,7 +14,6 @@
       name="Priesthood"
       :thework="visible_priest_work"
       :input="input"
-      :wasm="wasm"
     />
   </div>
 </template>
@@ -25,7 +23,7 @@ import WorkCategory from './WorkCategory.vue'
 
 export default {
   components: { WorkCategory },
-  props: ['metaData', 'state', 'world', 'input', 'wasm'],
+  props: ['metaData', 'state', 'world', 'input'],
   computed: {
     visible_labor_work() {
       let self = this

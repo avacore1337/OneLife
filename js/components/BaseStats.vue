@@ -27,7 +27,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { MyProgressBar, FormatNumber },
-  props: ['state', 'world', 'input', 'wasm'],
+  props: ['state', 'world'],
   computed: {
     visible_stats() {
       let self = this

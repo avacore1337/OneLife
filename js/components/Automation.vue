@@ -5,7 +5,7 @@
       <MyToggle
         v-if="state.rebirth_stats.unlocks.can_auto_work"
         :value="metaData.options.auto_work"
-        :click="wasm.toggle_auto_work"
+        :click="$wasm.toggle_auto_work"
         v-b-tooltip.hover.left="auto_work_tooltip"
       >
         Auto Work
@@ -14,7 +14,7 @@
       <MyToggle
         v-if="state.rebirth_stats.unlocks.can_auto_living"
         :value="metaData.options.auto_living"
-        :click="wasm.toggle_auto_living"
+        :click="$wasm.toggle_auto_living"
         v-b-tooltip.hover.left="auto_living_tooltip"
       >
         Auto Living
@@ -23,7 +23,7 @@
       <MyToggle
         v-if="state.rebirth_stats.unlocks.can_auto_buy_item"
         :value="metaData.options.auto_buy_item"
-        :click="wasm.toggle_auto_buy_item"
+        :click="$wasm.toggle_auto_buy_item"
         v-b-tooltip.hover.left="auto_buy_item_tooltip"
       >
         Auto Buy Items
@@ -32,7 +32,7 @@
       <MyToggle
         v-if="state.rebirth_stats.unlocks.can_auto_buy_blessing"
         :value="metaData.options.auto_buy_blessing"
-        :click="wasm.toggle_auto_buy_blessing"
+        :click="$wasm.toggle_auto_buy_blessing"
         v-b-tooltip.hover.left="auto_buy_blessing_tooltip"
       >
         Auto Buy Blessings
@@ -41,7 +41,7 @@
       <MyToggle
         v-if="state.rebirth_stats.unlocks.can_auto_buy_tomb"
         :value="metaData.options.auto_buy_tomb"
-        :click="wasm.toggle_auto_buy_tomb"
+        :click="$wasm.toggle_auto_buy_tomb"
         v-b-tooltip.hover.left="auto_buy_tomb_tooltip"
       >
         Auto Buy Tombs
@@ -50,7 +50,7 @@
       <MyToggle
         v-if="state.rebirth_stats.unlocks.can_auto_rebirth"
         :value="metaData.options.auto_rebirth"
-        :click="wasm.toggle_auto_rebirth"
+        :click="$wasm.toggle_auto_rebirth"
         v-b-tooltip.hover.left="auto_rebirth_tooltip"
       >
         Auto Rebirth
@@ -65,7 +65,7 @@
           v-model="end_early_criteria"
           size="10"
         />
-        <b-button @click="wasm.set_auto_end_early(end_early_criteria)"
+        <b-button @click="$wasm.set_auto_end_early(end_early_criteria)"
           >Set End Early Criteria</b-button
         >
       </div>
@@ -77,7 +77,7 @@
 import MyToggle from './MyToggle.vue'
 export default {
   components: { MyToggle },
-  props: ['metaData', 'state', 'wasm'],
+  props: ['metaData', 'state'],
   data() {
     return {
       end_early_criteria: 0.0,

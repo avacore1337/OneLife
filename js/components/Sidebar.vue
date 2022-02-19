@@ -1,13 +1,7 @@
 <template>
   <div style="margin-top: 1rem">
-    <BaseStats :state="state" :input="input" :world="world" :wasm="wasm" />
-    <Skills
-      v-if="state.rebirth_stats.unlocks.has_skills"
-      :state="state"
-      :input="input"
-      :world="world"
-      :wasm="wasm"
-    />
+    <BaseStats :state="state" :world="world" />
+    <Skills v-if="state.rebirth_stats.unlocks.has_skills" :state="state" :world="world" />
 
     <h4 class="section-header">Current Work</h4>
     <div v-for="[work, work_state] in current_work" :key="work.name" class="section">
@@ -106,7 +100,7 @@ import FormatNumber from './FormatNumber.vue'
 import FormatDays from './FormatDays.vue'
 export default {
   components: { BaseStats, Skills, FormatNumber, FormatDays, MyProgressBar },
-  props: ['state', 'world', 'input', 'wasm', 'metaData'],
+  props: ['state', 'world', 'input', 'metaData'],
   data() {
     return {
       money_tooltip: 'The amount of money you have to spend on housing/items/tombs',

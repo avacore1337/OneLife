@@ -26,7 +26,7 @@ import MyProgressBar from './MyProgressBar.vue'
 
 export default {
   components: { MyProgressBar },
-  props: ['state', 'world', 'input', 'wasm'],
+  props: ['state', 'world'],
   computed: {
     visible_skills() {
       let self = this

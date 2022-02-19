@@ -8,20 +8,20 @@
         <b-dropdown-item-button
           v-for="name in presets"
           :key="name"
-          @click="wasm.set_preset_saves(name)"
+          @click="$wasm.set_preset_saves(name)"
           >{{ name }}</b-dropdown-item-button
         >
       </b-dropdown>
       <br />
-      <button @click="wasm.test">Test</button>
+      <button @click="$wasm.test">Test</button>
       <br />
-      <button @click="wasm.set_gamespeed(1)">Set GameSpeed 1</button>
+      <button @click="$wasm.set_gamespeed(1)">Set GameSpeed 1</button>
       <br />
-      <button @click="wasm.set_gamespeed(10)">Set GameSpeed 10</button>
+      <button @click="$wasm.set_gamespeed(10)">Set GameSpeed 10</button>
       <br />
-      <button @click="wasm.set_gamespeed(100)">Set GameSpeed 100</button>
+      <button @click="$wasm.set_gamespeed(100)">Set GameSpeed 100</button>
       <br />
-      <button @click="wasm.set_gamespeed(1000)">Set GameSpeed 1000</button>
+      <button @click="$wasm.set_gamespeed(1000)">Set GameSpeed 1000</button>
       <br />
       <b-button @click="tick">Tick</b-button>
       <br />
@@ -29,26 +29,26 @@
       <br />
       <button @click="print_frontend_debug_world">Print Frontend Debug World</button>
       <br />
-      <button @click="wasm.print_debug_intermediate">Print Debug Intermediate</button>
+      <button @click="$wasm.print_debug_intermediate">Print Debug Intermediate</button>
       <br />
-      <button @click="wasm.print_debug_state">Print Debug State</button>
+      <button @click="$wasm.print_debug_state">Print Debug State</button>
       <br />
-      <button @click="wasm.print_debug_meta">Print Debug Meta</button>
+      <button @click="$wasm.print_debug_meta">Print Debug Meta</button>
       <br />
       <br />
-      <button @click="wasm.grow_old">Grow Old</button>
+      <button @click="$wasm.grow_old">Grow Old</button>
       <br />
       <input v-model="money" size="10" />
       <br />
-      <button @click="wasm.give_money(money)">Give Money</button>
+      <button @click="$wasm.give_money(money)">Give Money</button>
       <br />
       <input v-model="coins" size="10" />
       <br />
-      <button @click="wasm.give_coins(coins)">Give Coins</button>
+      <button @click="$wasm.give_coins(coins)">Give Coins</button>
       <br />
       <input v-model="divine_favor" size="10" />
       <br />
-      <button @click="wasm.give_divine_favor(divine_favor)">Give Divine Favor</button>
+      <button @click="$wasm.give_divine_favor(divine_favor)">Give Divine Favor</button>
       <br />
       <br />
     </div>
@@ -58,7 +58,7 @@
 <script>
 import { downloadFile } from '../utility.js'
 export default {
-  props: ['metaData', 'state', 'world', 'input', 'wasm'],
+  props: ['state', 'world'],
   data() {
     return {
       presets: [],
@@ -68,7 +68,7 @@ export default {
     }
   },
   mounted() {
-    this.presets = this.wasm.get_preset_saves()
+    this.presets = this.$wasm.get_preset_saves()
   },
   methods: {
     print_frontend_debug_state() {
@@ -78,7 +78,7 @@ export default {
       console.log(this.world)
     },
     tick() {
-      this.wasm.single_tick()
+      this.$wasm.single_tick()
       this.$parent.update_dynamic_data()
     },
   },

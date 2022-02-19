@@ -1,7 +1,7 @@
 import App from './App.vue'
 import IconWithText from './components/IconWithText.vue'
 
-import { store } from './store.js'
+import { createStore } from './store.js'
 
 import { BootstrapVue, BVConfig } from 'bootstrap-vue'
 import Vue from 'vue/dist/vue.js'
@@ -35,10 +35,11 @@ Vue.component('IconWithText', IconWithText)
 
 import('../pkg/index.js')
   .then(function (wasm) {
+    Vue.prototype.$wasm = wasm
     wasm.load()
     new Vue({
       el: '#app',
-      store,
+      store: createStore(wasm),
       render: (h) =>
         h(App, {
           props: { wasm },

@@ -15,7 +15,7 @@
         :key="work.name"
         class="no-touch"
         :class="{ mydisabled: !work_state.is_unlocked }"
-        @click="work_state.is_unlocked && wasm.set_work(work.name)"
+        @click="work_state.is_unlocked && $wasm.set_work(work.name)"
       >
         <td>
           <MyProgressBar
@@ -43,7 +43,7 @@ import MyProgressBar from './MyProgressBar.vue'
 
 export default {
   components: { MyProgressBar },
-  props: ['name', 'thework', 'input', 'wasm'],
+  props: ['name', 'thework', 'input'],
 }
 </script>
 

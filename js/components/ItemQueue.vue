@@ -7,7 +7,7 @@
         :key="item.name"
         v-b-tooltip.hover.left="item.description"
         class="no-select"
-        @click="wasm.dequeue_item(item.name)"
+        @click="$wasm.dequeue_item(item.name)"
       >
         <span>{{ item.display_name }} </span>
       </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  props: ['item_queue', 'wasm'],
+  props: ['item_queue'],
   methods: {},
 }
 </script>
