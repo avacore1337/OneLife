@@ -28,7 +28,6 @@
       >
         Divine Favor: <FormatNumber :value="state.items.divine_favor" />
       </icon-with-text>
-      <br />
       <span
         v-if="state.rebirth_stats.unlocks.has_faith"
         v-b-tooltip.hover.right="divine_income_tooltip"
@@ -39,54 +38,44 @@
 
     <h4 class="section-header">Life Stats</h4>
     <div class="section column-flex">
-      <p v-b-tooltip.hover.right="age_tooltip">Age: <FormatDays :value="state.life_stats.age" /></p>
-      <p v-b-tooltip.hover.right="lifespan_tooltip">
+      <span v-b-tooltip.hover.right="age_tooltip"
+        >Age: <FormatDays :value="state.life_stats.age"
+      /></span>
+      <span v-b-tooltip.hover.right="lifespan_tooltip">
         Lifespan: <FormatDays :value="state.life_stats.lifespan" />
-      </p>
-      <p>
-        <icon-with-text v-b-tooltip.hover.right="health_tooltip" :icon="$world.icons['Health']">
-          Health: {{ state.life_stats.health.toFixed(2) }}
-        </icon-with-text>
-        <br />
-        <span v-b-tooltip.hover.right="health_rate_tooltip">
-          Health Change:
-          {{ state.life_stats.health_rate.toPrecision(2) }}/s
-        </span>
-      </p>
-      <p>
-        <icon-with-text
-          v-b-tooltip.hover.right="happiness_tooltip"
-          :icon="$world.icons['Happiness']"
-        >
-          Happiness: {{ state.life_stats.happiness.toFixed(1) }}
-        </icon-with-text>
-      </p>
-      <p v-b-tooltip.hover.right="life_status_tooltip">Alive: {{ life_status() }}</p>
-      <p v-b-tooltip.hover.right="current_tick_tooltip">
+      </span>
+      <icon-with-text v-b-tooltip.hover.right="health_tooltip" :icon="$world.icons['Health']">
+        Health: {{ state.life_stats.health.toFixed(2) }}
+      </icon-with-text>
+      <span v-b-tooltip.hover.right="health_rate_tooltip">
+        Health Change:
+        {{ state.life_stats.health_rate.toPrecision(2) }}/s
+      </span>
+      <icon-with-text v-b-tooltip.hover.right="happiness_tooltip" :icon="$world.icons['Happiness']">
+        Happiness: {{ state.life_stats.happiness.toFixed(1) }}
+      </icon-with-text>
+      <span v-b-tooltip.hover.right="life_status_tooltip">Alive: {{ life_status() }}</span>
+      <span v-b-tooltip.hover.right="current_tick_tooltip">
         Tick: <FormatNumber :value="state.life_stats.current_tick" />
-      </p>
+      </span>
     </div>
 
     <h4 class="section-header">Rebirth Stats</h4>
     <div class="section column-flex">
-      <p>Life number: {{ state.rebirth_stats.rebirth_count + 1 }}</p>
-      <p v-b-tooltip.hover.right="tier_tooltip">
+      <span>Life number: {{ state.rebirth_stats.rebirth_count + 1 }}</span>
+      <span v-b-tooltip.hover.right="tier_tooltip">
         Tier: {{ state.rebirth_stats.tier }}
         {{ $world.tiers[state.rebirth_stats.tier].display_name }}
-      </p>
-      <p>
-        <icon-with-text v-b-tooltip.hover.right="coin_tooltip" :icon="$world.icons['Coin']">
-          Coins: <FormatNumber :value="state.rebirth_stats.coins" />
-        </icon-with-text>
-      </p>
-      <p>
-        <icon-with-text v-b-tooltip.hover.right="coin_income_tooltip" :icon="$world.icons['Coin']">
-          Coins Gain: <FormatNumber :value="state.rebirth_stats.coins_gain" />
-        </icon-with-text>
-      </p>
+      </span>
+      <icon-with-text v-b-tooltip.hover.right="coin_tooltip" :icon="$world.icons['Coin']">
+        Coins: <FormatNumber :value="state.rebirth_stats.coins" />
+      </icon-with-text>
+      <icon-with-text v-b-tooltip.hover.right="coin_income_tooltip" :icon="$world.icons['Coin']">
+        Coins Gain: <FormatNumber :value="state.rebirth_stats.coins_gain" />
+      </icon-with-text>
       <div v-if="false">
-        <p>Karma: {{ state.rebirth_stats.karma }}</p>
-        <p>Time multiplier: {{ state.rebirth_stats.time_factor }}</p>
+        <span>Karma: {{ state.rebirth_stats.karma }}</span>
+        <span>Time multiplier: {{ state.rebirth_stats.time_factor }}</span>
       </div>
     </div>
   </div>
