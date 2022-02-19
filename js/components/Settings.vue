@@ -4,11 +4,11 @@
     <b-button @click="$wasm.save">Save</b-button>
     <b-button @click="$wasm.load">Load</b-button>
     <b-button @click="$wasm.hard_reset">Hard Reset</b-button>
-    <MyToggle :value="metaData.autosave" :click="$wasm.toggle_autosave"> AutoSave </MyToggle>
+    <MyToggle :value="meta.autosave" :click="$wasm.toggle_autosave"> AutoSave </MyToggle>
     <h4>Display options</h4>
     <b-button @click="$wasm.set_disable_tutorial(false)">Enable Tutorial</b-button>
     <b-button @click="$wasm.toggle_show_recorded">
-      {{ !metaData.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
+      {{ !meta.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
     </b-button>
     <b-button @click="setNumberFormat">
       {{ nextNumberFormat }}
@@ -19,7 +19,7 @@
         <b-button
           v-for="button in buttons"
           :key="button.update_rate"
-          :pressed="metaData.options.update_rate == button.update_rate"
+          :pressed="meta.options.update_rate == button.update_rate"
           @click="set_update_rate(button.update_rate)"
           >{{ button.fps }}</b-button
         >
@@ -48,7 +48,7 @@ import MyToggle from './MyToggle.vue'
 
 export default {
   components: { FormatNumber, MyToggle },
-  props: ['metaData', 'state', 'input'],
+  props: ['meta', 'state', 'input'],
   data() {
     return {
       save_text: '',

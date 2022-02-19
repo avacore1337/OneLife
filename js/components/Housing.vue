@@ -37,7 +37,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['metaData', 'state', 'input'],
+  props: ['meta', 'state', 'input'],
   computed: {
     visible_housing() {
       let self = this
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     toggle_auto_living() {
-      this.$wasm.set_auto_living(!this.metaData.options.auto_living)
+      this.$wasm.set_auto_living(!this.meta.options.auto_living)
     },
   },
 }

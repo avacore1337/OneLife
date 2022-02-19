@@ -1,9 +1,7 @@
 <template>
   <Section2>
     <div
-      v-if="
-        metaData.options.show_bought_items && state.boost_items.some((item) => item.is_purchased)
-      "
+      v-if="meta.options.show_bought_items && state.boost_items.some((item) => item.is_purchased)"
       style="margin-bottom: 2rem"
     >
       <table>
@@ -67,7 +65,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'input', 'metaData', 'item_queue'],
+  props: ['state', 'input', 'meta', 'item_queue'],
   data() {
     return {
       shift: false,

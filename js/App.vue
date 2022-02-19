@@ -16,13 +16,13 @@
     </div>
     <div class="my-container">
       <div class="left-sidebar">
-        <Sidebar :state="state" :input="input" :meta-data="metaData" />
+        <Sidebar :state="state" :input="input" meta="meta" />
       </div>
 
       <div class="main">
         <Main
           :item_queue="item_queue"
-          :meta-data="metaData"
+          :meta="meta"
           :state="state"
           :input="input"
           :wasm="wasm"
@@ -33,12 +33,7 @@
 
       <div class="right-sidebar">
         <div>
-          <SidebarRight
-            :meta-data="metaData"
-            :state="state"
-            :input="input"
-            :item_queue="item_queue"
-          />
+          <SidebarRight :meta="meta" :state="state" :input="input" :item_queue="item_queue" />
         </div>
         <div v-if="$world.settings.display_debug">
           <Debug :state="state" />
@@ -76,7 +71,7 @@ export default {
       recorded_inputs: {},
       previous_recorded_inputs: {},
       item_queue: [],
-      metaData: {},
+      meta: {},
       numberFormat: 'DEFAULT',
       modalText: '',
       updateCount: 0,
@@ -88,7 +83,7 @@ export default {
     this.input = this.wasm.get_input()
     this.recorded_inputs = this.wasm.get_recorded_inputs()
     this.previous_recorded_inputs = this.wasm.get_previous_recorded_inputs()
-    this.metaData = this.wasm.get_meta_data()
+    this.meta = this.wasm.get_meta_data()
     this.item_queue = this.wasm.get_world_item_queue()
     this.loaded = true
     this.set_keyboard_listeners()
@@ -96,7 +91,7 @@ export default {
     let self = this
     setInterval(function () {
       if (
-        self.metaData.options.paused ||
+        self.meta.options.paused ||
         self.state.life_stats.is_dying ||
         self.state.life_stats.dead
       ) {
@@ -139,7 +134,7 @@ export default {
     },
     do_update() {
       this.updateCount += 1
-      if (this.updateCount % this.metaData.options.update_rate === 0) {
+      if (this.updateCount % this.meta.options.update_rate === 0) {
         this.update_dynamic_data()
         this.updateModal()
       }
@@ -147,8 +142,8 @@ export default {
     update_dynamic_data() {
       this.recurse_update(this.state, this.wasm.get_state())
       this.recurse_update(this.input, this.wasm.get_input())
-      this.recurse_update(this.metaData, this.wasm.get_meta_data())
-      if (this.metaData.options.show_recorded) {
+      this.recurse_update(this.meta, this.wasm.get_meta_data())
+      if (this.meta.options.show_recorded) {
         let recorded = this.wasm.get_recorded_inputs()
         if (this.recorded_inputs.length != recorded.length) {
           this.recorded_inputs = recorded
@@ -171,9 +166,9 @@ export default {
     },
     updateModal() {
       let modal = this.$refs['the-modal']
-      if (this.metaData.info.show_tutorial && modal.isHidden) {
+      if (this.meta.info.show_tutorial && modal.isHidden) {
         console.log('update modal')
-        this.modalText = this.$world.tutorial_texts[this.metaData.info.tutorial_step]
+        this.modalText = this.$world.tutorial_texts[this.meta.info.tutorial_step]
         modal.show()
       }
     },

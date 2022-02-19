@@ -2,7 +2,7 @@
   <Section2>
     <div
       v-if="
-        metaData.options.show_bought_upgrades &&
+        meta.options.show_bought_upgrades &&
         state.rebirth_stats.rebirth_upgrades.some((upgrade) => upgrade.is_purchased)
       "
       style="margin-bottom: 1rem"
@@ -52,7 +52,7 @@ import FormatNumber from './FormatNumber.vue'
 import { compare } from '../utility.js'
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'input', 'metaData'],
+  props: ['state', 'input', 'meta'],
   computed: {
     visible_unbought_upgrades() {
       let self = this
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     toggle_show_bought() {
-      this.$wasm.set_show_bought_upgrades(!this.metaData.options.show_bought_upgrades)
+      this.$wasm.set_show_bought_upgrades(!this.meta.options.show_bought_upgrades)
     },
   },
 }

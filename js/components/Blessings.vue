@@ -35,7 +35,7 @@ import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { Section2, FormatNumber },
-  props: ['metaData', 'state', 'input', 'wasm'],
+  props: ['meta', 'state', 'input', 'wasm'],
   computed: {
     visible_blessings() {
       let self = this
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     toggle_auto_buy_blessing() {
-      this.wasm.set_auto_buy_blessing(!this.metaData.options.auto_buy_blessing)
+      this.wasm.set_auto_buy_blessing(!this.meta.options.auto_buy_blessing)
     },
   },
 }

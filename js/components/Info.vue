@@ -26,13 +26,13 @@
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { FormatNumber },
-  props: ['state', 'input', 'metaData'],
+  props: ['state', 'input', 'meta'],
   computed: {
     tutorial_text() {
       let separator = '-'.repeat(60)
       return this.$world.tutorial_texts
         .filter((element, index) => {
-          return index < this.metaData.info.tutorial_step
+          return index < this.meta.info.tutorial_step
         })
         .join('\r\n' + separator + '\r\n')
     },

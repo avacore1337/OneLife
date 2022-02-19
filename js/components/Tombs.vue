@@ -53,7 +53,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['metaData', 'state', 'input'],
+  props: ['meta', 'state', 'input'],
   computed: {
     visible_unbought_tombs() {
       let self = this

@@ -100,7 +100,7 @@ import FormatNumber from './FormatNumber.vue'
 import FormatDays from './FormatDays.vue'
 export default {
   components: { BaseStats, Skills, FormatNumber, FormatDays, MyProgressBar },
-  props: ['state', 'input', 'metaData'],
+  props: ['state', 'input', 'meta'],
   data() {
     return {
       money_tooltip: 'The amount of money you have to spend on housing/items/tombs',

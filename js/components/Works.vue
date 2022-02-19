@@ -23,7 +23,7 @@ import WorkCategory from './WorkCategory.vue'
 
 export default {
   components: { WorkCategory },
-  props: ['metaData', 'state', 'input'],
+  props: ['meta', 'state', 'input'],
   computed: {
     visible_labor_work() {
       let self = this
