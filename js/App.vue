@@ -16,7 +16,7 @@
     </div>
     <div class="my-container">
       <div class="left-sidebar">
-        <Sidebar :state="state" :input="input" :world="world" :meta-data="metaData" />
+        <Sidebar :state="state" :input="input" :meta-data="metaData" />
       </div>
 
       <div class="main">
@@ -25,7 +25,6 @@
           :meta-data="metaData"
           :state="state"
           :input="input"
-          :world="world"
           :wasm="wasm"
           :previous_recorded_inputs="previous_recorded_inputs"
           :recorded_inputs="recorded_inputs"
@@ -35,15 +34,14 @@
       <div class="right-sidebar">
         <div>
           <SidebarRight
-            :world="world"
             :meta-data="metaData"
             :state="state"
             :input="input"
             :item_queue="item_queue"
           />
         </div>
-        <div v-if="world.settings.display_debug">
-          <Debug :world="world" :state="state" />
+        <div v-if="$world.settings.display_debug">
+          <Debug :state="state" />
         </div>
       </div>
     </div>
@@ -85,7 +83,7 @@ export default {
     }
   },
   mounted() {
-    this.world = Object.freeze(this.wasm.get_world())
+    this.$world = Object.freeze(this.wasm.get_world())
     this.state = this.wasm.get_state()
     this.input = this.wasm.get_input()
     this.recorded_inputs = this.wasm.get_recorded_inputs()
@@ -175,7 +173,7 @@ export default {
       let modal = this.$refs['the-modal']
       if (this.metaData.info.show_tutorial && modal.isHidden) {
         console.log('update modal')
-        this.modalText = this.world.tutorial_texts[this.metaData.info.tutorial_step]
+        this.modalText = this.$world.tutorial_texts[this.metaData.info.tutorial_step]
         modal.show()
       }
     },

@@ -23,11 +23,11 @@ import WorkCategory from './WorkCategory.vue'
 
 export default {
   components: { WorkCategory },
-  props: ['metaData', 'state', 'world', 'input'],
+  props: ['metaData', 'state', 'input'],
   computed: {
     visible_labor_work() {
       let self = this
-      return self.world.works
+      return self.$world.works
         .map((w, i) => {
           return [w, self.state.works[i]]
         })
@@ -37,7 +37,7 @@ export default {
     },
     visible_soldier_work() {
       let self = this
-      return self.world.works
+      return self.$world.works
         .map((w, i) => {
           return [w, self.state.works[i]]
         })
@@ -47,7 +47,7 @@ export default {
     },
     visible_priest_work() {
       let self = this
-      return self.world.works
+      return self.$world.works
         .map((w, i) => {
           return [w, self.state.works[i]]
         })

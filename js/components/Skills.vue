@@ -26,11 +26,11 @@ import MyProgressBar from './MyProgressBar.vue'
 
 export default {
   components: { MyProgressBar },
-  props: ['state', 'world'],
+  props: ['state'],
   computed: {
     visible_skills() {
       let self = this
-      return self.world.skills
+      return self.$world.skills
         .map((w, i) => {
           return [w, self.state.skills[i]]
         })

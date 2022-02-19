@@ -37,7 +37,7 @@
           <icon-with-text :icon="upgrade.icon" :text="upgrade.effect_description" />
         </td>
         <td style="flex-grow: 1">
-          <icon-with-text :icon="world.icons['Coin']">
+          <icon-with-text :icon="$world.icons['Coin']">
             <FormatNumber :value="upgrade.purchasing_cost" />
           </icon-with-text>
         </td>
@@ -52,11 +52,11 @@ import FormatNumber from './FormatNumber.vue'
 import { compare } from '../utility.js'
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'world', 'input', 'metaData'],
+  props: ['state', 'input', 'metaData'],
   computed: {
     visible_unbought_upgrades() {
       let self = this
-      return self.world.rebirth_upgrades
+      return self.$world.rebirth_upgrades
         .map((w, i) => {
           return [w, self.state.rebirth_stats.rebirth_upgrades[i]]
         })
@@ -67,7 +67,7 @@ export default {
     },
     bought_upgrades() {
       let self = this
-      return self.world.rebirth_upgrades
+      return self.$world.rebirth_upgrades
         .map((w, i) => {
           return [w, self.state.rebirth_stats.rebirth_upgrades[i]]
         })

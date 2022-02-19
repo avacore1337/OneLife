@@ -1,5 +1,5 @@
 <template>
-  <Section2 v-if="world.activities !== undefined">
+  <Section2 v-if="$world.activities !== undefined">
     <table>
       <tr class="header-row">
         <th>Activity</th>
@@ -37,11 +37,11 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'world', 'input'],
+  props: ['state', 'input'],
   computed: {
     visible_activities() {
       let self = this
-      return self.world.activities
+      return self.$world.activities
         .map((w, i) => {
           return [w, self.state.activities[i]]
         })

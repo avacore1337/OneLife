@@ -9,7 +9,7 @@
         <tr class="info-tr">
           <td style="flex-grow: 3">{{ max_bought_tomb[0].display_name }}</td>
           <td style="flex-grow: 1">
-            <icon-with-text :icon="world.icons['Coin']">
+            <icon-with-text :icon="$world.icons['Coin']">
               <FormatNumber :value="max_bought_tomb[1].effective_income" />
             </icon-with-text>
           </td>
@@ -33,12 +33,12 @@
           {{ tomb.display_name }}
         </td>
         <td>
-          <icon-with-text :icon="world.icons['Coin']">
+          <icon-with-text :icon="$world.icons['Coin']">
             <FormatNumber :value="tomb_state.effective_income" />
           </icon-with-text>
         </td>
         <td>
-          <icon-with-text :icon="world.icons['Money']">
+          <icon-with-text :icon="$world.icons['Money']">
             <FormatNumber :value="tomb.purchasing_cost" />
           </icon-with-text>
         </td>
@@ -53,11 +53,11 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['metaData', 'state', 'world', 'input'],
+  props: ['metaData', 'state', 'input'],
   computed: {
     visible_unbought_tombs() {
       let self = this
-      return self.world.tombs
+      return self.$world.tombs
         .map((w, i) => {
           return [w, self.state.tombs[i]]
         })
@@ -66,7 +66,7 @@ export default {
         })
     },
     max_bought_tomb() {
-      let bought_tombs = this.world.tombs
+      let bought_tombs = this.$world.tombs
         .map((w, i) => {
           return [w, this.state.tombs[i]]
         })

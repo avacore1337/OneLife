@@ -37,11 +37,11 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['metaData', 'state', 'world', 'input'],
+  props: ['metaData', 'state', 'input'],
   computed: {
     visible_housing() {
       let self = this
-      return self.world.housing
+      return self.$world.housing
         .map((w, i) => {
           return [w, self.state.housing[i]]
         })

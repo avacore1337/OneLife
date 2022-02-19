@@ -48,7 +48,7 @@ import MyToggle from './MyToggle.vue'
 
 export default {
   components: { FormatNumber, MyToggle },
-  props: ['metaData', 'state', 'world', 'input'],
+  props: ['metaData', 'state', 'input'],
   data() {
     return {
       save_text: '',

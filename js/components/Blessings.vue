@@ -21,7 +21,7 @@
         </td>
         <td>{{ blessing_state.level }},</td>
         <td>
-          <icon-with-text :icon="world.icons['DivineFavor']">
+          <icon-with-text :icon="$world.icons['DivineFavor']">
             <FormatNumber :value="blessing_state.next_level_cost" />
           </icon-with-text>
         </td>
@@ -35,11 +35,11 @@ import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { Section2, FormatNumber },
-  props: ['metaData', 'state', 'world', 'input', 'wasm'],
+  props: ['metaData', 'state', 'input', 'wasm'],
   computed: {
     visible_blessings() {
       let self = this
-      return self.world.blessings
+      return self.$world.blessings
         .map((w, i) => {
           return [w, self.state.blessings[i]]
         })

@@ -51,7 +51,7 @@
           <icon-with-text :icon="item.icon" :text="item.effect_description" />
         </td>
         <td style="flex-grow: 1">
-          <icon-with-text :icon="world.icons['Money']">
+          <icon-with-text :icon="$world.icons['Money']">
             <FormatNumber :value="item.purchasing_cost" />
           </icon-with-text>
         </td>
@@ -67,7 +67,7 @@ import FormatNumber from './FormatNumber.vue'
 
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'world', 'input', 'metaData', 'item_queue'],
+  props: ['state', 'input', 'metaData', 'item_queue'],
   data() {
     return {
       shift: false,
@@ -76,7 +76,7 @@ export default {
   computed: {
     visible_unbought_items() {
       let self = this
-      return self.world.boost_items
+      return self.$world.boost_items
         .map((w, i) => {
           return [w, self.state.boost_items[i]]
         })
@@ -87,7 +87,7 @@ export default {
     },
     bought_items() {
       let self = this
-      return self.world.boost_items
+      return self.$world.boost_items
         .map((w, i) => {
           return [w, self.state.boost_items[i]]
         })

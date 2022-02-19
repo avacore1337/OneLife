@@ -36,6 +36,7 @@ Vue.component('IconWithText', IconWithText)
 import('../pkg/index.js')
   .then(function (wasm) {
     Vue.prototype.$wasm = wasm
+    Vue.prototype.$world = Object.freeze(wasm.get_world())
     wasm.load()
     new Vue({
       el: '#app',

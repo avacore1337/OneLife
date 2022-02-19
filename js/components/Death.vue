@@ -31,14 +31,14 @@
         <th style="flex-grow: 1">Cost</th>
       </tr>
       <tr
-        v-for="tier in world.tiers.filter((tier) => tier.level > state.rebirth_stats.tier)"
+        v-for="tier in $world.tiers.filter((tier) => tier.level > state.rebirth_stats.tier)"
         :key="tier.name"
         :class="{ mydisabled: !$wasm.can_buy_tier(tier.level) }"
         @click="buy_tier(tier.level)"
       >
         <td>T{{ tier.level }} {{ tier.display_name }}</td>
         <td>
-          <icon-with-text :icon="world.icons['Coin']">
+          <icon-with-text :icon="$world.icons['Coin']">
             <FormatNumber :value="tier.purchasing_cost" />
           </icon-with-text>
         </td>
@@ -52,7 +52,7 @@ import Section2 from './Section2.vue'
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { Section2, FormatNumber },
-  props: ['state', 'world', 'input'],
+  props: ['state', 'input'],
   methods: {
     rebirth() {
       console.log('rebirth tag sent')

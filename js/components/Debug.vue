@@ -58,7 +58,7 @@
 <script>
 import { downloadFile } from '../utility.js'
 export default {
-  props: ['state', 'world'],
+  props: ['state'],
   data() {
     return {
       presets: [],
@@ -75,7 +75,7 @@ export default {
       console.log(this.state)
     },
     print_frontend_debug_world() {
-      console.log(this.world)
+      console.log(this.$world)
     },
     tick() {
       this.$wasm.single_tick()

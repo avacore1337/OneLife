@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 1rem">
-    <BaseStats :state="state" :world="world" />
-    <Skills v-if="state.rebirth_stats.unlocks.has_skills" :state="state" :world="world" />
+    <BaseStats :state="state" />
+    <Skills v-if="state.rebirth_stats.unlocks.has_skills" :state="state" />
 
     <h4 class="section-header">Current Work</h4>
     <div v-for="[work, work_state] in current_work" :key="work.name" class="section">
@@ -15,7 +15,7 @@
 
     <h4 class="section-header">Currencies</h4>
     <div class="section column-flex">
-      <icon-with-text v-b-tooltip.hover.right="money_tooltip" :icon="world.icons['Money']">
+      <icon-with-text v-b-tooltip.hover.right="money_tooltip" :icon="$world.icons['Money']">
         Money: <FormatNumber :value="state.items.money" />
       </icon-with-text>
       <span v-b-tooltip.hover.right="money_income_tooltip">
@@ -24,7 +24,7 @@
       <icon-with-text
         v-if="state.rebirth_stats.unlocks.has_faith"
         v-b-tooltip.hover.right="divine_tooltip"
-        :icon="world.icons['DivineFavor']"
+        :icon="$world.icons['DivineFavor']"
       >
         Divine Favor: <FormatNumber :value="state.items.divine_favor" />
       </icon-with-text>
@@ -44,7 +44,7 @@
         Lifespan: <FormatDays :value="state.life_stats.lifespan" />
       </p>
       <p>
-        <icon-with-text v-b-tooltip.hover.right="health_tooltip" :icon="world.icons['Health']">
+        <icon-with-text v-b-tooltip.hover.right="health_tooltip" :icon="$world.icons['Health']">
           Health: {{ state.life_stats.health.toFixed(2) }}
         </icon-with-text>
         <br />
@@ -56,7 +56,7 @@
       <p>
         <icon-with-text
           v-b-tooltip.hover.right="happiness_tooltip"
-          :icon="world.icons['Happiness']"
+          :icon="$world.icons['Happiness']"
         >
           Happiness: {{ state.life_stats.happiness.toFixed(1) }}
         </icon-with-text>
@@ -72,15 +72,15 @@
       <p>Life number: {{ state.rebirth_stats.rebirth_count + 1 }}</p>
       <p v-b-tooltip.hover.right="tier_tooltip">
         Tier: {{ state.rebirth_stats.tier }}
-        {{ world.tiers[state.rebirth_stats.tier].display_name }}
+        {{ $world.tiers[state.rebirth_stats.tier].display_name }}
       </p>
       <p>
-        <icon-with-text v-b-tooltip.hover.right="coin_tooltip" :icon="world.icons['Coin']">
+        <icon-with-text v-b-tooltip.hover.right="coin_tooltip" :icon="$world.icons['Coin']">
           Coins: <FormatNumber :value="state.rebirth_stats.coins" />
         </icon-with-text>
       </p>
       <p>
-        <icon-with-text v-b-tooltip.hover.right="coin_income_tooltip" :icon="world.icons['Coin']">
+        <icon-with-text v-b-tooltip.hover.right="coin_income_tooltip" :icon="$world.icons['Coin']">
           Coins Gain: <FormatNumber :value="state.rebirth_stats.coins_gain" />
         </icon-with-text>
       </p>
@@ -100,7 +100,7 @@ import FormatNumber from './FormatNumber.vue'
 import FormatDays from './FormatDays.vue'
 export default {
   components: { BaseStats, Skills, FormatNumber, FormatDays, MyProgressBar },
-  props: ['state', 'world', 'input', 'metaData'],
+  props: ['state', 'input', 'metaData'],
   data() {
     return {
       money_tooltip: 'The amount of money you have to spend on housing/items/tombs',
@@ -127,7 +127,7 @@ export default {
     current_work() {
       let self = this
       let the_work = []
-      this.world.works.forEach((work, i) => {
+      this.$world.works.forEach((work, i) => {
         if (work.name == self.input.work) {
           the_work = [[work, self.state.works[i]]]
         }

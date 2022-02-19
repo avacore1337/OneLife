@@ -3,7 +3,7 @@
     <div>
       <h3>Story</h3>
       <div class="log-area">
-        <span v-for="(text, index) in world.tutorial_texts" :key="index">
+        <span v-for="(text, index) in $world.tutorial_texts" :key="index">
           {{ text }}
           <hr />
         </span>
@@ -13,7 +13,7 @@
     <div>
       <h3>Tutorial</h3>
       <div class="log-area">
-        <span v-for="(text, index) in world.tutorial_texts" :key="index">
+        <span v-for="(text, index) in $world.tutorial_texts" :key="index">
           {{ text }}
           <hr />
         </span>
@@ -26,11 +26,11 @@
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { FormatNumber },
-  props: ['state', 'world', 'input', 'metaData'],
+  props: ['state', 'input', 'metaData'],
   computed: {
     tutorial_text() {
       let separator = '-'.repeat(60)
-      return this.world.tutorial_texts
+      return this.$world.tutorial_texts
         .filter((element, index) => {
           return index < this.metaData.info.tutorial_step
         })

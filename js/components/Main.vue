@@ -3,22 +3,20 @@
     <b-tab key="life-tab" title="Life">
       <div class="my-container">
         <div class="main-item">
-          <Works :meta-data="metaData" :state="state" :input="input" :world="world" />
-          <Housing :meta-data="metaData" :state="state" :input="input" :world="world" />
+          <Works :meta-data="metaData" :state="state" :input="input" />
+          <Housing :meta-data="metaData" :state="state" :input="input" />
         </div>
         <div class="main-item">
-          <Activities :state="state" :input="input" :world="world" />
+          <Activities :state="state" :input="input" />
           <Blessings
             v-if="state.rebirth_stats.unlocks.has_faith"
             :meta-data="metaData"
             :state="state"
             :input="input"
-            :world="world"
           />
           <BoostItems
             :state="state"
             :input="input"
-            :world="world"
             :meta-data="metaData"
             :item_queue="item_queue"
           />
@@ -49,15 +47,14 @@
     >
       <div class="my-container">
         <div class="main-item">
-          <Tombs :meta-data="metaData" :state="state" :input="input" :world="world" />
+          <Tombs :meta-data="metaData" :state="state" :input="input" />
         </div>
         <div class="main-item">
-          <Death :state="state" :input="input" :world="world" />
+          <Death :state="state" :input="input" />
           <RebirthUpgrades
             v-if="state.rebirth_stats.tier > 0"
             :state="state"
             :input="input"
-            :world="world"
             :meta-data="metaData"
           />
         </div>
@@ -65,11 +62,11 @@
     </b-tab>
 
     <b-tab key="settings-tab" title="Settings">
-      <Settings :state="state" :input="input" :world="world" :meta-data="metaData" />
+      <Settings :state="state" :input="input" :meta-data="metaData" />
     </b-tab>
 
     <b-tab key="info-tab" title="Info">
-      <Info :state="state" :input="input" :world="world" :meta-data="metaData" />
+      <Info :state="state" :input="input" :meta-data="metaData" />
     </b-tab>
   </b-tabs>
 </template>
@@ -109,7 +106,6 @@ export default {
     'item_queue',
     'metaData',
     'state',
-    'world',
     'input',
     'recorded_inputs',
     'previous_recorded_inputs',

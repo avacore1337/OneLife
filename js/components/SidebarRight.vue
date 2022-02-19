@@ -27,12 +27,12 @@
       <b-button @click="$wasm.toggle_paused">
         <icon-with-text
           v-if="metaData.options.paused"
-          :icon="world.icons['Play']"
+          :icon="$world.icons['Play']"
           text="Resume the game"
         />
         <icon-with-text
           v-if="!metaData.options.paused"
-          :icon="world.icons['Pause']"
+          :icon="$world.icons['Pause']"
           text="Pause the game"
         />
       </b-button>
@@ -48,7 +48,7 @@ import MyToggle from './MyToggle.vue'
 import FormatNumber from './FormatNumber.vue'
 export default {
   components: { ItemQueue, Automation, FormatNumber, MyToggle },
-  props: ['metaData', 'state', 'world', 'input', 'item_queue'],
+  props: ['metaData', 'state', 'input', 'item_queue'],
   data() {
     return {
       end_early_criteria: 0.0,
