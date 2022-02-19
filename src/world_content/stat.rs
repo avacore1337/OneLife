@@ -56,7 +56,7 @@ pub fn translate_stat(stat: StatTypes) -> Stat {
         StatTypes::Str => Stat {
             name: stat,
             description: "Do you even lift?",
-            effect_description: "Boosts income from Soldier related jobs and Soldier XP",
+            effect_description: "Boosts income from Soldier jobs by 1 + level*0.1\nBoosts Soldier jobs XP by 1 + level*0.05",
             display_name: "Strength",
             required_tier: 2,
             icon: IconType::Str.into(),
@@ -64,7 +64,7 @@ pub fn translate_stat(stat: StatTypes) -> Stat {
         StatTypes::Cha => Stat {
             name: stat,
             description: "Being liked has its benifits.",
-            effect_description: "Boosts Coin gain by 0.05x level",
+            effect_description: "Boosts Coin gain by 1 + level*0.05",
             display_name: "Charisma",
             required_tier: 1,
             icon: IconType::Cha.into(),
@@ -80,7 +80,7 @@ pub fn translate_stat(stat: StatTypes) -> Stat {
         StatTypes::Int => Stat {
             name: stat,
             description: "Nerd!",
-            effect_description: "Boosts XP gain for skills/stats",
+            effect_description: "Boosts XP gain for skills/stats by 1 + level*0.05",
             display_name: "Intelligence",
             required_tier: 0,
             icon: IconType::Int.into(),
@@ -88,7 +88,7 @@ pub fn translate_stat(stat: StatTypes) -> Stat {
         StatTypes::Con => Stat {
             name: stat,
             description: "Endure the pain!",
-            effect_description: "Increases income for labor related jobs and increases health gain",
+            effect_description: "Boosts income from Labor jobs by 1 + level*0.1\nIncreases health gain by level*0.05",
             display_name: "Constitution",
             required_tier: 0,
             icon: IconType::Con.into(),
@@ -96,7 +96,7 @@ pub fn translate_stat(stat: StatTypes) -> Stat {
         StatTypes::Faith => Stat {
             name: stat,
             description: "Have some.",
-            effect_description: "Boosts income from Priest related jobs",
+            effect_description: "Boosts income from Priest jobs by 1 + level*0.1\nBoosts Divine Favor gain by 1 + level*0.05",
             display_name: "Faith",
             required_tier: 4,
             icon: IconType::Faith.into(),

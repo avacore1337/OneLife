@@ -77,8 +77,8 @@ tr.mydisabled {
 }
 
 .tooltip .tooltip-inner {
-  max-width: 500px !important;
-  width: 300px !important;
+  max-width: 600px !important;
+  width: 350px !important;
   background-color: #333c4a;
   white-space: pre-line;
 }
