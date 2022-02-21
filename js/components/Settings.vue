@@ -6,7 +6,9 @@
     <b-button @click="$wasm.hard_reset">Hard Reset</b-button>
     <MyToggle :value="meta.autosave" :click="$wasm.toggle_autosave"> AutoSave </MyToggle>
     <h4>Display options</h4>
-    <b-button @click="$wasm.set_disable_tutorial(false)">Enable Tutorial</b-button>
+    <b-button @click="$wasm.toggle_disable_tutorial">
+      {{ meta.info.disable_tutorial ? 'Enable Tutorial' : 'Disable Tutorial' }}
+    </b-button>
     <b-button @click="$wasm.toggle_show_recorded">
       {{ !meta.options.show_recorded ? 'Show Recorded' : "Don't Show Recorded" }}
     </b-button>

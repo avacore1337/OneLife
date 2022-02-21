@@ -82,3 +82,10 @@ tr.mydisabled {
   background-color: #333c4a;
   white-space: pre-line;
 }
+
+.nav-link:hover {
+  color: white;
+}
+.nav-link {
+  color: white;
+}

@@ -3,8 +3,9 @@
     <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
       <span class="the-modal">
         <div class="d-block text-center">
-          <h3>{{ modalText }}</h3>
+          <span v-html="modalText"></span>
         </div>
+        <hr />
         <b-button class="float-end" block @click="hideModal">Next</b-button>
         <b-button class="float-end" variant="danger" block @click="disable_tutorial"
           >Disable Tutorial</b-button
@@ -23,7 +24,7 @@
 
       <div class="right-sidebar">
         <SidebarRight />
-        <Debug />
+        <Debug v-if="$world.settings.display_debug" />
       </div>
     </div>
   </div>
@@ -48,7 +49,7 @@ export default {
     SidebarRight,
     Topbar,
   },
-  props: ['wasm'],
+  props: ['wasm', 'tutorial_data'],
   computed: mapState(['state', 'meta', 'input']),
   data() {
     return {
@@ -97,7 +98,7 @@ export default {
       let modal = this.$refs['the-modal']
       if (this.meta.info.show_tutorial && modal.isHidden) {
         console.log('update modal')
-        this.modalText = this.$world.tutorial_texts[this.meta.info.tutorial_step]
+        this.modalText = this.tutorial_data[this.meta.info.tutorial_step]
         modal.show()
       }
     },

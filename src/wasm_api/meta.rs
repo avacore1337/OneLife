@@ -16,6 +16,12 @@ pub fn set_update_rate(val: u32) {
 }
 
 #[wasm_bindgen]
+pub fn toggle_disable_tutorial() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.info.disable_tutorial = !game.meta_data.info.disable_tutorial;
+}
+
+#[wasm_bindgen]
 pub fn set_disable_tutorial(val: bool) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.info.disable_tutorial = val;
