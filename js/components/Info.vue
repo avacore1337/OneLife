@@ -4,14 +4,14 @@
       <h3>Story</h3>
       <div class="log-area">
         <span v-for="(text, index) in tutorial_texts" :key="index">
-          {{ text }}
+          <span v-html="text"></span>
           <hr />
         </span>
       </div>
     </div>
 
     <div style="width: 100%">
-      <h3>Tutorial</h3>
+      <h3>Tips</h3>
       <div class="log-area">
         <span v-for="(text, index) in tutorial_tips" :key="index">
           {{ text }}
@@ -31,24 +31,14 @@ export default {
   computed: {
     ...mapState(['state', 'meta', 'input', 'tutorial_data']),
     tutorial_texts() {
-      return this.$wasm.get_completed_steps()
+      return this.completed_steps.map((data) => data.basetext).filter((data) => data != '')
     },
     tutorial_tips() {
-      return this.tutorial_data
-      /* return this.tutorial_data.map((data) => data.tip) */
+      return this.completed_steps.map((data) => data.tip).filter((data) => data != '')
     },
-    /* tutorial_text() { */
-    /*   let separator = '-'.repeat(60) */
-    /*   return this.$world.tutorial_texts */
-    /*     .filter((element, index) => { */
-    /*       return index < this.meta.info.tutorial_step */
-    /*     }) */
-    /*     .join('\r\n' + separator + '\r\n') */
-    /* }, */
-  },
-  methods: {
-    test() {
-      console.log('test')
+    completed_steps() {
+      let watch = this.meta.info.tutorial_step // needed for watch updates
+      return this.$wasm.get_completed_steps().map((entry) => this.tutorial_data[entry])
     },
   },
 }
@@ -56,11 +46,12 @@ export default {
 
 <style scoped>
 .log-area {
-  padding: 0.5rem;
+  padding: 0.2rem;
   max-width: 1000px;
   width: 100%;
   border: 1px solid lightgray;
   height: 70%;
   overflow-y: scroll;
+  white-space: pre-line;
 }
 </style>

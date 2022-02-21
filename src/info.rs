@@ -28,7 +28,9 @@ impl Info {
     }
 
     pub fn get_completed_steps(&self) -> Vec<TutorialStep> {
-        TutorialStep::iter().collect()
+        TutorialStep::iter()
+            .filter(|step| *step < self.tutorial_step)
+            .collect()
     }
 }
 
