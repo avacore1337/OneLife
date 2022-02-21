@@ -2,8 +2,14 @@
   <div v-if="loaded" class="app">
     <b-modal ref="the-modal" hide-footer hide-header title="Using Component Methods">
       <span class="the-modal">
-        <div class="d-block text-center">
-          <span v-html="modalText"></span>
+        <div class="d-block">
+          <h2 class="text-center">{{ modalData.title }}</h2>
+          <hr />
+          <span v-html="modalData.basetext"></span>
+          <div v-if="modalData.tip != ''">
+            <hr />
+            <b>Tip:</b> <span v-html="modalData.tip"></span>
+          </div>
         </div>
         <hr />
         <b-button class="float-end" block @click="hideModal">Next</b-button>
@@ -49,13 +55,13 @@ export default {
     SidebarRight,
     Topbar,
   },
-  props: ['wasm', 'tutorial_data'],
-  computed: mapState(['state', 'meta', 'input']),
+  props: ['wasm'],
+  computed: mapState(['state', 'meta', 'input', 'tutorial_data']),
   data() {
     return {
       loaded: false,
       numberFormat: 'DEFAULT',
-      modalText: '',
+      modalData: '',
       updateCount: 0,
     }
   },
@@ -98,7 +104,7 @@ export default {
       let modal = this.$refs['the-modal']
       if (this.meta.info.show_tutorial && modal.isHidden) {
         console.log('update modal')
-        this.modalText = this.tutorial_data[this.meta.info.tutorial_step]
+        this.modalData = this.tutorial_data[this.meta.info.tutorial_step]
         modal.show()
       }
     },

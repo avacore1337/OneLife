@@ -2,7 +2,6 @@ import App from './App.vue'
 import IconWithText from './components/IconWithText.vue'
 
 import { createStore } from './store.js'
-import { tutorial_data } from './tutorial.js'
 
 import { BootstrapVue, BVConfig } from 'bootstrap-vue'
 import Vue from 'vue/dist/vue.js'
@@ -44,7 +43,7 @@ import('../pkg/index.js')
       store: createStore(wasm),
       render: (h) =>
         h(App, {
-          props: { wasm, tutorial_data },
+          props: { wasm },
         }),
     })
   })

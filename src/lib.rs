@@ -9,6 +9,9 @@ use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 
 #[macro_use]
+extern crate num_derive;
+
+#[macro_use]
 extern crate lazy_static;
 
 // #[macro_use]
@@ -28,8 +31,8 @@ pub mod util;
 pub mod wasm_api;
 pub mod world_content;
 
+use crate::info::check_for_tutorial_step;
 use crate::input::blessing::BlessingTypes;
-use crate::world_content::tutorial::check_for_tutorial_step;
 use engine::auto_functions::register_auto_settings;
 use engine::{character_death_update, engine_run, update_unlocks};
 use game::Game;
@@ -128,8 +131,14 @@ pub fn get_meta_data() -> JsValue {
 #[wasm_bindgen]
 pub fn next_info_step() {
     let mut game = GLOBAL_DATA.lock().unwrap();
-    game.meta_data.info.tutorial_step += 1;
+    game.meta_data.info.tutorial_step.increment();
     game.meta_data.info.show_tutorial = false;
+}
+
+#[wasm_bindgen]
+pub fn get_completed_steps() -> JsValue {
+    let game = GLOBAL_DATA.lock().unwrap();
+    JsValue::from_serde(&game.meta_data.info.get_completed_steps()).unwrap()
 }
 
 #[wasm_bindgen]

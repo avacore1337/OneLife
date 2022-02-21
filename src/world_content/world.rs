@@ -13,7 +13,6 @@ use super::skill::{get_skills, Skill};
 use super::stat::{get_stats, Stat};
 use super::tier::{init_tiers, Tier};
 use super::tomb::{get_tombs, Tomb};
-use super::tutorial::get_tutorial_texts;
 use super::work::{get_works, Work};
 use crate::icon::{get_icons, Icon};
 use crate::input::activity::{ActivityTypes, ACTIVITY_SIZE};
@@ -42,7 +41,6 @@ pub struct World {
     pub stats: [Stat; STAT_SIZE],
     pub tiers: Vec<Tier>,
     pub tombs: [Tomb; TOMB_SIZE],
-    pub tutorial_texts: Vec<&'static str>,
     works: [Work; WORK_SIZE],
     #[serde(skip_serializing)]
     pub input_mapping: Mutex<InputMapping>,
@@ -74,7 +72,6 @@ impl Default for World {
             activities: get_activities(),
             tombs: get_tombs(),
             rebirth_upgrades: get_rebirth_upgrades(),
-            tutorial_texts: get_tutorial_texts(),
             stats: get_stats(),
             settings: Settings::default(),
             blessings: get_blessings(),

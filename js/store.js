@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue/dist/vue.js'
+import { tutorial_data } from './tutorial.js'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export const createStore = function (wasm) {
       previous_recorded_inputs: wasm.get_previous_recorded_inputs(),
       item_queue: wasm.get_world_item_queue(),
       meta: wasm.get_meta_data(),
+      tutorial_data: Object.freeze(tutorial_data),
     },
     mutations: {
       toggleNumberFormat(state) {
