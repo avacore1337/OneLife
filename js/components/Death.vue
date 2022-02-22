@@ -21,7 +21,10 @@
         Go To The Other Side
       </b-button>
       <b-button v-if="state.life_stats.dead" @click="rebirth">Rebirth</b-button>
-      <b-button v-if="state.life_stats.dead" @click="$wasm.do_rebirth_replay">
+      <b-button
+        v-if="state.life_stats.dead && state.rebirth_stats.unlocks.can_replay"
+        @click="$wasm.do_rebirth_replay"
+      >
         Rebirth Replay
       </b-button>
     </div>
@@ -34,7 +37,7 @@
         v-for="tier in $world.tiers.filter((tier) => tier.level > state.rebirth_stats.tier)"
         :key="tier.name"
         :class="{ mydisabled: !$wasm.can_buy_tier(tier.level) }"
-        @click="buy_tier(tier.level)"
+        @click="$wasm.buy_tier(tier.level)"
       >
         <td>T{{ tier.level }} {{ tier.display_name }}</td>
         <td>

@@ -26,10 +26,7 @@
           >{{ button.fps }}</b-button
         >
       </b-button-group>
-      <MyToggle
-        :value="this.meta.options.skip_render_when_hidden"
-        :click="$wasm.toggle_skip_render"
-      >
+      <MyToggle :value="meta.options.skip_render_when_hidden" :click="$wasm.toggle_skip_render">
         Skip render when window is hidden
       </MyToggle>
     </div>

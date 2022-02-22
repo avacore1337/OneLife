@@ -13,7 +13,9 @@
         >
       </b-dropdown>
       <br />
-      <button @click="$wasm.test">Test</button>
+      <b-button v-if="state.life_stats.dead" @click="$wasm.do_rebirth_replay">
+        Rebirth Replay
+      </b-button>
       <br />
       <button @click="$wasm.set_gamespeed(1)">Set GameSpeed 1</button>
       <br />
