@@ -54,6 +54,7 @@ pub struct Options {
     pub show_recorded: bool,
     pub paused: bool,
     pub update_rate: u32,
+    pub skip_render_when_hidden: bool,
 }
 
 impl Options {
@@ -72,6 +73,7 @@ impl Options {
             show_recorded: false,
             paused: false,
             update_rate: 1,
+            skip_render_when_hidden: true,
         }
     }
 }

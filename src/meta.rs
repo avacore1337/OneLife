@@ -62,7 +62,7 @@ impl MetaData {
 
     pub fn update_tick_time(&mut self) {
         let now = Date::new_0().get_time();
-        if now >= self.last_tick_time + 500.0 {
+        if now >= self.last_tick_time + 100.0 {
             self.saved_ticks += ((now - self.last_tick_time) * crate::TICK_RATE) / 1000.0
         }
         self.last_tick_time = Date::new_0().get_time();

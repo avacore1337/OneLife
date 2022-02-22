@@ -96,6 +96,9 @@ export default {
     do_update() {
       this.updateCount += 1
       if (this.updateCount % this.meta.options.update_rate === 0) {
+        if (this.meta.options.skip_render_when_hidden && document.hidden) {
+          return
+        }
         this.$store.commit('update_dynamic_data')
         this.updateModal()
       }

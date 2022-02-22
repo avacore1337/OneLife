@@ -206,6 +206,12 @@ pub fn tick_internal(game: &mut Game) {
     if game.meta_data.should_autosave() {
         do_save(game);
     }
+    if game.just_loaded {
+        game.just_loaded = false;
+    } else {
+        // TODO use for time skipping/catchup
+    }
+
     if game.state.life_stats.is_dying {
         return;
     }

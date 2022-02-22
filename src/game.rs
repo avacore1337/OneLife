@@ -15,6 +15,7 @@ pub struct Game {
     pub meta_data: MetaData,
     pub inputs: Inputs,
     pub previous_inputs: Inputs,
+    pub just_loaded: bool,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -79,6 +80,7 @@ impl Game {
             meta_data,
             inputs,
             previous_inputs,
+            just_loaded: false,
         }
     }
 
@@ -128,5 +130,6 @@ impl Game {
         self.meta_data = meta_data;
         self.inputs = inputs;
         self.previous_inputs = previous_inputs;
+        self.just_loaded = true;
     }
 }

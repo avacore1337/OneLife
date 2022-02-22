@@ -29,6 +29,7 @@ Vue.use(BVConfig, {
 
 Vue.use(BootstrapVue)
 
+Vue.config.devtools = true
 Vue.config.performance = true
 Vue.component('VIcon', Icon)
 Vue.component('IconWithText', IconWithText)

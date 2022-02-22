@@ -16,6 +16,13 @@ pub fn set_update_rate(val: u32) {
 }
 
 #[wasm_bindgen]
+pub fn toggle_skip_render() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.skip_render_when_hidden =
+        !game.meta_data.options.skip_render_when_hidden;
+}
+
+#[wasm_bindgen]
 pub fn toggle_disable_tutorial() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.info.disable_tutorial = !game.meta_data.info.disable_tutorial;

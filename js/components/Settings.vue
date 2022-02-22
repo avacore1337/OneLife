@@ -26,9 +26,14 @@
           >{{ button.fps }}</b-button
         >
       </b-button-group>
+      <MyToggle
+        :value="this.meta.options.skip_render_when_hidden"
+        :click="$wasm.toggle_skip_render"
+      >
+        Skip render when window is hidden
+      </MyToggle>
     </div>
     <h4>Import/Export saves</h4>
-    <b-button @click="download_save">Download Save</b-button>
     <div style="max-width: 1000px">
       <b-form-textarea
         id="textarea"
@@ -37,9 +42,10 @@
         rows="6"
         max-rows="6"
       ></b-form-textarea>
+      <b-button @click="import_save">Import Save</b-button>
+      <b-button @click="export_save">Export Save</b-button>
+      <b-button @click="download_save">Download Save</b-button>
     </div>
-    <b-button @click="import_save">Import Save</b-button>
-    <b-button @click="export_save">Export Save</b-button>
   </div>
 </template>
 
