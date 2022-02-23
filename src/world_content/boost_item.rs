@@ -8,12 +8,18 @@ use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize)]
 pub struct BoostItem {
     pub name: BoostItemTypes,
     pub purchasing_cost: f64,
+    #[wasm_bindgen(skip)]
     pub description: &'static str,
+    #[wasm_bindgen(skip)]
     pub effect_description: &'static str,
+    #[wasm_bindgen(skip)]
     pub display_name: &'static str,
     pub required_tier: u32,
     pub icon: Icon,

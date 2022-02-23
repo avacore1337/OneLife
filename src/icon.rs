@@ -3,8 +3,12 @@ use std::collections::BTreeMap;
 use strum::EnumIter;
 use strum::IntoEnumIterator;
 
-#[derive(Serialize, Debug, Clone)]
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
+#[derive(Serialize, Debug, Clone, Copy)]
 pub struct Icon {
+    #[wasm_bindgen(skip)]
     pub name: &'static str,
 }
 

@@ -27,6 +27,9 @@ use crate::input::work::{WorkTypes, WORK_SIZE};
 use crate::input_mapping::InputMapping;
 use std::collections::BTreeMap;
 
+// use wasm_bindgen::prelude::*;
+
+// #[wasm_bindgen(readonly)]
 #[serbia]
 #[derive(Serialize)]
 pub struct World {
@@ -42,8 +45,10 @@ pub struct World {
     pub tiers: Vec<Tier>,
     pub tombs: [Tomb; TOMB_SIZE],
     works: [Work; WORK_SIZE],
+    // #[wasm_bindgen(skip)]
     #[serde(skip_serializing)]
     pub input_mapping: Mutex<InputMapping>,
+    // #[wasm_bindgen(skip)]
     pub icons: BTreeMap<String, Icon>,
 }
 

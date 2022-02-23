@@ -3,12 +3,19 @@ use crate::input::work::WorkTypes;
 use crate::state::stats::{get_stats_base, BaseStats, Stat};
 use serde::Serialize;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize, Debug)]
 pub struct Tier {
     pub level: u32,
+    #[wasm_bindgen(skip)]
     pub display_name: &'static str,
+    #[wasm_bindgen(skip)]
     pub description: &'static str,
+    #[wasm_bindgen(skip)]
     pub unlocks: Vec<&'static str>,
+    #[wasm_bindgen(skip)]
     pub starting_stats: [Stat; STAT_SIZE],
     pub starting_work: WorkTypes,
     pub starting_health: f64,

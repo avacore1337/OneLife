@@ -9,13 +9,19 @@ use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize)]
 pub struct RebirthUpgrade {
     pub name: RebirthUpgradeTypes,
     pub purchasing_cost: f64,
+    #[wasm_bindgen(skip)]
     pub description: &'static str,
+    #[wasm_bindgen(skip)]
     pub display_name: &'static str,
     pub required_tier: u32,
+    #[wasm_bindgen(skip)]
     pub effect_description: &'static str,
     pub icon: Icon,
 }

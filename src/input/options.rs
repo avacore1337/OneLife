@@ -3,6 +3,9 @@ use strum::EnumIter;
 
 use super::Recordable;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum AutoSettingTypes {
     AutoWorkTrue,
@@ -39,6 +42,7 @@ impl Recordable for AutoSettingTypes {
     }
 }
 
+#[wasm_bindgen(readonly)]
 #[derive(Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Options {
     pub auto_work: bool,

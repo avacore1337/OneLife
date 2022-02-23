@@ -3,6 +3,9 @@ use serde::{Deserialize, Serialize};
 use std::mem::variant_count;
 use strum::EnumIter;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum WorkTypes {
     // Worker Types
@@ -46,6 +49,7 @@ pub enum WorkTypes {
     Bishop,
 }
 
+#[wasm_bindgen(readonly)]
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum WorkCategoryTypes {
     Labor,

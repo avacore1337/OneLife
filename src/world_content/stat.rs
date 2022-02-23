@@ -6,11 +6,17 @@ use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize, Clone)]
 pub struct Stat {
     pub name: StatTypes,
+    #[wasm_bindgen(skip)]
     pub description: &'static str,
+    #[wasm_bindgen(skip)]
     pub effect_description: &'static str,
+    #[wasm_bindgen(skip)]
     pub display_name: &'static str,
     pub required_tier: u32,
     pub icon: Icon,

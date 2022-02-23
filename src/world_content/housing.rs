@@ -6,11 +6,16 @@ use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize)]
 pub struct Housing {
     pub name: HousingTypes,
     pub upkeep: f64,
+    #[wasm_bindgen(skip)]
     pub description: &'static str,
+    #[wasm_bindgen(skip)]
     pub display_name: &'static str,
     pub required_money: f64,
     pub happiness_factor: f64,

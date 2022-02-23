@@ -7,11 +7,17 @@ use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize)]
 pub struct Activity {
     pub name: ActivityTypes,
+    #[wasm_bindgen(skip)]
     pub description: &'static str,
+    #[wasm_bindgen(skip)]
     pub display_name: &'static str,
+    #[wasm_bindgen(skip)]
     pub effect_description: &'static str,
     pub gained_value_type: KeyValues,
     pub base_gain_amount: f64,

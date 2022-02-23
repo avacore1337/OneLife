@@ -2,8 +2,6 @@
 #![feature(drain_filter)]
 // #![feature(generic_const_exprs)]
 
-use icon::{Icon, IconType};
-use input_recording::{Inputs, RecordedInputEntry};
 use log::{info, Level};
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
@@ -31,18 +29,20 @@ pub mod util;
 pub mod wasm_api;
 pub mod world_content;
 
-use crate::info::check_for_tutorial_step;
-use crate::input::blessing::BlessingTypes;
 use engine::auto_functions::register_auto_settings;
 use engine::{character_death_update, engine_run, update_unlocks};
 use game::Game;
+use icon::{Icon, IconType};
+use info::check_for_tutorial_step;
 use input::activity::ActivityTypes;
+use input::blessing::BlessingTypes;
 use input::boost_item::BoostItemTypes;
 use input::housing::HousingTypes;
 use input::rebirth_upgrade::RebirthUpgradeTypes;
 use input::tomb::TombTypes;
 use input::work::WorkTypes;
 use input::Input;
+use input_recording::{Inputs, RecordedInputEntry};
 use state::state_container::rebirth;
 use wasm_api::meta::do_save;
 use world_content::boost_item::BoostItem;
@@ -50,6 +50,22 @@ use world_content::rebirth_upgrade::RebirthUpgrade;
 use world_content::tier::Tier;
 use world_content::tomb::Tomb;
 use world_content::world::World;
+
+#[wasm_bindgen(readonly)]
+pub struct Baz {
+    pub field: i32,
+
+    #[wasm_bindgen(skip)]
+    pub field2: String,
+}
+
+#[wasm_bindgen]
+impl Baz {
+    #[wasm_bindgen(getter)]
+    pub fn field2(&self) -> String {
+        self.field2.clone()
+    }
+}
 
 const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 const TICK_RATE: f64 = 30.0;

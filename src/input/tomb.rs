@@ -4,6 +4,9 @@ use strum::EnumIter;
 
 use super::Recordable;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
 pub enum TombTypes {
     ShallowGrave,

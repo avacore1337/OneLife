@@ -7,11 +7,19 @@ use serde::Serialize;
 use std::mem::{self, MaybeUninit};
 use strum::IntoEnumIterator;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(typescript_custom_section)]
+const FakeString: &'static str = r#"String"#;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize)]
 pub struct Work {
     pub name: WorkTypes,
     pub money: f64,
+    #[wasm_bindgen(skip)]
     pub description: &'static str,
+    #[wasm_bindgen(skip)]
     pub display_name: &'static str,
     pub required_tier: u32,
     pub work_type: WorkCategoryTypes,

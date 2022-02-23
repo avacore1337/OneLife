@@ -5,6 +5,9 @@ use serde::{Deserialize, Serialize};
 use strum::EnumIter;
 // use std::mem::variant_count;
 
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(readonly)]
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum KeyValues {
     //Other
