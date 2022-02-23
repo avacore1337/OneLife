@@ -10,6 +10,17 @@ use std::str;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+pub fn set_max_missed_ticks(val: u32) {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.max_missed_ticks = val;
+}
+
+#[wasm_bindgen]
+pub fn toggle_use_missed_ticks() {
+    let mut game = GLOBAL_DATA.lock().unwrap();
+    game.meta_data.options.use_missed_ticks = !game.meta_data.options.use_missed_ticks;
+}
+#[wasm_bindgen]
 pub fn set_update_rate(val: u32) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.meta_data.options.update_rate = val;

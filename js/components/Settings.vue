@@ -15,7 +15,8 @@
     <b-button @click="setNumberFormat">
       {{ nextNumberFormat }}
     </b-button>
-    FPS Settings
+
+    <h4>FPS Settings</h4>
     <div>
       <b-button-group>
         <b-button
@@ -29,7 +30,18 @@
       <MyToggle :value="meta.options.skip_render_when_hidden" :click="$wasm.toggle_skip_render">
         Skip render when window is hidden
       </MyToggle>
+      <MyToggle
+        :value="meta.options.use_missed_ticks"
+        :click="$wasm.toggle_use_missed_ticks"
+        v-b-tooltip.hover.above="missing_ticks_tooltip"
+      >
+        Use missed Ticks
+      </MyToggle>
+      <input v-model="max_missed" placeholder="Max ticks to try to catch up with" size="10" />
+      <br />
+      <b-button @click="$wasm.set_max_missed_ticks(max_missed)">Set Max Missed Ticks</b-button>
     </div>
+
     <h4>Import/Export saves</h4>
     <div style="max-width: 1000px">
       <b-form-textarea
@@ -56,6 +68,7 @@ export default {
   components: { FormatNumber, MyToggle },
   data() {
     return {
+      max_missed: 0,
       save_text: '',
       buttons: [
         { fps: '30', update_rate: 1 },
@@ -64,7 +77,13 @@ export default {
         { fps: '3', update_rate: 10 },
         { fps: '1', update_rate: 30 },
       ],
+      missing_ticks_tooltip:
+        'When the game is lagging behind (being background throttled for example), should the game try to catch up or just save the ticks',
     }
+  },
+  mounted() {
+    this.max_missed = this.meta.options.max_missed_ticks
+    //
   },
   computed: {
     ...mapState(['state', 'meta', 'input']),

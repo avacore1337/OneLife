@@ -55,6 +55,8 @@ pub struct Options {
     pub paused: bool,
     pub update_rate: u32,
     pub skip_render_when_hidden: bool,
+    pub use_missed_ticks: bool,
+    pub max_missed_ticks: u32,
 }
 
 impl Options {
@@ -74,6 +76,8 @@ impl Options {
             paused: false,
             update_rate: 1,
             skip_render_when_hidden: true,
+            use_missed_ticks: true,
+            max_missed_ticks: 30 * 60 * 5,
         }
     }
 }

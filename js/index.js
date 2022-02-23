@@ -29,15 +29,17 @@ Vue.use(BVConfig, {
 
 Vue.use(BootstrapVue)
 
-Vue.config.devtools = true
-Vue.config.performance = true
 Vue.component('VIcon', Icon)
 Vue.component('IconWithText', IconWithText)
+Vue.config.devtools = false
+Vue.config.performance = false
 
 import('../pkg/index.js')
   .then(function (wasm) {
     Vue.prototype.$wasm = wasm
-    Vue.prototype.$world = Object.freeze(wasm.get_world())
+    let world = Object.freeze(wasm.get_world())
+    console.log('debug:', world.settings.display_debug)
+    Vue.prototype.$world = world
     wasm.load()
     new Vue({
       el: '#app',

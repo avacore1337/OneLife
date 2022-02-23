@@ -22,7 +22,7 @@ impl Info {
     pub fn new() -> Info {
         Info {
             tutorial_step: TutorialStep::Welcome,
-            show_tutorial: false,
+            show_tutorial: should_show_tutorial(),
             disable_tutorial: true,
         }
     }
@@ -32,6 +32,10 @@ impl Info {
             .filter(|step| *step < self.tutorial_step)
             .collect()
     }
+}
+
+fn should_show_tutorial() -> bool {
+    !cfg!(debug_assertions)
 }
 
 #[derive(

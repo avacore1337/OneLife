@@ -53,6 +53,7 @@ use world_content::world::World;
 
 const BASE_LIFESPAN: f64 = 70.0 * 365.0;
 const TICK_RATE: f64 = 30.0;
+const TICK_MS: f64 = 1000.0 / TICK_RATE;
 
 lazy_static! {
     static ref WORLD: World = World::default();
@@ -176,7 +177,9 @@ pub fn do_rebirth_replay() {
 pub fn paused() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     check_for_tutorial_step(game);
-    game.meta_data.paused_tick_time();
+    game.meta_data.update_tick_time();
+    game.meta_data.skip_tick();
+    game.meta_data.convert_missed_time_to_saved_ticks();
     if game.meta_data.options.auto_rebirth {
         die_internal(game);
         do_rebirth_internal(game);
@@ -206,16 +209,46 @@ pub fn tick_internal(game: &mut Game) {
     if game.meta_data.should_autosave() {
         do_save(game);
     }
+    game.meta_data.update_tick_time();
     if game.just_loaded {
         game.just_loaded = false;
+        if game.state.life_stats.is_dying {
+            return;
+        }
+        one_tick(game);
+        game.meta_data.convert_missed_time_to_saved_ticks();
     } else {
-        // TODO use for time skipping/catchup
+        if game.state.life_stats.is_dying {
+            return;
+        }
+        if game.meta_data.missed_time_ticks() < -1.0 {
+            game.meta_data.skip_tick();
+            return;
+        }
+        one_tick(game);
+        handle_missing_time(game);
     }
+}
 
-    if game.state.life_stats.is_dying {
-        return;
+pub fn handle_missing_time(game: &mut Game) {
+    if game.meta_data.options.use_missed_ticks {
+        for i in 0..(game.meta_data.missed_time_ticks() as u64) {
+            if i > game.meta_data.options.max_missed_ticks as u64 {
+                game.meta_data.convert_missed_time_to_saved_ticks();
+                return;
+            }
+            if game.state.life_stats.is_dying {
+                return;
+            }
+            game.meta_data.use_single_missed_time_tick();
+            one_tick(game);
+        }
+    } else {
+        game.meta_data.convert_missed_time_to_saved_ticks();
     }
-    game.meta_data.update_tick_time();
+}
+
+pub fn one_tick(game: &mut Game) {
     for _ in 0..game.meta_data.game_speed {
         engine_run(game);
     }
