@@ -47,6 +47,6 @@ pub fn get_stats(initial_values: [f64; STAT_SIZE]) -> [Stat; STAT_SIZE] {
 }
 
 pub fn get_stats_base(base: BaseStats) -> [Stat; STAT_SIZE] {
-    let initial_values = [base.str, base.int, base.cha, base.con, base.dex, base.faith];
+    let initial_values = [base.con, base.int, base.str, base.cha, base.faith, base.dex];
     get_stats(initial_values)
 }
