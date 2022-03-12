@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 #![cfg(debug_assertions)]
+#![allow(non_upper_case_globals)]
 
 use crate::engine::{engine_run, update_unlocks};
 // use crate::input_mapping::InputMapping;
