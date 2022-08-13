@@ -311,7 +311,7 @@ fn gain_work_xp(game: &mut Game) {
     let input_work = game.input.work as usize;
     let work: &mut StateWork = &mut game.state.works[input_work];
     let work_world = game.world.get_work(game.input.work);
-    work.next_level_progress += 10.0
+    work.level_current_xp += 10.0
         * game.state.life_stats.happiness
         * (1.0 + f64::sqrt(game.state.rebirth_stats.max_job_levels[input_work] as f64))
         * game
@@ -319,13 +319,13 @@ fn gain_work_xp(game: &mut Game) {
             .get_multiplier(work_world.work_type.into())
         / TICK_RATE;
     let mut next_level_xp_needed = calculate_work_next_level_xp_neeeded(work, work_world);
-    while work.next_level_progress > next_level_xp_needed {
+    while work.level_current_xp > next_level_xp_needed {
         work.level += 1;
-        work.next_level_progress -= next_level_xp_needed;
+        work.level_current_xp -= next_level_xp_needed;
         next_level_xp_needed = calculate_work_next_level_xp_neeeded(work, work_world);
     }
-    work.next_level_required = next_level_xp_needed;
-    work.next_level_percentage = (work.next_level_progress * 100.0) / next_level_xp_needed;
+    work.level_current_xp = next_level_xp_needed;
+    work.level_percent = (work.level_current_xp * 100.0) / next_level_xp_needed;
 }
 
 fn gain_skill_xp(game: &mut Game) {
@@ -335,15 +335,15 @@ fn gain_skill_xp(game: &mut Game) {
         let skill: &mut Skill = &mut game.state.skills[skill_type as usize];
         let world_skill = &game.world.skills[skill_type as usize];
         skill.xp_rate = skill_xp;
-        skill.next_level_progress += skill_xp / TICK_RATE;
+        skill.level_current_xp += skill_xp / TICK_RATE;
         let mut next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill, world_skill);
-        while skill.next_level_progress > next_level_xp_needed {
+        while skill.level_current_xp > next_level_xp_needed {
             skill.level += 1.0;
-            skill.next_level_progress -= next_level_xp_needed;
+            skill.level_current_xp -= next_level_xp_needed;
             next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill, world_skill);
         }
-        skill.next_level_required = next_level_xp_needed;
-        skill.next_level_percentage = (skill.next_level_progress * 100.0) / next_level_xp_needed;
+        skill.level_current_xp = next_level_xp_needed;
+        skill.level_percent = (skill.level_current_xp * 100.0) / next_level_xp_needed;
     }
 }
 
@@ -357,15 +357,15 @@ fn gain_stat_xp(game: &mut Game) {
         let stat_xp = game.intermediate_state.get_value(stat_type.into()) * level_multiplier;
         let stat: &mut Stat = &mut game.state.stats[stat_type as usize];
         stat.xp_rate = stat_xp;
-        stat.next_level_progress += stat_xp / TICK_RATE;
+        stat.level_current_xp += stat_xp / TICK_RATE;
         let mut next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
-        while stat.next_level_progress > next_level_xp_needed {
+        while stat.level_current_xp > next_level_xp_needed {
             stat.level += 1.0;
-            stat.next_level_progress -= next_level_xp_needed;
+            stat.level_current_xp -= next_level_xp_needed;
             next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
         }
-        stat.next_level_required = next_level_xp_needed;
-        stat.next_level_percentage = (stat.next_level_progress * 100.0) / next_level_xp_needed;
+        stat.level_current_xp = next_level_xp_needed;
+        stat.level_percent = (stat.level_current_xp * 100.0) / next_level_xp_needed;
     }
 }
 

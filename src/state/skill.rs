@@ -7,9 +7,9 @@ use strum::IntoEnumIterator;
 pub struct Skill {
     pub name: SkillTypes,
     pub level: f64,
-    pub next_level_progress: f64,
-    pub next_level_required: f64,
-    pub next_level_percentage: f64,
+    pub level_current_xp: f64,
+    pub level_current_xp: f64,
+    pub level_percent: f64,
     pub xp_rate: f64,
     pub is_visible: bool,
 }
@@ -19,9 +19,9 @@ impl Skill {
         Skill {
             name: skill,
             level: 0.0,
-            next_level_progress: 0.0,
-            next_level_required: 100.0,
-            next_level_percentage: 0.0,
+            level_current_xp: 0.0,
+            level_current_xp: 100.0,
+            level_percent: 0.0,
             xp_rate: 0.0,
             is_visible: false,
         }

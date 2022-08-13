@@ -8,7 +8,7 @@
         v-b-tooltip.hover.right.html="tooltip(skill)"
         style="margin-bottom: 1rem"
       >
-        <MyProgressBar :value="skill_state.next_level_percentage">
+        <MyProgressBar :value="skill_state.level_percent">
           <span style="display: flex; justify-content: space-between; width: 100%">
             <icon-with-text :icon="skill.icon" color="black">
               <span>{{ skill.display_name }}</span>

@@ -19,7 +19,7 @@
       >
         <td>
           <MyProgressBar
-            :value="work_state.next_level_percentage"
+            :value="work_state.level_percent"
             :name="work.display_name"
             :selected="work.name == input.work"
           />

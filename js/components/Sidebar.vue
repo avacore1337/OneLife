@@ -5,7 +5,7 @@
 
     <h4 class="section-header">Current Work</h4>
     <div v-for="[work, work_state] in current_work" :key="work.name" class="section">
-      <MyProgressBar :value="work_state.next_level_percentage">
+      <MyProgressBar :value="work_state.level_percent">
         <span style="display: flex; justify-content: space-between; width: 100%">
           <span>{{ work.display_name }} </span>
           <span> Level {{ work_state.level }} </span>
