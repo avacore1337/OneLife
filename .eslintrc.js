@@ -1,9 +1,9 @@
 // .eslintrc.js
 module.exports = {
-  extends: ['plugin:vue/recommended', 'plugin:prettier-vue/recommended', 'prettier'],
+  extends: ["plugin:vue/recommended", "plugin:prettier-vue/recommended", "prettier"],
 
   settings: {
-    'prettier-vue': {
+    "prettier-vue": {
       // Settings for how to process Vue SFC Blocks
       SFCBlocks: {
         /**
@@ -36,13 +36,13 @@ module.exports = {
         // Settings for how to process custom blocks
         customBlocks: {
           // Treat the `<docs>` block as a `.markdown` file
-          docs: { lang: 'markdown' },
+          docs: { lang: "markdown" },
 
           // Treat the `<config>` block as a `.json` file
-          config: { lang: 'json' },
+          config: { lang: "json" },
 
           // Treat the `<module>` block as a `.js` file
-          module: { lang: 'js' },
+          module: { lang: "js" },
 
           // Ignore `<comments>` block (omit it or set it to `false` to ignore the block)
           comments: false,
@@ -59,7 +59,7 @@ module.exports = {
       fileInfoOptions: {
         // Path to ignore file (default: `'.prettierignore'`)
         // Notice that the ignore file is only used for this plugin
-        ignorePath: '.testignore',
+        ignorePath: ".testignore",
 
         // Process the files in `node_modules` or not (default: `false`)
         withNodeModules: false,
@@ -68,18 +68,18 @@ module.exports = {
   },
 
   rules: {
-    'vue/multi-word-component-names': 'off',
-    'vue/require-prop-types': 'off',
-    'prettier-vue/prettier': [
-      'error',
+    "vue/multi-word-component-names": "off",
+    "vue/require-prop-types": "off",
+    "prettier-vue/prettier": [
+      "error",
       {
         // Override all options of `prettier` here
         // @see https://prettier.io/docs/en/options.html
         printWidth: 100,
         singleQuote: true,
         semi: false,
-        trailingComma: 'es5',
+        trailingComma: "es5",
       },
     ],
   },
-}
+};

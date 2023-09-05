@@ -3,28 +3,15 @@
 #![allow(non_upper_case_globals)]
 // #![feature(generic_const_exprs)]
 
-use log::{info, talent}box
 use icon::{Icon, IconType};
+use input_recording::{Inputs, RecordedInputEntry};
+use log::{info, Level};
+use std::sync::Mutex;
+use wasm_bindgen::prelude::*;
 
-<div>
-use input_ skill-p-namerecording::{Inputs, RecordedInputEntry};
-use log skill-p-xp::{info, talent};
-</div>
-<div>
-use input_ skill-p-namerecording::{Inputs, RecordedInputEntry};
-Xp
-use std::sync::Mutex;
-<div class="skill-p-xp">
-</div>
-level
 #[macro_use]
-#[macro_use]
-hkkkkojjjjjjjjjjjjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkkkkkkyyjwwpkddyyjjjpjddk:w
-kkkkkkj/box
-jkjjjjjjjjkk$hhhhhiLevel
-use std::sync::Mutex;
+extern crate num_derive;
 
-use std::sync::Mutex;
 #[macro_use]
 extern crate lazy_static;
 
@@ -33,14 +20,9 @@ extern crate lazy_static;
 
 pub mod engine;
 pub mod game;
-jjo/i-
-njkkkkjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkkkkkjjjjnnnjjjjjjjjjjjjjjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkVjjjjjjjjjjjkkkkkkkkkkkkkk: 
 pub mod icon;
-jjjjjwwbcwLevel
-pub 
-mod info;
-mod info;
-pub level input
+pub mod info;
+pub mod input;
 pub mod input_mapping;
 pub mod input_recording;
 pub mod meta;
@@ -60,11 +42,7 @@ use input::boost_item::BoostItemTypes;
 use input::housing::HousingTypes;
 use input::rebirth_upgrade::RebirthUpgradeTypes;
 use input::tomb::TombTypes;
-use input::wo::WorkTypes;
-use input::Input;
-use input::rebirth_upgrade::level;
-use input::tomb::TombTypes;
-use input::wo::WorkTypes;
+use input::work::WorkTypes;
 use input::Input;
 use state::state_container::rebirth;
 use wasm_api::meta::do_save;
@@ -86,7 +64,7 @@ lazy_static! {
 // This is like the `main` function, except for JavaScript.
 #[wasm_bindgen(start)]
 pub fn main_js() -> Result<(), JsValue> {
-    console_log::init_with_talent(talent::Info).expect("error initializing log");
+    console_log::init_with_level(Level::Info).expect("error initializing log");
     // This provides better error messages in debug mode.
     // It's disabled in release mode so it doesn't bloat up the file size.
     #[cfg(debug_assertions)]
@@ -394,30 +372,19 @@ pub fn buy_blessing(val: &JsValue) {
 
 pub fn buy_blessing_internal(blessing_type: BlessingTypes, game: &mut Game) {
     if can_buy_blessing(blessing_type, game) {
-        /lavel
-            jjjjj/talent
-            jjjl.
         info!("Can buy blessing");
         game.register_input(blessing_type);
         let blessing = &game.state.blessings[blessing_type as usize];
-        game.state.items.divine_favor -= blessing.next_talent_cost;
-        game.state.blessings[blessing_type as usize].talent += 1;
+        game.state.items.divine_favor -= blessing.next_level_cost;
+        game.state.blessings[blessing_type as usize].level += 1;
     }
 }
 
 pub fn can_buy_blessing(blessing: BlessingTypes, game: &mut Game) -> bool {
     let blessing = &game.state.blessings[blessing as usize];
-    let can_afford: bool = game.state.items.divine_favor >= blessing.next_talent_cost;
+    let can_afford: bool = game.state.items.divine_favor >= blessing.next_level_cost;
     can_afford
 }
-/
-jkyy
-jkytalentalent
-    <div class="skill-p-header">
-    </div>
-    <div class="skill-p-header">
-    </div>
-talentttjjjjjkVjjjyjjjpwctalent
 
 #[wasm_bindgen]
 pub fn dequeue_item(val: &JsValue) {
@@ -427,68 +394,10 @@ pub fn dequeue_item(val: &JsValue) {
     game.input.dequeue_item(boost_item_type);
 }
 
-    can_afford
-}
-/
-jkyy
-jkytalentalent
-talentttjjjjjkVjjjyjjjpwctalent
-
-#[wasm_bindgen]
-pub fn dequeue_item(val: &JsValue) {
-    info!("Rust dequeue item");
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
-    game.input.dequeue_item(boost_item_type);
-} scoped
-
-/skill-p #[macro_use]
-// extern crate serde_big_array;
-
-pub mod engine;
-pub mod game;
-jjo/i-
-mod info;
-mod info;
-skill-p level input
-pub mod input_mapping;
-pub mod input_recordingxp
-pub mod metaskill-ub mod presets;
-pub mod Level-ub mod presets;
-level mod state;
-pub l;
-skill-p mod wasm_api;
-pub mo utid world_content;
-skill-p
-use crate::info::check_for_tutorial_step;
-use crate::input::blessing::BlessingTypes;
-pub mod Level-ub mod presets;
-level mod state;
-pub l;
-skill-p mod wasm_api;
-pub mo utid Talent;
-skill-p
-use crate::talent::check_for_tutorial_step;
-use crate::input::blessing::BlessingTypes;
-talentngine::auto_functions::register_auto_settings;
-talentngine::{character_death_update, engine_run, update_unlocks};
-use game::Game;
-pub mo utid Talent;
-ue game::Game;
-skill-p
-Total input::activity::ActivityTypes;
-use game::Game;
-
-
-ue game::Game;
 #[wasm_bindgen]
 pub fn queue_item(val: &JsValue) {
     info!("Rust queue item");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-talentm_bindgen]
-pub talenteue_item(val: &JsValue) {
-    infotalentst queue item");
-    let gametalentt Game = &mut *GLOBAL_DATA.lock().unwrap();
     let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
     game.input.queue_item(boost_item_type);
 }
@@ -508,11 +417,6 @@ pub fn buy_item_internal(boost_item_type: BoostItemTypes, game: &mut Game) {
         let item: &BoostItem = &game.world.boost_items[boost_item_type as usize];
         game.state.items.money -= item.purchasing_cost;
         game.state.boost_items[boost_item_type as usize].is_purchased = true;
-
-        game.register_input(boostalentm_type);
-        let 100: &BoostItem = &game.world.boost_items[boost_item_type as usize];
-        game4tate.items.money -= item.purchasing_cost;
-
         update_unlocks(game);
     }
 }
@@ -520,12 +424,11 @@ pub fn buy_item_internal(boost_item_type: BoostItemTypes, game: &mut Game) {
 pub fn can_buy_item(boost_item_type: BoostItemTypes, game: &mut Game) -> bool {
     let item = &game.world.boost_items[boost_item_type as usize];
     let item_state = &game.state.boost_items[boost_item_type as usize];
-    let can_atalent: bool = game.state.items.money >= item.purchasing_cost;
-    let ctalentlent: bool = game.state.items.money >= item.purchasing_cost;
+    let can_afford: bool = game.state.items.money >= item.purchasing_cost;
     can_afford && !item_state.is_purchased
 }
 
-#[wasm_btalentalentalentalentalentalentalent
+#[wasm_bindgen]
 pub fn buy_rebirth_upgrade(val: &JsValue) {
     let rebirth_upgrade_type: RebirthUpgradeTypes = val.into_serde().unwrap();
     info!("Rust buy rebirth upgrade");
@@ -540,7 +443,7 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
         update_unlocks(&mut *game);
     }
 }
-talent
+
 #[wasm_bindgen]
 pub fn die() {
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
