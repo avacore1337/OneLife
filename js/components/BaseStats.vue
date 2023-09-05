@@ -8,7 +8,7 @@
         v-b-tooltip.hover.right.html="tooltip(stat)"
         style="margin-bottom: 1rem"
       >
-        <MyProgressBar :value="stat_state.level_percent">
+        <MyProgressBar :value="stat_state.next_level_percentage">
           <span style="display: flex; justify-content: space-between; width: 100%">
             <icon-with-text :icon="stat.icon" color="black">
               <span>{{ stat.display_name }}</span>
