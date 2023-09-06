@@ -43,6 +43,11 @@ serbia = "0.4.3"
 # allocator, so it's not enabled by default.
 wee_alloc = { version = "0.4.2", optional = true }
 
+# `variant_count` is a crate that replaces the unstable/nightly feature
+# `std::mem::variant_count` with a macro achieving similar results, but with
+# different syntax.
+variant_count = "1.1"
+
 # The `web-sys` crate allows you to interact with the various browser APIs,
 # like the DOM.
 [dependencies.web-sys]

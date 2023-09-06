@@ -42,7 +42,7 @@ impl Input {
     }
 
     pub fn dequeue_item(&mut self, item: BoostItemTypes) {
-        self.item_queue.drain_filter(|item_type| *item_type == item);
+        self.item_queue.retain(|item_type| *item_type != item);
     }
 
     pub fn queue_item(&mut self, item: BoostItemTypes) {

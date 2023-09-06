@@ -1,7 +1,4 @@
-#![feature(variant_count)]
-#![feature(drain_filter)]
 #![allow(non_upper_case_globals)]
-// #![feature(generic_const_exprs)]
 
 use icon::{Icon, IconType};
 use input_recording::{Inputs, RecordedInputEntry};

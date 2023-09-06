@@ -1,8 +1,12 @@
-use serde::{Deserialize, Serialize};
-use std::mem::variant_count;
-use strum::EnumIter;
+extern crate variant_count;
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+use serde::{Deserialize, Serialize};
+use strum::EnumIter;
+use variant_count::VariantCount;
+
+#[derive(
+    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
+)]
 pub enum RebirthUpgradeTypes {
     AcceptingDeath,
     AcceptingDeath2,
@@ -42,7 +46,7 @@ pub enum RebirthUpgradeTypes {
     GemKnowledge,
 }
 
-pub const REBIRTH_UPGRADE_SIZE: usize = variant_count::<RebirthUpgradeTypes>();
+pub const REBIRTH_UPGRADE_SIZE: usize = RebirthUpgradeTypes::VARIANT_COUNT;
 
 // impl Recordable for RebirthUpgradeTypes {
 //     fn to_record_key(&self) -> String {

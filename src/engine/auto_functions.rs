@@ -1,6 +1,9 @@
 use crate::{
-    game::Game, input::options::AutoSettingTypes, world_content::boost_item::translate_boost_item,
-    world_content::tomb::translate_tomb, WORLD,
+    game::Game,
+    input::{boost_item::BoostItemTypes, options::AutoSettingTypes},
+    world_content::boost_item::translate_boost_item,
+    world_content::tomb::translate_tomb,
+    WORLD,
 };
 
 pub fn auto_work(game: &mut Game) {
@@ -61,7 +64,7 @@ pub fn auto_buy_queued_item(game: &mut Game) {
     }
     game.input
         .item_queue
-        .drain_filter(|item_type| game.state.boost_items[*item_type as usize].is_purchased);
+        .retain(|item_type| !game.state.boost_items[*item_type as usize].is_purchased);
 }
 
 pub fn auto_buy_tomb(game: &mut Game) {

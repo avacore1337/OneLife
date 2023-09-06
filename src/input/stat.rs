@@ -1,9 +1,13 @@
+extern crate variant_count;
+
 use crate::input::work::WorkCategoryTypes;
 use serde::{Deserialize, Serialize};
-use std::mem::variant_count;
 use strum::EnumIter;
+use variant_count::VariantCount;
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(
+    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
+)]
 pub enum StatTypes {
     Con,
     Int,
@@ -24,4 +28,4 @@ impl From<WorkCategoryTypes> for StatTypes {
     }
 }
 
-pub const STAT_SIZE: usize = variant_count::<StatTypes>();
+pub const STAT_SIZE: usize = StatTypes::VARIANT_COUNT;

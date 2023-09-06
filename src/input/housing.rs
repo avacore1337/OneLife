@@ -1,9 +1,13 @@
+extern crate variant_count;
+
 use super::Recordable;
 use serde::{Deserialize, Serialize};
-use std::mem::variant_count;
 use strum::EnumIter;
+use variant_count::VariantCount;
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(
+    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
+)]
 pub enum HousingTypes {
     StoneFloor,
     ComfortableSpot,
@@ -17,7 +21,7 @@ pub enum HousingTypes {
     Appartment,
 }
 
-pub const HOUSING_SIZE: usize = variant_count::<HousingTypes>();
+pub const HOUSING_SIZE: usize = HousingTypes::VARIANT_COUNT;
 
 impl Recordable for HousingTypes {
     fn to_record_key(&self) -> String {
