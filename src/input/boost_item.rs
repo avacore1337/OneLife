@@ -1,10 +1,14 @@
+extern crate variant_count;
+
 use serde::{Deserialize, Serialize};
-use std::mem::variant_count;
 use strum::EnumIter;
+use variant_count::VariantCount;
 
 use super::Recordable;
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(
+    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
+)]
 pub enum BoostItemTypes {
     Book,
     Shoe1,
@@ -59,7 +63,7 @@ pub enum BoostItemTypes {
     Clothes6,
 }
 
-pub const BOOST_ITEM_SIZE: usize = variant_count::<BoostItemTypes>();
+pub const BOOST_ITEM_SIZE: usize = BoostItemTypes::VARIANT_COUNT;
 
 impl Recordable for BoostItemTypes {
     fn to_record_key(&self) -> String {

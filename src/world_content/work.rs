@@ -72,7 +72,7 @@ const fn translate_work(work: WorkTypes) -> Work {
             name: work,
             money: 2.5,
             description: "Row row row your boat",
-            display_name: "Gallery Rower",
+            display_name: "Galley Rower",
             required_tier: 0,
             work_type: WorkCategoryTypes::Labor,
             xp_req_modifier: 4.0,

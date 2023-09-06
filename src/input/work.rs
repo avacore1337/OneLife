@@ -1,9 +1,13 @@
+extern crate variant_count;
+
 use super::{stat::StatTypes, Recordable};
 use serde::{Deserialize, Serialize};
-use std::mem::variant_count;
 use strum::EnumIter;
+use variant_count::VariantCount;
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(
+    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
+)]
 pub enum WorkTypes {
     // Worker Types
     Mines,
@@ -67,7 +71,7 @@ impl TryFrom<StatTypes> for WorkCategoryTypes {
     }
 }
 
-pub const WORK_SIZE: usize = variant_count::<WorkTypes>();
+pub const WORK_SIZE: usize = WorkTypes::VARIANT_COUNT;
 
 impl Recordable for WorkTypes {
     fn to_record_key(&self) -> String {

@@ -1,10 +1,14 @@
+extern crate variant_count;
+
 use serde::{Deserialize, Serialize};
-use std::mem::variant_count;
 use strum::EnumIter;
+use variant_count::VariantCount;
 
 use super::Recordable;
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(
+    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
+)]
 pub enum ActivityTypes {
     //Stat boosts
     Run,
@@ -18,7 +22,7 @@ pub enum ActivityTypes {
     WarGames,
 }
 
-pub const ACTIVITY_SIZE: usize = variant_count::<ActivityTypes>();
+pub const ACTIVITY_SIZE: usize = ActivityTypes::VARIANT_COUNT;
 
 impl Recordable for ActivityTypes {
     fn to_record_key(&self) -> String {

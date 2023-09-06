@@ -2,7 +2,9 @@
 
 ## Setup
 
-The setup is based on [this tutorial](https://rustwasm.github.io/docs/wasm-pack/prerequisites/index.html), but an excerp follows below.
+The setup is based on
+[this tutorial](https://rustwasm.github.io/docs/wasm-pack/prerequisites/index.html),
+but an excerpt follows below.
 
 Install rust and then wasm-pack:
 
@@ -10,37 +12,36 @@ Install rust and then wasm-pack:
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 ```
 
-install [nvm](https://github.com/nvm-sh/nvm):
+Install [nvm](https://github.com/nvm-sh/nvm):
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 ```
 
-follow any extra instructions from the script and restart your terminal. Then run:
+Follow any extra instructions from the script and restart your terminal. Then run:
 
 ```bash
-nvm install 16
+nvm install v16.13.2
 nvm use
 ```
-you don't need to specify 16 since it's set by the .nvmrc file
 
-install npm and then run:
+You don't need to specify the version since it is set by the `.nvmrc` file.
+
+Install npm and then run:
 
 ```bash
 npm install
 ```
 
-Then run:
+To start a web server that auto-reloads on changes, run:
 
 ```bash
 npm start
 ```
 
-To start a webserver that auto-reloads on changes.
-
 ## Test Release version
 
-run
+Run:
 
 ```bash
 npm run-script build
@@ -48,16 +49,17 @@ cd dist
 python3.8 -m http.server 8000
 ```
 
-Note that you need quite a new server (python 3.8 for example) or the mime type won't be correct for the wasm content
+Note that you need quite a new server (python 3.8 for example)
+or the mime type won't be correct for the wasm content.
 
 ## Release version
 
-We release by pushing to the github pages branch with the help of a npm package:
-https://www.npmjs.com/package/gh-pages
+We release by pushing to the github pages branch with the help of the
+[gh-pages](https://www.npmjs.com/package/gh-pages) package.
 
 To publish/deploy run:
 
-```
+```bash
 npm run deploy
 ```
 
@@ -65,9 +67,9 @@ npm run deploy
 
 ### Easy way
 
-Run all tests
+Run all tests:
 
-```
+```bash
 WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node
 ```
 
@@ -81,26 +83,30 @@ WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node --test tier_0
 
 Install:
 
-```
+```bash
 cargo install wasm-bindgen-cli
 ```
 
 Run with:
 
-```
+```bash
 WASM_BINDGEN_TEST_TIMEOUT=60 cargo test --target wasm32-unknown-unknown
 ```
 
 ## Code Standards
 
-We use [prettier](https://prettier.io/) for formating, please run the following before commiting.
+We use [prettier](https://prettier.io/) for formatting.
+Please run the following before committing:
 
-```
+```bash
 npx prettier --write .
 ```
 
-Or a faster version
+Or a faster version:
 
-```
-npx prettier $(git diff --name-only --diff-filter=ACM) $(git diff --cached --name-only --diff-filter=ACM) --write --ignore-unknown
+```bash
+npx prettier \
+    $(git diff --name-only --diff-filter=ACM) \
+    $(git diff --cached --name-only --diff-filter=ACM) \
+    --write --ignore-unknown
 ```

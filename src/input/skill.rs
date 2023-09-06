@@ -1,11 +1,15 @@
-use serde::{Deserialize, Serialize};
-use std::mem::variant_count;
-use strum::EnumIter;
+extern crate variant_count;
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+use serde::{Deserialize, Serialize};
+use strum::EnumIter;
+use variant_count::VariantCount;
+
+#[derive(
+    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
+)]
 pub enum SkillTypes {
     Mindfull,
     Tactics,
 }
 
-pub const SKILL_SIZE: usize = variant_count::<SkillTypes>();
+pub const SKILL_SIZE: usize = SkillTypes::VARIANT_COUNT;

@@ -1,9 +1,11 @@
+extern crate variant_count;
+
 use super::game::Game;
 use num_traits::FromPrimitive;
 use serde::{Deserialize, Serialize};
-use std::mem::variant_count;
 use strum::EnumIter;
 use strum::IntoEnumIterator;
+use variant_count::VariantCount;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Info {
@@ -39,7 +41,16 @@ fn should_show_tutorial() -> bool {
 }
 
 #[derive(
-    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, FromPrimitive,
+    Serialize,
+    Deserialize,
+    EnumIter,
+    Clone,
+    Copy,
+    Debug,
+    PartialEq,
+    PartialOrd,
+    FromPrimitive,
+    VariantCount,
 )]
 pub enum TutorialStep {
     Welcome,
@@ -51,7 +62,7 @@ pub enum TutorialStep {
     SafeGuard,
 }
 
-pub const TUTORIAL_STEP_SIZE: usize = variant_count::<TutorialStep>();
+pub const TUTORIAL_STEP_SIZE: usize = TutorialStep::VARIANT_COUNT;
 
 impl TutorialStep {
     pub fn increment(&mut self) {

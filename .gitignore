@@ -12,3 +12,12 @@ Cargo.lock
 one-life/
 pkg/
 node_modules/
+
+# Ignore Visual Studio Code
+.vscode/
+
+# Ignore Trunk
+.trunk/
+
+# Ignore MacOS files
+.DS_Store
