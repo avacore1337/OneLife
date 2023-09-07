@@ -142,7 +142,7 @@ pub fn get_completed_steps() -> JsValue {
 
 #[wasm_bindgen]
 pub fn do_rebirth() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     if !game.state.life_stats.dead {
         return;
     }
@@ -162,7 +162,7 @@ pub fn do_rebirth_internal(game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn do_rebirth_replay() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     if !game.state.life_stats.dead {
         return;
     }
@@ -173,7 +173,7 @@ pub fn do_rebirth_replay() {
 
 #[wasm_bindgen]
 pub fn paused() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     check_for_tutorial_step(game);
     game.meta_data.update_tick_time();
     game.meta_data.skip_tick();
@@ -186,19 +186,19 @@ pub fn paused() {
 
 #[wasm_bindgen]
 pub fn toggle_use_saved_ticks() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     game.meta_data.use_saved_ticks = !game.meta_data.use_saved_ticks;
 }
 
 #[wasm_bindgen]
 pub fn use_saved_ticks(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     game.meta_data.use_saved_ticks = val;
 }
 
 #[wasm_bindgen]
 pub fn tick() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     tick_internal(game);
 }
 
@@ -275,7 +275,7 @@ fn should_auto_end_early(game: &Game) -> bool {
 pub fn set_work(val: &JsValue) {
     info!("Rust set work");
     let work_type = serde_wasm_bindgen::from_value(val.clone()).unwrap();
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_work_internal(work_type, game);
 }
 
@@ -288,7 +288,7 @@ pub fn set_work_internal(work_type: WorkTypes, game: &mut Game) {
 pub fn set_housing(val: &JsValue) {
     info!("Rust set housing");
     let housing_type = serde_wasm_bindgen::from_value(val.clone()).unwrap();
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_housing_internal(housing_type, game);
 }
 
@@ -300,7 +300,7 @@ pub fn set_housing_internal(housing_type: HousingTypes, game: &mut Game) {
 #[wasm_bindgen]
 pub fn set_activity(val: &JsValue) {
     info!("Rust set activity");
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     let activity_type = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     set_activity_internal(activity_type, game);
 }
@@ -328,14 +328,14 @@ pub fn buy_tier(val: u32) {
         let tier: &Tier = &game.world.tiers[val as usize];
         game.state.rebirth_stats.coins -= tier.purchasing_cost;
         game.state.rebirth_stats.tier = val;
-        update_unlocks(&mut *game);
+        update_unlocks(&mut game);
     }
 }
 
 #[wasm_bindgen]
 pub fn buy_tomb(val: &JsValue) {
     info!("Rust buy tomb");
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     let tomb_type: TombTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     buy_tomb_internal(tomb_type, game);
 }
@@ -362,7 +362,7 @@ pub fn can_buy_tomb(tomb_type: TombTypes, game: &mut Game) -> bool {
 #[wasm_bindgen]
 pub fn buy_blessing(val: &JsValue) {
     info!("Rust buy item");
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     let boost_item_type: BlessingTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     buy_blessing_internal(boost_item_type, game);
 }
@@ -386,7 +386,7 @@ pub fn can_buy_blessing(blessing: BlessingTypes, game: &mut Game) -> bool {
 #[wasm_bindgen]
 pub fn dequeue_item(val: &JsValue) {
     info!("Rust dequeue item");
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     let boost_item_type: BoostItemTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     game.input.dequeue_item(boost_item_type);
 }
@@ -394,7 +394,7 @@ pub fn dequeue_item(val: &JsValue) {
 #[wasm_bindgen]
 pub fn queue_item(val: &JsValue) {
     info!("Rust queue item");
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     let boost_item_type: BoostItemTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     game.input.queue_item(boost_item_type);
 }
@@ -402,7 +402,7 @@ pub fn queue_item(val: &JsValue) {
 #[wasm_bindgen]
 pub fn buy_item(val: &JsValue) {
     info!("Rust buy item");
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     let boost_item_type: BoostItemTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     buy_item_internal(boost_item_type, game);
 }
@@ -438,13 +438,13 @@ pub fn buy_rebirth_upgrade(val: &JsValue) {
         game.state.rebirth_stats.coins -= rebirth_upgrade.purchasing_cost;
         game.state.rebirth_stats.rebirth_upgrades[rebirth_upgrade_type as usize].is_purchased =
             true;
-        update_unlocks(&mut *game);
+        update_unlocks(&mut game);
     }
 }
 
 #[wasm_bindgen]
 pub fn die() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     info!("dying");
     die_internal(game)
 }

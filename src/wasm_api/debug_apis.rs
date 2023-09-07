@@ -14,28 +14,28 @@ use crate::GLOBAL_DATA;
 pub fn grow_old() {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.life_stats.age = game.state.life_stats.lifespan - 2.0;
-    update_unlocks(&mut *game);
+    update_unlocks(&mut game);
 }
 
 #[wasm_bindgen]
 pub fn give_divine_favor(divine_favor: f64) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.items.divine_favor = divine_favor;
-    update_unlocks(&mut *game);
+    update_unlocks(&mut game);
 }
 
 #[wasm_bindgen]
 pub fn give_money(money: f64) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.items.money = money;
-    update_unlocks(&mut *game);
+    update_unlocks(&mut game);
 }
 
 #[wasm_bindgen]
 pub fn give_coins(coins: f64) {
     let mut game = GLOBAL_DATA.lock().unwrap();
     game.state.rebirth_stats.coins = coins;
-    update_unlocks(&mut *game);
+    update_unlocks(&mut game);
 }
 
 #[wasm_bindgen]
@@ -71,7 +71,7 @@ pub fn set_gamespeed(speed: u32) {
 #[wasm_bindgen]
 pub fn get_preset_saves() -> JsValue {
     log::info!("get preset");
-    let list: Vec<&'static str> = get_presets().keys().into_iter().copied().collect();
+    let list: Vec<&'static str> = get_presets().keys().copied().collect();
     serde_wasm_bindgen::to_value(&list).unwrap()
 }
 

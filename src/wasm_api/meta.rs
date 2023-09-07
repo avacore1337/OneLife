@@ -114,7 +114,7 @@ pub fn hard_reset() {
 
 #[wasm_bindgen]
 pub fn save() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     do_save(game);
 }
 
@@ -148,7 +148,7 @@ pub fn load() {
 
 #[wasm_bindgen]
 pub fn export_save() -> String {
-    let game: &Game = &*GLOBAL_DATA.lock().unwrap();
+    let game: &Game = &GLOBAL_DATA.lock().unwrap();
     // let game = GLOBAL_DATA.lock().unwrap();
     info!("exporting game");
     let json_data = to_string(&GameSave::from(game)).unwrap();

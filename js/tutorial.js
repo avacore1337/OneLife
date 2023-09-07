@@ -8,7 +8,7 @@ export const tutorial_data = {
   GameStart: {
     title: 'Story',
     basetext:
-      "You are born into a brutal life of slavery as an orphant. You must now try to make the best of the sitution and try to live as long and happy life as possible. But it's going to be tough, but try to make the best of it. After all, you only have One Life",
+      "You are born into a brutal life of slavery as an orphan. You must now try to make the best of the sitution and try to live as long and happy life as possible. But it's going to be tough, but try to make the best of it. After all, you only have One Life",
     tip: 'Try to progress as far as possible',
   },
   FirstDying: {
@@ -20,7 +20,7 @@ export const tutorial_data = {
   FirstDeath: {
     title: 'Story',
     basetext:
-      'So, you died. Dirt poor and misserable that is. You walk up to the ferry man, but without the money to pay him he waves you off. As you walk along the banks of the river you feel as you start to lose yourself. Your existence slowly dissapating into nothingness. After a long time you see an old man sitting in the corner. You try to strike up a conversation, but he simply looks at you and asks:\n"First time?".\n"First time what?" you reply.\n"Dying of course. Did you bring any coins?"\n"No..." you stammer out.\n "Well, bring some next time." The man says before suddenly jumping up and hitting you over the head with the blunt end of a stone sickle. Everything fades to black and you hear him whisper "One more Life"',
+      'So, you died. Dirt poor and miserable that is. You walk up to the ferry man, but without the money to pay him he waves you off. As you walk along the banks of the river you feel as you start to lose yourself. Your existence slowly dissapating into nothingness. After a long time you see an old man sitting in the corner. You try to strike up a conversation, but he simply looks at you and asks:\n"First time?".\n"First time what?" you reply.\n"Dying of course. Did you bring any coins?"\n"No..." you stammer out.\n "Well, bring some next time." The man says before suddenly jumping up and hitting you over the head with the blunt end of a stone sickle. Everything fades to black and you hear him whisper "One more Life"',
     tip: '',
   },
   FirstRestart: {

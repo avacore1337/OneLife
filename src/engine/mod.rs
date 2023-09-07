@@ -124,7 +124,8 @@ fn update_life_stats(game: &mut Game) {
     life_stats.health_rate = health_rate;
     life_stats.health += health_rate / TICK_RATE;
 
-    // Base gamespeed is that one life should take 30min for 0.0 health, the game runs in 30 ticks/second
+    // Base gamespeed is that one life should take 30min for 0.0 health,
+    // the game runs in 30 ticks/second
     // Days/tick = total_days / (ticks in 30 min)
     // 52*365/(30*60*30) = 0.351
     let time_progression = 52.0 * 365.0 / (30.0 * 60.0 * TICK_RATE);
@@ -253,7 +254,7 @@ fn apply_work(game: &mut Game) {
         let work = WORLD.get_work(work_state.name);
 
         let main_stat_level = game.state.stats[StatTypes::from(work.work_type) as usize].level;
-        let stat_multiplier: f64 = 1.0 + (main_stat_level as f64 / 10.0);
+        let stat_multiplier: f64 = 1.0 + (main_stat_level / 10.0);
         game.intermediate_state
             .add_multiplier(work.name.into(), stat_multiplier, "Stat");
 
@@ -318,11 +319,11 @@ fn gain_work_xp(game: &mut Game) {
             .intermediate_state
             .get_multiplier(work_world.work_type.into())
         / TICK_RATE;
-    let mut next_level_xp_needed = calculate_work_next_level_xp_neeeded(work, work_world);
+    let mut next_level_xp_needed = calculate_work_next_level_xp_needed(work, work_world);
     while work.next_level_progress > next_level_xp_needed {
         work.level += 1;
         work.next_level_progress -= next_level_xp_needed;
-        next_level_xp_needed = calculate_work_next_level_xp_neeeded(work, work_world);
+        next_level_xp_needed = calculate_work_next_level_xp_needed(work, work_world);
     }
     work.next_level_required = next_level_xp_needed;
     work.next_level_percentage = (work.next_level_progress * 100.0) / next_level_xp_needed;
@@ -336,19 +337,19 @@ fn gain_skill_xp(game: &mut Game) {
         let world_skill = &game.world.skills[skill_type as usize];
         skill.xp_rate = skill_xp;
         skill.next_level_progress += skill_xp / TICK_RATE;
-        let mut next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill, world_skill);
+        let mut next_level_xp_needed = calculate_skill_next_level_xp_needed(skill, world_skill);
         while skill.next_level_progress > next_level_xp_needed {
             skill.level += 1.0;
             skill.next_level_progress -= next_level_xp_needed;
-            next_level_xp_needed = calculate_skill_next_level_xp_neeeded(skill, world_skill);
+            next_level_xp_needed = calculate_skill_next_level_xp_needed(skill, world_skill);
         }
         skill.next_level_required = next_level_xp_needed;
         skill.next_level_percentage = (skill.next_level_progress * 100.0) / next_level_xp_needed;
     }
 }
 
-fn calculate_skill_next_level_xp_neeeded(skill: &mut Skill, world_skill: &WorldSkill) -> f64 {
-    (100.0 + (4.0 * skill.level * skill.level)) as f64 * world_skill.xp_req_modifier
+fn calculate_skill_next_level_xp_needed(skill: &mut Skill, world_skill: &WorldSkill) -> f64 {
+    (100.0 + (4.0 * skill.level * skill.level)) * world_skill.xp_req_modifier
 }
 
 fn gain_stat_xp(game: &mut Game) {
@@ -358,22 +359,22 @@ fn gain_stat_xp(game: &mut Game) {
         let stat: &mut Stat = &mut game.state.stats[stat_type as usize];
         stat.xp_rate = stat_xp;
         stat.next_level_progress += stat_xp / TICK_RATE;
-        let mut next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
+        let mut next_level_xp_needed = calculate_stat_next_level_xp_needed(stat);
         while stat.next_level_progress > next_level_xp_needed {
             stat.level += 1.0;
             stat.next_level_progress -= next_level_xp_needed;
-            next_level_xp_needed = calculate_stat_next_level_xp_neeeded(stat);
+            next_level_xp_needed = calculate_stat_next_level_xp_needed(stat);
         }
         stat.next_level_required = next_level_xp_needed;
         stat.next_level_percentage = (stat.next_level_progress * 100.0) / next_level_xp_needed;
     }
 }
 
-fn calculate_stat_next_level_xp_neeeded(stat: &mut Stat) -> f64 {
-    (100.0 + (4.0 * stat.level * stat.level)) as f64
+fn calculate_stat_next_level_xp_needed(stat: &mut Stat) -> f64 {
+    100.0 + (4.0 * stat.level * stat.level)
 }
 
-fn calculate_work_next_level_xp_neeeded(work: &mut StateWork, work_world: &WorkWorld) -> f64 {
+fn calculate_work_next_level_xp_needed(work: &mut StateWork, work_world: &WorkWorld) -> f64 {
     (100 + (4 * work.level * work.level)) as f64 * work_world.xp_req_modifier
 }
 
