@@ -70,13 +70,15 @@ npm run deploy
 Run all tests:
 
 ```bash
-WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node
+npm run test:node
 ```
 
-Run a specific test file:
+That command is an alias for `WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node`.
+
+Or run a specific test file:
 
 ```bash
-WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node --test tier_0
+npm run test:node -- --test tier_0
 ```
 
 ### Manual Way

@@ -1,9 +1,6 @@
 use crate::{
-    game::Game,
-    input::{boost_item::BoostItemTypes, options::AutoSettingTypes},
-    world_content::boost_item::translate_boost_item,
-    world_content::tomb::translate_tomb,
-    WORLD,
+    game::Game, input::options::AutoSettingTypes, world_content::boost_item::translate_boost_item,
+    world_content::tomb::translate_tomb, WORLD,
 };
 
 pub fn auto_work(game: &mut Game) {
