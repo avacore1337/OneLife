@@ -72,7 +72,7 @@ pub fn set_gamespeed(speed: u32) {
 pub fn get_preset_saves() -> JsValue {
     log::info!("get preset");
     let list: Vec<&'static str> = get_presets().keys().into_iter().copied().collect();
-    JsValue::from_serde(&list).unwrap()
+    serde_wasm_bindgen::to_value(&list).unwrap()
 }
 
 #[wasm_bindgen]

@@ -75,27 +75,27 @@ pub fn main_js() -> Result<(), JsValue> {
 
 #[wasm_bindgen]
 pub fn get_icon_by_enum(val: JsValue) -> JsValue {
-    let icon_type: IconType = val.into_serde().unwrap();
+    let icon_type: IconType = serde_wasm_bindgen::from_value(val).unwrap();
     let icon: Icon = icon_type.into();
-    JsValue::from_serde(&icon).unwrap()
+    serde_wasm_bindgen::to_value(&icon).unwrap()
 }
 
 #[wasm_bindgen]
 pub fn get_world_item_queue() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&game.input.get_world_item_queue()).unwrap()
+    serde_wasm_bindgen::to_value(&game.input.get_world_item_queue()).unwrap()
 }
 
 #[wasm_bindgen]
 pub fn get_recorded_inputs() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&Into::<Vec<RecordedInputEntry>>::into(&game.inputs)).unwrap()
+    serde_wasm_bindgen::to_value(&Into::<Vec<RecordedInputEntry>>::into(&game.inputs)).unwrap()
 }
 
 #[wasm_bindgen]
 pub fn get_previous_recorded_inputs() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&Into::<Vec<RecordedInputEntry>>::into(
+    serde_wasm_bindgen::to_value(&Into::<Vec<RecordedInputEntry>>::into(
         &game.previous_inputs,
     ))
     .unwrap()
@@ -104,13 +104,13 @@ pub fn get_previous_recorded_inputs() -> JsValue {
 #[wasm_bindgen]
 pub fn get_world() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&game.world).unwrap()
+    serde_wasm_bindgen::to_value(&game.world).unwrap()
 }
 
 #[wasm_bindgen]
 pub fn get_input() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&game.input).unwrap()
+    serde_wasm_bindgen::to_value(&game.input).unwrap()
 }
 
 #[wasm_bindgen]
@@ -124,7 +124,7 @@ pub fn get_state() -> JsValue {
 #[wasm_bindgen]
 pub fn get_meta_data() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&game.meta_data).unwrap()
+    serde_wasm_bindgen::to_value(&game.meta_data).unwrap()
 }
 
 #[wasm_bindgen]
@@ -137,7 +137,7 @@ pub fn next_info_step() {
 #[wasm_bindgen]
 pub fn get_completed_steps() -> JsValue {
     let game = GLOBAL_DATA.lock().unwrap();
-    JsValue::from_serde(&game.meta_data.info.get_completed_steps()).unwrap()
+    serde_wasm_bindgen::to_value(&game.meta_data.info.get_completed_steps()).unwrap()
 }
 
 #[wasm_bindgen]
@@ -274,7 +274,7 @@ fn should_auto_end_early(game: &Game) -> bool {
 #[wasm_bindgen]
 pub fn set_work(val: &JsValue) {
     info!("Rust set work");
-    let work_type = val.into_serde().unwrap();
+    let work_type = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     set_work_internal(work_type, game);
 }
@@ -287,7 +287,7 @@ pub fn set_work_internal(work_type: WorkTypes, game: &mut Game) {
 #[wasm_bindgen]
 pub fn set_housing(val: &JsValue) {
     info!("Rust set housing");
-    let housing_type = val.into_serde().unwrap();
+    let housing_type = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
     set_housing_internal(housing_type, game);
 }
@@ -301,7 +301,7 @@ pub fn set_housing_internal(housing_type: HousingTypes, game: &mut Game) {
 pub fn set_activity(val: &JsValue) {
     info!("Rust set activity");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    let activity_type = val.into_serde().unwrap();
+    let activity_type = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     set_activity_internal(activity_type, game);
 }
 
@@ -336,7 +336,7 @@ pub fn buy_tier(val: u32) {
 pub fn buy_tomb(val: &JsValue) {
     info!("Rust buy tomb");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    let tomb_type: TombTypes = val.into_serde().unwrap();
+    let tomb_type: TombTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     buy_tomb_internal(tomb_type, game);
 }
 
@@ -363,7 +363,7 @@ pub fn can_buy_tomb(tomb_type: TombTypes, game: &mut Game) -> bool {
 pub fn buy_blessing(val: &JsValue) {
     info!("Rust buy item");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    let boost_item_type: BlessingTypes = val.into_serde().unwrap();
+    let boost_item_type: BlessingTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     buy_blessing_internal(boost_item_type, game);
 }
 
@@ -387,7 +387,7 @@ pub fn can_buy_blessing(blessing: BlessingTypes, game: &mut Game) -> bool {
 pub fn dequeue_item(val: &JsValue) {
     info!("Rust dequeue item");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
+    let boost_item_type: BoostItemTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     game.input.dequeue_item(boost_item_type);
 }
 
@@ -395,7 +395,7 @@ pub fn dequeue_item(val: &JsValue) {
 pub fn queue_item(val: &JsValue) {
     info!("Rust queue item");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
+    let boost_item_type: BoostItemTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     game.input.queue_item(boost_item_type);
 }
 
@@ -403,7 +403,7 @@ pub fn queue_item(val: &JsValue) {
 pub fn buy_item(val: &JsValue) {
     info!("Rust buy item");
     let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
-    let boost_item_type: BoostItemTypes = val.into_serde().unwrap();
+    let boost_item_type: BoostItemTypes = serde_wasm_bindgen::from_value(val.clone()).unwrap();
     buy_item_internal(boost_item_type, game);
 }
 
@@ -427,7 +427,8 @@ pub fn can_buy_item(boost_item_type: BoostItemTypes, game: &mut Game) -> bool {
 
 #[wasm_bindgen]
 pub fn buy_rebirth_upgrade(val: &JsValue) {
-    let rebirth_upgrade_type: RebirthUpgradeTypes = val.into_serde().unwrap();
+    let rebirth_upgrade_type: RebirthUpgradeTypes =
+        serde_wasm_bindgen::from_value(val.clone()).unwrap();
     info!("Rust buy rebirth upgrade");
     if true {
         info!("Can buy rebirth upgrade");

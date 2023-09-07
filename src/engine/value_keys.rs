@@ -3,7 +3,6 @@ use crate::input::work::WorkTypes;
 use crate::input::{skill::SkillTypes, work::WorkCategoryTypes};
 use serde::{Deserialize, Serialize};
 use strum::EnumIter;
-// use std::mem::variant_count;
 
 #[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum KeyValues {

@@ -9,6 +9,7 @@
     "build": "rimraf dist pkg && webpack",
     "start": "rimraf dist pkg && webpack-dev-server --open -d",
     "test": "cargo test && wasm-pack test --headless",
+    "test:node": "WASM_BINDGEN_TEST_TIMEOUT=60 wasm-pack test --node",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix js"
   },
   "devDependencies": {
