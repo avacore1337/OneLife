@@ -6,19 +6,19 @@ use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn clear_recorded() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     game.inputs.clear()
 }
 
 #[wasm_bindgen]
 pub fn clear_previous_recorded() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     game.previous_inputs.clear()
 }
 
 #[wasm_bindgen]
 pub fn remove_recorded(val: u32) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     if let Err(err) = game.inputs.remove(val) {
         info!("{:?}", err);
     }
@@ -26,7 +26,7 @@ pub fn remove_recorded(val: u32) {
 
 #[wasm_bindgen]
 pub fn remove_previous_recorded(val: u32) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     if let Err(err) = game.previous_inputs.remove(val) {
         info!("{:?}", err);
     }
@@ -34,7 +34,7 @@ pub fn remove_previous_recorded(val: u32) {
 
 #[wasm_bindgen]
 pub fn set_auto_end_early(val: f64) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_end_early_internal(val, game);
 }
 
@@ -51,13 +51,13 @@ pub fn set_auto_end_early_internal(val: f64, game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn toggle_auto_rebirth() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_rebirth_internal(!game.meta_data.options.auto_rebirth, game);
 }
 
 #[wasm_bindgen]
 pub fn set_auto_rebirth(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_rebirth_internal(val, game);
 }
 
@@ -72,13 +72,13 @@ pub fn set_auto_rebirth_internal(val: bool, game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn toggle_auto_work() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_work_internal(!game.meta_data.options.auto_work, game);
 }
 
 #[wasm_bindgen]
 pub fn set_auto_work(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_work_internal(val, game);
 }
 
@@ -93,13 +93,13 @@ pub fn set_auto_work_internal(val: bool, game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn toggle_auto_living() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_living_internal(!game.meta_data.options.auto_living, game);
 }
 
 #[wasm_bindgen]
 pub fn set_auto_living(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_living_internal(val, game);
 }
 
@@ -114,13 +114,13 @@ pub fn set_auto_living_internal(val: bool, game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn toggle_auto_buy_blessing() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_buy_blessing_internal(!game.meta_data.options.auto_buy_blessing, game);
 }
 
 #[wasm_bindgen]
 pub fn set_auto_buy_blessing(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_buy_blessing_internal(val, game);
 }
 
@@ -135,13 +135,13 @@ pub fn set_auto_buy_blessing_internal(val: bool, game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn toggle_auto_buy_item() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_buy_item_internal(!game.meta_data.options.auto_buy_item, game);
 }
 
 #[wasm_bindgen]
 pub fn set_auto_buy_item(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_buy_item_internal(val, game);
 }
 
@@ -156,13 +156,13 @@ pub fn set_auto_buy_item_internal(val: bool, game: &mut Game) {
 
 #[wasm_bindgen]
 pub fn toggle_auto_buy_tomb() {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_buy_tomb_internal(!game.meta_data.options.auto_buy_tomb, game);
 }
 
 #[wasm_bindgen]
 pub fn set_auto_buy_tomb(val: bool) {
-    let game: &mut Game = &mut *GLOBAL_DATA.lock().unwrap();
+    let game: &mut Game = &mut GLOBAL_DATA.lock().unwrap();
     set_auto_buy_tomb_internal(val, game);
 }
 

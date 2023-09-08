@@ -15,7 +15,7 @@ pub struct Tier {
     pub purchasing_cost: f64,
 }
 
-// T1 Orphant slave
+// T1 Orphan slave
 // T2 Slave
 // T3 Farmless Peasant
 // T4 Estate peasant
@@ -31,11 +31,11 @@ pub struct Tier {
 // T14 King of Kings
 // T15 The August one.
 pub fn init_tiers() -> Vec<Tier> {
-    return vec![
+    vec![
         Tier {
             level: 0,
-            display_name: "Orphant slave",
-            description: "The unluckies souls in this harsh world.",
+            display_name: "Orphan slave",
+            description: "The unluckiest souls in this harsh world.",
             unlocks: vec!["Only the basics of life itself is available."],
             starting_stats: get_stats_base(BaseStats {
                 str: 0.0,
@@ -52,12 +52,8 @@ pub fn init_tiers() -> Vec<Tier> {
         Tier {
             level: 1,
             display_name: "Slave",
-            description: "That there are those who have it worse, but it is of little comfort in your current life."
-                ,
-            unlocks: vec![
-                "You can rise higher, but you are still very limited."
-                    ,
-            ],
+            description: "That there are those who have it worse, but it is of little comfort in your current life.",
+            unlocks: vec!["You can rise higher, but you are still very limited."],
             starting_stats: get_stats_base(BaseStats {
                 str: 7.0,
                 int: 7.0,
@@ -75,10 +71,8 @@ pub fn init_tiers() -> Vec<Tier> {
             display_name: "Farmless Peasant",
             description: "You own your own life, but nothing else.",
             unlocks: vec![
-                "The farming job."
-                    ,
-                "Military Service"
-                    ,
+                "The farming job.",
+                "Military Service",
             ],
             starting_stats: get_stats_base(BaseStats {
                 str: 12.0,
@@ -95,8 +89,7 @@ pub fn init_tiers() -> Vec<Tier> {
         Tier {
             level: 3,
             display_name: "Estate Peasant",
-            description: "You own your own piece of heaven"
-                ,
+            description: "You own your own piece of heaven.",
             unlocks: vec![
                 "Crafting of higher tier goods",
                 "Honorable military service is no longer out of your reach",
@@ -116,8 +109,7 @@ pub fn init_tiers() -> Vec<Tier> {
         Tier {
             level: 4,
             display_name: "Landowning peasant",
-            description: "todo"
-                ,
+            description: "todo",
             unlocks: vec![ ],
             starting_stats: get_stats_base(BaseStats {
                 str: 30.0,
@@ -134,8 +126,7 @@ pub fn init_tiers() -> Vec<Tier> {
         Tier {
             level: 5,
             display_name: "Farm Owner",
-            description: "todo"
-                ,
+            description: "todo",
             unlocks: vec![ ],
             starting_stats: get_stats_base(BaseStats {
                 str: 40.0,
@@ -184,5 +175,5 @@ pub fn init_tiers() -> Vec<Tier> {
             purchasing_cost: 5_000_000.0,
         },
 
-    ];
+    ]
 }

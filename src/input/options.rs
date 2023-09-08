@@ -39,7 +39,7 @@ impl Recordable for AutoSettingTypes {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+#[derive(Default, Serialize, Deserialize, Clone, Copy, Debug)]
 pub struct Options {
     pub auto_work: bool,
     pub auto_living: bool,

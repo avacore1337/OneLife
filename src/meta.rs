@@ -98,9 +98,13 @@ impl MetaData {
     }
 
     pub fn paused_tick_time(&mut self) {
-        let now = Date::new_0().get_time();
         self.saved_ticks += 1.0;
+        /*  commenting out next two lines because the if-block is empty,
+            and 'now' is unused after commenting out the empty if-block
+
+        let now = Date::new_0().get_time();
         if now >= self.last_tick_time + 500.0 {}
+        */
         self.last_tick_time = Date::new_0().get_time();
     }
 }
