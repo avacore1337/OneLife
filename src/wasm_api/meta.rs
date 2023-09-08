@@ -2,6 +2,7 @@
 
 use crate::game::{Game, GameSave};
 use crate::GLOBAL_DATA;
+use base64::{engine::general_purpose, Engine as _};
 use libflate::gzip::{Decoder, Encoder};
 use log::info;
 use serde_json::{from_str, to_string};
@@ -156,7 +157,7 @@ pub fn export_save() -> String {
     let mut encoder = Encoder::new(Vec::new()).unwrap();
     encoder.write_all(json_data.as_bytes()).unwrap();
     let res = encoder.finish().into_result().unwrap();
-    let b64 = base64::encode(res);
+    let b64 = general_purpose::STANDARD.encode(res);
     info!("{}", &b64);
     b64
 }
@@ -164,7 +165,7 @@ pub fn export_save() -> String {
 #[wasm_bindgen]
 pub fn import_save(save: String) {
     let mut current_game = GLOBAL_DATA.lock().unwrap();
-    let data = base64::decode(save).unwrap();
+    let data = general_purpose::STANDARD.decode(save).unwrap();
     let mut decoder = Decoder::new(&data[..]).unwrap();
     let mut decoded_data = Vec::new();
     decoder.read_to_end(&mut decoded_data).unwrap();
