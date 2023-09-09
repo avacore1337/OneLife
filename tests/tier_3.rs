@@ -16,9 +16,9 @@ fn test_rebirth_24() {
     game.load_game(rebirth_24());
     run_until_dead(game);
     assert!(
-        game.state.works[WorkTypes::Hypaspists as usize].level >= 10,
+        game.state.works[WorkTypes::Hypaspist as usize].level >= 10,
         "Hypaspist level: {}",
-        game.state.works[WorkTypes::Hypaspists as usize].level
+        game.state.works[WorkTypes::Hypaspist as usize].level
     );
     let money = game.state.items.money;
     let burial3_cost = game.world.boost_items[BoostItemTypes::Burial3 as usize].purchasing_cost;
@@ -34,9 +34,9 @@ fn test_rebirth_35() {
 
     let money = game.state.items.money;
     assert!(
-        game.state.works[WorkTypes::Hypaspists as usize].level >= 40,
+        game.state.works[WorkTypes::Hypaspist as usize].level >= 40,
         "Hypaspist level: {}",
-        game.state.works[WorkTypes::Hypaspists as usize].level
+        game.state.works[WorkTypes::Hypaspist as usize].level
     );
     assert!(
         game.state.boost_items[BoostItemTypes::Burial3 as usize].is_purchased,

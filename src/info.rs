@@ -12,6 +12,8 @@ pub struct Info {
     pub tutorial_step: TutorialStep,
     pub show_tutorial: bool,
     pub disable_tutorial: bool,
+    pub version_build_data: String,
+    pub version_commit_data: String,
 }
 
 impl Default for Info {
@@ -22,10 +24,28 @@ impl Default for Info {
 
 impl Info {
     pub fn new() -> Info {
+        let build_version: String = option_env!("CARGO_PKG_VERSION")
+            .unwrap_or("dev-build")
+            .to_string();
+        let build_date: String = option_env!("VERGEN_BUILD_DATE")
+            .unwrap_or("now")
+            .to_string();
+        let commit_hash: String = option_env!("VERGEN_RUSTC_COMMIT_HASH")
+            .unwrap_or("abc123xyz789")
+            .chars()
+            .into_iter()
+            .take(7)
+            .collect();
+        let commit_date: String = option_env!("VERGEN_GIT_COMMIT_DATE")
+            .unwrap_or("unknown")
+            .to_string();
+
         Info {
             tutorial_step: TutorialStep::Welcome,
             show_tutorial: should_show_tutorial(),
             disable_tutorial: true,
+            version_build_data: format!("v{} ({})", build_version, build_date),
+            version_commit_data: format!("{} ({})", commit_hash, commit_date),
         }
     }
 
@@ -48,6 +68,7 @@ fn should_show_tutorial() -> bool {
     Copy,
     Debug,
     PartialEq,
+    Eq,
     PartialOrd,
     FromPrimitive,
     VariantCount,

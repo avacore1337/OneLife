@@ -22,7 +22,7 @@ impl Skill {
         let skill_state = &mut game.state.skills[self.name as usize];
 
         match self.name {
-            SkillTypes::Mindfull => {
+            SkillTypes::Mindful => {
                 game.intermediate_state.add_multiplier(
                     KeyValues::Happiness,
                     0.05 * skill_state.level + 1.0,
@@ -42,14 +42,14 @@ impl Skill {
 
 pub fn translate_skill(skill: SkillTypes) -> Skill {
     match skill {
-        SkillTypes::Mindfull => Skill {
+        SkillTypes::Mindful => Skill {
             name: skill,
             description: "Be one with the world",
             effect_description: "Multiplies Happiness by 1 + level*0.05",
-            display_name: "Mindefullness",
+            display_name: "Mindfulness",
             required_tier: 1,
             xp_req_modifier: 4.0,
-            icon: IconType::Mindfull.into(),
+            icon: IconType::Mindful.into(),
         },
         SkillTypes::Tactics => Skill {
             name: skill,
@@ -70,7 +70,7 @@ pub fn should_be_visible_skill(input_skill: SkillTypes, game: &Game) -> bool {
     }
     match input_skill {
         SkillTypes::Tactics => game.state.rebirth_stats.unlocks.has_military_tactics,
-        SkillTypes::Mindfull => game.state.rebirth_stats.unlocks.has_meditation,
+        SkillTypes::Mindful => game.state.rebirth_stats.unlocks.has_meditation,
         // _ => true,
     }
 }

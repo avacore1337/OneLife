@@ -204,11 +204,11 @@ const fn translate_work(work: WorkTypes) -> Work {
             xp_req_modifier: 2048.0,
         },
         // ------------------Soldiers ---------------------
-        WorkTypes::BagageBoy => Work {
+        WorkTypes::BaggageBoy => Work {
             name: work,
             money: 10.0,
-            description: "todo",
-            display_name: "Bagage Boy",
+            description: "A human mule. At least you get to eat.",
+            display_name: "Baggage Boy",
             required_tier: 2,
             work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 64.0,
@@ -216,17 +216,17 @@ const fn translate_work(work: WorkTypes) -> Work {
         WorkTypes::Slinger => Work {
             name: work,
             money: 15.0,
-            description: "todo",
+            description: "Chuck some rocks!",
             display_name: "Slinger",
             required_tier: 2,
             work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 128.0,
         },
-        WorkTypes::Peltasts => Work {
+        WorkTypes::Peltast => Work {
             name: work,
             money: 30.0,
-            description: "todo",
-            display_name: "Peltasts",
+            description: "Congrats! You have a leather shield and a javelin.",
+            display_name: "Peltast",
             required_tier: 2,
             work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 256.0,
@@ -234,7 +234,7 @@ const fn translate_work(work: WorkTypes) -> Work {
         WorkTypes::Pikeman => Work {
             name: work,
             money: 60.0,
-            description: "todo",
+            description: "You protect others from the cavalry attacks.",
             display_name: "Pikeman",
             required_tier: 2,
             work_type: WorkCategoryTypes::Soldier,
@@ -243,26 +243,26 @@ const fn translate_work(work: WorkTypes) -> Work {
         WorkTypes::FootCompanion => Work {
             name: work,
             money: 120.0,
-            description: "todo",
+            description: "The foot companions, or pezhetairoi, were the backbone of the Macedonian army.",
             display_name: "FootCompanion",
             required_tier: 2,
             work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 1000.0,
         },
-        WorkTypes::Hypaspists => Work {
+        WorkTypes::Hypaspist => Work {
             name: work,
             money: 360.0,
-            description: "todo",
-            display_name: "Hypaspists",
+            description: "You have a shield and a spear. Go stab stuff!",
+            display_name: "Hypaspist",
             required_tier: 3,
             work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 4_000.0,
         },
-        WorkTypes::LightCavalery => Work {
+        WorkTypes::LightCavalry => Work {
             name: work,
             money: 800.0,
-            description: "todo",
-            display_name: "Light Cavalery",
+            description: "You are armed with a sword, spear or bow. And you perform reconnaissance, skirmishing, raiding, patrolling, and tactical communications.",
+            display_name: "Light Cavalry",
             required_tier: 4,
             work_type: WorkCategoryTypes::Soldier,
             xp_req_modifier: 32_000.0,
@@ -342,13 +342,13 @@ pub fn should_unlock_work(work_type: WorkTypes, game: &Game) -> bool {
         // WorkTypes::Trader => game.state.works[work_type as usize - 1].level >= 10,
 
         // Soldier
-        WorkTypes::BagageBoy => true,
+        WorkTypes::BaggageBoy => true,
         WorkTypes::Slinger => game.state.works[work_type as usize - 1].level >= 10,
-        WorkTypes::Peltasts => game.state.works[work_type as usize - 1].level >= 10,
+        WorkTypes::Peltast => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::Pikeman => game.state.works[work_type as usize - 1].level >= 10,
         WorkTypes::FootCompanion => game.state.works[work_type as usize - 1].level >= 10,
-        WorkTypes::Hypaspists => game.state.works[work_type as usize - 1].level >= 10,
-        WorkTypes::LightCavalery => game.state.works[work_type as usize - 1].level >= 10,
+        WorkTypes::Hypaspist => game.state.works[work_type as usize - 1].level >= 10,
+        WorkTypes::LightCavalry => game.state.works[work_type as usize - 1].level >= 10,
 
         //Priest/Faith
         WorkTypes::Priest => true,

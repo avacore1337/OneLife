@@ -2,11 +2,12 @@
 [package]
 name = "one_life"
 description = "My super awesome Rust, WebAssembly, and Webpack project!"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["You <you@example.com>"]
 categories = ["wasm"]
 readme = "README.md"
 edition = "2021"
+build = "build.rs"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -60,6 +61,18 @@ features = ["console", "Storage", "Window"]
 # in debug mode.
 [target."cfg(debug_assertions)".dependencies]
 console_error_panic_hook = "0.1.5"
+
+# These packages are used by the build script.
+[build-dependencies]
+vergen = { version = "8.0.0", features = [
+  "build",
+  "cargo",
+  "git",
+  "gitcl",
+  "rustc",
+  "si",
+] }
+
 
 # These crates are used for running unit tests.
 [dev-dependencies]

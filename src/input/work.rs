@@ -6,7 +6,7 @@ use strum::EnumIter;
 use variant_count::VariantCount;
 
 #[derive(
-    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
+    Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, Eq, PartialOrd, VariantCount,
 )]
 pub enum WorkTypes {
     // Worker Types
@@ -30,15 +30,15 @@ pub enum WorkTypes {
     // Trader,
     // Merchant,
     // Army Types
-    BagageBoy,
+    BaggageBoy,
     Slinger,
-    Peltasts,
+    Peltast,
     Pikeman,
     FootCompanion,
-    Hypaspists,
-    LightCavalery,
-    // ThessalianCavalery,
-    // CompanionCavalery,
+    Hypaspist,
+    LightCavalry,
+    // ThessalianCavalry,
+    // CompanionCavalry,
     // SquadCommander,
     // Commander,
     // General,
@@ -50,7 +50,7 @@ pub enum WorkTypes {
     Bishop,
 }
 
-#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, Eq, PartialOrd)]
 pub enum WorkCategoryTypes {
     Labor,
     Soldier,

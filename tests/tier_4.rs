@@ -17,9 +17,9 @@ fn test_rebirth_36() {
 
     let money = game.state.items.money;
     // assert!(
-    //     game.state.works[WorkTypes::Hypaspists as usize].level >= 50,
+    //     game.state.works[WorkTypes::Hypaspist as usize].level >= 50,
     //     "Hypaspist level: {}",
-    //     game.state.works[WorkTypes::Hypaspists as usize].level
+    //     game.state.works[WorkTypes::Hypaspist as usize].level
     // );
     assert!(
         game.state.boost_items[BoostItemTypes::Burial3 as usize].is_purchased,

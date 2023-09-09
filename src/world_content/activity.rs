@@ -83,7 +83,7 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
         },
         ActivityTypes::Praying => Activity {
             name: activity,
-            description: "Getting more pieus",
+            description: "Getting more pious",
             display_name: "Praying",
             effect_description: "Piety",
             gained_value_type: KeyValues::Faith,
@@ -95,10 +95,10 @@ pub fn translate_activity(activity: ActivityTypes) -> Activity {
             name: activity,
             description: "Introspect on your being",
             display_name: "Meditate",
-            effect_description: "Mindfullness",
-            gained_value_type: KeyValues::Mindfull,
+            effect_description: "Mindfulness",
+            gained_value_type: KeyValues::Mindful,
             base_gain_amount: 10.0,
-            icon: IconType::Mindfull.into(),
+            icon: IconType::Mindful.into(),
             required_tier: 3,
         },
         ActivityTypes::WarGames => Activity {
@@ -136,10 +136,10 @@ pub fn should_be_visible_activity(input_activity: ActivityTypes, game: &Game) ->
 }
 
 pub fn get_activities() -> [Activity; ACTIVITY_SIZE] {
-    let mut activitys: [MaybeUninit<Activity>; ACTIVITY_SIZE] =
+    let mut activities: [MaybeUninit<Activity>; ACTIVITY_SIZE] =
         unsafe { MaybeUninit::uninit().assume_init() };
     for name in ActivityTypes::iter() {
-        activitys[name as usize].write(translate_activity(name));
+        activities[name as usize].write(translate_activity(name));
     }
-    unsafe { mem::transmute(activitys) }
+    unsafe { mem::transmute(activities) }
 }

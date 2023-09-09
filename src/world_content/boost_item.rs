@@ -128,16 +128,16 @@ impl Gain for BoostItem {
                 inter.add_multiplier(KeyValues::Cha, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation1 => {
-                inter.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Mindful, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation2 => {
-                inter.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Mindful, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation3 => {
-                inter.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Mindful, 2.0, self.display_name);
             }
             BoostItemTypes::Meditation4 => {
-                inter.add_multiplier(KeyValues::Mindfull, 2.0, self.display_name);
+                inter.add_multiplier(KeyValues::Mindful, 2.0, self.display_name);
             }
             BoostItemTypes::Burial1 => {
                 inter.add_multiplier(KeyValues::Coins, 2.0, self.display_name);
@@ -184,7 +184,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         BoostItemTypes::Book => BoostItem {
             name: item_type,
             purchasing_cost: 100.0,
-            description: "Me dumb? That's unpossible",
+            description: "Me dumb? That's unpossible!",
             effect_description: "2x Intelligence XP",
             display_name: "Learning to read",
             required_tier: 0,
@@ -211,7 +211,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
         BoostItemTypes::Book2 => BoostItem {
             name: item_type,
             purchasing_cost: 4_000.0,
-            description: "Very expensive for a childrens book",
+            description: "Very expensive for a children's book",
             effect_description: "2x Intelligence XP",
             display_name: "Reading for children",
             required_tier: 0,
@@ -269,7 +269,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             purchasing_cost: 30_000.0,
             description: "todo",
             effect_description: "1.3x Coin gain",
-            display_name: "Burial1",
+            display_name: "Burial 1",
             required_tier: 1,
             icon: IconType::Coin.into(),
         },
@@ -361,7 +361,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             purchasing_cost: 300_000.0,
             description: "todo",
             effect_description: "1.3x Coin gain",
-            display_name: "Burial2",
+            display_name: "Burial 2",
             required_tier: 2,
             icon: IconType::Coin.into(),
         },
@@ -462,7 +462,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             purchasing_cost: 3.0e6,
             description: "todo",
             effect_description: "1.3x Coin gain",
-            display_name: "Burial3",
+            display_name: "Burial 3",
             required_tier: 3,
             icon: IconType::Coin.into(),
         },
@@ -581,7 +581,7 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             purchasing_cost: 30.0e6,
             description: "todo",
             effect_description: "1.3x Coin gain",
-            display_name: "Burial4",
+            display_name: "Burial 4",
             required_tier: 3,
             icon: IconType::Coin.into(),
         },
@@ -617,37 +617,37 @@ pub fn translate_boost_item(item_type: BoostItemTypes) -> BoostItem {
             name: item_type,
             purchasing_cost: 80_000.0,
             description: "Smells like a hermit",
-            effect_description: "2x Mindfullness XP",
+            effect_description: "2x Mindfulness XP",
             display_name: "Incense",
             required_tier: 4,
-            icon: IconType::Mindfull.into(),
+            icon: IconType::Mindful.into(),
         },
         BoostItemTypes::Meditation2 => BoostItem {
             name: item_type,
             purchasing_cost: 800_000.0,
             description: "Made by someone named Yoga, weird name",
-            effect_description: "2x Mindfullness XP",
+            effect_description: "2x Mindfulness XP",
             display_name: "Meditation Mat",
             required_tier: 4,
-            icon: IconType::Mindfull.into(),
+            icon: IconType::Mindful.into(),
         },
         BoostItemTypes::Meditation3 => BoostItem {
             name: item_type,
             purchasing_cost: 8.0e6,
             description: "todo",
-            effect_description: "2x Mindfullness XP",
+            effect_description: "2x Mindfulness XP",
             display_name: "Meditation Pillow",
             required_tier: 4,
-            icon: IconType::Mindfull.into(),
+            icon: IconType::Mindful.into(),
         },
         BoostItemTypes::Meditation4 => BoostItem {
             name: item_type,
             purchasing_cost: 80.0e6,
             description: "todo",
-            effect_description: "2x Mindfullness XP",
+            effect_description: "2x Mindfulness XP",
             display_name: "Meditation Pillow",
             required_tier: 4,
-            icon: IconType::Mindfull.into(),
+            icon: IconType::Mindful.into(),
         },
     }
 }

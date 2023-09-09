@@ -8,7 +8,7 @@ use variant_count::VariantCount;
     Serialize, Deserialize, EnumIter, Clone, Copy, Debug, PartialEq, PartialOrd, VariantCount,
 )]
 pub enum SkillTypes {
-    Mindfull,
+    Mindful,
     Tactics,
 }
 
