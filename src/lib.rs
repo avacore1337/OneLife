@@ -62,15 +62,26 @@ lazy_static! {
 #[wasm_bindgen(start)]
 pub fn main_js() -> Result<(), JsValue> {
     console_log::init_with_level(Level::Info).expect("error initializing log");
+
     // This provides better error messages in debug mode.
     // It's disabled in release mode so it doesn't bloat up the file size.
-    #[cfg(debug_assertions)]
-    console_error_panic_hook::set_once();
+    set_panic_hook();
 
     // Your code goes here!
     info!("Hello One Life!");
 
     Ok(())
+}
+
+pub fn set_panic_hook() {
+    // When the `console_error_panic_hook` feature is enabled, we can call the
+    // `set_panic_hook` function at least once during initialization, and then
+    // we will get better error messages if our code ever panics.
+    //
+    // For more details see
+    // https://github.com/rustwasm/console_error_panic_hook#readme
+    #[cfg(feature = "console_error_panic_hook")]
+    console_error_panic_hook::set_once();
 }
 
 #[wasm_bindgen]
