@@ -27,7 +27,7 @@ pub enum KeyValues {
     Dex,
     Faith,
     //Skill
-    Mindfull,
+    Mindful,
     Tactics,
     //Work
     Mines,
@@ -48,13 +48,13 @@ pub enum KeyValues {
     GlassBlower,
     Weaponsmith,
     //Soldiers
-    BagageBoy,
+    BaggageBoy,
     Slinger,
-    Peltasts,
+    Peltast,
     Pikeman,
     FootCompanion,
-    Hypaspists,
-    LightCavalery,
+    Hypaspist,
+    LightCavalry,
     //
     // Trader,
     // Merchant,
@@ -66,7 +66,7 @@ pub enum KeyValues {
 impl From<SkillTypes> for KeyValues {
     fn from(stat: SkillTypes) -> Self {
         match stat {
-            SkillTypes::Mindfull => KeyValues::Mindfull,
+            SkillTypes::Mindful => KeyValues::Mindful,
             SkillTypes::Tactics => KeyValues::Tactics,
         }
     }
@@ -117,13 +117,13 @@ impl From<WorkTypes> for KeyValues {
             WorkTypes::GlassBlower => KeyValues::GlassBlower,
             WorkTypes::Weaponsmith => KeyValues::Weaponsmith,
             // WorkTypes::Trader => KeyValues::Trader,
-            WorkTypes::BagageBoy => KeyValues::BagageBoy,
+            WorkTypes::BaggageBoy => KeyValues::BaggageBoy,
             WorkTypes::Slinger => KeyValues::Slinger,
-            WorkTypes::Peltasts => KeyValues::Peltasts,
+            WorkTypes::Peltast => KeyValues::Peltast,
             WorkTypes::Pikeman => KeyValues::Pikeman,
             WorkTypes::FootCompanion => KeyValues::FootCompanion,
-            WorkTypes::Hypaspists => KeyValues::Hypaspists,
-            WorkTypes::LightCavalery => KeyValues::LightCavalery,
+            WorkTypes::Hypaspist => KeyValues::Hypaspist,
+            WorkTypes::LightCavalry => KeyValues::LightCavalry,
             WorkTypes::Priest => KeyValues::Priest,
             WorkTypes::Bishop => KeyValues::Bishop,
         }

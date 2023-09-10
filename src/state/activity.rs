@@ -21,10 +21,10 @@ impl Activity {
 }
 
 pub fn get_activities() -> [Activity; ACTIVITY_SIZE] {
-    let mut activitys: [MaybeUninit<Activity>; ACTIVITY_SIZE] =
+    let mut activities: [MaybeUninit<Activity>; ACTIVITY_SIZE] =
         unsafe { MaybeUninit::uninit().assume_init() };
     for name in ActivityTypes::iter() {
-        activitys[name as usize].write(Activity::new(name));
+        activities[name as usize].write(Activity::new(name));
     }
-    unsafe { mem::transmute(activitys) }
+    unsafe { mem::transmute(activities) }
 }

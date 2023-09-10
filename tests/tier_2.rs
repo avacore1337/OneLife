@@ -15,7 +15,7 @@ fn test_fifteenth_rebirth() {
     let game = &mut Game::new();
     game.load_game(rebirth_15());
     run_until_dead(game);
-    assert_eq!(game.state.works[WorkTypes::Peltasts as usize].level, 10); // too strict?
+    assert_eq!(game.state.works[WorkTypes::Peltast as usize].level, 10); // too strict?
 }
 
 #[wasm_bindgen_test]

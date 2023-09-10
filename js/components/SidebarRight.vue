@@ -33,6 +33,17 @@
         />
       </b-button>
     </div>
+
+    <!-- TODO build in actual date & hash injection -->
+    <h4 class="section-header">Version</h4>
+    <div class="section column-flex">
+      <span v-b-tooltip.hover.left="version_build_tooltip">
+        Build: {{ meta.info.version_build_data }}
+      </span>
+      <span v-b-tooltip.hover.left="version_commit_tooltip">
+        Commit: {{ meta.info.version_commit_data }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -48,6 +59,8 @@ export default {
   components: { ItemQueue, Automation, FormatNumber, MyToggle },
   data() {
     return {
+      version_build_tooltip: 'The build version of the game you are playing.',
+      version_commit_tooltip: 'The date & hash of the commit this version was built from.',
       end_early_criteria: 0.0,
     }
   },
