@@ -44,13 +44,11 @@ npm start
 Run:
 
 ```bash
-npm run-script build
-cd dist
-python3.8 -m http.server 8000
+npm run start:dist
 ```
 
-Note that you need quite a new server (python 3.8 for example)
-or the mime type won't be correct for the wasm content.
+Note that you need Python 3.8 (2019 release) or newer,
+else the mime type won't be correct for the wasm content.
 
 ## Release version
 

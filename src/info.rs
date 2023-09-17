@@ -33,7 +33,6 @@ impl Info {
         let commit_hash: String = option_env!("VERGEN_RUSTC_COMMIT_HASH")
             .unwrap_or("abc123xyz789")
             .chars()
-            .into_iter()
             .take(7)
             .collect();
         let commit_date: String = option_env!("VERGEN_GIT_COMMIT_DATE")
